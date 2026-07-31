@@ -1,6 +1,6 @@
 # 404 — 전자결재
 
-사내 전자결재 시스템. 청담원 플랫폼과 같은 TALL 스택으로 맞춘 별도 저장소.
+전자결재 시스템. TALL 스택으로 맞춘 별도 저장소.
 
 Laravel 13 · Livewire 4 · Alpine.js · Tailwind CSS 4 · PostgreSQL 18 · Redis · Docker(Sail)
 
