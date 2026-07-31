@@ -1,0 +1,187 @@
+/* ============================================================================
+   전자결재 디자인 토큰 — 단일 소스(Single Source of Truth)
+   ----------------------------------------------------------------------------
+   출처: 청담원 디자인 시스템 (Figma "청담원 디자인 시스템")
+     - 토큰값      node 16306-184223
+     - 스타일가이드 node 16246-4226006
+   포팅: 청담원 플랫폼 tailwind.config.js(Tailwind 3 `theme.extend`)
+        → 이 파일(Tailwind 4 CSS-first `@theme`). 값은 동일, 문법만 다르다.
+
+   ⚠️ 값을 바꿀 일이 생기면 Figma → 청담원 플랫폼 → 이 파일 순으로 함께 맞춘다.
+      한쪽만 고치면 두 시스템이 갈라진다.
+
+   ⚠️ 뷰에서 raw hex 를 쓰지 않는다. 아래 토큰이 만들어주는 유틸리티만 사용.
+      예) bg-primary  text-label-normal  border-line-solid-normal  shadow-elevation-md
+   ============================================================================ */
+
+@theme {
+    /* ── 폰트 ────────────────────────────────────────────────────────────── */
+    --font-sans:
+        'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+        'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+
+    /* ── 브랜드 (Teal) ───────────────────────────────────────────────────── */
+    --color-primary: #3694ab; /* Primary/Normal · Teal/45 */
+    --color-primary-normal: #3694ab;
+    --color-primary-strong: #04718b; /* Teal/40 · hover */
+    --color-primary-heavy: #054e60; /* Teal/35 · active */
+    --color-primary-surface: #e8f3f5; /* 넓은 배경면용 연한 틴트 */
+    --color-primary-soft: #f1f8f9; /* 가장 옅은 틴트 · 배너·표 헤더 */
+
+    --color-teal-35: #054e60;
+    --color-teal-40: #04718b;
+    --color-teal-43: #1d829b;
+    --color-teal-45: #3694ab;
+
+    --color-inverse-primary: #b8dce4;
+    --color-inverse-background: #1b1c1e; /* Cool Neutral/15 */
+    --color-inverse-label: #f7f7f8;
+
+    /* ── 라벨(텍스트) ────────────────────────────────────────────────────── */
+    --color-label-strong: #000000;
+    --color-label-normal: #171719; /* 기본 본문·제목 */
+    --color-label-neutral: rgba(46, 47, 51, 0.88);
+    --color-label-alternative: rgba(55, 56, 60, 0.61); /* 보조·캡션 */
+    --color-label-assistive: rgba(55, 56, 60, 0.28); /* placeholder */
+    --color-label-disable: rgba(55, 56, 60, 0.16);
+
+    /* ── 배경 ────────────────────────────────────────────────────────────── */
+    --color-background-normal: #ffffff;
+    --color-background-alternative: #f7f7f8; /* 카드 뒤 페이지 배경 */
+    --color-background-elevated-normal: #ffffff;
+    --color-background-elevated-alternative: #f7f7f8;
+
+    /* ── 라인(보더) ──────────────────────────────────────────────────────── */
+    --color-line-normal-normal: rgba(112, 115, 124, 0.22);
+    --color-line-normal-neutral: rgba(112, 115, 124, 0.16);
+    --color-line-normal-alternative: rgba(112, 115, 124, 0.08);
+    --color-line-normal-strong: rgba(112, 115, 124, 0.52);
+    --color-line-solid-normal: #e1e2e4; /* Cool Neutral/96 */
+    --color-line-solid-neutral: #eaebec; /* Cool Neutral/97 */
+    --color-line-solid-alternative: #f4f4f5; /* Cool Neutral/98 */
+
+    /* ── 채움(Fill) ──────────────────────────────────────────────────────── */
+    --color-fill-strong: rgba(112, 115, 124, 0.16);
+    --color-fill-normal: rgba(112, 115, 124, 0.08);
+    --color-fill-alternative: rgba(112, 115, 124, 0.05);
+
+    /* ── 인터랙션 / 머티리얼 ─────────────────────────────────────────────── */
+    --color-interaction-inactive: #989ba2; /* Cool Neutral/70 */
+    --color-interaction-disable: #f4f4f5; /* Cool Neutral/98 */
+    --color-material-dimmer: rgba(23, 23, 25, 0.52);
+
+    /* ── 상태 ────────────────────────────────────────────────────────────── */
+    --color-status-positive: #00bf40; /* Green/50 */
+    --color-status-cautionary: #ff9200; /* Orange/50 */
+    --color-status-negative: #ff4242; /* Red/50 */
+
+    /* ── 액센트 · Background (면 채움용) ─────────────────────────────────── */
+    --color-accent-red-orange: #ff5e00;
+    --color-accent-lime: #58cf04;
+    --color-accent-cyan: #00bdde;
+    --color-accent-light-blue: #00aeff;
+    --color-accent-violet: #6541f2;
+    --color-accent-purple: #cb59ff;
+    --color-accent-pink: #f553da;
+
+    /* ── 액센트 · Foreground (텍스트·아이콘용 · 명도 대비 확보) ──────────── */
+    --color-accent-fg-red: #e52222;
+    --color-accent-fg-red-orange: #f55a00;
+    --color-accent-fg-orange: #d17600;
+    --color-accent-fg-lime: #429e00;
+    --color-accent-fg-green: #009632;
+    --color-accent-fg-cyan: #0098b2;
+    --color-accent-fg-light-blue: #008dcf;
+    --color-accent-fg-blue: #005eeb;
+    --color-accent-fg-violet: #5b37ed;
+    --color-accent-fg-purple: #ad36e3;
+    --color-accent-fg-pink: #e846cd;
+
+    /* ── 아토믹 팔레트 (semantic 토큰이 없을 때만) ───────────────────────── */
+    --color-cool-neutral-0: #000000;
+    --color-cool-neutral-10: #171719;
+    --color-cool-neutral-15: #1b1c1e;
+    --color-cool-neutral-50: #70737c;
+    --color-cool-neutral-70: #989ba2;
+    --color-cool-neutral-96: #e1e2e4;
+    --color-cool-neutral-97: #eaebec;
+    --color-cool-neutral-98: #f4f4f5;
+    --color-cool-neutral-99: #f7f7f8;
+    --color-cool-neutral-100: #ffffff;
+
+    /* ── 타이포 스케일 ───────────────────────────────────────────────────
+       letterSpacing 은 Figma % 값을 em 으로 변환 (-3.19% → -0.0319em) */
+    --text-display-1: 56px;
+    --text-display-1--line-height: 1.286;
+    --text-display-1--letter-spacing: -0.0319em;
+    --text-display-2: 40px;
+    --text-display-2--line-height: 1.3;
+    --text-display-2--letter-spacing: -0.0282em;
+    --text-display-3: 36px;
+    --text-display-3--line-height: 1.334;
+    --text-display-3--letter-spacing: -0.027em;
+
+    --text-title-1: 32px;
+    --text-title-1--line-height: 1.375;
+    --text-title-1--letter-spacing: -0.0253em;
+    --text-title-2: 28px;
+    --text-title-2--line-height: 1.358;
+    --text-title-2--letter-spacing: -0.0236em;
+    --text-title-3: 24px;
+    --text-title-3--line-height: 1.334;
+    --text-title-3--letter-spacing: -0.023em;
+
+    --text-heading-1: 22px;
+    --text-heading-1--line-height: 1.364;
+    --text-heading-1--letter-spacing: -0.0194em;
+    --text-heading-2: 20px;
+    --text-heading-2--line-height: 1.4;
+    --text-heading-2--letter-spacing: -0.012em;
+
+    --text-headline-1: 18px;
+    --text-headline-1--line-height: 1.445;
+    --text-headline-1--letter-spacing: -0.0002em;
+    --text-headline-2: 17px;
+    --text-headline-2--line-height: 1.412;
+    --text-headline-2--letter-spacing: 0em;
+
+    --text-body-1: 16px;
+    --text-body-1--line-height: 1.5;
+    --text-body-1--letter-spacing: 0.0057em;
+    --text-body-1-reading: 16px;
+    --text-body-1-reading--line-height: 1.625;
+    --text-body-1-reading--letter-spacing: 0.0057em;
+    --text-body-2: 15px;
+    --text-body-2--line-height: 1.467;
+    --text-body-2--letter-spacing: 0.0096em;
+    --text-body-2-reading: 15px;
+    --text-body-2-reading--line-height: 1.6;
+    --text-body-2-reading--letter-spacing: 0.0096em;
+
+    --text-label-1: 14px;
+    --text-label-1--line-height: 1.429;
+    --text-label-1--letter-spacing: 0.0145em;
+    --text-label-1-reading: 14px;
+    --text-label-1-reading--line-height: 1.571;
+    --text-label-1-reading--letter-spacing: 0.0145em;
+    --text-label-2: 13px;
+    --text-label-2--line-height: 1.385;
+    --text-label-2--letter-spacing: 0.0194em;
+
+    --text-caption-1: 12px;
+    --text-caption-1--line-height: 1.334;
+    --text-caption-1--letter-spacing: 0.0252em;
+    --text-caption-2: 11px;
+    --text-caption-2--line-height: 1.273;
+    --text-caption-2--letter-spacing: 0.0311em;
+
+    /* ── 그림자 (Figma Shadow 토큰) ──────────────────────────────────────── */
+    --shadow-elevation-xs: 0 1px 2px -1px rgba(23, 23, 23, 0.1);
+    --shadow-elevation-sm: 0 4px 6px -1px rgba(23, 23, 23, 0.06), 0 2px 4px -2px rgba(23, 23, 23, 0.06);
+    --shadow-elevation-md: 0 10px 15px -3px rgba(23, 23, 23, 0.07), 0 4px 6px -2px rgba(23, 23, 23, 0.07);
+    --shadow-elevation-lg: 0 16px 24px -6px rgba(23, 23, 23, 0.08), 0 6px 10px -4px rgba(23, 23, 23, 0.08);
+    --shadow-elevation-xl: 0 24px 38px -10px rgba(23, 23, 23, 0.12), 0 10px 15px -5px rgba(23, 23, 23, 0.1);
+    /* Figma 효과 스타일 "Shadow/Spread/*" — 넓게 퍼지는 컨테이너 그림자 */
+    --shadow-spread-small: 0 0 60px 0 rgba(23, 23, 23, 0.1);
+    --shadow-spread-medium: 0 15px 75px 0 rgba(23, 23, 23, 0.16);
+}

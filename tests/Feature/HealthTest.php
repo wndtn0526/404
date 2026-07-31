@@ -10,11 +10,6 @@ use Tests\TestCase;
  */
 class HealthTest extends TestCase
 {
-    public function test_root_redirects_to_health(): void
-    {
-        $this->get('/')->assertRedirect('/health');
-    }
-
     public function test_health_page_renders(): void
     {
         $this->get('/health')

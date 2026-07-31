@@ -22,10 +22,50 @@ vendor/bin/sail artisan migrate
 vendor/bin/sail npm install && vendor/bin/sail npm run dev
 ```
 
-`http://localhost:8000/health` 에서 DB·Redis·Livewire 왕복이 초록불이면 환경 정상.
+- `http://localhost:8000/styleguide` — 디자인 시스템 (기본 진입)
+- `http://localhost:8000/health` — DB·Redis·Livewire 왕복이 초록불이면 환경 정상
 
 포트는 `.env`에서 옮긴다 (`APP_PORT` 8000, `FORWARD_DB_PORT` 54320, `FORWARD_REDIS_PORT` 63790).
 로컬에 이미 뜬 Postgres/Redis와 충돌하지 않게 기본값에서 비켜 둔 값이다.
+
+## 디자인 시스템
+
+청담원 DS 를 그대로 쓴다. 프라이머리는 **Teal `#3694ab`** (코랄 아님 — `cdw-handoff/tokens.css` 는 낡은 파일이다).
+
+**값의 흐름**
+
+```
+Figma "청담원 디자인 시스템"  (정본)
+  → 청담원 플랫폼 tailwind.config.js       (Tailwind 3 · theme.extend)
+  → 이 저장소 resources/css/tokens.css     (Tailwind 4 · @theme)
+```
+
+한쪽만 고치면 같은 이름의 토큰이 다른 색을 뜻하게 된다. 셋을 함께 맞춘다.
+`TokenDriftTest` 가 이 대조를 자동화한다 — 청담원 저장소가 로컬에 있으면 실제로 돈다:
+
+```bash
+CDW_PLATFORM_PATH=~/cheongdamwon-platform vendor/bin/sail artisan test --filter=TokenDrift
+```
+
+**규칙**
+
+- **뷰에 raw hex 를 쓰지 않는다.** 색은 토큰 유틸리티로만
+  (`bg-primary` · `text-label-normal` · `border-line-solid-normal` · `shadow-elevation-md`).
+  `DesignSystemTest::test_no_raw_hex_colors_in_views` 가 이걸 막는다.
+- Tailwind 기본 팔레트(`slate-500`, `gray-50` …)도 쓰지 않는다. 지우진 않았지만 DS 밖이다.
+- 칩·버튼·배지를 손으로 만들지 않는다. `resources/views/components/` 에 이미 있다.
+- 아이콘은 DS 세트 219종. `<x-icon-{이름} class="h-5 w-5" />` — 청담원과 이름이 같다.
+- **새 컴포넌트를 만들면 `/styleguide` 에도 추가한다.** 그래야 깨진 걸 눈으로 본다.
+- ⚠️ Tailwind 는 파일 내용을 문자열로 훑는다. `bg-{$token}` 처럼 런타임에 클래스명을
+  조립하면 CSS 가 생성되지 않는다. 배열엔 완성된 클래스명(`'bg-primary'`)을 담는다.
+
+**전자결재에서 추가한 것** (청담원 DS 에 없음)
+
+- `<x-button variant="danger">` — 반려·삭제. 승인 버튼과 색이 겹치면 사고가 난다.
+- `<x-doc-status :status="…">` — 문서 상태 배지. 값은 `App\Enums\DocumentStatus`.
+- `<x-approval-line :steps="…">` — 결재선. 단계 상태는 `App\Enums\ApprovalStepStatus`.
+
+상태의 라벨·색·아이콘·**허용 전이**는 전부 enum 에 있다. 뷰에서 상태를 판단하지 말고 enum 에 묻는다.
 
 ## 코드 규칙
 
@@ -59,6 +99,9 @@ PHPUnit. 테스트 DB는 Sail이 자동 생성하는 `eapproval_testing`.
 
 ## 현재 상태
 
-개발환경 세팅만 끝난 상태. 도메인 코드는 아직 없다.
-`resources/views/components/⚡health-check.blade.php` 와 `/health` 라우트는 환경 점검용이라
-실제 기능이 붙기 시작하면 지운다.
+개발환경 + 디자인 시스템까지. **도메인 코드(모델·마이그레이션·서비스)는 아직 없다.**
+
+- `app/Enums/DocumentStatus.php` · `ApprovalStepStatus.php` — 상태 정의만 있고 이걸 쓰는 모델은 없다.
+- `/styleguide` 의 결재선·표 데이터는 뷰에 박아둔 예시다. DB 에서 오지 않는다.
+- `⚡health-check.blade.php` 와 `/health` 는 환경 점검용. 실제 기능이 붙으면 지운다.
+- `/styleguide` 는 로컬 전용. 운영에 올릴 땐 환경 가드나 인증 미들웨어를 붙인다.
