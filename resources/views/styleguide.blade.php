@@ -601,6 +601,39 @@
                 </div>
 
                 <x-card>
+                    <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">Filter Bar · 데이터 테이블 필터</h3>
+                    <p class="mb-4 text-label-1 text-label-alternative">
+                        <code class="font-mono text-label-2">&lt;x-filter-bar&gt;</code> — 검색 + 필터 pill + 「총 N건」을
+                        한 줄로 묶어 <strong class="font-semibold text-label-normal">표 바로 위</strong>에 둔다.
+                        검색창을 표와 분리해 따로 두지 않는다. 청담원 플랫폼 저장소에서 옮겨 왔다.
+                    </p>
+
+                    <x-filter-bar
+                        search="제목 내용 검색"
+                        :count="128"
+                        :active="['status', 'period']"
+                        :columns="[
+                            ['key' => 'period', 'label' => '기간', 'type' => 'date'],
+                            ['key' => 'center', 'label' => '소속 센터', 'type' => 'search', 'options' => ['청담원 본사', '서초 분원']],
+                            ['key' => 'status', 'label' => '납부 상태', 'type' => 'select', 'options' => ['납부 완료', '연체']],
+                            ['key' => 'amount', 'label' => '이용 금액', 'type' => 'amount'],
+                        ]"
+                    />
+
+                    <p class="mt-4 text-label-1 text-label-alternative">
+                        <code class="font-mono text-label-2">type</code> —
+                        <code class="font-mono text-label-2">select</code> 선택형 ·
+                        <code class="font-mono text-label-2">search</code> 검색형 ·
+                        <code class="font-mono text-label-2">date</code> 날짜 범위 ·
+                        <code class="font-mono text-label-2">amount</code> 금액 범위.
+                    </p>
+                    <p class="mt-1 text-label-1 text-label-alternative">
+                        ⚠️ 팝오버·드롭다운 패널 반경은 원본의 12px 단계를 우리 스케일 최대값 6px 로 내렸다.
+                        모서리가 2px 덜 둥글다.
+                    </p>
+                </x-card>
+
+                <x-card>
                     <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">워크스페이스 셸</h3>
                     <p class="text-label-1 text-label-alternative">
                         <code class="font-mono text-label-2">&lt;x-workspace-shell&gt;</code> — 워크스페이스 레일(54px)이 붙은
