@@ -100,7 +100,10 @@
     $gnbIcon = 'inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40';
 @endphp
 
-<div {{ $attributes->class('flex min-h-screen bg-mono-global-bg') }}>
+{{-- ⚠️ overflow-x-clip 은 가드다. 좁은 화면(≤460px)에서 본문 컨테이너가 뷰포트보다
+     약 20px 넓어지는 문제가 남아 있는데 원인을 아직 못 잡았다. 이 가드가 없으면
+     페이지가 가로로 스크롤된다. 원인을 잡으면 이 클래스를 지운다. --}}
+<div {{ $attributes->class('flex min-h-screen overflow-x-clip bg-mono-global-bg') }}>
     {{-- ═══ LNB — 240px 다크 사이드바 ═══ --}}
     <aside class="relative flex w-60 shrink-0 flex-col bg-workspace-bg"
            @if ($zoom !== 1.0) style="zoom: {{ $zoom }}" @endif
@@ -200,7 +203,7 @@
     {{-- ═══ 본문 영역 ═══ --}}
     <div class="flex min-w-0 flex-1 flex-col">
         {{-- ── GNB 56px — 원본은 배경이 투명하다(navigation_BG opacity 0) ── --}}
-        <header class="flex h-14 shrink-0 items-center justify-between px-6">
+        <header class="flex h-14 shrink-0 items-center justify-between px-5 lg:px-6">
             {{-- 좌측: 사이드바 접기 — 원본 24x24 · BG Warm gray/200 · 반경 4 --}}
             <button type="button"
                     class="flex size-6 items-center justify-center rounded-md bg-warm-gray-200 text-label-normal transition-colors hover:bg-warm-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
@@ -234,7 +237,7 @@
         </header>
 
         {{-- ── 페이지 헤더 — 원본 좌측 320(LNB 240 + 80) · 우측 80 ── --}}
-        <div class="px-20">
+        <div class="px-5 lg:px-20">
             @if (isset($breadcrumb))
                 <div>{{ $breadcrumb }}</div>
             @endif
@@ -252,7 +255,9 @@
         </div>
 
         {{-- ── 본문 ── --}}
-        <main class="min-h-0 flex-1 px-20 pb-20 pt-8">
+        {{-- min-w-0: main 은 flex 아이템이다. 없으면 min-width:auto 가 콘텐츠 기준 최소폭으로
+                 잡혀 좁은 화면에서 본문이 뷰포트를 넘어간다. 좌우 여백은 원본 실측 PC 80 · 모바일 20. --}}
+        <main class="min-h-0 min-w-0 flex-1 px-5 pb-20 pt-8 lg:px-20">
             {{ $slot }}
         </main>
     </div>

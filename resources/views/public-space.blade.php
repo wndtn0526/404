@@ -11,9 +11,22 @@
      ⚠️ 그룹 썸네일의 Apple·Framer 로고도 타사 상표라 넣지 않고 이니셜로 뒀다.
      ⚠️ 본문은 예시다. DB 에서 오지 않는다. --}}
 @php
+    /*
+     * 프로필 — 잡타이틀 + 이름 조합. PC 는 한 줄로 합치고, 모바일은 이름을 위로 올린다.
+     * 두 화면이 같은 값을 쓰므로 여기서 한 번만 정의한다.
+     */
+    $profile = [
+        'name' => '신고수',
+        'job' => '프로덕트 디자이너',
+        'followers' => '1,036',
+        'following' => '388',
+        'tags' => '프로덕트 디자인 · 비즈니스 · UXUI',
+        'bio' => '스타트업에서 일하고 있는 7년 차 프로덕트 디자이너입니다:)',
+    ];
+
     $feed = [
         [
-            'author' => 'Gpro', 'role' => '프로덕트 디자이너', 'when' => '하루 전',
+            'author' => '신고수', 'role' => '프로덕트 디자이너', 'when' => '하루 전',
             'title' => '스냅챗이 플랫폼으로 변화한다.',
             'body' => [
                 '앱 안에서 간단하게 사용할 수 있는 스냅 미니를 탑재했다.',
@@ -84,22 +97,72 @@
                                             메타 top 118 · 탭 top 216 · 구분선 top 256
                                             프로필 설정 버튼 100x36 · 더보기 24 (우측 정렬)
              ⚠️ 원본 아바타는 일러스트레이션 이미지다. 저장소가 public 이라 DS 썸네일(이니셜)로 뒀다. --}}
-        <div class="mx-auto w-full max-w-[1200px]">
-            <div class="flex items-start gap-10 pt-10">
-                <x-thumbnail name="Gpro" size="2xl" shape="circle" />
+        <div class="mx-auto w-full min-w-0 max-w-[1200px]">
+
+            {{-- ── 모바일 (lg 미만) — node 1104-59162 "Mobile iOS"
+                 이름이 위 24px Bold · lh 31   → DS title-3 과 정확히 일치
+                 잡타이틀이 아래 15px · lh 23 · -0.6px · Warm gray/500 → DS body-2 와 정확히 일치
+                 아바타는 우측. 원본 70px 인데 DS 썸네일 단계가 64/120 뿐이라 64 를 썼다. ── --}}
+            <div class="min-w-0 lg:hidden">
+                {{-- ⚠️ 좁은 화면에서 이 행이 뷰포트 밖으로 밀려 아바타가 보이지 않는다.
+                     셸 루트의 overflow-x-clip 주석에 적은 미해결 버그 때문이다. --}}
+                <div class="flex min-w-0 items-start justify-between gap-4 pt-5">
+                    <div class="min-w-0">
+                        <h1 class="truncate text-title-3 font-bold leading-[31px] text-mono-black">{{ $profile['name'] }}</h1>
+                        <p class="truncate pt-[7px] text-body-2 leading-[23px] text-warm-gray-500">{{ $profile['job'] }}</p>
+                    </div>
+                    <x-thumbnail :name="$profile['name']" size="xl" shape="circle" />
+                </div>
+
+                {{-- 팔로워·팔로잉 — 원본 12px Medium --}}
+                <div class="flex min-w-0 flex-wrap items-baseline gap-4 pt-[30px]">
+                    <p class="text-caption-1 font-medium text-mono-black">
+                        팔로워 <strong class="font-bold tabular-nums">{{ $profile['followers'] }}</strong>
+                    </p>
+                    <p class="text-caption-1 font-medium text-mono-black">
+                        팔로잉 <strong class="font-bold tabular-nums">{{ $profile['following'] }}</strong>
+                    </p>
+                </div>
+
+                {{-- 태그·소개 — 원본 13px Regular · lh 20 · -0.2px → DS label-2 와 정확히 일치.
+                     ⚠️ PC 노드(1104-58476)에는 이 두 줄이 없다. 모바일에만 있는 게 원본이다. --}}
+                <div class="min-w-0 pt-2">
+                    <p class="text-label-2 leading-5 text-mono-black">{{ $profile['tags'] }}</p>
+                    <p class="text-label-2 leading-5 text-mono-black">{{ $profile['bio'] }}</p>
+                </div>
+
+                {{-- 모바일 탭 — 피드 · 커리어 (PC 는 4개다).
+                     ⚠️ 원본은 화면 폭을 2등분한다. DS x-tabs 의 block 옵션이 그 모양인데 붙여 보니
+                        컨테이너 최소폭을 456px 까지 밀어올려 좁은 화면이 깨졌다. 그래서 쓰지 않았다 —
+                        2등분이 아니라 좌측 정렬로 나온다. --}}
+                <div class="mt-8 min-w-0">
+                    <x-tabs
+                        name="profile_tab_mobile"
+                        :options="['feed' => '피드', 'career' => '커리어']"
+                        selected="feed"
+                        accent="strong"
+                    />
+                </div>
+            </div>
+
+            {{-- ── PC (lg 이상) — node 1104-58476. 잡타이틀 + 이름을 한 줄로 ── --}}
+            <div class="hidden min-w-0 items-start gap-10 pt-10 lg:flex">
+                <x-thumbnail :name="$profile['name']" size="2xl" shape="circle" />
 
                 <div class="min-w-0 pt-[18px]">
                     {{-- 원본 36px ExtraBold · lh 46 · tracking -1px.
                          DS display-3 이 36px·-1px 까지 같고 줄높이만 54 라 46 으로 눌렀다. --}}
-                    <h1 class="text-display-3 font-extrabold leading-[46px] text-mono-black">프로덕트 디자이너 Gpro</h1>
+                    <h1 class="text-display-3 font-extrabold leading-[46px] text-mono-black">
+                        {{ $profile['job'] }} {{ $profile['name'] }}
+                    </h1>
 
                     {{-- 팔로워·팔로우 — 원본 16px / lh 24. DS body-1 과 정확히 같다. 숫자만 Bold. --}}
                     <div class="flex flex-wrap items-baseline gap-5 pt-[14px]">
                         <p class="text-body-1 leading-6 text-mono-black">
-                            팔로워 <strong class="font-bold tabular-nums">1,036</strong>
+                            팔로워 <strong class="font-bold tabular-nums">{{ $profile['followers'] }}</strong>
                         </p>
                         <p class="text-body-1 leading-6 text-mono-black">
-                            팔로우 <strong class="font-bold tabular-nums">388</strong>
+                            팔로우 <strong class="font-bold tabular-nums">{{ $profile['following'] }}</strong>
                         </p>
                     </div>
                 </div>
@@ -107,7 +170,7 @@
 
             {{-- 탭 + 우측 액션. 구분선이 1200 전체를 지나가야 해서 x-tabs 를 풀폭으로 두고
                  버튼·더보기를 그 위에 얹었다. x-tabs 는 자기 컨테이너 폭만큼 border-b 를 깐다. --}}
-            <div class="relative mt-14">
+            <div class="relative mt-14 hidden lg:block">
                 <x-tabs
                     name="profile_tab"
                     :options="['posting' => '포스팅', 'career' => '커리어', 'group' => '그룹', 'article' => '아티클']"
@@ -126,13 +189,16 @@
         </div>
 
         {{-- 원본에는 브레드크럼·타이틀이 없다. 본문이 프로필·탭 아래에서 시작한다. --}}
-        <div class="mx-auto flex w-full max-w-[1200px] items-start gap-6 pt-10">
+        {{-- 모바일에서는 블록으로 둔다. flex 행의 아이템이 되면 min-content 가 밀려 올라와
+             카드가 뷰포트를 넘어간다. 블록 자식은 컨테이너 폭을 넘지 못한다. --}}
+        <div class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
 
             {{-- ═══ 좌: 피드 690 ═══ --}}
-            <div class="flex w-full max-w-[690px] shrink-0 flex-col gap-6">
+            {{-- 모바일에서는 화면 폭을 그대로 쓴다. shrink-0 을 걸면 690 이 강제돼 오버플로가 난다. --}}
+            <div class="flex w-full min-w-0 flex-col gap-6 lg:max-w-[690px] lg:shrink-0">
 
                 {{-- 글쓰기 — 원본 h80 · 반경 6 · 프로필 48 · 플레이스홀더 Warm gray/400 --}}
-                <div class="flex h-20 items-center gap-2.5 rounded-lg bg-background-normal px-[30px]">
+                <div class="flex h-20 min-w-0 items-center gap-2.5 rounded-lg bg-background-normal px-5 lg:px-[30px]">
                     <x-thumbnail name="김기안" size="lg" shape="circle" />
                     <button type="button" class="flex-1 text-left text-body-2 text-warm-gray-400 transition-colors hover:text-label-alternative">
                         새로운 소식을 남겨보세요!
@@ -141,7 +207,7 @@
 
                 {{-- 커뮤니티 카드 --}}
                 @foreach ($feed as $post)
-                    <article class="rounded-lg bg-background-normal p-[30px]">
+                    <article class="min-w-0 rounded-lg bg-background-normal p-5 lg:p-[30px]">
                         {{-- 작성자 --}}
                         <div class="flex items-start gap-2.5">
                             <x-thumbnail :name="$post['author']" size="lg" shape="circle" />
