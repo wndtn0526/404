@@ -24,7 +24,7 @@
         'icons' => '아이콘',
     ];
 
-    // GPRO LNB 예시 데이터
+    // 원본 LNB 예시 데이터
     $lnbItems = [
         ['label' => '결재함', 'href' => '#', 'icon' => 'inbox', 'active' => true, 'badge' => 3],
         ['label' => '기안 문서', 'href' => '#', 'icon' => 'document-search'],
@@ -157,18 +157,18 @@
                 <div><x-badge color="primary" size="md">Design System</x-badge></div>
                 <h1 class="text-title-1 font-bold text-label-normal">전자결재 디자인 시스템</h1>
                 <p class="text-body-1 text-label-alternative">
-                    GPRO DS 토큰 기반 · Blade 컴포넌트 · 아이콘 {{ $iconNames->count() }}종
+                    디자인 시스템 토큰 기반 · Blade 컴포넌트 · 아이콘 {{ $iconNames->count() }}종
                 </p>
                 <div class="rounded-md border border-line-solid-normal bg-primary-soft px-4 py-3">
                     <p class="text-label-1 text-label-neutral">
-                        <strong class="font-semibold text-label-normal">값의 출처는 Figma "GPRO_PORTFOLIO" Design guide 다.</strong>
+                        <strong class="font-semibold text-label-normal">값의 출처는 Figma 디자인 가이드 다.</strong>
                         토큰을 고칠 일이 생기면 Figma → 추출본
-                        <code class="rounded-md bg-fill-normal px-1 font-mono text-label-2">resources/design/gpro-tokens.json</code> → 이 저장소
+                        <code class="rounded-md bg-fill-normal px-1 font-mono text-label-2">resources/design/design-tokens.json</code> → 이 저장소
                         <code class="rounded-md bg-fill-normal px-1 font-mono text-label-2">resources/css/tokens.css</code> 를 함께 맞춘다.
                         뷰에 raw hex 를 쓰지 않는다.
                     </p>
                     <p class="mt-2 text-label-2 text-label-alternative">
-                        <code class="font-mono">[파생]</code> 표시가 붙은 토큰은 GPRO 에 대응 단계가 없어 계산해 채운 값이다.
+                        <code class="font-mono">[파생]</code> 표시가 붙은 토큰은 원본에 대응 단계가 없어 계산해 채운 값이다.
                         Figma 에 해당 단계가 생기면 교체한다.
                     </p>
                 </div>
@@ -302,7 +302,7 @@
                         <x-button variant="danger">danger</x-button>
                     </div>
                     <p class="mt-4 text-label-1 text-label-alternative">
-                        <code class="font-mono text-label-2">danger</code> 는 GPRO 원본에 없고 전자결재에서 추가했다.
+                        <code class="font-mono text-label-2">danger</code> 는 원본에 없고 전자결재에서 추가했다.
                         반려·삭제를 primary 로 내보내면 승인과 구분이 안 된다.
                     </p>
                 </x-card>
@@ -436,13 +436,13 @@
             <section id="forms" class="flex flex-col gap-5">
                 <h2 class="text-title-3 font-bold text-label-normal">폼 컨트롤</h2>
 
-                {{-- ── GPRO Input 원본 (Figma 1002:518593) ─────────────────────────
+                {{-- ── 원본 Input 원본 (Figma 1002:518593) ─────────────────────────
                      피그마 목차 그대로: 6개 변형 × 상태. 규칙도 원본 주석에서 옮겼다. --}}
                 <x-card>
                     <div class="mb-5">
-                        <p class="text-headline-2 font-semibold text-label-normal">GPRO Input — 원본 6종</p>
+                        <p class="text-headline-2 font-semibold text-label-normal">원본 Input — 원본 6종</p>
                         <p class="mt-1 text-label-1 text-label-alternative">
-                            Figma "GPRO_PORTFOLIO" Input (1002:518593). 박스 높이에 따라 <strong>Box 40 / Box 32</strong>로 나뉜다.
+                            Figma 디자인 가이드 Input (1002:518593). 박스 높이에 따라 <strong>Box 40 / Box 32</strong>로 나뉜다.
                             인풋 박스는 <strong>안쪽 좌우 패딩이 고정</strong>이고 양옆으로만 늘어난다.
                             Multi Line 을 제외한 나머지는 <strong>높이가 고정</strong>이다. 그림자는 없다.
                         </p>
@@ -465,7 +465,7 @@
                                     <div class="flex h-10 items-center gap-px rounded-md border px-[11px] text-label-1 {{ $cls }} {{ $status === 'Disabled' ? 'text-label-disable' : 'text-label-strong' }}">
                                         {{ $status === 'Disabled' ? 'Filled' : 'Typing' }}
                                         @if ($status === 'Active')
-                                            {{-- GPRO cursor bar — 1×17px deep blue --}}
+                                            {{-- 원본 cursor bar — 1×17px deep blue --}}
                                             <span class="ml-px block h-[17px] w-px bg-deep-blue-900"></span>
                                         @endif
                                     </div>
@@ -478,7 +478,7 @@
                             @endforeach
                         </div>
                         <p class="mt-3 text-label-2 text-label-alternative">
-                            ⚠️ <strong>Active 는 브랜드색(검정)이 아니라 <code class="font-mono">deep-blue-900</code></strong> 이다 — GPRO 원본을 그대로 따랐다.
+                            ⚠️ <strong>Active 는 브랜드색(검정)이 아니라 <code class="font-mono">deep-blue-900</code></strong> 이다 — 원본을 그대로 따랐다.
                             <strong>보더 색만 바뀐다 — 링도 그림자도 없다.</strong> 캐럿(1×17px)도 같은 파랑이다.
                             Success 는 보더가 바뀌지 않고 하단 메시지만 초록이다. 박스 안쪽 좌우 패딩은 11px 고정.
                         </p>
@@ -679,12 +679,12 @@
                 </x-modal>
             </section>
 
-            {{-- ═══ 내비게이션 (GPRO GNB · LNB · Breadcrumb · Tooltip · Thumbnail) ═══ --}}
+            {{-- ═══ 내비게이션 (원본 GNB · LNB · Breadcrumb · Tooltip · Thumbnail) ═══ --}}
             <section id="navigation" class="flex flex-col gap-6">
                 <div>
                     <h2 class="text-title-3 font-bold text-label-normal">내비게이션</h2>
                     <p class="mt-1 text-body-2 text-label-alternative">
-                        GPRO 원본에 있는데 이 저장소에 없던 것들. Figma Dev Mode 로 실측해 옮겼다.
+                        원본에 있는데 이 저장소에 없던 것들. Figma Dev Mode 로 실측해 옮겼다.
                     </p>
                 </div>
 
@@ -757,7 +757,7 @@
                     <p class="mt-1 text-body-2 text-label-alternative">
                         아이콘 {{ $iconNames->count() }}종.
                         <code class="font-mono text-label-2">&lt;x-icon-{이름} class="h-5 w-5" /&gt;</code>
-                        — 색·타이포는 GPRO 로 옮겼지만 아이콘 세트는 아직 청담원 DS 출처다.
+                        — 색·타이포는 원본 로 옮겼지만 아이콘 세트는 아직 청담원 DS 출처다.
                     </p>
                 </div>
                 <div class="grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-8">

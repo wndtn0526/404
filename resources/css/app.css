@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* 전체 폰트: Pretendard (dynamic subset — 한글 용량 최적화). GPRO DS 본문 서체와 동일.
+/* 전체 폰트: Pretendard (dynamic subset — 한글 용량 최적화). 디자인 시스템 본문 서체와 동일.
    TODO(프로덕션): public/fonts 로 self-host 하거나 npm `pretendard` 사용. */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 

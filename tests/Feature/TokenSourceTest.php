@@ -5,16 +5,16 @@ namespace Tests\Feature;
 use Tests\TestCase;
 
 /**
- * tokens.css 는 Figma "GPRO_PORTFOLIO" Design guide(node 1002-517500)에서 뽑은 값이다.
+ * tokens.css 는 Figma 디자인 가이드(node 1002-517500)에서 뽑은 값이다.
  * 원본과 몰래 갈라지면 같은 이름의 토큰이 다른 색을 뜻하게 되고,
  * 그때부터 "DS 를 쓴다"는 말이 거짓이 된다.
  *
- * resources/design/gpro-tokens.json 이 Figma 추출본(Dev Mode MCP `get_variable_defs`)이다.
+ * resources/design/design-tokens.json 이 Figma 추출본(Dev Mode MCP `get_variable_defs`)이다.
  * Figma 가 바뀌면 이 JSON 을 다시 뽑아 넣고, 이 테스트가 빨개지는 토큰을 손으로 맞춘다.
  */
 class TokenSourceTest extends TestCase
 {
-    /** 의미 계층에 채택하지 않은 GPRO 변수 — 값이 아니라 "왜 뺐는지"를 고정한다. */
+    /** 의미 계층에 채택하지 않은 원본 변수 — 값이 아니라 "왜 뺐는지"를 고정한다. */
     private const DELIBERATELY_UNUSED = [
         '#3c3c43' => 'Label Color / Separator Colors — iOS 잔재. Cool gray 로 대체했다.',
         '#007aff' => 'SystemBlue — iOS 잔재. 브랜드색은 deep blue 900 이다.',
@@ -29,7 +29,7 @@ class TokenSourceTest extends TestCase
     /** @return array<string,string> Figma 변수명 => 값 */
     private function figmaVars(): array
     {
-        $path = resource_path('design/gpro-tokens.json');
+        $path = resource_path('design/design-tokens.json');
 
         $this->assertFileExists($path, 'Figma 추출본이 없다. Dev Mode MCP 로 다시 뽑아야 한다.');
 
@@ -46,7 +46,7 @@ class TokenSourceTest extends TestCase
     }
 
     /**
-     * 채택한 GPRO 색은 전부 원시 계층에 있어야 한다.
+     * 채택한 원본 색은 전부 원시 계층에 있어야 한다.
      * Figma 에서 값이 바뀌면 여기서 잡힌다.
      */
     public function test_every_adopted_figma_color_is_in_the_primitive_layer(): void
@@ -69,7 +69,7 @@ class TokenSourceTest extends TestCase
         $this->assertSame(
             [],
             $missing,
-            'GPRO 원본에 있는데 tokens.css 에 없는 색: '.json_encode($missing, JSON_UNESCAPED_UNICODE)
+            '원본에 있는데 tokens.css 에 없는 색: '.json_encode($missing, JSON_UNESCAPED_UNICODE)
         );
     }
 
@@ -84,11 +84,11 @@ class TokenSourceTest extends TestCase
     }
 
     /**
-     * 브랜드색은 검정 — GPRO Warm gray/900 이다. 바뀌면 의도적으로만 바뀌어야 한다.
+     * 브랜드색은 검정 — 원본 Warm gray/900 이다. 바뀌면 의도적으로만 바뀌어야 한다.
      * hover(strong)는 Mono/Black, active(heavy)는 Mono/900. 검정은 더 어두워질 수 없어
      * 눌림 상태를 밝게 잡았다. 이 순서가 뒤집히면 버튼이 눌린 티가 안 난다.
      */
-    public function test_brand_is_the_gpro_black_scale(): void
+    public function test_brand_is_the_black_scale(): void
     {
         $vars = $this->figmaVars();
         $css = $this->tokensCss();
@@ -108,7 +108,7 @@ class TokenSourceTest extends TestCase
             $this->assertMatchesRegularExpression(
                 '/'.preg_quote($var, '/').':\s*'.preg_quote($expected, '/').'\b/',
                 $css,
-                "{$var} 가 GPRO {$figmaName}({$expected}) 이 아니다."
+                "{$var} 가 원본 {$figmaName}({$expected}) 이 아니다."
             );
         }
     }
@@ -139,35 +139,35 @@ class TokenSourceTest extends TestCase
         }
     }
 
-    /** 본문 스케일의 px 값은 GPRO Pretendard 단계 안에서만 고른다. */
-    public function test_type_sizes_come_from_the_gpro_scale(): void
+    /** 본문 스케일의 px 값은 원본 Pretendard 단계 안에서만 고른다. */
+    public function test_type_sizes_come_from_the_source_scale(): void
     {
-        $gproSizes = [];
+        $sourceSizes = [];
 
         foreach ($this->figmaVars() as $name => $value) {
             if (is_string($value) && str_starts_with($value, 'Font(') && str_contains($name, 'Pretendard')) {
                 preg_match('/size: (\d+)/', $value, $m);
-                $gproSizes[] = (int) $m[1];
+                $sourceSizes[] = (int) $m[1];
             }
         }
 
-        $gproSizes = array_unique($gproSizes);
-        $this->assertNotEmpty($gproSizes, 'GPRO 추출본에 Pretendard 폰트 단계가 없다.');
+        $sourceSizes = array_unique($sourceSizes);
+        $this->assertNotEmpty($sourceSizes, '원본 추출본에 Pretendard 폰트 단계가 없다.');
 
         preg_match_all('/--text-[a-z0-9-]+:\s*(\d+)px/', $this->tokensCss(), $m);
         $ours = array_unique(array_map('intval', $m[1]));
 
-        $offScale = array_values(array_diff($ours, $gproSizes));
+        $offScale = array_values(array_diff($ours, $sourceSizes));
 
         $this->assertSame(
             [],
             $offScale,
-            'GPRO 스케일에 없는 폰트 크기를 쓰고 있다: '.implode(', ', $offScale).'px'
+            '원본 스케일에 없는 폰트 크기를 쓰고 있다: '.implode(', ', $offScale).'px'
         );
     }
 
     /**
-     * GPRO 에 대응이 없어 계산해 채운 값은 반드시 [파생] 표시를 달아 둔다.
+     * 원본에 대응이 없어 계산해 채운 값은 반드시 [파생] 표시를 달아 둔다.
      * 표시가 없으면 나중에 "Figma 에서 온 값"으로 오해하고 그대로 신뢰하게 된다.
      */
     public function test_derived_values_are_marked(): void
@@ -187,7 +187,7 @@ class TokenSourceTest extends TestCase
             $this->assertStringContainsString(
                 '[파생]',
                 $m[1] ?? '',
-                "{$var} 는 GPRO 원본에 없는 파생값인데 [파생] 표시가 없다."
+                "{$var} 는 원본에 없는 파생값인데 [파생] 표시가 없다."
             );
         }
     }

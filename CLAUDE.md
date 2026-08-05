@@ -30,13 +30,13 @@ vendor/bin/sail npm install && vendor/bin/sail npm run dev
 
 ## 디자인 시스템
 
-출처는 Figma **"GPRO_PORTFOLIO" Design guide**. 프라이머리는 **Black `#111111`** (Warm gray/900).
+출처는 Figma **디자인 가이드**. 프라이머리는 **Black `#111111`** (Warm gray/900).
 
 **값의 흐름**
 
 ```
-Figma "GPRO_PORTFOLIO" / Design guide (node 1002-517500)   (정본)
-  → resources/design/gpro-tokens.json    (Dev Mode MCP `get_variable_defs` 추출본)
+Figma 디자인 가이드 / Design guide (node 1002-517500)   (정본)
+  → resources/design/design-tokens.json    (Dev Mode MCP `get_variable_defs` 추출본)
   → resources/css/tokens.css             (Tailwind 4 · @theme)
 ```
 
@@ -47,28 +47,28 @@ Figma 가 바뀌면 추출본을 다시 뽑아 넣고, 빨개지는 토큰을 �
 vendor/bin/sail artisan test --filter=TokenSource
 ```
 
-**2계층 구조** — GPRO 는 원시 팔레트 시스템이라 `label`·`line`·`fill` 같은 의미 토큰이 원본에 없다.
+**2계층 구조** — 원본은 원시 팔레트 시스템이라 `label`·`line`·`fill` 같은 의미 토큰이 원본에 없다.
 
 - **원시 계층** — Figma 변수를 그대로 옮긴 값 (`--color-deep-blue-900`, `--color-cool-gray-600` …).
   값을 바꾸려면 Figma 를 먼저 고친다.
 - **의미 계층** — 컴포넌트가 실제로 쓰는 이름 (`--color-label-normal`, `--color-line-solid-normal` …).
   원시값을 역할에 배정한 것이다.
 
-⚠️ **중립색은 Warm gray 다.** GPRO 는 Warm gray 와 Cool gray 를 둘 다 갖고 있지만,
+⚠️ **중립색은 Warm gray 다.** 원본은 Warm gray 와 Cool gray 를 둘 다 갖고 있지만,
 컴포넌트를 실측해 보면 전부 Warm gray 계열이다 (Input 보더 `Warm gray/200` · placeholder
 `Warm gray/400` · Disabled `Warm gray/100` · LNB 텍스트 `Warm gray/700`).
 Cool gray 는 원본 변수라 원시 계층에 남겨 두지만 **의미 계층에서는 쓰지 않는다.**
 
 ⚠️ **인풋 Active 는 브랜드색(검정)이 아니라 `deep-blue-900` 이다.** 보더 색만 바뀌고
-링·그림자는 없다. 캐럿도 같은 파랑(`caret-deep-blue-900`). 이건 GPRO 원본이 그래서 그대로 따랐다.
+링·그림자는 없다. 캐럿도 같은 파랑(`caret-deep-blue-900`). 이건 원본이 그래서 그대로 따랐다.
 브랜드가 검정이라고 여기까지 검정으로 맞추면 원본과 달라진다.
 
-`[파생]` 주석이 붙은 값은 GPRO 에 대응 단계가 없어 계산해 채운 것이다 (hover/active 명도, 반투명
+`[파생]` 주석이 붙은 값은 원본에 대응 단계가 없어 계산해 채운 것이다 (hover/active 명도, 반투명
 보더, 텍스트용 진한 액센트, `-reading` 줄간). **Figma 에서 온 값이 아니므로 그대로 신뢰하지 않는다.**
 디자이너가 해당 단계를 Figma 에 추가하면 그 값으로 교체한다. `TokenSourceTest` 가 표시 누락을 막는다.
 
-⚠️ **아이콘 219종은 아직 청담원 DS 출처다.** 이번 교체는 색·타이포·그림자 토큰만 GPRO 로 옮겼다.
-GPRO 에 아이콘 세트가 있으면 별도로 이관해야 한다.
+⚠️ **아이콘 219종은 아직 청담원 DS 출처다.** 이번 교체는 색·타이포·그림자 토큰만 원본 로 옮겼다.
+원본에 아이콘 세트가 있으면 별도로 이관해야 한다.
 
 **규칙**
 
@@ -84,9 +84,9 @@ GPRO 에 아이콘 세트가 있으면 별도로 이관해야 한다.
 
 **컴포넌트 출처** — 어디서 온 것인지 모르면 Figma 를 고쳐도 반영이 안 된다.
 
-*GPRO 원본이 있는 것* — 값을 바꿀 땐 Figma 를 먼저 고친다.
+*원본이 있는 것* — 값을 바꿀 땐 Figma 를 먼저 고친다.
 
-| 컴포넌트 | GPRO 노드 | 실측 |
+| 컴포넌트 | 원본 노드 | 실측 |
 | --- | --- | --- |
 | `button` | Button 1002:521078 | 반경 4 · 좌우패딩 16/14/8 |
 | `input` `textarea` | Input 1002:518593 | 높이 40/32 · 반경 4 · 본문 14 · **그림자 없음** |
@@ -106,21 +106,21 @@ GPRO 에 아이콘 세트가 있으면 별도로 이관해야 한다.
 | `tooltip` | Tooltip 1002:522381 | 반경 6 · 글자 11 |
 | `thumbnail` `avatar-group` | Profile 1002:522932 | 원형 / 사각 4 |
 
-⚠️ **GPRO 컴포넌트는 Dialog 를 빼면 그림자가 없다.** 폼 컨트롤에 `shadow-elevation-*` 을 붙이지 않는다.
+⚠️ **원본 컴포넌트는 Dialog 를 빼면 그림자가 없다.** 폼 컨트롤에 `shadow-elevation-*` 을 붙이지 않는다.
 띄운 면(드롭다운 패널·캘린더 팝오버)에만 `shadow-elevation-lg` 를 쓴다.
 
-*GPRO 밖 확장* — 원본에 대응이 없다. 전자결재에 필요해서 DS 토큰만으로 만든 것들이라
+*원본 밖 확장* — 원본에 대응이 없다. 전자결재에 필요해서 DS 토큰만으로 만든 것들이라
 Figma 를 봐도 나오지 않는다. 새로 만들 때 여기 있는지 먼저 확인한다.
 
-- `datepicker` — 결재 문서의 기간·기한 입력. GPRO 에 캘린더가 없다.
-- `file-dropzone` `file-item` — 첨부파일. GPRO 에 업로드 UI 가 없다.
+- `datepicker` — 결재 문서의 기간·기한 입력. 원본에 캘린더가 없다.
+- `file-dropzone` `file-item` — 첨부파일. 원본에 업로드 UI 가 없다.
 - `stat-tile` — 결재함 요약 숫자.
 - `switch` — 온오프 토글.
 - `segmented` — 뷰 전환. **`tabs` 와 역할이 겹친다.** 새 화면에선 `tabs` 를 먼저 검토한다.
 - `chip-removable` — 삭제 가능한 칩. **`chip` 의 변형이다.** 통합 대상.
 - `confirm` `prompt` — Dialog 의 용도별 사전 조립. 원본은 `modal`(Dialog).
 
-**전자결재 고유** (GPRO 원본에 없음)
+**전자결재 고유** (원본에 없음)
 
 - `<x-button variant="danger">` — 반려·삭제. 승인 버튼과 색이 겹치면 사고가 난다.
 - `<x-doc-status :status="…">` — 문서 상태 배지. 값은 `App\Enums\DocumentStatus`.

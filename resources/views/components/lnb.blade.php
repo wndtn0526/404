@@ -1,4 +1,4 @@
-{{-- GPRO LNB (Local Navigation Bar) — Figma "GPRO_PORTFOLIO" (1002:525753 · 1002:526580)
+{{-- 원본 LNB (Local Navigation Bar) — Figma 디자인 가이드 (1002:525753 · 1002:526580)
      좌측 사이드 내비게이션. 어두운 면 위에 메뉴 항목을 세로로 쌓는다.
 
      props:
@@ -8,7 +8,7 @@
        heading : 상단 영역 제목 (선택)
      이벤트: GNB 의 메뉴 버튼이 쏘는 'lnb-toggle' 로 모바일에서 열고 닫는다.
 
-     GPRO 실측: 너비 240px · 헤더 72px · 항목 높이 32px / 14px 텍스트 · 반경 3px
+     원본 실측: 너비 240px · 헤더 72px · 항목 높이 32px / 14px 텍스트 · 반경 3px
                 배경 Side Bar BG 01, 접힌 영역 BG 02 · 비활성 텍스트 warm gray 500. --}}
 @props([
     'items' => [],

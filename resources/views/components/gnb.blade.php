@@ -1,4 +1,4 @@
-{{-- GPRO GNB (Global Navigation Bar) — Figma "GPRO_PORTFOLIO" (1002:520005 · 1002:526541)
+{{-- 원본 GNB (Global Navigation Bar) — Figma 디자인 가이드 (1002:520005 · 1002:526541)
      화면 최상단 고정 헤더. 좌측 메뉴 토글 + 서비스명, 우측 검색·알림·프로필.
 
      props:
@@ -9,7 +9,7 @@
        searchable : 검색 버튼 노출 (기본 true)
      이벤트: 메뉴 버튼은 window 에 'lnb-toggle' 을 쏜다. x-lnb 가 받는다.
 
-     GPRO 실측: 높이 56px · 흰 배경 · 아이콘 24px · 알림 점은 status negative. --}}
+     원본 실측: 높이 56px · 흰 배경 · 아이콘 24px · 알림 점은 status negative. --}}
 @props([
     'title' => '전자결재',
     'user' => null,

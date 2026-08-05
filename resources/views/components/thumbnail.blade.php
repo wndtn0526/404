@@ -1,4 +1,4 @@
-{{-- GPRO Thumbnail / Profile — Figma "GPRO_PORTFOLIO" (1002:523077 · 1002:522932)
+{{-- 원본 Thumbnail / Profile — Figma 디자인 가이드 (1002:523077 · 1002:522932)
      이미지가 있으면 이미지를, 없으면 이름 첫 글자를 색 배경 위에 보여준다.
 
      props:
@@ -6,7 +6,7 @@
        name   : 이니셜·alt 에 쓰는 이름
        size   : xs(24) | sm(32) | md(40) | lg(48) | xl(64)
        shape  : circle(프로필 · 기본) | square(썸네일 · 4px)
-     GPRO 실측: Profile 은 원형, Thumbnail 은 4px 사각. 폴백 배경은 deep blue 800. --}}
+     원본 실측: Profile 은 원형, Thumbnail 은 4px 사각. 폴백 배경은 deep blue 800. --}}
 @props([
     'src' => null,
     'name' => null,
@@ -15,7 +15,7 @@
 ])
 
 @php
-    // GPRO 이니셜 글자 크기 실측: 11 / 12 / 15 / 18 / 24px → DS 타이포 단계로 매핑
+    // 원본이니셜 글자 크기 실측: 11 / 12 / 15 / 18 / 24px → DS 타이포 단계로 매핑
     $sizes = [
         'xs' => ['box' => 'h-6 w-6', 'text' => 'text-caption-2'],
         'sm' => ['box' => 'h-8 w-8', 'text' => 'text-caption-1'],

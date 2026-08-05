@@ -36,11 +36,11 @@ class DesignSystemTest extends TestCase
     }
 
     /**
-     * GPRO 는 각진 시스템이다 — 실측 반경이 2·3·4·6px, Card·Checkbox 는 직각.
+     * 원본은 각진 시스템이다 — 실측 반경이 2·3·4·6px, Card·Checkbox 는 직각.
      * Tailwind 기본 반경(rounded-xl 12px · rounded-2xl 16px …)이나 임의값이 섞이면
      * 화면마다 모서리가 제각각이 된다. DS 4단 + full/none 만 허용한다.
      */
-    public function test_views_only_use_the_gpro_radius_scale(): void
+    public function test_views_only_use_the_ds_radius_scale(): void
     {
         $allowed = ['rounded-xs', 'rounded-sm', 'rounded-md', 'rounded-lg', 'rounded-full', 'rounded-none'];
         $offScale = [];

@@ -1,15 +1,15 @@
 /* ============================================================================
    전자결재 디자인 토큰 — 단일 소스(Single Source of Truth)
    ----------------------------------------------------------------------------
-   출처: Figma "GPRO_PORTFOLIO" — Design guide (node 1002-517500)
-     https://www.figma.com/design/sJC6AduTG0I4cTttQJFAes/GPRO_PORTFOLIO?node-id=1002-517500
+   출처: Figma 디자인 가이드 (node 1002-517500)
+     https://www.figma.com/design/sJC6AduTG0I4cTttQJFAes/design-guide?node-id=1002-517500
    추출: Figma Dev Mode MCP `get_variable_defs` — 변수 172개(색 84 · 타이포 82 · 그림자 6)
 
-   ⚠️ GPRO 는 원시 팔레트(primitive) 시스템이다. label/line/fill 같은 의미(semantic)
+   ⚠️ 원본은 원시 팔레트(primitive) 시스템이다. label/line/fill 같은 의미(semantic)
       토큰이 원본에 없어서, 아래 2계층으로 구성했다.
         1. 원시 계층 — Figma 변수 값을 그대로 옮긴 것. 값을 바꾸려면 Figma 를 먼저 고친다.
         2. 의미 계층 — 컴포넌트가 실제로 쓰는 이름. 원시값을 역할에 배정한 것.
-      `[파생]` 주석이 붙은 값은 GPRO 원본에 대응 항목이 없어 계산해 채운 값이다.
+      `[파생]` 주석이 붙은 값은 원본에 대응 항목이 없어 계산해 채운 값이다.
       디자이너가 Figma 에 해당 단계를 추가하면 그 값으로 교체한다.
 
    ⚠️ 뷰에서 raw hex 를 쓰지 않는다. 아래 토큰이 만들어주는 유틸리티만 사용.
@@ -18,7 +18,7 @@
 
 @theme {
     /* ── 폰트 ────────────────────────────────────────────────────────────────
-       GPRO 는 Pretendard(18단 × Bold/Medium/Regular)와 Apple SD Gothic Neo 두 계열을
+       원본은 Pretendard(18단 × Bold/Medium/Regular)와 Apple SD Gothic Neo 두 계열을
        함께 갖고 있다. SD Gothic Neo 는 레거시로 보고 Pretendard 로 통일한다. */
     --font-sans:
         'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto,
@@ -97,7 +97,7 @@
     --color-cool-gray-800: #343a40;
     --color-cool-gray-900: #212529;
 
-    /* ── Warm gray (GPRO 원본에 함께 존재 · 현재 의미 계층에서는 미사용) ── */
+    /* ── Warm gray (원본에 함께 존재 · 현재 의미 계층에서는 미사용) ── */
     --color-warm-gray-10: #fafafa;
     --color-warm-gray-50: #f8f8f8;
     --color-warm-gray-100: #f5f5f5;
@@ -125,11 +125,11 @@
        ======================================================================== */
 
     /* ── 브랜드 (Black) ──────────────────────────────────────────────────────
-       GPRO Primary 는 9색상 팔레트라 "브랜드색" 지정이 원본에 없다.
+       원본 Primary 는 9색상 팔레트라 "브랜드색" 지정이 원본에 없다.
        전자결재의 기본 색으로 검정을 채택했다. 바꾸려면 이 블록만 고치면 된다.
 
        검정 계열은 Mono · Warm gray 를 쓴다. 본문 텍스트(label-*)는 Cool gray 계열이라
-       브랜드면과 글자면이 서로 섞이지 않는다. 파생값 없이 전부 GPRO 원본 값이다.
+       브랜드면과 글자면이 서로 섞이지 않는다. 파생값 없이 전부 원본 값이다.
        ⚠️ 검정은 더 어두워질 수 없어 hover 가 아니라 active 쪽을 밝게 잡았다. */
     --color-primary: #111111; /* Warm gray/900 */
     --color-primary-normal: #111111;
@@ -143,16 +143,16 @@
     --color-inverse-label: #f8f8f8; /* Warm gray/050 */
 
     /* ── 라벨(텍스트) 6단 ────────────────────────────────────────────────────
-       GPRO 의 Label Color 는 iOS 잔재라 3개뿐이다. Warm gray 로 6단을 구성했다.
-       ⚠️ 중립색은 Warm gray 다. GPRO 컴포넌트 실측값이 전부 Warm gray 계열이었다
+       원본의 Label Color 는 iOS 잔재라 3개뿐이다. Warm gray 로 6단을 구성했다.
+       ⚠️ 중립색은 Warm gray 다. 원본 컴포넌트 실측값이 전부 Warm gray 계열이었다
           (Input 보더 Warm gray/200 · placeholder Warm gray/400 · LNB 텍스트 Warm gray/700).
           Cool gray 는 원시 계층에만 남겨 둔다 — 원본 변수라 지우진 않지만 의미 계층에선 안 쓴다. */
-    --color-label-strong: #000000; /* Mono/Black · GPRO 인풋 본문이 이 값이다 */
+    --color-label-strong: #000000; /* Mono/Black · 원본 인풋 본문이 이 값이다 */
     --color-label-normal: #111111; /* Warm gray/900 · 기본 본문·제목 */
     --color-label-neutral: #303030; /* Warm gray/800 */
     --color-label-alternative: #858585; /* Warm gray/600 · 보조·캡션 */
     --color-label-assistive: #c2c2c2; /* Warm gray/400 · placeholder */
-    --color-label-disable: #c2c2c2; /* Warm gray/400 · GPRO 는 placeholder 와 같은 값을 쓴다 */
+    --color-label-disable: #c2c2c2; /* Warm gray/400 · 원본은 placeholder 와 같은 값을 쓴다 */
 
     /* ── 배경 ────────────────────────────────────────────────────────────── */
     --color-background-normal: #ffffff; /* Mono/White */
@@ -162,12 +162,12 @@
 
     /* ── 라인(보더) ──────────────────────────────────────────────────────────
        normal-* 는 겹치는 면 위에 얹히는 반투명 보더, solid-* 는 불투명 보더.
-       GPRO 에 알파 스케일이 없어 normal-* 는 Warm gray/600 기준 [파생]. */
+       원본에 알파 스케일이 없어 normal-* 는 Warm gray/600 기준 [파생]. */
     --color-line-normal-normal: rgba(133, 133, 133, 0.22); /* [파생] */
     --color-line-normal-neutral: rgba(133, 133, 133, 0.16); /* [파생] */
     --color-line-normal-alternative: rgba(133, 133, 133, 0.08); /* [파생] */
     --color-line-normal-strong: rgba(133, 133, 133, 0.52); /* [파생] */
-    --color-line-solid-normal: #ebebeb; /* Warm gray/200 · GPRO 인풋 보더 실측값 */
+    --color-line-solid-normal: #ebebeb; /* Warm gray/200 · 원본 인풋 보더 실측값 */
     --color-line-solid-neutral: #f5f5f5; /* Warm gray/100 */
     --color-line-solid-alternative: #f8f8f8; /* Warm gray/050 */
 
@@ -178,7 +178,7 @@
 
     /* ── 인터랙션 / 머티리얼 ─────────────────────────────────────────────── */
     --color-interaction-inactive: #999999; /* Warm gray/500 */
-    --color-interaction-disable: #f5f5f5; /* Warm gray/100 · GPRO Disabled 실측값 */
+    --color-interaction-disable: #f5f5f5; /* Warm gray/100 · 원본 Disabled 실측값 */
     --color-material-dimmer: rgba(17, 17, 17, 0.52); /* [파생] Warm gray/900 기반 */
 
     /* ── 상태 ──────────────────────────────────────────────────────────────── */
@@ -196,7 +196,7 @@
     --color-accent-pink: #fba1cb; /* Secondary/pink 500 */
 
     /* ── 액센트 · Foreground (텍스트·아이콘용 · 명도 대비 확보) ──────────────
-       GPRO 900 단계는 중간 명도라 본문 텍스트 대비가 부족하다.
+       원본 900 단계는 중간 명도라 본문 텍스트 대비가 부족하다.
        전부 [파생] — 900 을 어둡게 눌러 만들었다. Figma 에 텍스트용 단계가 생기면 교체. */
     --color-accent-fg-red: #bf2638; /* [파생] red 900 × 75% */
     --color-accent-fg-red-orange: #bf5329; /* [파생] orange 900 × 75% */
@@ -211,9 +211,9 @@
     --color-accent-fg-pink: #b93271; /* [파생] pink 900 × 75% */
 
     /* ── 타이포 스케일 ───────────────────────────────────────────────────────
-       GPRO Pretendard 18단(10~48px)을 기존 16단 이름에 배정.
+       원본 Pretendard 18단(10~48px)을 기존 16단 이름에 배정.
        Figma 의 lineHeight·letterSpacing 은 px 라서 ratio · em 으로 환산했다.
-       `-reading` 은 GPRO 에 없는 [파생] — 줄간만 넓힌 장문용 변형. */
+       `-reading` 은 원본에 없는 [파생] — 줄간만 넓힌 장문용 변형. */
     --text-display-1: 48px;
     --text-display-1--line-height: 1.292;
     --text-display-1--letter-spacing: -0.0208em;
@@ -278,9 +278,9 @@
     --text-caption-2--line-height: 1.545;
     --text-caption-2--letter-spacing: 0em;
 
-    /* ── 그림자 (GPRO Elevation 이펙트) ──────────────────────────────────────
+    /* ── 그림자 (원본 Elevation 이펙트) ──────────────────────────────────────
        원본: Cursor · Elevation E100~E500. E500 은 E400 과 halo 색만 달라 생략.
-       spread-* 는 GPRO 에 없는 [파생] — 넓게 퍼지는 컨테이너 그림자. */
+       spread-* 는 원본에 없는 [파생] — 넓게 퍼지는 컨테이너 그림자. */
     --shadow-elevation-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.4); /* Cursor */
     --shadow-elevation-sm: 0 0 1px 0 rgba(0, 0, 0, 0.302), 0 3px 5px 0 rgba(0, 0, 0, 0.2); /* E100 */
     --shadow-elevation-md: 0 0 1px 0 rgba(0, 0, 0, 0.302), 0 8px 12px 0 rgba(0, 0, 0, 0.149); /* E200 */
@@ -289,8 +289,8 @@
     --shadow-spread-small: 0 0 60px 0 rgba(17, 17, 17, 0.1); /* [파생] */
     --shadow-spread-medium: 0 15px 75px 0 rgba(17, 17, 17, 0.16); /* [파생] */
 
-    /* ── 모서리 반경 (GPRO 컴포넌트 실측) ────────────────────────────────────
-       GPRO 는 각진 시스템이다. 4px 가 기본이고 그보다 둥근 값은 쓰지 않는다.
+    /* ── 모서리 반경 (원본 컴포넌트 실측) ────────────────────────────────────
+       원본은 각진 시스템이다. 4px 가 기본이고 그보다 둥근 값은 쓰지 않는다.
        Figma Dev Mode 로 컴포넌트를 직접 재서 얻은 값:
          Button 4 · Input 4 · Dropdown 4 · Pagination 4 · Dialog 4 · GNB 4 · Input Tag 4
          Badge 2 · Data Tables 2 · LNB 3 · Tab 3~6 · Tooltip 6 · SnackBars 6

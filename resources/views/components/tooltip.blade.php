@@ -1,4 +1,4 @@
-{{-- GPRO Tooltip — Figma "GPRO_PORTFOLIO" (1002:522381 · Tooltip Text Only)
+{{-- 원본 Tooltip — Figma 디자인 가이드 (1002:522381 · Tooltip Text Only)
      트리거에 마우스를 올리거나 포커스하면 뜨는 짧은 설명. 긴 문장은 넣지 않는다.
 
      사용:
@@ -9,7 +9,7 @@
      props:
        text     : 표시할 문구 (필수)
        position : top(기본) | bottom | left | right
-     GPRO 실측: 어두운 면에 밝은 11px 텍스트 · 패딩 10px · 반경 6px · 꼬리 14×8px. --}}
+     원본 실측: 어두운 면에 밝은 11px 텍스트 · 패딩 10px · 반경 6px · 꼬리 14×8px. --}}
 @props([
     'text' => '',
     'position' => 'top',

@@ -22,7 +22,7 @@
     $sizeCls = $size === 'md' ? 'rounded-md px-3.5 py-2.5 text-body-2' : 'rounded-md px-4 py-3 text-body-1';
     // 폼 기본(lg)은 라벨을 body-1(16px)로 — 시니어 가독성. 조밀한 md는 14px 유지.
     $labelCls = $size === 'lg' ? 'text-body-1' : 'text-label-1';
-    // GPRO Input Box Multi Line — Status 값은 x-input 과 동일. 이것만 높이가 늘어난다.
+    // 원본 Input Box Multi Line — Status 값은 x-input 과 동일. 이것만 높이가 늘어난다.
     $base = "w-full $sizeCls bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive resize-y border transition-colors duration-150 focus:outline-none disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable";
     $state = $hasError
         ? 'border-status-negative focus:border-status-negative'
