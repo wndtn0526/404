@@ -20,6 +20,8 @@ SRC="http://127.0.0.1:${PORT}"
 PAGES=(
     "styleguide:index.html"
     "contents:contents.html"
+    "community:community.html"
+    "workspace:workspace.html"
 )
 
 cd "$ROOT"

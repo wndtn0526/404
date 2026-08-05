@@ -11,5 +11,10 @@ Route::livewire('/health', 'health-check')->name('health');
 // 로컬 전용 — 운영에 올릴 땐 환경 가드(또는 인증 미들웨어)를 붙인다.
 Route::view('/styleguide', 'styleguide')->name('styleguide');
 
-// 컨텐츠 관리 — Figma 워크스페이스 화면(node 1-299) 그대로. 아직 정적 화면이다.
+// 워크스페이스 화면들. 아직 전부 정적이다.
+// 레일 심볼의 착지점 — 나침반은 커뮤니티, 회사 심볼은 워크스페이스.
+Route::view('/community', 'community')->name('community');
+Route::view('/workspace', 'workspace')->name('workspace');
+
+// 컨텐츠 관리 — Figma 워크스페이스 화면(node 1-299) 그대로.
 Route::view('/contents', 'contents')->name('contents');

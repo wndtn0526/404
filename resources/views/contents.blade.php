@@ -9,17 +9,10 @@
         domain="cdw.workspace.io"
         user="김기안"
         has-alarm
-        :rail="[
-            ['icon' => 'compass', 'tone' => 'neutral', 'label' => '워크스페이스 탐색'],
-            ['mark' => 'cdw-mark', 'tone' => 'teal', 'label' => '청담원'],
-        ]"
-        :items="[
-            ['label' => '홈', 'href' => '#', 'icon' => 'home', 'active' => true],
-            ['label' => '컨텐츠 관리', 'href' => '#', 'icon' => 'inbox'],
-        ]"
-        :footer-items="[
-            ['label' => '설정', 'href' => '#', 'icon' => 'setting'],
-        ]"
+        :rail="config('workspace.rail')"
+        :items="config('workspace.items')"
+        :footer-items="config('workspace.footer_items')"
+        :scale="config('workspace.lnb_scale')"
     >
         <x-slot:breadcrumb>
             <x-breadcrumb :items="[['label' => '홈', 'href' => '#'], ['label' => '컨텐츠 관리']]" />

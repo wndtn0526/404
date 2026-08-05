@@ -140,6 +140,7 @@
     --color-workspace-cool-50: #70737c; /* Cool Neutral/50 */
     --color-workspace-cool-60: #878a93; /* Cool Neutral/60 */
     --color-workspace-tile-teal: #04718b; /* Primary/Strong */
+    --color-workspace-neutral-40: #5c5c5c; /* Neutral/40 · 레일 심볼 비활성 면 (node 1-4661) */
 
     /* ========================================================================
        2. 의미 계층 — 컴포넌트가 쓰는 이름

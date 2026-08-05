@@ -10,10 +10,16 @@
        domain     : 워크스페이스 도메인 (이름 아래 작은 글씨)
        items      : LNB 메뉴 [['label' => '홈', 'href' => '/', 'icon' => 'home', 'active' => true], ...]
        footerItems: LNB 하단에 붙는 메뉴(설정 등). items 와 같은 모양.
-       rail       : 워크스페이스 레일 타일 [['icon' => 'compass', 'tone' => 'neutral', 'label' => '…'], ...]
-                    tone 은 neutral | teal.
+       rail       : 워크스페이스 레일 심볼
+                    [['icon' => 'compass', 'href' => '/community', 'active' => true, 'label' => '커뮤니티'], ...]
+                    icon 을 주면 DS 아이콘(symbol), mark 를 주면 브랜드 마크(투톤 SVG).
+                    active 는 현재 위치. 상태별 표현은 아래 $railStyles 에 있다.
        user       : 프로필 이니셜에 쓸 이름
        hasAlarm   : 알림 아이콘에 빨간 점
+       scale      : LNB 확대 배율. 1 = Figma 실측 그대로(240px).
+                    1920 프레임을 축소해 보는 Figma 와 달리 실화면에서는 240px 이 고정이라
+                    넓은 모니터에서 비율이 작아 보인다. CSS zoom 이라 글자도 같이 커지고
+                    비율은 원본 그대로 유지된다(transform: scale 과 달리 흐려지지 않는다).
 
      슬롯:
        breadcrumb / title / actions / (기본 슬롯 = 본문)
@@ -29,12 +35,37 @@
     'rail' => [],
     'user' => null,
     'hasAlarm' => false,
+    'scale' => 1,
 ])
 
 @php
-    $items = array_values(array_filter((array) $items));
-    $footerItems = array_values(array_filter((array) $footerItems));
-    $rail = array_values(array_filter((array) $rail));
+    // 배율은 숫자로만 받는다 — style 속성에 그대로 들어가므로 문자열을 통과시키지 않는다.
+    $zoom = max(0.5, min(2.0, (float) $scale));
+
+    /*
+     * href 와 활성 상태를 정규화한다.
+     *  · '/' 로 시작하는 경로는 url() 로 절대 URL 로 만든다 — 정적 배포 스크립트가
+     *    절대 URL 만 상대 경로로 치환하기 때문에, 루트 상대 경로로 두면 Pages 에서 깨진다.
+     *  · active 를 명시하지 않았으면 현재 경로로 판정한다. match 가 있으면 그 패턴들을,
+     *    없으면 href 경로 하나만 본다.
+     */
+    $resolveNav = function (array $entry): array {
+        $href = $entry['href'] ?? '#';
+        $path = str_starts_with($href, '/') ? trim($href, '/') : null;
+
+        if (! array_key_exists('active', $entry)) {
+            $patterns = (array) ($entry['match'] ?? array_filter([$path]));
+            $entry['active'] = $patterns !== [] && request()->is(...$patterns);
+        }
+
+        $entry['href'] = $path !== null ? url($href) : $href;
+
+        return $entry;
+    };
+
+    $items = array_map($resolveNav, array_values(array_filter((array) $items)));
+    $footerItems = array_map($resolveNav, array_values(array_filter((array) $footerItems)));
+    $rail = array_map($resolveNav, array_values(array_filter((array) $rail)));
 
     // 원본 실측: pl 10 · py 6 · gap 12 · 반경 6. 활성만 BG 02 를 깐다.
     $itemBase = 'flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors';
@@ -47,10 +78,21 @@
     $itemOffFooter = 'text-workspace-cool-25 hover:bg-workspace-cool-25/28 hover:text-workspace-cool-60';
     $itemOn = 'bg-workspace-cool-25/28 text-white';
 
-    // 레일 타일 색 — Tailwind 는 파일을 문자열로 훑으므로 완성된 클래스명을 담는다.
-    $railTones = [
-        'neutral' => 'bg-workspace-cool-60',
-        'teal' => 'bg-workspace-tile-teal',
+    // 레일 심볼 활성/비활성 — Figma node 1-4661 이 정의한 그대로.
+    // 두 타일이 서로 다른 방식으로 꺼진다:
+    //   symbol(나침반)  면 색이 바뀐다.  활성 Static/White · 비활성 Neutral/40
+    //   mark(회사 심볼) 면 색은 그대로,  비활성에서 불투명도만 30% 로 내린다.
+    //                   브랜드색이라 다른 색으로 갈아치우지 않는 것이다.
+    // ⚠️ Tailwind 는 파일을 문자열로 훑으므로 완성된 클래스명을 담는다.
+    $railStyles = [
+        'symbol' => [
+            'on' => 'bg-white',
+            'off' => 'bg-workspace-neutral-40 hover:bg-white/70',
+        ],
+        'mark' => [
+            'on' => 'bg-workspace-tile-teal',
+            'off' => 'bg-workspace-tile-teal opacity-30 hover:opacity-60',
+        ],
     ];
 
     $gnbIcon = 'inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40';
@@ -59,6 +101,7 @@
 <div {{ $attributes->class('flex min-h-screen bg-mono-global-bg') }}>
     {{-- ═══ LNB — 240px 다크 사이드바 ═══ --}}
     <aside class="relative flex w-60 shrink-0 flex-col bg-workspace-bg"
+           @if ($zoom !== 1.0) style="zoom: {{ $zoom }}" @endif
            x-data="{ open: false }"
            @lnb-toggle.window="open = ! open"
            :class="open ? 'max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-40' : 'max-lg:hidden'">
@@ -70,22 +113,27 @@
         <div class="absolute left-3 top-5 flex w-[30px] flex-col gap-5">
             @foreach ($rail as $tile)
                 @php
-                    $tone = $railTones[$tile['tone'] ?? 'neutral'] ?? $railTones['neutral'];
                     // mark 를 주면 브랜드 마크(투톤 SVG), icon 을 주면 DS 아이콘.
                     $mark = $tile['mark'] ?? null;
                     $railIcon = $tile['icon'] ?? null;
+                    $kind = $mark ? 'mark' : 'symbol';
+                    $railActive = (bool) ($tile['active'] ?? false);
+                    $railStyle = $railStyles[$kind][$railActive ? 'on' : 'off'];
+                    $railLabel = $tile['label'] ?? '';
                 @endphp
 
-                <button type="button"
-                        class="flex size-[30px] items-center justify-center rounded-md {{ $tone }} transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-                        @if (! empty($tile['label'])) aria-label="{{ $tile['label'] }}" @endif>
+                <a href="{{ $tile['href'] ?? '#' }}"
+                   @if ($railActive) aria-current="page" @endif
+                   class="flex size-[30px] items-center justify-center rounded-md transition-all {{ $railStyle }} focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                   @if ($railLabel) aria-label="{{ $railLabel }}{{ $railActive ? ' (현재 위치)' : '' }}" @endif>
                     @if ($mark)
                         {{-- 원본 실측 16 × 13.333 — 비율이 정사각이 아니라 두 값을 못 박는다 --}}
                         <x-dynamic-component :component="'brand-' . $mark" class="h-[13.333px] w-4" />
                     @elseif ($railIcon)
-                        <x-dynamic-component :component="'icon-' . $railIcon" class="size-[18px] text-white" />
+                        {{-- 글리프는 활성·비활성 모두 검정이다. 원본이 같은 에셋을 쓴다. --}}
+                        <x-dynamic-component :component="'icon-' . $railIcon" class="size-[18px] text-mono-black" />
                     @endif
-                </button>
+                </a>
             @endforeach
         </div>
 
