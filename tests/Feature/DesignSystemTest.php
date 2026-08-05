@@ -31,8 +31,51 @@ class DesignSystemTest extends TestCase
     {
         $onDisk = count(glob(resource_path('svg/icons/*.svg')));
 
-        $this->assertSame(219, $onDisk, '청담원 DS 아이콘 세트가 219종이 아니다.');
+        $this->assertSame(219, $onDisk, 'DS 아이콘 세트가 219종이 아니다.');
         $this->get('/styleguide')->assertSee("아이콘 {$onDisk}종");
+    }
+
+    /**
+     * GPRO 는 각진 시스템이다 — 실측 반경이 2·3·4·6px, Card·Checkbox 는 직각.
+     * Tailwind 기본 반경(rounded-xl 12px · rounded-2xl 16px …)이나 임의값이 섞이면
+     * 화면마다 모서리가 제각각이 된다. DS 4단 + full/none 만 허용한다.
+     */
+    public function test_views_only_use_the_gpro_radius_scale(): void
+    {
+        $allowed = ['rounded-xs', 'rounded-sm', 'rounded-md', 'rounded-lg', 'rounded-full', 'rounded-none'];
+        $offScale = [];
+
+        foreach ($this->bladeFiles() as $file) {
+            preg_match_all('/\brounded(?:-[a-z0-9\[\]#%.-]+)?\b/', file_get_contents($file), $m);
+
+            foreach (array_unique($m[0]) as $cls) {
+                if (! in_array($cls, $allowed, true)) {
+                    $offScale[] = basename($file).' : '.$cls;
+                }
+            }
+        }
+
+        $this->assertSame(
+            [],
+            $offScale,
+            'DS 밖 모서리 반경을 쓰고 있다 (허용: '.implode(', ', $allowed).') — '
+                .implode(' / ', $offScale)
+        );
+    }
+
+    /** @return string[] */
+    private function bladeFiles(): array
+    {
+        $dir = new \RecursiveDirectoryIterator(resource_path('views'));
+        $files = [];
+
+        foreach (new \RecursiveIteratorIterator($dir) as $f) {
+            if ($f->isFile() && str_ends_with($f->getFilename(), '.blade.php')) {
+                $files[] = $f->getPathname();
+            }
+        }
+
+        return $files;
     }
 
     public function test_doc_status_component_renders_label_and_ds_color(): void

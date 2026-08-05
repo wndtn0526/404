@@ -36,13 +36,13 @@
          x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2 scale-[0.98]" x-transition:enter-end="opacity-100 translate-y-0 scale-100"
          x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0 scale-100" x-transition:leave-end="opacity-0 translate-y-2 scale-[0.98]"
          role="dialog" aria-modal="true" :aria-label="title"
-         class="relative w-full max-w-[420px] rounded-2xl bg-background-normal p-8 shadow-elevation-xl">
+         class="relative w-full max-w-[420px] rounded-md bg-background-normal p-8 shadow-elevation-xl">
         <h2 class="text-heading-1 font-bold text-label-strong" x-text="title"></h2>
         <p x-show="message" class="mt-2 whitespace-pre-line break-keep text-body-1 leading-relaxed text-label-alternative" x-text="message"></p>
         <div class="mt-5">
             <label x-show="label" class="mb-1.5 block text-label-1 font-semibold text-label-neutral" x-text="label"></label>
             <input type="text" x-ref="input" x-model="value" :placeholder="placeholder" @keydown.enter.prevent="ok()"
-                   class="h-12 w-full rounded-xl border border-line-solid-normal bg-background-normal px-4 text-body-1 text-label-normal placeholder:text-label-assistive transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
+                   class="h-12 w-full rounded-md border border-line-solid-normal bg-background-normal px-4 text-body-1 text-label-normal placeholder:text-label-assistive transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
         </div>
         <div class="mt-6 flex gap-2.5">
             <x-button variant="secondary" size="md" type="button" class="flex-1" @click="show = false">취소하기</x-button>

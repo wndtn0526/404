@@ -40,7 +40,7 @@
          role="button"
          tabindex="0"
          aria-label="{{ $title }}"
-         class="flex cursor-pointer flex-col items-center justify-center rounded-2xl px-6 py-9 text-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+         class="flex cursor-pointer flex-col items-center justify-center rounded-md px-6 py-9 text-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
          :class="drag
              ? 'bg-primary-soft ring-2 ring-primary'
              : '{{ $hasError ? 'ring-1 ring-status-negative/40' : '' }} bg-background-alternative hover:bg-fill-normal'">
@@ -53,8 +53,8 @@
 
     {{-- 선택된 파일 — DS file-item 스타일 칩 --}}
     <template x-for="(f, i) in files" :key="f.key">
-        <div class="flex items-center gap-3 rounded-xl border border-line-solid-neutral bg-background-normal p-3">
-            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-status-negative/10 text-caption-1 font-bold text-status-negative" x-text="f.ext"></span>
+        <div class="flex items-center gap-3 rounded-md border border-line-solid-neutral bg-background-normal p-3">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-status-negative/10 text-caption-1 font-bold text-status-negative" x-text="f.ext"></span>
             <div class="min-w-0 flex-1">
                 <p class="truncate text-body-2 font-medium text-label-normal" x-text="f.name"></p>
                 <p class="mt-0.5 text-label-2 text-label-alternative" x-text="f.size"></p>

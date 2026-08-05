@@ -25,7 +25,7 @@
     ][$subTone] ?? 'text-primary-strong';
 @endphp
 
-<div {{ $attributes->class('flex flex-col gap-3 rounded-2xl border border-line-solid-neutral bg-background-normal px-[18px] py-4') }}>
+<div {{ $attributes->class('flex flex-col gap-3 rounded-md border border-line-solid-neutral bg-background-normal px-[18px] py-4') }}>
     @if ($label)
         <p class="text-body-2 font-medium text-label-alternative">{{ $label }}</p>
     @endif

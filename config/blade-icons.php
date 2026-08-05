@@ -9,7 +9,8 @@ return [
     | Icon Sets
     |--------------------------------------------------------------------------
     |
-    | 청담원 아이콘 세트 — Figma 디자인 시스템에서 추출한 SVG.
+    | 아이콘 세트 219종 — 청담원 DS Figma 에서 추출한 SVG.
+    | (색·타이포 토큰은 GPRO 로 옮겼지만 아이콘은 아직 이 출처를 쓴다.)
     | 사용: <x-icon-bell class="w-6 h-6 text-primary" />  (prefix 생략 시 set 기본 prefix 'icon')
     |   또는 @svg('icon-bell', 'w-6 h-6')
     |

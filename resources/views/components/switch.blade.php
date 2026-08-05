@@ -49,7 +49,7 @@
     <span class="relative inline-flex shrink-0 items-center rounded-full bg-fill-strong transition-colors duration-200
                  peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40
                  peer-disabled:opacity-[0.43] {{ $track }} {{ $move }}">
-        <span class="pointer-events-none inline-block rounded-full bg-white shadow-elevation-xs transition-transform duration-200 {{ $thumb }}"></span>
+        <span class="pointer-events-none inline-block rounded-full bg-white transition-transform duration-200 {{ $thumb }}"></span>
     </span>
 
     @if ($label)

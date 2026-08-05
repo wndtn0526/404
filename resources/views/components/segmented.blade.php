@@ -32,7 +32,7 @@
      x-modelable="value"
      {{ $attributes->whereStartsWith('x-model') }}
      role="radiogroup"
-     {{ $attributes->whereDoesntStartWith('x-model')->class(($block ? 'flex w-full' : 'inline-flex') . ' items-center gap-1 rounded-lg bg-fill-alternative ' . $sz['pad']) }}>
+     {{ $attributes->whereDoesntStartWith('x-model')->class(($block ? 'flex w-full' : 'inline-flex') . ' items-center gap-1 rounded-md bg-fill-alternative ' . $sz['pad']) }}>
     @if ($name)
         <input type="hidden" name="{{ $name }}" :value="value">
     @endif
@@ -42,7 +42,7 @@
                 @click="value = @js($o['value'])"
                 class="{{ $block ? 'flex-1 ' : '' }}{{ $sz['btn'] }} font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                 :class="value === @js($o['value'])
-                    ? 'bg-background-normal text-label-normal shadow-elevation-xs'
+                    ? 'bg-background-normal text-label-normal'
                     : 'text-label-alternative hover:text-label-normal'">
             {{ $o['label'] }}
         </button>

@@ -21,7 +21,7 @@
             @checked($checked)
             {{ $attributes->class('peer sr-only') }}
         />
-        <span class="w-6 h-6 rounded-md border-2 border-line-normal-strong bg-background-normal
+        <span class="w-6 h-6 rounded-none border-2 border-line-normal-strong bg-background-normal
                      transition-colors duration-150
                      peer-checked:bg-primary peer-checked:border-primary
                      peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40

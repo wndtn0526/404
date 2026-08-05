@@ -26,7 +26,7 @@
      x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
      x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2"
      {{-- 폭은 내용에 맞춤(w-max) — 긴 문구도 화면 한계 전까지 한 줄 유지, 모바일에서만 줄바꿈 --}}
-     class="fixed left-1/2 top-5 z-[100] flex w-max max-w-[calc(100vw-2.5rem)] -translate-x-1/2 items-center gap-2.5 rounded-xl px-5 py-3 shadow-elevation-lg"
+     class="fixed left-1/2 top-5 z-[100] flex w-max max-w-[calc(100vw-2.5rem)] -translate-x-1/2 items-center gap-2.5 rounded-lg px-5 py-3 shadow-elevation-lg"
      :class="isError ? 'bg-status-negative' : 'bg-status-positive'"
      role="status" aria-live="polite">
     <x-icon-circle-exclamation x-show="isError" class="h-5 w-5 shrink-0 text-white" />

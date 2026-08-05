@@ -29,9 +29,9 @@
     $serverDisplayColor = $selectedStr !== '' ? 'text-label-normal' : 'text-label-assistive';
 
     $sizes = [
-        'sm' => ['trigger' => 'h-8 gap-1.5 rounded-lg px-2.5', 'text' => 'text-label-2', 'icon' => 'w-4 h-4', 'option' => 'px-3 py-1.5'],
-        'md' => ['trigger' => 'h-10 gap-2 rounded-lg px-3', 'text' => 'text-body-2', 'icon' => 'w-4 h-4', 'option' => 'px-4 py-2'],
-        'lg' => ['trigger' => 'h-12 gap-3 rounded-xl px-4', 'text' => 'text-body-1', 'icon' => 'w-5 h-5', 'option' => 'px-5 py-3'],
+        'sm' => ['trigger' => 'h-8 gap-1.5 rounded-md px-2.5', 'text' => 'text-label-2', 'icon' => 'w-4 h-4', 'option' => 'px-3 py-1.5'],
+        'md' => ['trigger' => 'h-10 gap-2 rounded-md px-3', 'text' => 'text-body-2', 'icon' => 'w-4 h-4', 'option' => 'px-4 py-2'],
+        'lg' => ['trigger' => 'h-10 gap-3 rounded-md px-4', 'text' => 'text-body-1', 'icon' => 'w-5 h-5', 'option' => 'px-5 py-3'],
     ];
     $sz = $sizes[$size] ?? $sizes['lg'];
 
@@ -42,7 +42,7 @@
     $errBorderCls = 'border-status-negative focus-visible:border-status-negative focus-visible:ring-status-negative/30';
     $okBorderCls = 'border-line-normal-neutral focus-visible:border-primary focus-visible:ring-primary/30';
     $trigger = implode(' ', [
-        'flex w-full items-center justify-between text-left shadow-elevation-xs border bg-background-normal',
+        'flex w-full items-center justify-between text-left border bg-background-normal',
         $sz['trigger'],
         'transition-colors duration-150 focus:outline-none focus-visible:ring-2',
         $hasLive ? '' : ($hasError ? $errBorderCls : $okBorderCls),
@@ -152,7 +152,7 @@
             :style="anchorStyle()"
             x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="overflow-hidden rounded-2xl border border-line-solid-neutral bg-background-normal shadow-elevation-lg"
+            class="overflow-hidden rounded-md border border-line-solid-neutral bg-background-normal shadow-elevation-lg"
         >
             <ul role="listbox" :style="`max-height:${anchor.maxH}px`" class="overflow-y-auto overscroll-contain py-1 focus:outline-none">
                 <template x-for="(o, i) in options" :key="o.value">

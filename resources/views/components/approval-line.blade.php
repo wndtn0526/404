@@ -82,7 +82,7 @@
                         @endif
 
                         @if ($row['comment'])
-                            <p class="mt-1.5 rounded-lg bg-fill-alternative px-3 py-2 text-label-1 text-label-neutral">
+                            <p class="mt-1.5 rounded-md bg-fill-alternative px-3 py-2 text-label-1 text-label-neutral">
                                 {{ $row['comment'] }}
                             </p>
                         @endif

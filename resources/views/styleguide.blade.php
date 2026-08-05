@@ -20,7 +20,16 @@
         'table' => '표',
         'nav' => '탭 · 페이지네이션',
         'surfaces' => '면 · 오버레이',
+        'navigation' => '내비게이션',
         'icons' => '아이콘',
+    ];
+
+    // GPRO LNB 예시 데이터
+    $lnbItems = [
+        ['label' => '결재함', 'href' => '#', 'icon' => 'inbox', 'active' => true, 'badge' => 3],
+        ['label' => '기안 문서', 'href' => '#', 'icon' => 'document-search'],
+        ['label' => '문서함', 'href' => '#', 'icon' => 'list'],
+        ['label' => '설정', 'href' => '#', 'icon' => 'setting'],
     ];
 
     $brand = [
@@ -83,16 +92,16 @@
     ];
 
     $typeScale = [
-        'text-display-1' => '56 · 전자결재에선 거의 안 씀',
+        'text-display-1' => '48 · 전자결재에선 거의 안 씀',
         'text-display-2' => '40',
         'text-display-3' => '36',
         'text-title-1' => '32 · 화면 제목',
-        'text-title-2' => '28',
+        'text-title-2' => '30',
         'text-title-3' => '24 · 섹션 제목',
         'text-heading-1' => '22',
         'text-heading-2' => '20 · 카드 제목',
-        'text-headline-1' => '18',
-        'text-headline-2' => '17',
+        'text-headline-1' => '19',
+        'text-headline-2' => '18',
         'text-body-1' => '16 · 폼 입력 기본',
         'text-body-2' => '15 · 표 본문 · 버튼',
         'text-label-1' => '14 · 보조 라벨',
@@ -136,7 +145,7 @@
             <p class="mb-2 text-caption-1 font-semibold uppercase tracking-wide text-label-assistive">Contents</p>
             @foreach ($sections as $id => $label)
                 <a href="#{{ $id }}"
-                   class="rounded-lg px-3 py-1.5 text-label-1 text-label-alternative transition-colors hover:bg-fill-normal hover:text-label-normal">
+                   class="rounded-md px-3 py-1.5 text-label-1 text-label-alternative transition-colors hover:bg-fill-normal hover:text-label-normal">
                     {{ $label }}
                 </a>
             @endforeach
@@ -148,15 +157,19 @@
                 <div><x-badge color="primary" size="md">Design System</x-badge></div>
                 <h1 class="text-title-1 font-bold text-label-normal">전자결재 디자인 시스템</h1>
                 <p class="text-body-1 text-label-alternative">
-                    청담원 DS 토큰 기반 · Blade 컴포넌트 · 아이콘 {{ $iconNames->count() }}종
+                    GPRO DS 토큰 기반 · Blade 컴포넌트 · 아이콘 {{ $iconNames->count() }}종
                 </p>
-                <div class="rounded-xl border border-line-solid-normal bg-primary-soft px-4 py-3">
+                <div class="rounded-md border border-line-solid-normal bg-primary-soft px-4 py-3">
                     <p class="text-label-1 text-label-neutral">
-                        <strong class="font-semibold text-label-normal">값의 출처는 Figma "청담원 디자인 시스템"이다.</strong>
-                        토큰을 고칠 일이 생기면 Figma → 청담원 플랫폼
-                        <code class="rounded bg-fill-normal px-1 font-mono text-label-2">tailwind.config.js</code> → 이 저장소
-                        <code class="rounded bg-fill-normal px-1 font-mono text-label-2">resources/css/tokens.css</code> 를 함께 맞춘다.
+                        <strong class="font-semibold text-label-normal">값의 출처는 Figma "GPRO_PORTFOLIO" Design guide 다.</strong>
+                        토큰을 고칠 일이 생기면 Figma → 추출본
+                        <code class="rounded-md bg-fill-normal px-1 font-mono text-label-2">resources/design/gpro-tokens.json</code> → 이 저장소
+                        <code class="rounded-md bg-fill-normal px-1 font-mono text-label-2">resources/css/tokens.css</code> 를 함께 맞춘다.
                         뷰에 raw hex 를 쓰지 않는다.
+                    </p>
+                    <p class="mt-2 text-label-2 text-label-alternative">
+                        <code class="font-mono">[파생]</code> 표시가 붙은 토큰은 GPRO 에 대응 단계가 없어 계산해 채운 값이다.
+                        Figma 에 해당 단계가 생기면 교체한다.
                     </p>
                 </div>
             </header>
@@ -166,11 +179,11 @@
                 <h2 class="text-title-3 font-bold text-label-normal">색 · 토큰</h2>
 
                 <div>
-                    <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">Brand (Teal)</h3>
+                    <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">Brand (Black)</h3>
                     <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
                         @foreach ($brand as $cls => $label)
                             <div class="flex flex-col gap-1.5">
-                                <div class="h-20 rounded-xl border border-line-solid-neutral {{ $cls }}"></div>
+                                <div class="h-20 rounded-md border border-line-solid-neutral {{ $cls }}"></div>
                                 <p class="text-label-2 font-medium text-label-normal">{{ $label }}</p>
                                 <code class="font-mono text-caption-1 text-label-assistive">{{ $cls }}</code>
                             </div>
@@ -180,7 +193,7 @@
 
                 <div>
                     <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">Label (텍스트)</h3>
-                    <div class="flex flex-col gap-1 rounded-xl border border-line-solid-neutral bg-background-normal p-5">
+                    <div class="flex flex-col gap-1 rounded-md border border-line-solid-neutral bg-background-normal p-5">
                         @foreach ($labelClasses as $cls)
                             <div class="flex items-baseline justify-between gap-4 py-1">
                                 <span class="text-body-1 {{ $cls }}">가나다 Approval 0123</span>
@@ -196,7 +209,7 @@
                         <div class="grid grid-cols-3 gap-3">
                             @foreach ($surfaceClasses as $cls)
                                 <div class="flex flex-col gap-1.5">
-                                    <div class="h-16 rounded-lg border border-line-solid-normal {{ $cls }}"></div>
+                                    <div class="h-16 rounded-md border border-line-solid-normal {{ $cls }}"></div>
                                     <code class="break-all font-mono text-caption-2 text-label-assistive">{{ $cls }}</code>
                                 </div>
                             @endforeach
@@ -207,7 +220,7 @@
                         <div class="grid grid-cols-3 gap-3">
                             @foreach ($lineClasses as $cls)
                                 <div class="flex flex-col gap-1.5">
-                                    <div class="h-16 rounded-lg border-2 bg-background-normal {{ $cls }}"></div>
+                                    <div class="h-16 rounded-md border-2 bg-background-normal {{ $cls }}"></div>
                                     <code class="break-all font-mono text-caption-2 text-label-assistive">{{ $cls }}</code>
                                 </div>
                             @endforeach
@@ -219,7 +232,7 @@
                     <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">Status · Accent</h3>
                     <div class="flex flex-wrap gap-3">
                         @foreach ($statusClasses as $cls)
-                            <div class="flex items-center gap-2 rounded-lg border border-line-solid-neutral bg-background-normal px-3 py-2">
+                            <div class="flex items-center gap-2 rounded-md border border-line-solid-neutral bg-background-normal px-3 py-2">
                                 <span class="size-4 rounded-full {{ $cls }}"></span>
                                 <code class="font-mono text-caption-1 text-label-alternative">{{ $cls }}</code>
                             </div>
@@ -227,7 +240,7 @@
                     </div>
                     <div class="mt-3 flex flex-wrap gap-3">
                         @foreach ($accentClasses as $cls)
-                            <div class="flex items-center gap-2 rounded-lg border border-line-solid-neutral bg-background-normal px-3 py-2">
+                            <div class="flex items-center gap-2 rounded-md border border-line-solid-neutral bg-background-normal px-3 py-2">
                                 <span class="size-4 rounded-full {{ $cls }}"></span>
                                 <code class="font-mono text-caption-2 text-label-alternative">{{ str_replace('bg-accent-fg-', '', $cls) }}</code>
                             </div>
@@ -244,7 +257,7 @@
                     <div class="flex flex-wrap gap-4">
                         @foreach ($shadowClasses as $cls)
                             <div class="flex flex-col items-center gap-2">
-                                <div class="size-20 rounded-xl bg-background-normal {{ $cls }}"></div>
+                                <div class="size-20 rounded-md bg-background-normal {{ $cls }}"></div>
                                 <code class="font-mono text-caption-2 text-label-assistive">{{ $cls }}</code>
                             </div>
                         @endforeach
@@ -261,7 +274,7 @@
                         색·굵기는 역할에 따라 따로 지정.
                     </p>
                 </div>
-                <div class="flex flex-col divide-y divide-line-solid-alternative rounded-xl border border-line-solid-neutral bg-background-normal">
+                <div class="flex flex-col divide-y divide-line-solid-alternative rounded-md border border-line-solid-neutral bg-background-normal">
                     @foreach ($typeScale as $cls => $note)
                         <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-5 py-3">
                             <span class="{{ $cls }} font-semibold text-label-normal">결재 문서를 상신합니다</span>
@@ -289,7 +302,7 @@
                         <x-button variant="danger">danger</x-button>
                     </div>
                     <p class="mt-4 text-label-1 text-label-alternative">
-                        <code class="font-mono text-label-2">danger</code> 는 청담원 DS 에 없고 전자결재에서 추가했다.
+                        <code class="font-mono text-label-2">danger</code> 는 GPRO 원본에 없고 전자결재에서 추가했다.
                         반려·삭제를 primary 로 내보내면 승인과 구분이 안 된다.
                     </p>
                 </x-card>
@@ -422,6 +435,98 @@
             {{-- ═══ 폼 ═══ --}}
             <section id="forms" class="flex flex-col gap-5">
                 <h2 class="text-title-3 font-bold text-label-normal">폼 컨트롤</h2>
+
+                {{-- ── GPRO Input 원본 (Figma 1002:518593) ─────────────────────────
+                     피그마 목차 그대로: 6개 변형 × 상태. 규칙도 원본 주석에서 옮겼다. --}}
+                <x-card>
+                    <div class="mb-5">
+                        <p class="text-headline-2 font-semibold text-label-normal">GPRO Input — 원본 6종</p>
+                        <p class="mt-1 text-label-1 text-label-alternative">
+                            Figma "GPRO_PORTFOLIO" Input (1002:518593). 박스 높이에 따라 <strong>Box 40 / Box 32</strong>로 나뉜다.
+                            인풋 박스는 <strong>안쪽 좌우 패딩이 고정</strong>이고 양옆으로만 늘어난다.
+                            Multi Line 을 제외한 나머지는 <strong>높이가 고정</strong>이다. 그림자는 없다.
+                        </p>
+                    </div>
+
+                    {{-- Status 매트릭스 — 호버·액티브는 실제로 만질 수 없으니 고정 상태로 함께 보여준다 --}}
+                    <div class="mb-6 overflow-x-auto">
+                        <p class="mb-3 text-label-1 font-semibold text-label-alternative">Status 6종 (Box 40 기준)</p>
+                        <div class="grid min-w-[720px] grid-cols-6 gap-3">
+                            @foreach ([
+                                'Default' => 'border-line-solid-normal',
+                                'Hover' => 'border-line-solid-normal bg-background-elevated-alternative',
+                                'Active' => 'border-deep-blue-900',
+                                'Success' => 'border-line-solid-normal',
+                                'Error' => 'border-status-negative',
+                                'Disabled' => 'border-interaction-disable bg-interaction-disable',
+                            ] as $status => $cls)
+                                <div class="flex flex-col gap-1.5">
+                                    <span class="text-caption-1 font-semibold text-label-alternative">{{ $status }}</span>
+                                    <div class="flex h-10 items-center gap-px rounded-md border px-[11px] text-label-1 {{ $cls }} {{ $status === 'Disabled' ? 'text-label-disable' : 'text-label-strong' }}">
+                                        {{ $status === 'Disabled' ? 'Filled' : 'Typing' }}
+                                        @if ($status === 'Active')
+                                            {{-- GPRO cursor bar — 1×17px deep blue --}}
+                                            <span class="ml-px block h-[17px] w-px bg-deep-blue-900"></span>
+                                        @endif
+                                    </div>
+                                    @if ($status === 'Success')
+                                        <span class="text-label-2 text-status-positive">사용할 수 있습니다</span>
+                                    @elseif ($status === 'Error')
+                                        <span class="text-label-2 text-status-negative">이미 사용 중입니다</span>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                        <p class="mt-3 text-label-2 text-label-alternative">
+                            ⚠️ <strong>Active 는 브랜드색(검정)이 아니라 <code class="font-mono">deep-blue-900</code></strong> 이다 — GPRO 원본을 그대로 따랐다.
+                            <strong>보더 색만 바뀐다 — 링도 그림자도 없다.</strong> 캐럿(1×17px)도 같은 파랑이다.
+                            Success 는 보더가 바뀌지 않고 하단 메시지만 초록이다. 박스 안쪽 좌우 패딩은 11px 고정.
+                        </p>
+                    </div>
+
+                    {{-- Version 4종 × 크기 --}}
+                    <div class="grid gap-6 lg:grid-cols-2">
+                        <div class="flex flex-col gap-3">
+                            <p class="text-label-1 font-semibold text-label-alternative">1. Input Box 40 — Placeholder / Filled</p>
+                            <x-input size="md" placeholder="Placeholder" />
+                            <x-input size="md" value="Filled" />
+                            <x-input size="md" value="Filled" icon="search" />
+                            <x-input size="md" value="Filled" disabled />
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-label-1 font-semibold text-label-alternative">2. Input Box 32 — Placeholder / Filled</p>
+                            <x-input size="sm" placeholder="Placeholder" />
+                            <x-input size="sm" value="Filled" />
+                            <x-input size="sm" value="Filled" icon="search" />
+                            <x-input size="sm" value="Filled" disabled />
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-label-1 font-semibold text-label-alternative">3. Input Box Multi Line <span class="font-normal">— 유일하게 높이가 늘어난다</span></p>
+                            <x-textarea placeholder="Placeholder" rows="3" />
+                            <x-textarea rows="3" error="내용을 입력해 주세요">Typing</x-textarea>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-label-1 font-semibold text-label-alternative">6. Line Input</p>
+                            <x-input variant="line" size="md" placeholder="Placeholder" />
+                            <x-input variant="line" size="md" value="Filled" />
+                            <x-input variant="line" size="md" value="Typing" error="확인이 필요합니다" />
+                            <x-input variant="line" size="md" value="Filled" disabled />
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-label-1 font-semibold text-label-alternative">4. Input Box 40 Tag <span class="font-normal">— Default·Hover·Disabled 만 정의됨</span></p>
+                            <x-input size="md" :tags="['기획팀', '김기안']" placeholder="이름 입력" />
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-label-1 font-semibold text-label-alternative">5. Input Box 32 Tag</p>
+                            <x-input size="sm" :tags="['긴급']" placeholder="태그 입력" />
+                        </div>
+                    </div>
+                </x-card>
 
                 <div class="grid gap-5 lg:grid-cols-2">
                     <x-card>
@@ -574,19 +679,90 @@
                 </x-modal>
             </section>
 
+            {{-- ═══ 내비게이션 (GPRO GNB · LNB · Breadcrumb · Tooltip · Thumbnail) ═══ --}}
+            <section id="navigation" class="flex flex-col gap-6">
+                <div>
+                    <h2 class="text-title-3 font-bold text-label-normal">내비게이션</h2>
+                    <p class="mt-1 text-body-2 text-label-alternative">
+                        GPRO 원본에 있는데 이 저장소에 없던 것들. Figma Dev Mode 로 실측해 옮겼다.
+                    </p>
+                </div>
+
+                <x-card>
+                    <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">GNB · 글로벌 헤더</h3>
+                    <div class="overflow-hidden rounded-md border border-line-solid-neutral">
+                        <x-gnb title="전자결재" user="김기안" :hasAlarm="true" class="!static" />
+                    </div>
+                    <p class="mt-3 text-label-1 text-label-alternative">
+                        높이 56px. 메뉴 버튼은 <code class="font-mono text-label-2">lnb-toggle</code> 이벤트를 쏘고 LNB 가 받는다.
+                    </p>
+                </x-card>
+
+                <x-card>
+                    <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">LNB · 사이드바</h3>
+                    <div class="overflow-hidden rounded-md border border-line-solid-neutral">
+                        <x-lnb :items="$lnbItems" heading="전자결재" class="!flex h-80" />
+                    </div>
+                    <p class="mt-3 text-label-1 text-label-alternative">
+                        너비 240px · 항목 높이 32px · 반경 3px. 어두운 면(Side Bar BG 01/02)을 쓴다.
+                    </p>
+                </x-card>
+
+                <x-card>
+                    <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">Breadcrumb</h3>
+                    <x-breadcrumb :items="[
+                        ['label' => '홈', 'href' => '#'],
+                        ['label' => '결재함', 'href' => '#'],
+                        ['label' => '2026년 3분기 예산 신청'],
+                    ]" />
+                </x-card>
+
+                <x-card>
+                    <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">Tooltip</h3>
+                    <div class="flex flex-wrap items-center gap-6 py-4">
+                        <x-tooltip text="기안자에게 문서가 돌아갑니다" position="top">
+                            <x-button variant="danger" size="md">반려</x-button>
+                        </x-tooltip>
+                        <x-tooltip text="다음 결재자에게 넘어갑니다" position="bottom">
+                            <x-button variant="primary" size="md">승인</x-button>
+                        </x-tooltip>
+                        <x-tooltip text="오른쪽에 뜨는 툴팁" position="right">
+                            <x-button variant="secondary" size="md">오른쪽</x-button>
+                        </x-tooltip>
+                    </div>
+                    <p class="text-label-1 text-label-alternative">호버·포커스에 반응한다. 반경 6px · 11px 텍스트.</p>
+                </x-card>
+
+                <x-card>
+                    <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">Thumbnail · Profile</h3>
+                    <div class="flex flex-wrap items-end gap-4">
+                        <x-thumbnail name="김기안" size="xs" />
+                        <x-thumbnail name="이대리" size="sm" />
+                        <x-thumbnail name="박과장" size="md" />
+                        <x-thumbnail name="최부장" size="lg" />
+                        <x-thumbnail name="정이사" size="xl" />
+                        <x-thumbnail name="사각" size="lg" shape="square" />
+                        <x-thumbnail size="lg" />
+                    </div>
+                    <p class="mt-3 text-label-1 text-label-alternative">
+                        Profile 은 원형, Thumbnail 은 4px 사각. 이미지가 없으면 이름 첫 글자, 이름도 없으면 아이콘.
+                    </p>
+                </x-card>
+            </section>
+
             {{-- ═══ 아이콘 ═══ --}}
             <section id="icons" class="flex flex-col gap-4">
                 <div>
                     <h2 class="text-title-3 font-bold text-label-normal">아이콘</h2>
                     <p class="mt-1 text-body-2 text-label-alternative">
-                        청담원 DS 아이콘 {{ $iconNames->count() }}종.
+                        아이콘 {{ $iconNames->count() }}종.
                         <code class="font-mono text-label-2">&lt;x-icon-{이름} class="h-5 w-5" /&gt;</code>
-                        — 두 저장소에서 같은 이름으로 동작한다.
+                        — 색·타이포는 GPRO 로 옮겼지만 아이콘 세트는 아직 청담원 DS 출처다.
                     </p>
                 </div>
                 <div class="grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-8">
                     @foreach ($iconNames as $name)
-                        <div class="flex flex-col items-center gap-1.5 rounded-lg border border-line-solid-alternative bg-background-normal px-2 py-3 text-label-neutral transition-colors hover:border-primary hover:text-primary">
+                        <div class="flex flex-col items-center gap-1.5 rounded-md border border-line-solid-alternative bg-background-normal px-2 py-3 text-label-neutral transition-colors hover:border-primary hover:text-primary">
                             <x-dynamic-component :component="'icon-' . $name" class="h-6 w-6" />
                             <code class="w-full truncate text-center font-mono text-caption-2 text-label-assistive" title="{{ $name }}">{{ $name }}</code>
                         </div>

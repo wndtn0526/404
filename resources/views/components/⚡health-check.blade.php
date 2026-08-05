@@ -56,7 +56,7 @@ new class extends Component
         Laravel {{ app()->version() }} · PHP {{ PHP_VERSION }} · 점검 {{ $checks }}회
     </p>
 
-    <dl class="mt-8 divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white">
+    <dl class="mt-8 divide-y divide-slate-200 rounded-md border border-slate-200 bg-white">
         @foreach ($results as $label => $result)
             <div class="flex items-start gap-4 px-5 py-4">
                 <span @class([

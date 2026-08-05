@@ -10,7 +10,7 @@
     'required' => false,
     'maxlength' => null,   // 지정 시 글자 수 카운터 표시 + 네이티브 입력 제한
     'minlength' => null,
-    'size' => 'lg',        // md(rounded-lg·body-2·조밀) | lg(rounded-xl·body-1·기본) — x-input과 결 통일
+    'size' => 'lg',        // md(rounded-md·body-2·조밀) | lg(rounded-md·body-1·기본) — x-input과 결 통일
 ])
 
 @php
@@ -19,13 +19,14 @@
     $counter = filled($maxlength);
     $initial = trim((string) $slot);
 
-    $sizeCls = $size === 'md' ? 'rounded-lg px-3.5 py-2.5 text-body-2' : 'rounded-xl px-4 py-3 text-body-1';
+    $sizeCls = $size === 'md' ? 'rounded-md px-3.5 py-2.5 text-body-2' : 'rounded-md px-4 py-3 text-body-1';
     // 폼 기본(lg)은 라벨을 body-1(16px)로 — 시니어 가독성. 조밀한 md는 14px 유지.
     $labelCls = $size === 'lg' ? 'text-body-1' : 'text-label-1';
-    $base = "w-full $sizeCls bg-background-normal text-label-normal placeholder:text-label-assistive resize-y shadow-elevation-xs border transition-colors duration-150 focus:outline-none disabled:bg-interaction-disable disabled:text-label-disable";
+    // GPRO Input Box Multi Line — Status 값은 x-input 과 동일. 이것만 높이가 늘어난다.
+    $base = "w-full $sizeCls bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive resize-y border transition-colors duration-150 focus:outline-none disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable";
     $state = $hasError
-        ? 'border-status-negative focus:border-status-negative focus:ring-2 focus:ring-status-negative/30'
-        : 'border-line-solid-normal focus:border-primary focus:ring-2 focus:ring-primary/30';
+        ? 'border-status-negative focus:border-status-negative'
+        : 'border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900';
     $fieldClasses = trim("$base $state");
     // footer 행: hint/error(좌) 또는 카운터(우) 중 하나라도 있으면 렌더
     $hasFooter = $hasError || filled($hint) || $counter;

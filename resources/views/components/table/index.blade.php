@@ -20,7 +20,7 @@
     'selectable' => false,   // 체크박스 선택 컬럼 사용(Alpine `selected` 배열 제공)
 ])
 
-<div {{ $attributes->class('w-full overflow-x-auto rounded-2xl border border-line-solid-neutral bg-background-normal') }}
+<div {{ $attributes->class('w-full overflow-x-auto rounded-xs border border-line-solid-neutral bg-background-normal') }}
      @if ($selectable) x-data="{ selected: [] }" @endif>
     <table class="w-full border-collapse text-left" style="min-width: {{ $minWidth }}">
         {{ $slot }}
