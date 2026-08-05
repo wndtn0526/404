@@ -31,6 +31,45 @@ class DesignSystemTest extends TestCase
     }
 
     /**
+     * 폰트는 Pretendard 하나만 쓴다.
+     *
+     * --font-mono 를 덮어두지 않으면 Tailwind preflight 가 code·kbd·samp·pre 에
+     * 기본 모노스페이스 스택을 물려서 그 태그들만 다른 폰트로 튄다. 실제로 표의
+     * 문서번호를 <code> 로 감싸 놓아 SF Mono 로 나온 적이 있다.
+     */
+    public function test_only_pretendard_is_used(): void
+    {
+        $css = file_get_contents(resource_path('css/tokens.css'));
+
+        foreach (['--font-sans', '--font-mono'] as $var) {
+            preg_match('/'.preg_quote($var, '/').':\s*([^;]+);/', $css, $m);
+            $this->assertNotEmpty($m, "{$var} 가 tokens.css 에 없다.");
+
+            $stack = $m[1];
+            $this->assertStringContainsString('Pretendard', $stack, "{$var} 에 Pretendard 가 없다.");
+
+            foreach (['Apple SD Gothic Neo', 'Noto Sans', 'Malgun', 'Helvetica', 'Roboto', 'Segoe', 'system-ui', 'ui-monospace', 'Menlo', 'Consolas'] as $other) {
+                $this->assertStringNotContainsString(
+                    $other,
+                    $stack,
+                    "{$var} 에 Pretendard 아닌 폰트({$other})가 있다. 폰트는 Pretendard 하나만 쓴다."
+                );
+            }
+        }
+
+        // font-mono 유틸리티는 이제 Pretendard 로 렌더된다 — 이름이 거짓이 되므로 쓰지 않는다.
+        $offenders = [];
+
+        foreach ($this->bladeFiles() as $file) {
+            if (str_contains(file_get_contents($file), 'font-mono')) {
+                $offenders[] = str_replace(resource_path('views/'), '', $file);
+            }
+        }
+
+        $this->assertSame([], $offenders, 'font-mono 를 쓰고 있다. 폰트가 하나뿐이므로 이 유틸리티는 의미가 없다: '.implode(', ', $offenders));
+    }
+
+    /**
      * 원본은 각진 시스템이다 — 실측 반경이 2·3·4·6px, Card·Checkbox 는 직각.
      * Tailwind 기본 반경(rounded-xl 12px · rounded-2xl 16px …)이나 임의값이 섞이면
      * 화면마다 모서리가 제각각이 된다. DS 4단 + full/none 만 허용한다.

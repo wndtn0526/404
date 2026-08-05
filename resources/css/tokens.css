@@ -17,12 +17,17 @@
    ============================================================================ */
 
 @theme {
-    /* ── 폰트 ────────────────────────────────────────────────────────────────
-       원본은 Pretendard(18단 × Bold/Medium/Regular)와 Apple SD Gothic Neo 두 계열을
-       함께 갖고 있다. SD Gothic Neo 는 레거시로 보고 Pretendard 로 통일한다. */
-    --font-sans:
-        'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto,
-        'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    /* ── 폰트 — Pretendard 하나만 쓴다 ───────────────────────────────────────
+       원본 Figma 는 Pretendard 와 Apple SD Gothic Neo 두 계열을 함께 갖고 있지만
+       이 저장소는 Pretendard 단일로 간다. 다른 계열을 폴백에도 두지 않는다 —
+       화면마다 글자 두께·자폭이 미묘하게 갈리는 원인이 된다.
+       마지막 sans-serif 는 Pretendard 를 못 받았을 때의 최후 수단이다.
+
+       --font-mono 도 Pretendard 로 덮는다. Tailwind preflight 가
+       code·kbd·samp·pre 에 --font-mono 를 물리기 때문에, 이걸 두지 않으면
+       그 태그들만 모노스페이스로 튄다. DesignSystemTest 가 이 두 값을 지킨다. */
+    --font-sans: 'Pretendard Variable', 'Pretendard', sans-serif;
+    --font-mono: 'Pretendard Variable', 'Pretendard', sans-serif;
 
     /* ========================================================================
        1. 원시 계층 — Figma 변수 그대로

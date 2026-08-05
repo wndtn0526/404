@@ -144,12 +144,12 @@
                     <p class="text-label-1 text-label-neutral">
                         <strong class="font-semibold text-label-normal">값의 출처는 Figma 디자인 가이드 다.</strong>
                         토큰을 고칠 일이 생기면 Figma → 추출본
-                        <code class="rounded-md bg-fill-normal px-1 font-mono text-label-2">resources/design/design-tokens.json</code> → 이 저장소
-                        <code class="rounded-md bg-fill-normal px-1 font-mono text-label-2">resources/css/tokens.css</code> 를 함께 맞춘다.
+                        <code class="rounded-md bg-fill-normal px-1 text-label-2">resources/design/design-tokens.json</code> → 이 저장소
+                        <code class="rounded-md bg-fill-normal px-1 text-label-2">resources/css/tokens.css</code> 를 함께 맞춘다.
                         뷰에 raw hex 를 쓰지 않는다.
                     </p>
                     <p class="mt-2 text-label-2 text-label-alternative">
-                        <code class="font-mono">[파생]</code> 표시가 붙은 토큰은 원본에 대응 단계가 없어 계산해 채운 값이다.
+                        <code>[파생]</code> 표시가 붙은 토큰은 원본에 대응 단계가 없어 계산해 채운 값이다.
                         Figma 에 해당 단계가 생기면 교체한다.
                     </p>
                 </div>
@@ -166,7 +166,7 @@
                             <div class="flex flex-col gap-1.5">
                                 <div class="h-20 rounded-md border border-line-solid-neutral {{ $cls }}"></div>
                                 <p class="text-label-2 font-medium text-label-normal">{{ $label }}</p>
-                                <code class="font-mono text-caption-1 text-label-assistive">{{ $cls }}</code>
+                                <code class="text-caption-1 text-label-assistive">{{ $cls }}</code>
                             </div>
                         @endforeach
                     </div>
@@ -178,7 +178,7 @@
                         @foreach ($labelClasses as $cls)
                             <div class="flex items-baseline justify-between gap-4 py-1">
                                 <span class="text-body-1 {{ $cls }}">가나다 Approval 0123</span>
-                                <code class="shrink-0 font-mono text-caption-1 text-label-assistive">{{ $cls }}</code>
+                                <code class="shrink-0 text-caption-1 text-label-assistive">{{ $cls }}</code>
                             </div>
                         @endforeach
                     </div>
@@ -191,7 +191,7 @@
                             @foreach ($surfaceClasses as $cls)
                                 <div class="flex flex-col gap-1.5">
                                     <div class="h-16 rounded-md border border-line-solid-normal {{ $cls }}"></div>
-                                    <code class="break-all font-mono text-caption-2 text-label-assistive">{{ $cls }}</code>
+                                    <code class="break-all text-caption-2 text-label-assistive">{{ $cls }}</code>
                                 </div>
                             @endforeach
                         </div>
@@ -202,7 +202,7 @@
                             @foreach ($lineClasses as $cls)
                                 <div class="flex flex-col gap-1.5">
                                     <div class="h-16 rounded-md border-2 bg-background-normal {{ $cls }}"></div>
-                                    <code class="break-all font-mono text-caption-2 text-label-assistive">{{ $cls }}</code>
+                                    <code class="break-all text-caption-2 text-label-assistive">{{ $cls }}</code>
                                 </div>
                             @endforeach
                         </div>
@@ -215,7 +215,7 @@
                         @foreach ($statusClasses as $cls)
                             <div class="flex items-center gap-2 rounded-md border border-line-solid-neutral bg-background-normal px-3 py-2">
                                 <span class="size-4 rounded-full {{ $cls }}"></span>
-                                <code class="font-mono text-caption-1 text-label-alternative">{{ $cls }}</code>
+                                <code class="text-caption-1 text-label-alternative">{{ $cls }}</code>
                             </div>
                         @endforeach
                     </div>
@@ -223,13 +223,13 @@
                         @foreach ($accentClasses as $cls)
                             <div class="flex items-center gap-2 rounded-md border border-line-solid-neutral bg-background-normal px-3 py-2">
                                 <span class="size-4 rounded-full {{ $cls }}"></span>
-                                <code class="font-mono text-caption-2 text-label-alternative">{{ str_replace('bg-accent-fg-', '', $cls) }}</code>
+                                <code class="text-caption-2 text-label-alternative">{{ str_replace('bg-accent-fg-', '', $cls) }}</code>
                             </div>
                         @endforeach
                     </div>
                     <p class="mt-3 text-label-1 text-label-alternative">
-                        Accent 는 <code class="font-mono text-label-2">fg-</code> 계열(텍스트·아이콘용, 명도 대비 확보)을 쓴다.
-                        면을 채울 때만 <code class="font-mono text-label-2">bg-accent-*</code>.
+                        Accent 는 <code class="text-label-2">fg-</code> 계열(텍스트·아이콘용, 명도 대비 확보)을 쓴다.
+                        면을 채울 때만 <code class="text-label-2">bg-accent-*</code>.
                     </p>
                 </div>
 
@@ -239,7 +239,7 @@
                         @foreach ($shadowClasses as $cls)
                             <div class="flex flex-col items-center gap-2">
                                 <div class="size-20 rounded-md bg-background-normal {{ $cls }}"></div>
-                                <code class="font-mono text-caption-2 text-label-assistive">{{ $cls }}</code>
+                                <code class="text-caption-2 text-label-assistive">{{ $cls }}</code>
                             </div>
                         @endforeach
                     </div>
@@ -251,7 +251,7 @@
                 <div>
                     <h2 class="text-title-3 font-bold text-label-normal">타이포</h2>
                     <p class="mt-1 text-body-2 text-label-alternative">
-                        Pretendard. <code class="font-mono text-label-2">text-{토큰}</code> 이 크기·행간·자간을 한 번에 적용한다.
+                        Pretendard. <code class="text-label-2">text-{토큰}</code> 이 크기·행간·자간을 한 번에 적용한다.
                         색·굵기는 역할에 따라 따로 지정.
                     </p>
                 </div>
@@ -261,7 +261,7 @@
                             <span class="{{ $cls }} font-semibold text-label-normal">결재 문서를 상신합니다</span>
                             <span class="flex shrink-0 items-baseline gap-3">
                                 <span class="text-caption-1 text-label-assistive">{{ $note }}</span>
-                                <code class="font-mono text-caption-1 text-label-alternative">{{ $cls }}</code>
+                                <code class="text-caption-1 text-label-alternative">{{ $cls }}</code>
                             </span>
                         </div>
                     @endforeach
@@ -283,7 +283,7 @@
                         <x-button variant="danger">danger</x-button>
                     </div>
                     <p class="mt-4 text-label-1 text-label-alternative">
-                        <code class="font-mono text-label-2">danger</code> 는 원본에 없고 전자결재에서 추가했다.
+                        <code class="text-label-2">danger</code> 는 원본에 없고 전자결재에서 추가했다.
                         반려·삭제를 primary 로 내보내면 승인과 구분이 안 된다.
                     </p>
                 </x-card>
@@ -326,14 +326,14 @@
                     <div class="flex flex-col gap-4">
                         @foreach (['solid', 'outlined', 'filled'] as $variant)
                             <div class="flex flex-wrap items-center gap-2">
-                                <code class="w-20 shrink-0 font-mono text-caption-1 text-label-assistive">{{ $variant }}</code>
+                                <code class="w-20 shrink-0 text-caption-1 text-label-assistive">{{ $variant }}</code>
                                 @foreach (['neutral', 'primary', 'blue', 'green', 'red', 'cyan', 'orange', 'violet'] as $color)
                                     <x-badge :variant="$variant" :color="$color" size="md">{{ $color }}</x-badge>
                                 @endforeach
                             </div>
                         @endforeach
                         <div class="flex flex-wrap items-center gap-2 border-t border-line-solid-alternative pt-4">
-                            <code class="w-20 shrink-0 font-mono text-caption-1 text-label-assistive">size</code>
+                            <code class="w-20 shrink-0 text-caption-1 text-label-assistive">size</code>
                             @foreach (['xs', 'sm', 'md', 'lg'] as $size)
                                 <x-badge :size="$size" color="primary">{{ $size }}</x-badge>
                             @endforeach
@@ -388,7 +388,7 @@
                             @endforeach
                         </div>
                         <p class="mt-3 text-label-2 text-label-alternative">
-                            ⚠️ <strong>Active 는 브랜드색(검정)이 아니라 <code class="font-mono">deep-blue-900</code></strong> 이다 — 원본을 그대로 따랐다.
+                            ⚠️ <strong>Active 는 브랜드색(검정)이 아니라 <code>deep-blue-900</code></strong> 이다 — 원본을 그대로 따랐다.
                             <strong>보더 색만 바뀐다 — 링도 그림자도 없다.</strong> 캐럿(1×17px)도 같은 파랑이다.
                             Success 는 보더가 바뀌지 않고 하단 메시지만 초록이다. 박스 안쪽 좌우 패딩은 11px 고정.
                         </p>
@@ -603,7 +603,7 @@
                 <x-card>
                     <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">Filter Bar · 데이터 테이블 필터</h3>
                     <p class="mb-4 text-label-1 text-label-alternative">
-                        <code class="font-mono text-label-2">&lt;x-filter-bar&gt;</code> — 검색 + 필터 pill + 「총 N건」을
+                        <code class="text-label-2">&lt;x-filter-bar&gt;</code> — 검색 + 필터 pill + 「총 N건」을
                         한 줄로 묶어 <strong class="font-semibold text-label-normal">표 바로 위</strong>에 둔다.
                         검색창을 표와 분리해 따로 두지 않는다. 청담원 플랫폼 저장소에서 옮겨 왔다.
                     </p>
@@ -621,11 +621,11 @@
                     />
 
                     <p class="mt-4 text-label-1 text-label-alternative">
-                        <code class="font-mono text-label-2">type</code> —
-                        <code class="font-mono text-label-2">select</code> 선택형 ·
-                        <code class="font-mono text-label-2">search</code> 검색형 ·
-                        <code class="font-mono text-label-2">date</code> 날짜 범위 ·
-                        <code class="font-mono text-label-2">amount</code> 금액 범위.
+                        <code class="text-label-2">type</code> —
+                        <code class="text-label-2">select</code> 선택형 ·
+                        <code class="text-label-2">search</code> 검색형 ·
+                        <code class="text-label-2">date</code> 날짜 범위 ·
+                        <code class="text-label-2">amount</code> 금액 범위.
                     </p>
                     <p class="mt-1 text-label-1 text-label-alternative">
                         ⚠️ 팝오버·드롭다운 패널 반경은 원본의 12px 단계를 우리 스케일 최대값 6px 로 내렸다.
@@ -636,7 +636,7 @@
                 <x-card>
                     <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">워크스페이스 셸</h3>
                     <p class="text-label-1 text-label-alternative">
-                        <code class="font-mono text-label-2">&lt;x-workspace-shell&gt;</code> — 워크스페이스 레일(54px)이 붙은
+                        <code class="text-label-2">&lt;x-workspace-shell&gt;</code> — 워크스페이스 레일(54px)이 붙은
                         다크 LNB + 배경 투명 GNB. 출처는 <strong class="font-semibold text-label-normal">디자인 가이드가 아니라</strong>
                         워크스페이스 화면 파일(node 1-299)이다.
                     </p>
@@ -656,7 +656,7 @@
                         <x-gnb title="전자결재" user="김기안" :hasAlarm="true" class="!static" />
                     </div>
                     <p class="mt-3 text-label-1 text-label-alternative">
-                        높이 56px. 메뉴 버튼은 <code class="font-mono text-label-2">lnb-toggle</code> 이벤트를 쏘고 LNB 가 받는다.
+                        높이 56px. 메뉴 버튼은 <code class="text-label-2">lnb-toggle</code> 이벤트를 쏘고 LNB 가 받는다.
                     </p>
                 </x-card>
 
@@ -718,7 +718,7 @@
                     <h2 class="text-title-3 font-bold text-label-normal">아이콘</h2>
                     <p class="mt-1 text-body-2 text-label-alternative">
                         아이콘 {{ $iconNames->count() }}종.
-                        <code class="font-mono text-label-2">&lt;x-icon-{이름} class="h-5 w-5" /&gt;</code>
+                        <code class="text-label-2">&lt;x-icon-{이름} class="h-5 w-5" /&gt;</code>
                         — 색·타이포는 원본 로 옮겼지만 아이콘 세트는 아직 청담원 DS 출처다.
                     </p>
                 </div>
@@ -726,14 +726,14 @@
                     @foreach ($iconNames as $name)
                         <div class="flex flex-col items-center gap-1.5 rounded-md border border-line-solid-alternative bg-background-normal px-2 py-3 text-label-neutral transition-colors hover:border-primary hover:text-primary">
                             <x-dynamic-component :component="'icon-' . $name" class="h-6 w-6" />
-                            <code class="w-full truncate text-center font-mono text-caption-2 text-label-assistive" title="{{ $name }}">{{ $name }}</code>
+                            <code class="w-full truncate text-center text-caption-2 text-label-assistive" title="{{ $name }}">{{ $name }}</code>
                         </div>
                     @endforeach
                 </div>
             </section>
 
             <footer class="border-t border-line-solid-normal pb-10 pt-6 text-label-1 text-label-assistive">
-                이 페이지는 <code class="font-mono text-label-2">resources/views/styleguide.blade.php</code>.
+                이 페이지는 <code class="text-label-2">resources/views/styleguide.blade.php</code>.
                 새 컴포넌트를 만들면 여기에도 추가한다 — 그래야 깨진 걸 바로 본다.
             </footer>
         </main>
