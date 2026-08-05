@@ -101,8 +101,10 @@
             <tbody>
                 @foreach ($rows as $row)
                     <x-table.row selectable :value="$row['id']">
+                        {{-- ID 는 데이터다. <code> 로 감싸면 Tailwind preflight 가 code 태그에
+                             모노스페이스를 물려서 Pretendard 가 아니게 된다. --}}
                         <x-table.cell tone="muted" nowrap>
-                            <code class="font-mono text-label-2">{{ $row['id'] }}</code>
+                            <span class="text-label-2 tabular-nums">{{ $row['id'] }}</span>
                         </x-table.cell>
                         <x-table.cell tone="strong">{{ $row['title'] }}</x-table.cell>
                         <x-table.cell align="center" tone="muted" nowrap>{{ $row['type'] }}</x-table.cell>

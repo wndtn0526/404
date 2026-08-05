@@ -512,7 +512,9 @@
                         @foreach ($docs as $doc)
                             <x-table.row selectable :value="$doc['no']">
                                 <x-table.cell tone="muted" nowrap>
-                                    <code class="font-mono text-label-2">{{ $doc['no'] }}</code>
+                                    {{-- 문서번호는 데이터다. <code> 로 감싸면 preflight 가 모노스페이스를
+                                         물려서 Pretendard 가 아니게 된다. --}}
+                                    <span class="text-label-2 tabular-nums">{{ $doc['no'] }}</span>
                                 </x-table.cell>
                                 <x-table.cell tone="strong">{{ $doc['title'] }}</x-table.cell>
                                 <x-table.cell tone="muted">{{ $doc['writer'] }}</x-table.cell>
