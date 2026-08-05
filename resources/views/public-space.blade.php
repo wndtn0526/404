@@ -78,8 +78,55 @@
         :footer-items="config('workspace.footer_items')"
         :scale="config('workspace.lnb_scale')"
     >
-        {{-- 원본에는 브레드크럼·타이틀이 없다. 본문이 GNB 바로 아래에서 시작한다. --}}
-        <div class="mx-auto flex w-full max-w-[1200px] items-start gap-6">
+        {{-- ═══ 프로필 헤더 + 탭 ═══
+             Figma GPRO_PORTFOLIO node 1104-58466 → 화면은 그 안의 1104-58476 "퍼블릭".
+             원본 실측(1200 컨테이너 기준) — 아바타 120 (top 40) · 제목 left 160 top 58
+                                            메타 top 118 · 탭 top 216 · 구분선 top 256
+                                            프로필 설정 버튼 100x36 · 더보기 24 (우측 정렬)
+             ⚠️ 원본 아바타는 일러스트레이션 이미지다. 저장소가 public 이라 DS 썸네일(이니셜)로 뒀다. --}}
+        <div class="mx-auto w-full max-w-[1200px]">
+            <div class="flex items-start gap-10 pt-10">
+                <x-thumbnail name="Gpro" size="2xl" shape="circle" />
+
+                <div class="min-w-0 pt-[18px]">
+                    {{-- 원본 36px ExtraBold · lh 46 · tracking -1px.
+                         DS display-3 이 36px·-1px 까지 같고 줄높이만 54 라 46 으로 눌렀다. --}}
+                    <h1 class="text-display-3 font-extrabold leading-[46px] text-mono-black">프로덕트 디자이너 Gpro</h1>
+
+                    {{-- 팔로워·팔로우 — 원본 16px / lh 24. DS body-1 과 정확히 같다. 숫자만 Bold. --}}
+                    <div class="flex flex-wrap items-baseline gap-5 pt-[14px]">
+                        <p class="text-body-1 leading-6 text-mono-black">
+                            팔로워 <strong class="font-bold tabular-nums">1,036</strong>
+                        </p>
+                        <p class="text-body-1 leading-6 text-mono-black">
+                            팔로우 <strong class="font-bold tabular-nums">388</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- 탭 + 우측 액션. 구분선이 1200 전체를 지나가야 해서 x-tabs 를 풀폭으로 두고
+                 버튼·더보기를 그 위에 얹었다. x-tabs 는 자기 컨테이너 폭만큼 border-b 를 깐다. --}}
+            <div class="relative mt-14">
+                <x-tabs
+                    name="profile_tab"
+                    :options="['posting' => '포스팅', 'career' => '커리어', 'group' => '그룹', 'article' => '아티클']"
+                    selected="career"
+                    accent="strong"
+                    class="pr-[176px]"
+                />
+
+                <div class="absolute bottom-2.5 right-0 flex items-center gap-2">
+                    <x-button variant="outline" size="sm">프로필 설정</x-button>
+                    <button type="button" class="{{ $cardIcon }}" aria-label="더보기">
+                        <x-icon-more-horizontal class="size-6" />
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        {{-- 원본에는 브레드크럼·타이틀이 없다. 본문이 프로필·탭 아래에서 시작한다. --}}
+        <div class="mx-auto flex w-full max-w-[1200px] items-start gap-6 pt-10">
 
             {{-- ═══ 좌: 피드 690 ═══ --}}
             <div class="flex w-full max-w-[690px] shrink-0 flex-col gap-6">

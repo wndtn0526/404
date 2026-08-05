@@ -4,7 +4,7 @@
      props:
        src    : 이미지 경로 (없으면 이니셜 폴백)
        name   : 이니셜·alt 에 쓰는 이름
-       size   : xs(24) | sm(32) | md(40) | lg(48) | xl(64)
+       size   : xs(24) | sm(32) | md(40) | lg(48) | xl(64) | 2xl(120)
        shape  : circle(프로필 · 기본) | square(썸네일 · 4px)
      원본 실측: Profile 은 원형, Thumbnail 은 4px 사각. 폴백 배경은 deep blue 800. --}}
 @props([
@@ -22,6 +22,8 @@
         'md' => ['box' => 'h-10 w-10', 'text' => 'text-body-2'],
         'lg' => ['box' => 'h-12 w-12', 'text' => 'text-headline-2'],
         'xl' => ['box' => 'h-16 w-16', 'text' => 'text-title-3'],
+        // 프로필 화면용 큰 단계. 원본 실측 120px (GPRO_PORTFOLIO node 1104-58542).
+        '2xl' => ['box' => 'h-30 w-30', 'text' => 'text-display-3'],
     ];
     $sz = $sizes[$size] ?? $sizes['md'];
 
