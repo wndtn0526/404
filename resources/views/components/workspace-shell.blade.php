@@ -89,12 +89,8 @@
             @endforeach
         </div>
 
-        {{-- 워크스페이스 추가 — 원본 bottom 20 · BG Mono/900 --}}
-        <button type="button"
-                class="absolute bottom-5 left-3 flex size-[30px] items-center justify-center rounded-lg bg-workspace-cool-30 text-white transition-colors hover:bg-workspace-cool-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-                aria-label="워크스페이스 추가">
-            <x-icon-plus class="size-3" />
-        </button>
+        {{-- 원본(1:4005)에는 레일 하단에 워크스페이스 추가(+) 버튼이 있다. 빼기로 해서 지웠다.
+             되살릴 땐 bottom 20 · left 12 · 30px · 반경 6 · BG Cool Neutral/30 · 아이콘 12px. --}}
 
         {{-- ── 메뉴 영역 (좌측 67px 부터) ── --}}
         <div class="flex min-h-0 flex-1 flex-col pl-[67px] pr-3">
