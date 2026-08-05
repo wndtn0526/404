@@ -145,8 +145,6 @@
                  잡타이틀이 아래 15px · lh 23 · -0.6px · Warm gray/500 → DS body-2 와 정확히 일치
                  아바타는 우측. 원본 70px 인데 DS 썸네일 단계가 64/120 뿐이라 64 를 썼다. ── --}}
             <div class="min-w-0 lg:hidden">
-                {{-- ⚠️ 좁은 화면에서 이 행이 뷰포트 밖으로 밀려 아바타가 보이지 않는다.
-                     셸 루트의 overflow-x-clip 주석에 적은 미해결 버그 때문이다. --}}
                 <div class="flex min-w-0 items-start justify-between gap-4 pt-5">
                     <div class="min-w-0">
                         <h1 class="truncate text-title-3 font-bold leading-[31px] text-mono-black">{{ $profile['name'] }}</h1>
@@ -173,15 +171,14 @@
                 </div>
 
                 {{-- 모바일 탭 — 피드 · 커리어 (PC 는 4개다).
-                     ⚠️ 원본은 화면 폭을 2등분한다. DS x-tabs 의 block 옵션이 그 모양인데 붙여 보니
-                        컨테이너 최소폭을 456px 까지 밀어올려 좁은 화면이 깨졌다. 그래서 쓰지 않았다 —
-                        2등분이 아니라 좌측 정렬로 나온다. --}}
+                     원본이 화면 폭을 2등분하므로 DS x-tabs 의 block 을 쓴다. --}}
                 <div class="mt-8 min-w-0">
                     <x-tabs
                         name="profile_tab_mobile"
                         x-model="tab"
                         :options="['feed' => '피드', 'career' => '커리어']"
                         selected="career"
+                        block
                         accent="strong"
                     />
                 </div>
@@ -540,5 +537,6 @@
         </div>
 
         </div>{{-- /x-data tab --}}
+    
     </x-workspace-shell>
 </x-layout>

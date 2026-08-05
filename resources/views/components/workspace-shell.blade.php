@@ -100,16 +100,17 @@
     $gnbIcon = 'inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40';
 @endphp
 
-{{-- ⚠️ overflow-x-clip 은 가드다. 좁은 화면(≤460px)에서 본문 컨테이너가 뷰포트보다
-     약 20px 넓어지는 문제가 남아 있는데 원인을 아직 못 잡았다. 이 가드가 없으면
-     페이지가 가로로 스크롤된다. 원인을 잡으면 이 클래스를 지운다. --}}
-<div {{ $attributes->class('flex min-h-screen overflow-x-clip bg-mono-global-bg') }}>
+<div {{ $attributes->class('flex min-h-screen bg-mono-global-bg') }}>
     {{-- ═══ LNB — 240px 다크 사이드바 ═══ --}}
-    <aside class="relative flex w-60 shrink-0 flex-col bg-workspace-bg"
+    {{-- ⚠️ 모바일 숨김(max-lg:hidden)은 정적 클래스로 둔다.
+         Alpine :class 안에만 두면 Alpine 이 붙기 전(또는 못 붙는 정적 배포에서)
+         LNB 가 240px 을 그대로 차지해 본문이 뷰포트 밖으로 밀린다.
+         열림 상태만 Alpine 이 !flex 로 뒤집는다(!important 라 hidden 을 이긴다). --}}
+    <aside class="relative flex w-60 shrink-0 flex-col bg-workspace-bg max-lg:hidden"
            @if ($zoom !== 1.0) style="zoom: {{ $zoom }}" @endif
            x-data="{ open: false }"
            @lnb-toggle.window="open = ! open"
-           :class="open ? 'max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-40' : 'max-lg:hidden'">
+           :class="open && 'max-lg:!flex max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-40'">
 
         {{-- 레일 구분선 — 원본 x54 · 흰색 5% --}}
         <div class="absolute inset-y-0 left-[54px] w-px bg-white/5" aria-hidden="true"></div>
