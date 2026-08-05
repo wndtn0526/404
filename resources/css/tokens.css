@@ -134,7 +134,12 @@
        Cool Neutral 20/25 는 다크 면 위 대비가 1.3:1 · 1.9:1 이다. 원본 값이라
        그대로 넣었지만 본문 텍스트에는 쓰지 않는다. */
     --color-workspace-bg: #171719; /* Label/Normal · 사이드바 면 */
-    --color-workspace-cool-20: #292a2d; /* Cool Neutral/20 */
+
+    /* Background/Normal/Alternative. 우리 DS 의 같은 이름은 #f9f9f9 라 또 충돌한다.
+       레일 활성 심볼 면 + 활성 메뉴 글자에 쓴다. 순백(#fff)이 아니다. */
+    --color-workspace-white: #f7f7f8;
+
+    --color-workspace-cool-20: #292a2d; /* Cool Neutral/20 · 현재 미사용(비활성 글자가 50 으로 올라갔다) */
     --color-workspace-cool-25: #37383c; /* Cool Neutral/25 · 활성 항목 면(28%)에도 쓴다 */
     --color-workspace-cool-30: #46474c; /* Cool Neutral/30 */
     --color-workspace-cool-50: #70737c; /* Cool Neutral/50 */

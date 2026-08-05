@@ -70,24 +70,24 @@
     // 원본 실측: pl 10 · py 6 · gap 12 · 반경 6. 활성만 BG 02 를 깐다.
     $itemBase = 'flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors';
 
-    // 활성 = Label/Assistive 28% 면 + Static/White 글자.
-    // ⚠️ 비활성 글자색은 원본 그대로다. 항목별로 값이 다르고 둘 다 대비가 낮다 —
-    //    Cool Neutral/20 은 약 1.3:1, Cool Neutral/25 는 약 1.9:1. 원본이 그래서 따랐다.
-    //    읽히게 올릴 거면 여기 한 곳만 고치면 된다.
-    $itemOff = 'text-workspace-cool-20 hover:bg-workspace-cool-25/28 hover:text-workspace-cool-60';
-    $itemOffFooter = 'text-workspace-cool-25 hover:bg-workspace-cool-25/28 hover:text-workspace-cool-60';
-    $itemOn = 'bg-workspace-cool-25/28 text-white';
+    // 활성 = Label/Assistive 28% 면 + Background/Normal/Alternative 글자 (node 1-4530).
+    // 비활성 글자는 Cool Neutral/50 — 대비 약 4:1 로 읽힌다.
+    // ⚠️ 하단 '설정'만 아직 Cool Neutral/25(대비 약 1.9:1) 다. 원본(1:4013)이 갱신에서
+    //    빠져 그대로 남았다. 메뉴와 같이 올릴 거면 $itemOffFooter 를 $itemOff 로 합친다.
+    $itemOff = 'text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white';
+    $itemOffFooter = 'text-workspace-cool-25 hover:bg-workspace-cool-25/28 hover:text-workspace-white';
+    $itemOn = 'bg-workspace-cool-25/28 text-workspace-white';
 
     // 레일 심볼 활성/비활성 — Figma node 1-4661 이 정의한 그대로.
     // 두 타일이 서로 다른 방식으로 꺼진다:
-    //   symbol(나침반)  면 색이 바뀐다.  활성 Static/White · 비활성 Neutral/40
+    //   symbol(나침반)  면 색이 바뀐다.  활성 Background/Normal/Alternative · 비활성 Neutral/40
     //   mark(회사 심볼) 면 색은 그대로,  비활성에서 불투명도만 30% 로 내린다.
     //                   브랜드색이라 다른 색으로 갈아치우지 않는 것이다.
     // ⚠️ Tailwind 는 파일을 문자열로 훑으므로 완성된 클래스명을 담는다.
     $railStyles = [
         'symbol' => [
-            'on' => 'bg-white',
-            'off' => 'bg-workspace-neutral-40 hover:bg-white/70',
+            'on' => 'bg-workspace-white',
+            'off' => 'bg-workspace-neutral-40 hover:bg-workspace-white/70',
         ],
         'mark' => [
             'on' => 'bg-workspace-tile-teal',
@@ -168,7 +168,7 @@
                         @if (! empty($item['icon']))
                             <x-dynamic-component :component="'icon-' . $item['icon']" class="size-6 shrink-0" />
                         @endif
-                        <span class="truncate pt-[2px] text-label-2 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
+                        <span class="truncate pt-[2px] text-label-1 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
                     </a>
                 @endforeach
             </nav>
@@ -187,7 +187,7 @@
                             @if (! empty($item['icon']))
                                 <x-dynamic-component :component="'icon-' . $item['icon']" class="size-6 shrink-0" />
                             @endif
-                            <span class="truncate pt-[2px] text-label-2 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
+                            <span class="truncate pt-[2px] text-label-1 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
                         </a>
                     @endforeach
                 </nav>
