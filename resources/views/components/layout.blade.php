@@ -1,5 +1,7 @@
 @props([
     'title' => null,
+    // 기본은 "제목 · 앱이름". 디자인 시스템처럼 앱 밖으로 나가는 화면은 제목만 쓴다.
+    'bareTitle' => false,
 ])
 
 <!DOCTYPE html>
@@ -7,7 +9,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ $title ? $title . ' · ' . config('app.name') : config('app.name') }}</title>
+        <title>{{ $title ? ($bareTitle ? $title : $title . ' · ' . config('app.name')) : config('app.name') }}</title>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles

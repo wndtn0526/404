@@ -22,7 +22,7 @@ class DesignSystemTest extends TestCase
     {
         $this->get('/styleguide')
             ->assertOk()
-            ->assertSee('전자결재 디자인 시스템')
+            ->assertSee('디자인 시스템')
             ->assertSee('결재선')
             ->assertSee('반려로 멈춘 결재선');
     }

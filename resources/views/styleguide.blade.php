@@ -138,7 +138,7 @@
     ];
 @endphp
 
-<x-layout title="디자인 시스템">
+<x-layout title="디자인 시스템" :bare-title="true">
     <div class="mx-auto flex max-w-[1400px] gap-10 px-6 py-10 lg:px-10">
         {{-- 사이드 목차 --}}
         <nav class="sticky top-10 hidden h-fit w-44 shrink-0 flex-col gap-0.5 lg:flex">
@@ -155,7 +155,7 @@
             {{-- ═══ 헤더 ═══ --}}
             <header class="flex flex-col gap-3">
                 <div><x-badge color="primary" size="md">Design System</x-badge></div>
-                <h1 class="text-title-1 font-bold text-label-normal">전자결재 디자인 시스템</h1>
+                <h1 class="text-title-1 font-bold text-label-normal">디자인 시스템</h1>
                 <p class="text-body-1 text-label-alternative">
                     디자인 시스템 토큰 기반 · Blade 컴포넌트 · 아이콘 {{ $iconNames->count() }}종
                 </p>
