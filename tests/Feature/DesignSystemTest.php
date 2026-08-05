@@ -70,6 +70,45 @@ class DesignSystemTest extends TestCase
     }
 
     /**
+     * 빌드된 CSS 에도 Pretendard 아닌 폰트 이름이 남아 있으면 안 된다.
+     *
+     * Tailwind preflight 는 var(--default-font-family, <긴 폴백>) 형태로 깔기 때문에
+     * 소스만 고쳐도 산출물에는 Noto Sans·Arial·이모지 폰트 이름이 문자열로 남는다.
+     * vite.config.js 의 strip-dead-font-fallbacks 플러그인이 그 폴백을 잘라낸다.
+     * 이 테스트는 그 플러그인이 실제로 동작했는지 본다.
+     */
+    public function test_built_css_has_no_other_font_names(): void
+    {
+        $files = glob(public_path('build/assets/app-*.css'));
+
+        if ($files === []) {
+            $this->markTestSkipped('빌드 산출물이 없다 — npm run build 먼저.');
+        }
+
+        $forbidden = [
+            'Noto Sans', 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI',
+            'Arial', 'Helvetica', 'Roboto', '-apple-system', 'BlinkMacSystemFont',
+            'ui-monospace', 'SFMono', 'Menlo', 'Monaco', 'Consolas', 'Courier',
+        ];
+
+        foreach ($files as $file) {
+            $css = file_get_contents($file);
+
+            foreach ($forbidden as $name) {
+                $this->assertStringNotContainsString(
+                    $name,
+                    $css,
+                    basename($file)." 에 Pretendard 아닌 폰트 이름({$name})이 있다. ".
+                    'vite.config.js 의 strip-dead-font-fallbacks 가 동작하는지 확인할 것.'
+                );
+            }
+
+            $this->assertStringContainsString('--font-sans:"Pretendard Variable"', $css);
+            $this->assertStringContainsString('--font-mono:"Pretendard Variable"', $css);
+        }
+    }
+
+    /**
      * 원본은 각진 시스템이다 — 실측 반경이 2·3·4·6px, Card·Checkbox 는 직각.
      * Tailwind 기본 반경(rounded-xl 12px · rounded-2xl 16px …)이나 임의값이 섞이면
      * 화면마다 모서리가 제각각이 된다. DS 4단 + full/none 만 허용한다.
