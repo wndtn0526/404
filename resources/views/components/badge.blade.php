@@ -9,10 +9,10 @@
 @php
     // 사이즈: 패딩·라운드·타이포(토큰)·간격·아이콘크기  (Figma Content Badge)
     $sizes = [
-        'xs' => ['box' => 'px-1.5 py-[3px] rounded-md gap-0.5 text-caption-2', 'icon' => 'w-3 h-3'],
-        'sm' => ['box' => 'px-1.5 py-1 rounded-md gap-[3px] text-caption-1',   'icon' => 'w-3.5 h-3.5'],
-        'md' => ['box' => 'px-2 py-[5px] rounded-lg gap-1 text-label-2',       'icon' => 'w-4 h-4'],
-        'lg' => ['box' => 'px-2 py-1.5 rounded-lg gap-1 text-label-1',         'icon' => 'w-4 h-4'],
+        'xs' => ['box' => 'px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2', 'icon' => 'w-3 h-3'],
+        'sm' => ['box' => 'px-1.5 py-1 rounded-xs gap-[3px] text-caption-1',   'icon' => 'w-3.5 h-3.5'],
+        'md' => ['box' => 'px-2 py-[5px] rounded-xs gap-1 text-label-2',       'icon' => 'w-4 h-4'],
+        'lg' => ['box' => 'px-2 py-1.5 rounded-xs gap-1 text-label-1',         'icon' => 'w-4 h-4'],
     ];
 
     // 색 × variant. Solid=배경 틴트(8%)·Outlined=보더(43%)·Filled=색 채움+흰 텍스트(강조). 텍스트는 해당 색.

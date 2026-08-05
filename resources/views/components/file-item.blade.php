@@ -17,8 +17,8 @@
     $meta = implode(' · ', array_filter([$size, $status]));
 @endphp
 
-<div {{ $attributes->class('flex items-center gap-3 rounded-xl border border-line-solid-neutral bg-background-normal p-3') }}>
-    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-status-negative/10 text-caption-1 font-bold text-status-negative">{{ $ext }}</span>
+<div {{ $attributes->class('flex items-center gap-3 rounded-md border border-line-solid-neutral bg-background-normal p-3') }}>
+    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-status-negative/10 text-caption-1 font-bold text-status-negative">{{ $ext }}</span>
     <div class="min-w-0 flex-1">
         <p class="truncate text-body-2 font-medium text-label-normal">{{ $name }}</p>
         @if (filled($meta))

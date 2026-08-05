@@ -25,9 +25,9 @@
 
     // 트리거 사이즈 (캘린더 팝오버는 동일)
     $sizes = [
-        'sm' => ['box' => 'h-9 gap-1.5 rounded-lg pl-3 pr-2.5', 'text' => 'text-label-1', 'icon' => 'h-4 w-4'],
-        'md' => ['box' => 'h-10 gap-2 rounded-lg pl-3.5 pr-3', 'text' => 'text-body-2', 'icon' => 'h-[18px] w-[18px]'],
-        'lg' => ['box' => 'h-12 gap-2 rounded-xl pl-4 pr-3', 'text' => 'text-body-1', 'icon' => 'h-5 w-5'],
+        'sm' => ['box' => 'h-9 gap-1.5 rounded-md pl-3 pr-2.5', 'text' => 'text-label-1', 'icon' => 'h-4 w-4'],
+        'md' => ['box' => 'h-10 gap-2 rounded-md pl-3.5 pr-3', 'text' => 'text-body-2', 'icon' => 'h-[18px] w-[18px]'],
+        'lg' => ['box' => 'h-12 gap-2 rounded-md pl-4 pr-3', 'text' => 'text-body-1', 'icon' => 'h-5 w-5'],
     ];
     $sz = $sizes[$size] ?? $sizes['lg'];
 
@@ -52,7 +52,7 @@
 
     <div class="relative" @click.outside="open = false; panel = null">
         <button type="button" id="{{ $id }}" x-ref="trigger" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog"
-                class="flex w-full items-center {{ $sz['box'] }} border bg-background-normal text-left shadow-elevation-xs transition-colors duration-150 focus:outline-none focus-visible:ring-2 {{ $border }}">
+                class="flex w-full items-center {{ $sz['box'] }} border bg-background-normal text-left transition-colors duration-150 focus:outline-none focus-visible:ring-2 {{ $border }}">
             <x-icon-calendar class="{{ $sz['icon'] }} shrink-0 text-label-assistive" />
             <span class="flex-1 truncate {{ $sz['text'] }} {{ $serverDisplayColor }}" :class="value ? 'text-label-normal' : 'text-label-assistive'" x-text="display">{{ $serverDisplay }}</span>
             <x-icon-caret-down class="{{ $sz['icon'] }} shrink-0 text-label-alternative transition-transform duration-200" ::class="open && 'rotate-180'" />
@@ -65,23 +65,23 @@
              x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
              x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
              role="dialog" aria-label="날짜 선택"
-             class="rounded-2xl border border-line-solid-neutral bg-background-normal p-4 shadow-elevation-lg">
-            {{-- 헤더: [연▾ 월▾]  ‹ 오늘 › (청담원 결 — 굵은 월 타이틀 + 깔끔한 이동) --}}
+             class="rounded-md border border-line-solid-neutral bg-background-normal p-4 shadow-elevation-lg">
+            {{-- 헤더: [연▾ 월▾]  ‹ 오늘 › (굵은 월 타이틀 + 깔끔한 이동) --}}
             <div class="flex items-center justify-between gap-2">
                 <div class="relative flex items-center gap-0.5">
                     <button type="button" @click="togglePanel('year')"
-                            class="rounded-lg px-1.5 py-1 text-body-1 font-bold text-label-strong transition-colors hover:bg-fill-alternative">
+                            class="rounded-md px-1.5 py-1 text-body-1 font-bold text-label-strong transition-colors hover:bg-fill-alternative">
                         <span x-text="`${year}년`"></span>
                     </button>
                     <button type="button" @click="togglePanel('month')"
-                            class="flex items-center gap-1 rounded-lg px-1.5 py-1 text-body-1 font-bold text-label-strong transition-colors hover:bg-fill-alternative">
+                            class="flex items-center gap-1 rounded-md px-1.5 py-1 text-body-1 font-bold text-label-strong transition-colors hover:bg-fill-alternative">
                         <span x-text="`${month + 1}월`"></span>
                         <x-icon-caret-down class="h-4 w-4 text-label-alternative transition-transform duration-200" ::class="panel === 'month' && 'rotate-180'" />
                     </button>
 
                     {{-- 연 패널 — 바깥 박스(흰색 채움·테두리)와 스크롤 분리 (overscroll에도 흰색 유지) --}}
                     <div x-show="panel === 'year'" x-cloak
-                         class="absolute left-0 top-full z-10 mt-1.5 w-28 overflow-hidden rounded-xl border border-line-solid-neutral bg-background-normal shadow-elevation-lg">
+                         class="absolute left-0 top-full z-10 mt-1.5 w-28 overflow-hidden rounded-md border border-line-solid-neutral bg-background-normal shadow-elevation-lg">
                         <div x-ref="yearList" class="max-h-56 overflow-y-auto overscroll-contain py-1">
                             <template x-for="y in years" :key="y">
                                 <button type="button" @click="setYear(y)" :data-sel="y === year ? '1' : '0'"
@@ -94,11 +94,11 @@
 
                     {{-- 월 패널 --}}
                     <div x-show="panel === 'month'" x-cloak
-                         class="absolute left-0 top-full z-10 mt-1.5 w-40 rounded-xl border border-line-solid-neutral bg-background-normal p-2 shadow-elevation-lg">
+                         class="absolute left-0 top-full z-10 mt-1.5 w-40 rounded-md border border-line-solid-neutral bg-background-normal p-2 shadow-elevation-lg">
                         <div class="grid grid-cols-3 gap-1">
                             <template x-for="m in 12" :key="m">
                                 <button type="button" @click="setMonth(m - 1)"
-                                        class="rounded-lg py-1.5 text-body-2 transition-colors"
+                                        class="rounded-md py-1.5 text-body-2 transition-colors"
                                         :class="(m - 1) === month ? 'bg-primary font-semibold text-white' : 'text-label-normal hover:bg-fill-alternative'"
                                         x-text="`${m}월`"></button>
                             </template>
@@ -107,9 +107,9 @@
                 </div>
 
                 <div class="flex items-center gap-0.5">
-                    <button type="button" @click="prevMonth()" aria-label="이전 달" class="rounded-lg p-1.5 text-label-alternative transition-colors hover:bg-fill-alternative hover:text-label-normal"><x-icon-chevron-left class="h-4 w-4" /></button>
-                    <button type="button" @click="goToday()" class="rounded-lg px-2 py-1 text-label-2 font-semibold text-label-neutral transition-colors hover:bg-fill-alternative">오늘</button>
-                    <button type="button" @click="nextMonth()" aria-label="다음 달" class="rounded-lg p-1.5 text-label-alternative transition-colors hover:bg-fill-alternative hover:text-label-normal"><x-icon-chevron-right class="h-4 w-4" /></button>
+                    <button type="button" @click="prevMonth()" aria-label="이전 달" class="rounded-md p-1.5 text-label-alternative transition-colors hover:bg-fill-alternative hover:text-label-normal"><x-icon-chevron-left class="h-4 w-4" /></button>
+                    <button type="button" @click="goToday()" class="rounded-md px-2 py-1 text-label-2 font-semibold text-label-neutral transition-colors hover:bg-fill-alternative">오늘</button>
+                    <button type="button" @click="nextMonth()" aria-label="다음 달" class="rounded-md p-1.5 text-label-alternative transition-colors hover:bg-fill-alternative hover:text-label-normal"><x-icon-chevron-right class="h-4 w-4" /></button>
                 </div>
             </div>
 
@@ -241,7 +241,7 @@
             },
             // 셀 스타일: 선택=채움 원 / 오늘=primary 링 / 주말=색 / 평일=기본
             dayClass(c, i) {
-                if (this.isSelected(c)) return 'bg-primary font-bold text-white shadow-elevation-xs';
+                if (this.isSelected(c)) return 'bg-primary font-bold text-white';
                 if (this.isToday(c)) return 'font-bold text-primary ring-1 ring-inset ring-primary/40 hover:bg-primary-surface';
                 const col = i % 7;
                 const tone = col === 0 ? 'text-status-negative' : (col === 6 ? 'text-accent-fg-blue' : 'text-label-normal');

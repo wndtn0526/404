@@ -49,9 +49,9 @@
          x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0 scale-100" x-transition:leave-end="opacity-0 translate-y-2 scale-[0.98]"
          role="dialog" aria-modal="true" @if ($title) aria-label="{{ $title }}" @endif
          @if ($scroll)
-             {{ $attributes->class('relative flex max-h-full w-full ' . $maxWidth . ' flex-col overflow-hidden rounded-2xl bg-background-normal shadow-elevation-xl') }}
+             {{ $attributes->class('relative flex max-h-full w-full ' . $maxWidth . ' flex-col overflow-hidden rounded-md bg-background-normal shadow-elevation-xl') }}
          @else
-             {{ $attributes->class('relative w-full ' . $maxWidth . ' rounded-2xl bg-background-normal p-7 shadow-elevation-xl') }}
+             {{ $attributes->class('relative w-full ' . $maxWidth . ' rounded-md bg-background-normal p-7 shadow-elevation-xl') }}
          @endif>
         @if ($closeButton)
             <button type="button" @click="open = false"

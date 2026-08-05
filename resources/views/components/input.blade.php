@@ -11,7 +11,9 @@
     'revealable' => false,          // password 표시/숨김(eye) 토글 — type=password 전용
     'maxlength' => null,            // 지정 시 우측에 글자 수 카운터 + 네이티브 입력 제한
     'minlength' => null,
-    'size' => 'lg',                 // sm(h-9) | md(h-10·조밀) | lg(h-12·폼 기본)
+    'size' => 'lg',                 // sm(h-8 · GPRO Box 32) | md·lg(h-10 · GPRO Box 40)
+    'variant' => 'box',             // box(GPRO Input Box 40/32) | line(GPRO Line Input)
+    'tags' => [],                   // GPRO Input Box Tag — 박스 안에 칩으로 얹는 값들
     'liveState' => null,            // Alpine 식: 'ok' | 'error' | 그외(중립) — 비동기 실시간 검증 상태
     'liveMsg' => null,              // Alpine 식: 표시할 메시지(값 있으면 노출). liveState와 함께 사용
 ])
@@ -26,30 +28,62 @@
     $needsState = $clearable || $hasCounter || $revealable;
     $initialValue = (string) ($attributes->get('value') ?? ($name !== null ? old($name, '') : ''));
 
-    // 상태별 보더/포커스 (negative > positive > normal)
-    $normalBorder = 'border-line-solid-normal focus:border-primary focus:ring-2 focus:ring-primary/30';
-    $errorBorder = 'border-status-negative focus:border-status-negative focus:ring-2 focus:ring-status-negative/30';
-    $successBorder = 'border-status-positive focus:border-status-positive focus:ring-2 focus:ring-status-positive/30';
+    // ── GPRO Input Status 실측 (Figma 1002:518593 · Version × Status 매트릭스) ──
+    //   Default   border  warm-gray-200
+    //   Hover     bg      warm-gray-50
+    //   Active    border  deep-blue-900
+    //   Success   보더는 Default 그대로 — 초록(status-positive)은 하단 메시지에만 쓴다
+    //   Error     border  status-negative
+    //   Disabled  border·bg warm-gray-100 · text warm-gray-400
+    // ⚠️ Active 는 브랜드색(검정)이 아니다. GPRO 원본이 deep blue 라 그대로 따른다.
+    // ⚠️ Active 는 보더 색만 바뀐다 — 링(ring)도 그림자도 없다. 원본에 그 클래스가 없다.
+    //    캐럿(cursor bar)도 같은 deep blue 다. (Figma 1002:518831 · 1002:518772)
+    $activeBorder = 'focus:border-deep-blue-900';
+    $normalBorder = "border-line-solid-normal hover:bg-background-elevated-alternative {$activeBorder}";
+    $errorBorder = 'border-status-negative focus:border-status-negative';
+    $successBorder = "border-line-solid-normal {$activeBorder}";
     // 에러/실시간검증은 :class 반응형으로 보더 부여 → 정적 클래스엔 미포함
     $stateBorder = ($hasError || $hasLive) ? '' : ($hasSuccess ? $successBorder : $normalBorder);
 
+    // GPRO 실측: Box 40 / Box 32 두 높이만 있고 본문은 14px 고정. 높이는 늘어나지 않는다.
     $sizeCls = [
-        'sm' => 'h-9 rounded-lg text-label-1',
-        'md' => 'h-10 rounded-lg text-body-2',
-        'lg' => 'h-12 rounded-xl text-body-1',
-    ][$size] ?? 'h-12 rounded-xl text-body-1';
+        'sm' => 'h-8 text-label-1',
+        'md' => 'h-10 text-label-1',
+        'lg' => 'h-10 text-label-1',
+    ][$size] ?? 'h-10 text-label-1';
+
+    // GPRO Line Input — 밑줄만 있고 좌우 패딩이 없다
+    $isLine = $variant === 'line';
+    $shapeCls = $isLine ? 'border-0 border-b rounded-none' : 'border rounded-md';
+    $hasTags = filled($tags);
 
     // 폼 기본(lg)은 라벨을 body-1(16px)로 — 시니어 가독성. 조밀한 sm/md(테이블·필터)는 14px 유지.
     $labelCls = $size === 'lg' ? 'text-body-1' : 'text-label-1';
 
     $fieldClasses = implode(' ', [
-        'peer w-full bg-background-normal text-label-normal placeholder:text-label-assistive shadow-elevation-xs',
+        // 캐럿은 GPRO cursor bar 와 같은 deep blue
+        'peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive',
         $sizeCls,
-        'border transition-colors duration-150 focus:outline-none',
-        $icon ? 'pl-11' : 'pl-4',
-        $clearable || $revealable ? 'pr-11' : ($hasCounter ? 'pr-16' : 'pr-4'),
+        $shapeCls,
+        'transition-colors duration-150 focus:outline-none',
+        // GPRO 실측: 박스 안쪽 좌우 패딩 11px 고정
+        $isLine ? ($icon ? 'pl-7' : 'pl-0') : ($icon ? 'pl-10' : 'pl-[11px]'),
+        $isLine
+            ? ($clearable || $revealable ? 'pr-7' : ($hasCounter ? 'pr-12' : 'pr-0'))
+            : ($clearable || $revealable ? 'pr-10' : ($hasCounter ? 'pr-14' : 'pr-[11px]')),
         $stateBorder,
-        'disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed',
+        // GPRO Disabled — 보더·배경 모두 Warm gray/100, 글자 Warm gray/400
+        'disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable',
+    ]);
+
+    // GPRO Input Box Tag — 칩을 담는 박스. 안쪽 좌우 패딩 고정, 양옆으로만 늘어난다.
+    $tagBoxClasses = implode(' ', [
+        'flex w-full flex-wrap items-center gap-1.5 bg-background-normal px-[11px]',
+        $size === 'sm' ? 'min-h-8 py-1' : 'min-h-10 py-1.5',
+        $shapeCls,
+        // Tag/Tags 는 GPRO 에서 Default·Hover·Disabled 세 상태만 정의돼 있다
+        'transition-colors duration-150 focus-within:border-deep-blue-900',
+        $hasError ? 'border-status-negative' : 'border-line-solid-normal hover:bg-background-elevated-alternative',
     ]);
 @endphp
 
@@ -61,10 +95,26 @@
         </label>
     @endif
 
+    @if ($hasTags)
+        {{-- GPRO Input Box Tag — 칩 + 이어서 입력 --}}
+        <div class="{{ $tagBoxClasses }}">
+            @foreach ((array) $tags as $tag)
+                <x-chip size="small" variant="solid">{{ $tag }}</x-chip>
+            @endforeach
+
+            <input
+                id="{{ $id }}"
+                type="{{ $type }}"
+                @if ($name) name="{{ $name }}" @endif
+                @if ($required) required @endif
+                {{ $attributes->class('min-w-24 flex-1 border-0 bg-transparent p-0 text-label-1 text-label-strong caret-deep-blue-900 placeholder:text-label-assistive focus:outline-none focus:ring-0') }}
+            />
+        </div>
+    @else
     <div class="relative"
          @if ($needsState) x-data="{ v: @js($initialValue)@if ($revealable), show: false @endif }" x-modelable="v" {{ $attributes->whereStartsWith('x-model') }} @endif>
         @if ($icon)
-            <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-label-assistive">
+            <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center {{ $isLine ? 'pl-0' : 'pl-[11px]' }} text-label-assistive">
                 <x-dynamic-component :component="'icon-' . $icon" class="w-5 h-5" />
             </span>
         @endif
@@ -105,6 +155,7 @@
             </span>
         @endif
     </div>
+    @endif
 
     @if ($hasLive)
         {{-- 실시간 검증 메시지 (ok=초록 · error=빨강 · 그외=중립) --}}

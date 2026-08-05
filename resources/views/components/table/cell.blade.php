@@ -12,7 +12,7 @@
     @if ($as === 'th') scope="col" @endif
     @if ($width) style="width: {{ $width }}" @endif
     {{ $attributes->class([
-        'px-4 py-[18px] text-body-2 align-middle first:pl-5 last:pr-5',
+        'h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5',
         'text-label-normal' => $tone === 'default',
         'text-label-alternative' => $tone === 'muted',
         'font-semibold text-label-strong' => $tone === 'strong',

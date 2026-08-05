@@ -1,187 +1,305 @@
 /* ============================================================================
    전자결재 디자인 토큰 — 단일 소스(Single Source of Truth)
    ----------------------------------------------------------------------------
-   출처: 청담원 디자인 시스템 (Figma "청담원 디자인 시스템")
-     - 토큰값      node 16306-184223
-     - 스타일가이드 node 16246-4226006
-   포팅: 청담원 플랫폼 tailwind.config.js(Tailwind 3 `theme.extend`)
-        → 이 파일(Tailwind 4 CSS-first `@theme`). 값은 동일, 문법만 다르다.
+   출처: Figma "GPRO_PORTFOLIO" — Design guide (node 1002-517500)
+     https://www.figma.com/design/sJC6AduTG0I4cTttQJFAes/GPRO_PORTFOLIO?node-id=1002-517500
+   추출: Figma Dev Mode MCP `get_variable_defs` — 변수 172개(색 84 · 타이포 82 · 그림자 6)
 
-   ⚠️ 값을 바꿀 일이 생기면 Figma → 청담원 플랫폼 → 이 파일 순으로 함께 맞춘다.
-      한쪽만 고치면 두 시스템이 갈라진다.
+   ⚠️ GPRO 는 원시 팔레트(primitive) 시스템이다. label/line/fill 같은 의미(semantic)
+      토큰이 원본에 없어서, 아래 2계층으로 구성했다.
+        1. 원시 계층 — Figma 변수 값을 그대로 옮긴 것. 값을 바꾸려면 Figma 를 먼저 고친다.
+        2. 의미 계층 — 컴포넌트가 실제로 쓰는 이름. 원시값을 역할에 배정한 것.
+      `[파생]` 주석이 붙은 값은 GPRO 원본에 대응 항목이 없어 계산해 채운 값이다.
+      디자이너가 Figma 에 해당 단계를 추가하면 그 값으로 교체한다.
 
    ⚠️ 뷰에서 raw hex 를 쓰지 않는다. 아래 토큰이 만들어주는 유틸리티만 사용.
       예) bg-primary  text-label-normal  border-line-solid-normal  shadow-elevation-md
    ============================================================================ */
 
 @theme {
-    /* ── 폰트 ────────────────────────────────────────────────────────────── */
+    /* ── 폰트 ────────────────────────────────────────────────────────────────
+       GPRO 는 Pretendard(18단 × Bold/Medium/Regular)와 Apple SD Gothic Neo 두 계열을
+       함께 갖고 있다. SD Gothic Neo 는 레거시로 보고 Pretendard 로 통일한다. */
     --font-sans:
         'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto,
         'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
 
-    /* ── 브랜드 (Teal) ───────────────────────────────────────────────────── */
-    --color-primary: #3694ab; /* Primary/Normal · Teal/45 */
-    --color-primary-normal: #3694ab;
-    --color-primary-strong: #04718b; /* Teal/40 · hover */
-    --color-primary-heavy: #054e60; /* Teal/35 · active */
-    --color-primary-surface: #e8f3f5; /* 넓은 배경면용 연한 틴트 */
-    --color-primary-soft: #f1f8f9; /* 가장 옅은 틴트 · 배너·표 헤더 */
+    /* ========================================================================
+       1. 원시 계층 — Figma 변수 그대로
+       ======================================================================== */
 
-    --color-teal-35: #054e60;
-    --color-teal-40: #04718b;
-    --color-teal-43: #1d829b;
-    --color-teal-45: #3694ab;
+    /* ── Primary (9색상 · 각 계열의 최강단) ──────────────────────────────── */
+    --color-deep-blue-900: #4270ed;
+    --color-green-900: #15bd66;
+    --color-bluegreen-900: #19bfa1;
+    --color-blue-900: #1a9cff;
+    --color-purple-900: #8556e3;
+    --color-red-900: #ff334b;
+    --color-pink-900: #f74397;
+    --color-yellow-900: #ffc53d;
+    --color-orange-900: #ff6f36;
 
-    --color-inverse-primary: #b8dce4;
-    --color-inverse-background: #1b1c1e; /* Cool Neutral/15 */
-    --color-inverse-label: #f7f7f8;
+    /* ── Secondary (9색상 × 100/300/500/800) ─────────────────────────────── */
+    --color-deep-blue-100: #ecf1fd;
+    --color-deep-blue-300: #c6d4fa;
+    --color-deep-blue-500: #a0b7f6;
+    --color-deep-blue-800: #688df1;
 
-    /* ── 라벨(텍스트) ────────────────────────────────────────────────────── */
-    --color-label-strong: #000000;
-    --color-label-normal: #171719; /* 기본 본문·제목 */
-    --color-label-neutral: rgba(46, 47, 51, 0.88);
-    --color-label-alternative: rgba(55, 56, 60, 0.61); /* 보조·캡션 */
-    --color-label-assistive: rgba(55, 56, 60, 0.28); /* placeholder */
-    --color-label-disable: rgba(55, 56, 60, 0.16);
+    --color-green-100: #e8f8f0;
+    --color-green-300: #b9ebd1;
+    --color-green-500: #8adeb2;
+    --color-green-800: #44ca85;
+
+    --color-bluegreen-100: #e8f9f6;
+    --color-bluegreen-300: #baece3;
+    --color-bluegreen-500: #8cdfd0;
+    --color-bluegreen-800: #47ccb4;
+
+    --color-blue-100: #e8f5ff;
+    --color-blue-300: #bae1ff;
+    --color-blue-500: #8ccdff;
+    --color-blue-800: #48b0ff;
+
+    --color-purple-100: #f3eefc;
+    --color-purple-300: #daccf7;
+    --color-purple-500: #c2aaf1;
+    --color-purple-800: #9d78e9;
+
+    --color-red-100: #ffebed;
+    --color-red-300: #ffc2c9;
+    --color-red-500: #ff99a5;
+    --color-red-800: #ff5c6f;
+
+    --color-pink-100: #feecf5;
+    --color-pink-300: #fdc7e0;
+    --color-pink-500: #fba1cb;
+    --color-pink-800: #f969ac;
+
+    --color-yellow-100: #fff9ec;
+    --color-yellow-300: #ffeec5;
+    --color-yellow-500: #ffe29e;
+    --color-yellow-800: #ffd164;
+
+    --color-orange-100: #fff1eb;
+    --color-orange-300: #ffd4c3;
+    --color-orange-500: #ffb79a;
+    --color-orange-800: #ff8c5e;
+
+    /* ── Cool gray (UI 기본 중립색으로 채택) ─────────────────────────────── */
+    --color-cool-gray-50: #f8f9fa;
+    --color-cool-gray-100: #f1f3f5;
+    --color-cool-gray-200: #e9ecef;
+    --color-cool-gray-300: #dee2e6;
+    --color-cool-gray-400: #ced4da;
+    --color-cool-gray-500: #adb5bd;
+    --color-cool-gray-600: #868e96;
+    --color-cool-gray-700: #495057;
+    --color-cool-gray-800: #343a40;
+    --color-cool-gray-900: #212529;
+
+    /* ── Warm gray (GPRO 원본에 함께 존재 · 현재 의미 계층에서는 미사용) ── */
+    --color-warm-gray-10: #fafafa;
+    --color-warm-gray-50: #f8f8f8;
+    --color-warm-gray-100: #f5f5f5;
+    --color-warm-gray-200: #ebebeb;
+    --color-warm-gray-300: #d6d6d6;
+    --color-warm-gray-400: #c2c2c2;
+    --color-warm-gray-500: #999999;
+    --color-warm-gray-600: #858585;
+    --color-warm-gray-700: #555555;
+    --color-warm-gray-800: #303030;
+    --color-warm-gray-900: #111111;
+
+    /* ── Mono · Side Bar ─────────────────────────────────────────────────── */
+    --color-mono-black: #000000;
+    --color-mono-white: #ffffff;
+    --color-mono-900: #2b2b2b;
+    --color-mono-800: #333333;
+    --color-mono-global-bg: #f9f9f9;
+    --color-sidebar-bg-01: #0c0c0c;
+    --color-sidebar-bg-02: #202020;
+    --color-surface-overlay: #212121;
+
+    /* ========================================================================
+       2. 의미 계층 — 컴포넌트가 쓰는 이름
+       ======================================================================== */
+
+    /* ── 브랜드 (Black) ──────────────────────────────────────────────────────
+       GPRO Primary 는 9색상 팔레트라 "브랜드색" 지정이 원본에 없다.
+       전자결재의 기본 색으로 검정을 채택했다. 바꾸려면 이 블록만 고치면 된다.
+
+       검정 계열은 Mono · Warm gray 를 쓴다. 본문 텍스트(label-*)는 Cool gray 계열이라
+       브랜드면과 글자면이 서로 섞이지 않는다. 파생값 없이 전부 GPRO 원본 값이다.
+       ⚠️ 검정은 더 어두워질 수 없어 hover 가 아니라 active 쪽을 밝게 잡았다. */
+    --color-primary: #111111; /* Warm gray/900 */
+    --color-primary-normal: #111111;
+    --color-primary-strong: #000000; /* Mono/Black · hover */
+    --color-primary-heavy: #2b2b2b; /* Mono/900 · active(눌림) */
+    --color-primary-surface: #ebebeb; /* Warm gray/200 · 넓은 배경면용 틴트 */
+    --color-primary-soft: #f5f5f5; /* Warm gray/100 · 옅은 틴트 · 배너·표 헤더 */
+
+    --color-inverse-primary: #fafafa; /* Warm gray/010 · 어두운 면 위의 브랜드 */
+    --color-inverse-background: #202020; /* Side Bar/BG 02 */
+    --color-inverse-label: #f8f8f8; /* Warm gray/050 */
+
+    /* ── 라벨(텍스트) 6단 ────────────────────────────────────────────────────
+       GPRO 의 Label Color 는 iOS 잔재라 3개뿐이다. Warm gray 로 6단을 구성했다.
+       ⚠️ 중립색은 Warm gray 다. GPRO 컴포넌트 실측값이 전부 Warm gray 계열이었다
+          (Input 보더 Warm gray/200 · placeholder Warm gray/400 · LNB 텍스트 Warm gray/700).
+          Cool gray 는 원시 계층에만 남겨 둔다 — 원본 변수라 지우진 않지만 의미 계층에선 안 쓴다. */
+    --color-label-strong: #000000; /* Mono/Black · GPRO 인풋 본문이 이 값이다 */
+    --color-label-normal: #111111; /* Warm gray/900 · 기본 본문·제목 */
+    --color-label-neutral: #303030; /* Warm gray/800 */
+    --color-label-alternative: #858585; /* Warm gray/600 · 보조·캡션 */
+    --color-label-assistive: #c2c2c2; /* Warm gray/400 · placeholder */
+    --color-label-disable: #c2c2c2; /* Warm gray/400 · GPRO 는 placeholder 와 같은 값을 쓴다 */
 
     /* ── 배경 ────────────────────────────────────────────────────────────── */
-    --color-background-normal: #ffffff;
-    --color-background-alternative: #f7f7f8; /* 카드 뒤 페이지 배경 */
+    --color-background-normal: #ffffff; /* Mono/White */
+    --color-background-alternative: #f9f9f9; /* Mono/Global BG · 카드 뒤 페이지 배경 */
     --color-background-elevated-normal: #ffffff;
-    --color-background-elevated-alternative: #f7f7f8;
+    --color-background-elevated-alternative: #f8f8f8; /* Warm gray/050 */
 
-    /* ── 라인(보더) ──────────────────────────────────────────────────────── */
-    --color-line-normal-normal: rgba(112, 115, 124, 0.22);
-    --color-line-normal-neutral: rgba(112, 115, 124, 0.16);
-    --color-line-normal-alternative: rgba(112, 115, 124, 0.08);
-    --color-line-normal-strong: rgba(112, 115, 124, 0.52);
-    --color-line-solid-normal: #e1e2e4; /* Cool Neutral/96 */
-    --color-line-solid-neutral: #eaebec; /* Cool Neutral/97 */
-    --color-line-solid-alternative: #f4f4f5; /* Cool Neutral/98 */
+    /* ── 라인(보더) ──────────────────────────────────────────────────────────
+       normal-* 는 겹치는 면 위에 얹히는 반투명 보더, solid-* 는 불투명 보더.
+       GPRO 에 알파 스케일이 없어 normal-* 는 Warm gray/600 기준 [파생]. */
+    --color-line-normal-normal: rgba(133, 133, 133, 0.22); /* [파생] */
+    --color-line-normal-neutral: rgba(133, 133, 133, 0.16); /* [파생] */
+    --color-line-normal-alternative: rgba(133, 133, 133, 0.08); /* [파생] */
+    --color-line-normal-strong: rgba(133, 133, 133, 0.52); /* [파생] */
+    --color-line-solid-normal: #ebebeb; /* Warm gray/200 · GPRO 인풋 보더 실측값 */
+    --color-line-solid-neutral: #f5f5f5; /* Warm gray/100 */
+    --color-line-solid-alternative: #f8f8f8; /* Warm gray/050 */
 
-    /* ── 채움(Fill) ──────────────────────────────────────────────────────── */
-    --color-fill-strong: rgba(112, 115, 124, 0.16);
-    --color-fill-normal: rgba(112, 115, 124, 0.08);
-    --color-fill-alternative: rgba(112, 115, 124, 0.05);
+    /* ── 채움(Fill) ────────────────────────────────────────────────────────── */
+    --color-fill-strong: rgba(133, 133, 133, 0.16); /* [파생] */
+    --color-fill-normal: rgba(133, 133, 133, 0.08); /* [파생] */
+    --color-fill-alternative: rgba(133, 133, 133, 0.05); /* [파생] */
 
     /* ── 인터랙션 / 머티리얼 ─────────────────────────────────────────────── */
-    --color-interaction-inactive: #989ba2; /* Cool Neutral/70 */
-    --color-interaction-disable: #f4f4f5; /* Cool Neutral/98 */
-    --color-material-dimmer: rgba(23, 23, 25, 0.52);
+    --color-interaction-inactive: #999999; /* Warm gray/500 */
+    --color-interaction-disable: #f5f5f5; /* Warm gray/100 · GPRO Disabled 실측값 */
+    --color-material-dimmer: rgba(17, 17, 17, 0.52); /* [파생] Warm gray/900 기반 */
 
-    /* ── 상태 ────────────────────────────────────────────────────────────── */
-    --color-status-positive: #00bf40; /* Green/50 */
-    --color-status-cautionary: #ff9200; /* Orange/50 */
-    --color-status-negative: #ff4242; /* Red/50 */
+    /* ── 상태 ──────────────────────────────────────────────────────────────── */
+    --color-status-positive: #15bd66; /* Primary/green 900 */
+    --color-status-cautionary: #ffc53d; /* Primary/yellow 900 */
+    --color-status-negative: #ff334b; /* Primary/red 900 */
 
-    /* ── 액센트 · Background (면 채움용) ─────────────────────────────────── */
-    --color-accent-red-orange: #ff5e00;
-    --color-accent-lime: #58cf04;
-    --color-accent-cyan: #00bdde;
-    --color-accent-light-blue: #00aeff;
-    --color-accent-violet: #6541f2;
-    --color-accent-purple: #cb59ff;
-    --color-accent-pink: #f553da;
+    /* ── 액센트 · Background (면 채움용 · Secondary 500) ─────────────────── */
+    --color-accent-red-orange: #ffb79a; /* Secondary/orange 500 */
+    --color-accent-lime: #8adeb2; /* Secondary/green 500 */
+    --color-accent-cyan: #8cdfd0; /* Secondary/bluegreen 500 */
+    --color-accent-light-blue: #8ccdff; /* Secondary/blue 500 */
+    --color-accent-violet: #a0b7f6; /* Secondary/deep blue 500 */
+    --color-accent-purple: #c2aaf1; /* Secondary/purple 500 */
+    --color-accent-pink: #fba1cb; /* Secondary/pink 500 */
 
-    /* ── 액센트 · Foreground (텍스트·아이콘용 · 명도 대비 확보) ──────────── */
-    --color-accent-fg-red: #e52222;
-    --color-accent-fg-red-orange: #f55a00;
-    --color-accent-fg-orange: #d17600;
-    --color-accent-fg-lime: #429e00;
-    --color-accent-fg-green: #009632;
-    --color-accent-fg-cyan: #0098b2;
-    --color-accent-fg-light-blue: #008dcf;
-    --color-accent-fg-blue: #005eeb;
-    --color-accent-fg-violet: #5b37ed;
-    --color-accent-fg-purple: #ad36e3;
-    --color-accent-fg-pink: #e846cd;
+    /* ── 액센트 · Foreground (텍스트·아이콘용 · 명도 대비 확보) ──────────────
+       GPRO 900 단계는 중간 명도라 본문 텍스트 대비가 부족하다.
+       전부 [파생] — 900 을 어둡게 눌러 만들었다. Figma 에 텍스트용 단계가 생기면 교체. */
+    --color-accent-fg-red: #bf2638; /* [파생] red 900 × 75% */
+    --color-accent-fg-red-orange: #bf5329; /* [파생] orange 900 × 75% */
+    --color-accent-fg-orange: #bf942e; /* [파생] yellow 900 × 75% */
+    --color-accent-fg-lime: #12a157; /* [파생] green 900 × 85% */
+    --color-accent-fg-green: #0f8447; /* [파생] green 900 × 70% */
+    --color-accent-fg-cyan: #138f79; /* [파생] bluegreen 900 × 75% */
+    --color-accent-fg-light-blue: #1475bf; /* [파생] blue 900 × 75% */
+    --color-accent-fg-blue: #3254b2; /* [파생] deep blue 900 × 75% */
+    --color-accent-fg-violet: #6441aa; /* [파생] purple 900 × 75% */
+    --color-accent-fg-purple: #503488; /* [파생] purple 900 × 60% */
+    --color-accent-fg-pink: #b93271; /* [파생] pink 900 × 75% */
 
-    /* ── 아토믹 팔레트 (semantic 토큰이 없을 때만) ───────────────────────── */
-    --color-cool-neutral-0: #000000;
-    --color-cool-neutral-10: #171719;
-    --color-cool-neutral-15: #1b1c1e;
-    --color-cool-neutral-50: #70737c;
-    --color-cool-neutral-70: #989ba2;
-    --color-cool-neutral-96: #e1e2e4;
-    --color-cool-neutral-97: #eaebec;
-    --color-cool-neutral-98: #f4f4f5;
-    --color-cool-neutral-99: #f7f7f8;
-    --color-cool-neutral-100: #ffffff;
-
-    /* ── 타이포 스케일 ───────────────────────────────────────────────────
-       letterSpacing 은 Figma % 값을 em 으로 변환 (-3.19% → -0.0319em) */
-    --text-display-1: 56px;
-    --text-display-1--line-height: 1.286;
-    --text-display-1--letter-spacing: -0.0319em;
+    /* ── 타이포 스케일 ───────────────────────────────────────────────────────
+       GPRO Pretendard 18단(10~48px)을 기존 16단 이름에 배정.
+       Figma 의 lineHeight·letterSpacing 은 px 라서 ratio · em 으로 환산했다.
+       `-reading` 은 GPRO 에 없는 [파생] — 줄간만 넓힌 장문용 변형. */
+    --text-display-1: 48px;
+    --text-display-1--line-height: 1.292;
+    --text-display-1--letter-spacing: -0.0208em;
     --text-display-2: 40px;
     --text-display-2--line-height: 1.3;
-    --text-display-2--letter-spacing: -0.0282em;
+    --text-display-2--letter-spacing: -0.025em;
     --text-display-3: 36px;
-    --text-display-3--line-height: 1.334;
-    --text-display-3--letter-spacing: -0.027em;
+    --text-display-3--line-height: 1.5;
+    --text-display-3--letter-spacing: -0.0278em;
 
     --text-title-1: 32px;
-    --text-title-1--line-height: 1.375;
-    --text-title-1--letter-spacing: -0.0253em;
-    --text-title-2: 28px;
-    --text-title-2--line-height: 1.358;
-    --text-title-2--letter-spacing: -0.0236em;
+    --text-title-1--line-height: 1.5;
+    --text-title-1--letter-spacing: -0.0313em;
+    --text-title-2: 30px;
+    --text-title-2--line-height: 1.3;
+    --text-title-2--letter-spacing: -0.0333em;
     --text-title-3: 24px;
-    --text-title-3--line-height: 1.334;
-    --text-title-3--letter-spacing: -0.023em;
+    --text-title-3--line-height: 1.292;
+    --text-title-3--letter-spacing: -0.0417em;
 
     --text-heading-1: 22px;
-    --text-heading-1--line-height: 1.364;
-    --text-heading-1--letter-spacing: -0.0194em;
+    --text-heading-1--line-height: 1.318;
+    --text-heading-1--letter-spacing: -0.0455em;
     --text-heading-2: 20px;
-    --text-heading-2--line-height: 1.4;
-    --text-heading-2--letter-spacing: -0.012em;
+    --text-heading-2--line-height: 1.5;
+    --text-heading-2--letter-spacing: -0.05em;
 
-    --text-headline-1: 18px;
-    --text-headline-1--line-height: 1.445;
-    --text-headline-1--letter-spacing: -0.0002em;
-    --text-headline-2: 17px;
-    --text-headline-2--line-height: 1.412;
-    --text-headline-2--letter-spacing: 0em;
+    --text-headline-1: 19px;
+    --text-headline-1--line-height: 1.526;
+    --text-headline-1--letter-spacing: -0.0316em;
+    --text-headline-2: 18px;
+    --text-headline-2--line-height: 1.5;
+    --text-headline-2--letter-spacing: -0.0333em;
 
     --text-body-1: 16px;
     --text-body-1--line-height: 1.5;
-    --text-body-1--letter-spacing: 0.0057em;
+    --text-body-1--letter-spacing: -0.0375em;
     --text-body-1-reading: 16px;
-    --text-body-1-reading--line-height: 1.625;
-    --text-body-1-reading--letter-spacing: 0.0057em;
+    --text-body-1-reading--line-height: 1.625; /* [파생] */
+    --text-body-1-reading--letter-spacing: -0.0375em;
     --text-body-2: 15px;
-    --text-body-2--line-height: 1.467;
-    --text-body-2--letter-spacing: 0.0096em;
+    --text-body-2--line-height: 1.533;
+    --text-body-2--letter-spacing: -0.04em;
     --text-body-2-reading: 15px;
-    --text-body-2-reading--line-height: 1.6;
-    --text-body-2-reading--letter-spacing: 0.0096em;
+    --text-body-2-reading--line-height: 1.667; /* [파생] */
+    --text-body-2-reading--letter-spacing: -0.04em;
 
     --text-label-1: 14px;
     --text-label-1--line-height: 1.429;
-    --text-label-1--letter-spacing: 0.0145em;
+    --text-label-1--letter-spacing: -0.0143em;
     --text-label-1-reading: 14px;
-    --text-label-1-reading--line-height: 1.571;
-    --text-label-1-reading--letter-spacing: 0.0145em;
+    --text-label-1-reading--line-height: 1.571; /* [파생] */
+    --text-label-1-reading--letter-spacing: -0.0143em;
     --text-label-2: 13px;
-    --text-label-2--line-height: 1.385;
-    --text-label-2--letter-spacing: 0.0194em;
+    --text-label-2--line-height: 1.538;
+    --text-label-2--letter-spacing: -0.0154em;
 
     --text-caption-1: 12px;
-    --text-caption-1--line-height: 1.334;
-    --text-caption-1--letter-spacing: 0.0252em;
+    --text-caption-1--line-height: 1.5;
+    --text-caption-1--letter-spacing: -0.0167em;
     --text-caption-2: 11px;
-    --text-caption-2--line-height: 1.273;
-    --text-caption-2--letter-spacing: 0.0311em;
+    --text-caption-2--line-height: 1.545;
+    --text-caption-2--letter-spacing: 0em;
 
-    /* ── 그림자 (Figma Shadow 토큰) ──────────────────────────────────────── */
-    --shadow-elevation-xs: 0 1px 2px -1px rgba(23, 23, 23, 0.1);
-    --shadow-elevation-sm: 0 4px 6px -1px rgba(23, 23, 23, 0.06), 0 2px 4px -2px rgba(23, 23, 23, 0.06);
-    --shadow-elevation-md: 0 10px 15px -3px rgba(23, 23, 23, 0.07), 0 4px 6px -2px rgba(23, 23, 23, 0.07);
-    --shadow-elevation-lg: 0 16px 24px -6px rgba(23, 23, 23, 0.08), 0 6px 10px -4px rgba(23, 23, 23, 0.08);
-    --shadow-elevation-xl: 0 24px 38px -10px rgba(23, 23, 23, 0.12), 0 10px 15px -5px rgba(23, 23, 23, 0.1);
-    /* Figma 효과 스타일 "Shadow/Spread/*" — 넓게 퍼지는 컨테이너 그림자 */
-    --shadow-spread-small: 0 0 60px 0 rgba(23, 23, 23, 0.1);
-    --shadow-spread-medium: 0 15px 75px 0 rgba(23, 23, 23, 0.16);
+    /* ── 그림자 (GPRO Elevation 이펙트) ──────────────────────────────────────
+       원본: Cursor · Elevation E100~E500. E500 은 E400 과 halo 색만 달라 생략.
+       spread-* 는 GPRO 에 없는 [파생] — 넓게 퍼지는 컨테이너 그림자. */
+    --shadow-elevation-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.4); /* Cursor */
+    --shadow-elevation-sm: 0 0 1px 0 rgba(0, 0, 0, 0.302), 0 3px 5px 0 rgba(0, 0, 0, 0.2); /* E100 */
+    --shadow-elevation-md: 0 0 1px 0 rgba(0, 0, 0, 0.302), 0 8px 12px 0 rgba(0, 0, 0, 0.149); /* E200 */
+    --shadow-elevation-lg: 0 0 1px 0 rgba(0, 0, 0, 0.322), 0 10px 18px 0 rgba(0, 0, 0, 0.149); /* E300 */
+    --shadow-elevation-xl: 0 0 1px 0 rgba(101, 101, 101, 0.322), 0 18px 28px 0 rgba(0, 0, 0, 0.149); /* E400 */
+    --shadow-spread-small: 0 0 60px 0 rgba(17, 17, 17, 0.1); /* [파생] */
+    --shadow-spread-medium: 0 15px 75px 0 rgba(17, 17, 17, 0.16); /* [파생] */
+
+    /* ── 모서리 반경 (GPRO 컴포넌트 실측) ────────────────────────────────────
+       GPRO 는 각진 시스템이다. 4px 가 기본이고 그보다 둥근 값은 쓰지 않는다.
+       Figma Dev Mode 로 컴포넌트를 직접 재서 얻은 값:
+         Button 4 · Input 4 · Dropdown 4 · Pagination 4 · Dialog 4 · GNB 4 · Input Tag 4
+         Badge 2 · Data Tables 2 · LNB 3 · Tab 3~6 · Tooltip 6 · SnackBars 6
+         Card 0 · Checkbox 0 (직각)  ·  Profile Thumbnail 100(원형)
+
+       ⚠️ Tailwind 기본 반경(rounded-xl 12px · rounded-2xl 16px …)은 DS 밖이다.
+          아래 4단과 rounded-full · rounded-none 만 쓴다. DesignSystemTest 가 막는다. */
+    --radius-xs: 2px; /* Badge · 표 셀 */
+    --radius-sm: 3px; /* LNB 아이템 · Tab */
+    --radius-md: 4px; /* 기본 — 버튼·인풋·드롭다운·다이얼로그·페이지네이션 */
+    --radius-lg: 6px; /* 툴팁 · 스낵바 */
 }

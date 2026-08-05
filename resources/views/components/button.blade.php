@@ -11,7 +11,7 @@
 
 @php
     $base =
-        'inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed';
+        'inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed';
 
     $variants = [
         'primary' =>
@@ -25,7 +25,7 @@
             'border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative',
         'ghost' =>
             'text-label-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable',
-        // danger: 반려·삭제 등 파괴적 액션 전용. 청담원 DS 에는 없고 전자결재에서 추가했다.
+        // danger: 반려·삭제 등 파괴적 액션 전용. GPRO 원본에는 없고 전자결재에서 추가했다.
         // 반려를 primary 버튼으로 내보내면 승인과 구분이 안 돼서 사고가 난다.
         'danger' =>
             'bg-status-negative text-white hover:bg-accent-fg-red active:bg-accent-fg-red disabled:bg-interaction-disable disabled:text-label-disable',

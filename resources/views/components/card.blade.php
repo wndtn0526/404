@@ -21,7 +21,7 @@
     ];
 
     $classes = implode(' ', [
-        'bg-background-elevated-normal rounded-2xl',
+        'bg-background-elevated-normal rounded-none',
         $paddings[$padding] ?? $paddings['md'],
         $elevations[$elevation] ?? $elevations['sm'],
     ]);

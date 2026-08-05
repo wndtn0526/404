@@ -32,8 +32,8 @@
         }
     }
 
-    $numBtn = 'inline-flex h-9 min-w-9 items-center justify-center rounded-lg px-2 text-label-1 font-medium transition-colors';
-    $navBtn = 'inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-label-neutral transition-colors hover:bg-fill-alternative disabled:cursor-not-allowed disabled:text-label-disable disabled:hover:bg-transparent';
+    $numBtn = 'inline-flex h-9 min-w-9 items-center justify-center rounded-md px-2 text-label-1 font-medium transition-colors';
+    $navBtn = 'inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-label-neutral transition-colors hover:bg-fill-alternative disabled:cursor-not-allowed disabled:text-label-disable disabled:hover:bg-transparent';
 @endphp
 
 <nav {{ $attributes->class('flex flex-wrap items-center justify-between gap-3') }} aria-label="페이지네이션">
@@ -55,10 +55,10 @@
                     <x-icon-chevron-down class="h-4 w-4 text-label-alternative transition-transform duration-200" ::class="open && 'rotate-180'" />
                 </button>
                 <div x-show="open" x-cloak x-transition.origin.bottom.duration.150ms role="menu"
-                     class="absolute bottom-full right-0 z-20 mb-1.5 min-w-[140px] overflow-hidden rounded-xl border border-line-solid-neutral bg-background-normal p-1 shadow-elevation-lg">
+                     class="absolute bottom-full right-0 z-20 mb-1.5 min-w-[140px] overflow-hidden rounded-md border border-line-solid-neutral bg-background-normal p-1 shadow-elevation-lg">
                     @foreach ($perPageOptions as $opt)
                         <button type="button" role="menuitem" @click="per = {{ (int) $opt }}; open = false"
-                                class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-label-1 transition-colors hover:bg-fill-alternative"
+                                class="flex w-full items-center justify-between rounded-md px-3 py-2 text-label-1 transition-colors hover:bg-fill-alternative"
                                 :class="per === {{ (int) $opt }} ? 'font-semibold text-primary' : 'text-label-normal'">
                             <span>{{ number_format($opt) }}개씩 보기</span>
                             <x-icon-check class="h-4 w-4" x-show="per === {{ (int) $opt }}" />

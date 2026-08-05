@@ -13,13 +13,13 @@
 <thead class="border-b border-line-solid-normal bg-background-alternative">
     <tr>
         @if ($selectable)
-            <th scope="col" class="w-12 px-5 py-3 align-middle">
+            <th scope="col" class="h-14 w-12 px-5 align-middle">
                 {{-- DS 체크박스(흰 체크): 전체=체크 / 일부=대시 --}}
                 <label class="relative inline-flex cursor-pointer items-center justify-center align-middle">
                     <input type="checkbox" aria-label="전체 선택" class="peer sr-only"
                            @change="selected = $event.target.checked ? @js($ids) : []"
                            x-effect="$el.checked = selected.length === {{ count($ids) }} && selected.length > 0; $el.indeterminate = selected.length > 0 && selected.length < {{ count($ids) }}">
-                    <span class="h-5 w-5 rounded-md border-[1.5px] border-line-normal-strong bg-background-normal transition-colors duration-150 peer-checked:border-primary peer-checked:bg-primary peer-indeterminate:border-primary peer-indeterminate:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40"></span>
+                    <span class="h-5 w-5 rounded-xs border-[1.5px] border-line-normal-strong bg-background-normal transition-colors duration-150 peer-checked:border-primary peer-checked:bg-primary peer-indeterminate:border-primary peer-indeterminate:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40"></span>
                     <x-icon-check class="pointer-events-none absolute h-[90%] w-[90%] text-white opacity-0 transition-opacity duration-150 peer-checked:opacity-100 [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" />
                     <span aria-hidden="true" class="pointer-events-none absolute h-0.5 w-2.5 rounded-full bg-white opacity-0 peer-indeterminate:opacity-100"></span>
                 </label>
@@ -35,7 +35,7 @@
                 <th scope="col"
                     @if ($width) style="width: {{ $width }}" @endif
                     @class([
-                        'px-4 py-3 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5',
+                        'h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5',
                         'text-left' => $align === 'left',
                         'text-center' => $align === 'center',
                         'text-right' => $align === 'right',

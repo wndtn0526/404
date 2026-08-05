@@ -1,4 +1,4 @@
-{{-- DS Action Chip — Figma 청담원 디자인 시스템 (16215:41950 · Wanted Montage Action Chip)
+{{-- DS Action Chip — 형태는 청담원 DS Figma(16215:41950) 출신, 색·타이포는 GPRO 토큰
      항목을 제어/선택하거나 상태를 표시할 때 사용. 낮은 시각 위계.
 
      props:
@@ -28,9 +28,9 @@
 @php
     $sizes = [
         'xsmall' => ['box' => 'gap-0.5 px-[7px] py-1 rounded-md',            'text' => 'text-caption-1', 'icon' => 'w-3 h-3'],
-        'small'  => ['box' => 'gap-0.5 px-2 py-1.5 rounded-lg',              'text' => 'text-label-1',   'icon' => 'w-3.5 h-3.5'],
-        'medium' => ['box' => 'gap-[3px] px-[11px] py-[7px] rounded-[10px]', 'text' => 'text-body-2',    'icon' => 'w-3.5 h-3.5'],
-        'large'  => ['box' => 'gap-[3px] px-3 py-[9px] rounded-[10px]',      'text' => 'text-body-2',    'icon' => 'w-4 h-4'],
+        'small'  => ['box' => 'gap-0.5 px-2 py-1.5 rounded-md',              'text' => 'text-label-1',   'icon' => 'w-3.5 h-3.5'],
+        'medium' => ['box' => 'gap-[3px] px-[11px] py-[7px] rounded-md', 'text' => 'text-body-2',    'icon' => 'w-3.5 h-3.5'],
+        'large'  => ['box' => 'gap-[3px] px-3 py-[9px] rounded-md',      'text' => 'text-body-2',    'icon' => 'w-4 h-4'],
     ];
     $sz = $sizes[$size] ?? $sizes['medium'];
 
