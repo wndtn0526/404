@@ -9,23 +9,23 @@
      ⚠️ 행 데이터는 뷰에 박아둔 예시다. DB 에서 오지 않는다. 모델·서비스가 붙으면
         컨트롤러에서 넘겨받는다(로직은 Service Layer). --}}
 @php
-    // 상태 배지 색은 완성된 토큰 이름을 담는다 — x-badge 의 color 매트릭스가 받는다.
+    // 값이 없는 칸은 하이픈으로 둔다. em dash 는 쓰지 않는다.
     $rows = [
-        ['id' => 'C-1042', 'title' => '요양보호사 직무향상 1차시 · 감염관리', 'type' => '동영상',
-            'group' => '요양보호', 'writer' => '김기안', 'runtime' => '24:10',
-            'state' => '공개', 'tone' => 'green', 'at' => '2021.07.31'],
-        ['id' => 'C-1041', 'title' => '방문간호 기록지 작성 가이드', 'type' => '문서',
-            'group' => '방문간호', 'writer' => '이대리', 'runtime' => '-',
-            'state' => '검수중', 'tone' => 'orange', 'at' => '2021.07.30'],
-        ['id' => 'C-1040', 'title' => '치매전문교육 2차시 · 의사소통', 'type' => '동영상',
-            'group' => '치매전문', 'writer' => '박사원', 'runtime' => '31:45',
-            'state' => '공개', 'tone' => 'green', 'at' => '2021.07.30'],
-        ['id' => 'C-1039', 'title' => '안전사고 예방 체크리스트', 'type' => '문서',
-            'group' => '공통', 'writer' => '최주임', 'runtime' => '-',
-            'state' => '비공개', 'tone' => 'neutral', 'at' => '2021.07.29'],
-        ['id' => 'C-1038', 'title' => '노인학대 예방 교육 · 사례 중심', 'type' => '동영상',
-            'group' => '공통', 'writer' => '정과장', 'runtime' => '18:02',
-            'state' => '반려', 'tone' => 'red', 'at' => '2021.07.28'],
+        ['id' => 'C-1042', 'title' => '요양보호사 직무향상 1차시 · 감염관리', 'writer' => '김기안',
+            'major' => '요양보호', 'minor' => '직무향상', 'tags' => '감염관리, 위생',
+            'archive' => '법정의무교육', 'year' => '2021', 'min' => '24', 'sec' => '10'],
+        ['id' => 'C-1041', 'title' => '방문간호 기록지 작성 가이드', 'writer' => '이대리',
+            'major' => '방문간호', 'minor' => '기록관리', 'tags' => '기록지, 서식',
+            'archive' => '실무자료', 'year' => '2021', 'min' => '-', 'sec' => '-'],
+        ['id' => 'C-1040', 'title' => '치매전문교육 2차시 · 의사소통', 'writer' => '박사원',
+            'major' => '치매전문', 'minor' => '의사소통', 'tags' => '치매, 라포',
+            'archive' => '전문교육', 'year' => '2020', 'min' => '31', 'sec' => '45'],
+        ['id' => 'C-1039', 'title' => '안전사고 예방 체크리스트', 'writer' => '최주임',
+            'major' => '공통', 'minor' => '안전관리', 'tags' => '안전, 점검',
+            'archive' => '실무자료', 'year' => '2021', 'min' => '-', 'sec' => '-'],
+        ['id' => 'C-1038', 'title' => '노인학대 예방 교육 · 사례 중심', 'writer' => '정과장',
+            'major' => '공통', 'minor' => '인권보호', 'tags' => '노인학대, 신고의무',
+            'archive' => '법정의무교육', 'year' => '2020', 'min' => '18', 'sec' => '02'],
     ];
 @endphp
 
@@ -83,19 +83,22 @@
             </p>
         </div>
 
-        <x-table selectable min-width="1080px">
+        {{-- 컬럼 10개 — 합계가 넓어서 좁은 화면에서는 가로 스크롤로 넘긴다. --}}
+        <x-table selectable min-width="1440px">
             <x-table.head
                 selectable
                 :all-ids="collect($rows)->pluck('id')->all()"
                 :columns="[
-                    ['label' => '컨텐츠 ID', 'width' => '120px'],
+                    ['label' => '컨텐츠ID', 'width' => '110px'],
                     ['label' => '제목'],
-                    ['label' => '유형', 'align' => 'center', 'width' => '90px'],
-                    ['label' => '분류', 'width' => '110px'],
                     ['label' => '등록자', 'width' => '100px'],
-                    ['label' => '재생시간', 'align' => 'right', 'width' => '100px'],
-                    ['label' => '상태', 'align' => 'center', 'width' => '110px'],
-                    ['label' => '등록일', 'align' => 'right', 'width' => '110px'],
+                    ['label' => '대분류', 'width' => '110px'],
+                    ['label' => '중분류', 'width' => '110px'],
+                    ['label' => '태그명', 'width' => '170px'],
+                    ['label' => '아카이브 분류', 'width' => '130px'],
+                    ['label' => '재작년도', 'align' => 'right', 'width' => '100px'],
+                    ['label' => '영상 분', 'align' => 'right', 'width' => '90px'],
+                    ['label' => '영상 초', 'align' => 'right', 'width' => '90px'],
                 ]"
             />
             <tbody>
@@ -107,14 +110,20 @@
                             <span class="text-label-2 tabular-nums">{{ $row['id'] }}</span>
                         </x-table.cell>
                         <x-table.cell tone="strong">{{ $row['title'] }}</x-table.cell>
-                        <x-table.cell align="center" tone="muted" nowrap>{{ $row['type'] }}</x-table.cell>
-                        <x-table.cell tone="muted" nowrap>{{ $row['group'] }}</x-table.cell>
                         <x-table.cell tone="muted" nowrap>{{ $row['writer'] }}</x-table.cell>
-                        <x-table.cell align="right" tone="muted" nowrap>{{ $row['runtime'] }}</x-table.cell>
-                        <x-table.cell align="center">
-                            <x-badge :color="$row['tone']" size="sm">{{ $row['state'] }}</x-badge>
+                        <x-table.cell tone="muted" nowrap>{{ $row['major'] }}</x-table.cell>
+                        <x-table.cell tone="muted" nowrap>{{ $row['minor'] }}</x-table.cell>
+                        <x-table.cell tone="muted">{{ $row['tags'] }}</x-table.cell>
+                        <x-table.cell tone="muted" nowrap>{{ $row['archive'] }}</x-table.cell>
+                        <x-table.cell align="right" tone="muted" nowrap>
+                            <span class="tabular-nums">{{ $row['year'] }}</span>
                         </x-table.cell>
-                        <x-table.cell align="right" tone="muted" nowrap>{{ $row['at'] }}</x-table.cell>
+                        <x-table.cell align="right" tone="muted" nowrap>
+                            <span class="tabular-nums">{{ $row['min'] }}</span>
+                        </x-table.cell>
+                        <x-table.cell align="right" tone="muted" nowrap>
+                            <span class="tabular-nums">{{ $row['sec'] }}</span>
+                        </x-table.cell>
                     </x-table.row>
                 @endforeach
             </tbody>

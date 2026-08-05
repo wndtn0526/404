@@ -201,9 +201,10 @@
             </p>
         </div>
 
+        
         <div class="w-full overflow-x-auto rounded-xs border border-line-solid-neutral bg-background-normal"
       x-data="{ selected: [] }" >
-    <table class="w-full border-collapse text-left" style="min-width: 1080px">
+    <table class="w-full border-collapse text-left" style="min-width: 1440px">
         <thead class="border-b border-line-solid-normal bg-background-alternative">
     <tr>
                     <th scope="col" class="h-14 w-12 px-5 align-middle">
@@ -219,21 +220,25 @@
                 </label>
             </th>
                                                             <th scope="col"
-                     style="width: 120px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">컨텐츠 ID</th>
+                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">컨텐츠ID</th>
                                             <th scope="col"
                                         class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">제목</th>
                                             <th scope="col"
-                     style="width: 90px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-center">유형</th>
-                                            <th scope="col"
-                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">분류</th>
-                                            <th scope="col"
                      style="width: 100px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">등록자</th>
                                             <th scope="col"
-                     style="width: 100px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-right">재생시간</th>
+                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">대분류</th>
                                             <th scope="col"
-                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-center">상태</th>
+                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">중분류</th>
                                             <th scope="col"
-                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-right">등록일</th>
+                     style="width: 170px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">태그명</th>
+                                            <th scope="col"
+                     style="width: 130px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">아카이브 분류</th>
+                                            <th scope="col"
+                     style="width: 100px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-right">재작년도</th>
+                                            <th scope="col"
+                     style="width: 90px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-right">영상 분</th>
+                                            <th scope="col"
+                     style="width: 90px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-right">영상 초</th>
                         </tr>
 </thead>
             <tbody>
@@ -256,25 +261,29 @@
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
 >요양보호사 직무향상 1차시 · 감염관리</td>
                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-center whitespace-nowrap"
->동영상</td>
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>김기안</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >요양보호</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
->김기안</td>
+>직무향상</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left"
+>감염관리, 위생</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>법정의무교육</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
->24:10</td>
-                        <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
-><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-green/[0.08] text-accent-fg-green">
-        공개
-    </span></td>
+><span class="tabular-nums">2021</span></td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
->2021.07.31</td>
+><span class="tabular-nums">24</span></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+><span class="tabular-nums">10</span></td>
 </tr>
                                     <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors"
             :class="selected.includes('C-1041') ? 'bg-inverse-primary/50' : 'hover:bg-fill-alternative'"
@@ -295,25 +304,29 @@
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
 >방문간호 기록지 작성 가이드</td>
                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-center whitespace-nowrap"
->문서</td>
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>이대리</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >방문간호</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
->이대리</td>
+>기록관리</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left"
+>기록지, 서식</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>실무자료</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
->-</td>
-                        <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
-><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-orange/[0.08] text-accent-fg-orange">
-        검수중
-    </span></td>
+><span class="tabular-nums">2021</span></td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
->2021.07.30</td>
+><span class="tabular-nums">-</span></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+><span class="tabular-nums">-</span></td>
 </tr>
                                     <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors"
             :class="selected.includes('C-1040') ? 'bg-inverse-primary/50' : 'hover:bg-fill-alternative'"
@@ -334,25 +347,29 @@
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
 >치매전문교육 2차시 · 의사소통</td>
                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-center whitespace-nowrap"
->동영상</td>
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>박사원</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >치매전문</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
->박사원</td>
+>의사소통</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left"
+>치매, 라포</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>전문교육</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
->31:45</td>
-                        <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
-><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-green/[0.08] text-accent-fg-green">
-        공개
-    </span></td>
+><span class="tabular-nums">2020</span></td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
->2021.07.30</td>
+><span class="tabular-nums">31</span></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+><span class="tabular-nums">45</span></td>
 </tr>
                                     <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors"
             :class="selected.includes('C-1039') ? 'bg-inverse-primary/50' : 'hover:bg-fill-alternative'"
@@ -373,25 +390,29 @@
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
 >안전사고 예방 체크리스트</td>
                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-center whitespace-nowrap"
->문서</td>
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>최주임</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >공통</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
->최주임</td>
+>안전관리</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left"
+>안전, 점검</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>실무자료</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
->-</td>
-                        <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
-><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-fill-normal text-label-alternative">
-        비공개
-    </span></td>
+><span class="tabular-nums">2021</span></td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
->2021.07.29</td>
+><span class="tabular-nums">-</span></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+><span class="tabular-nums">-</span></td>
 </tr>
                                     <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors"
             :class="selected.includes('C-1038') ? 'bg-inverse-primary/50' : 'hover:bg-fill-alternative'"
@@ -412,25 +433,29 @@
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
 >노인학대 예방 교육 · 사례 중심</td>
                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-center whitespace-nowrap"
->동영상</td>
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>정과장</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >공통</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
->정과장</td>
+>인권보호</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left"
+>노인학대, 신고의무</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>법정의무교육</td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
->18:02</td>
-                        <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
-><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-red/[0.08] text-accent-fg-red">
-        반려
-    </span></td>
+><span class="tabular-nums">2020</span></td>
                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
->2021.07.28</td>
+><span class="tabular-nums">18</span></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+><span class="tabular-nums">02</span></td>
 </tr>
                             </tbody>
     </table>
