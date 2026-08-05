@@ -12,8 +12,8 @@ Route::livewire('/health', 'health-check')->name('health');
 Route::view('/styleguide', 'styleguide')->name('styleguide');
 
 // 워크스페이스 화면들. 아직 전부 정적이다.
-// 레일 심볼의 착지점 — 나침반은 커뮤니티, 회사 심볼은 워크스페이스.
-Route::view('/community', 'community')->name('community');
+// 레일 심볼의 착지점 — 나침반은 퍼블릭 스페이스, 회사 심볼은 워크스페이스.
+Route::view('/public-space', 'public-space')->name('public-space');
 Route::view('/workspace', 'workspace')->name('workspace');
 
 // 컨텐츠 관리 — Figma 워크스페이스 화면(node 1-299) 그대로.

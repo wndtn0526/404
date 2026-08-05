@@ -17,23 +17,28 @@
         ['id' => 'C-1042', 'major' => '요양보호', 'minor' => '직무향상', 'sub' => '감염관리',
             'title' => '요양보호사 직무향상 1차시 · 감염관리', 'writer' => '김기안',
             'tags' => '감염관리, 위생', 'archive' => '법정의무교육',
-            'year' => '2021', 'min' => '24', 'sec' => '10'],
+            'year' => '2021', 'min' => '24', 'sec' => '10',
+            'state' => '공개', 'tone' => 'green', 'at' => '2021.07.31'],
         ['id' => 'C-1041', 'major' => '방문간호', 'minor' => '기록관리', 'sub' => '기록지',
             'title' => '방문간호 기록지 작성 가이드', 'writer' => '이대리',
             'tags' => '기록지, 서식', 'archive' => '실무자료',
-            'year' => '2021', 'min' => null, 'sec' => null],
+            'year' => '2021', 'min' => null, 'sec' => null,
+            'state' => '검수중', 'tone' => 'orange', 'at' => '2021.07.30'],
         ['id' => 'C-1040', 'major' => '치매전문', 'minor' => '의사소통', 'sub' => '라포형성',
             'title' => '치매전문교육 2차시 · 의사소통', 'writer' => '박사원',
             'tags' => '치매, 라포', 'archive' => '전문교육',
-            'year' => '2020', 'min' => '31', 'sec' => '45'],
+            'year' => '2020', 'min' => '31', 'sec' => '45',
+            'state' => '공개', 'tone' => 'green', 'at' => '2021.07.30'],
         ['id' => 'C-1039', 'major' => '공통', 'minor' => '안전관리', 'sub' => '사고예방',
             'title' => '안전사고 예방 체크리스트', 'writer' => '최주임',
             'tags' => '안전, 점검', 'archive' => '실무자료',
-            'year' => '2021', 'min' => null, 'sec' => null],
+            'year' => '2021', 'min' => null, 'sec' => null,
+            'state' => '비공개', 'tone' => 'neutral', 'at' => '2021.07.29'],
         ['id' => 'C-1038', 'major' => '공통', 'minor' => '인권보호', 'sub' => '노인학대',
             'title' => '노인학대 예방 교육 · 사례 중심', 'writer' => '정과장',
             'tags' => '노인학대, 신고의무', 'archive' => '법정의무교육',
-            'year' => '2020', 'min' => '18', 'sec' => '02'],
+            'year' => '2020', 'min' => '18', 'sec' => '02',
+            'state' => '반려', 'tone' => 'red', 'at' => '2021.07.28'],
     ];
 @endphp
 
@@ -100,13 +105,15 @@
                 ['key' => 'writer', 'label' => '등록자', 'type' => 'search', 'options' => ['김기안', '이대리', '박사원', '최주임', '정과장']],
                 ['key' => 'tags', 'label' => '태그명', 'type' => 'search', 'options' => ['감염관리', '위생', '기록지', '서식', '치매', '라포', '안전', '점검', '노인학대', '신고의무']],
                 ['key' => 'archive', 'label' => '아카이브 분류', 'type' => 'select', 'options' => ['법정의무교육', '전문교육', '실무자료']],
-                ['key' => 'year', 'label' => '재작년도', 'type' => 'select', 'options' => ['2021', '2020', '2019']],
+                ['key' => 'year', 'label' => '제작연도', 'type' => 'select', 'options' => ['2021', '2020', '2019']],
+                ['key' => 'state', 'label' => '상태', 'type' => 'select', 'options' => ['공개', '검수중', '비공개', '반려']],
+                ['key' => 'at', 'label' => '등록일', 'type' => 'date'],
             ]"
             class="pb-3"
         />
 
-        {{-- 컬럼 11개 — 합계가 넓어서 좁은 화면에서는 가로 스크롤로 넘긴다. --}}
-        <x-table selectable min-width="1600px">
+        {{-- 컬럼 13개 — 합계가 넓어서 좁은 화면에서는 가로 스크롤로 넘긴다. --}}
+        <x-table selectable min-width="1800px">
             <x-table.head
                 selectable
                 :all-ids="collect($rows)->pluck('id')->all()"
@@ -119,9 +126,11 @@
                     ['label' => '등록자', 'width' => '100px'],
                     ['label' => '태그명', 'width' => '170px'],
                     ['label' => '아카이브 분류', 'width' => '130px'],
-                    ['label' => '재작년도', 'align' => 'right', 'width' => '100px'],
+                    ['label' => '제작연도', 'align' => 'right', 'width' => '100px'],
                     ['label' => '영상 분', 'align' => 'right', 'width' => '100px'],
                     ['label' => '영상 초', 'align' => 'right', 'width' => '100px'],
+                    ['label' => '상태', 'align' => 'center', 'width' => '110px'],
+                    ['label' => '등록일', 'align' => 'right', 'width' => '110px'],
                 ]"
             />
             <tbody>
@@ -147,6 +156,12 @@
                         </x-table.cell>
                         <x-table.cell align="right" tone="muted" nowrap>
                             <span class="tabular-nums">{{ $unit($row['sec'], '초') }}</span>
+                        </x-table.cell>
+                        <x-table.cell align="center">
+                            <x-badge :color="$row['tone']" size="sm">{{ $row['state'] }}</x-badge>
+                        </x-table.cell>
+                        <x-table.cell align="right" tone="muted" nowrap>
+                            <span class="tabular-nums">{{ $row['at'] }}</span>
                         </x-table.cell>
                     </x-table.row>
                 @endforeach

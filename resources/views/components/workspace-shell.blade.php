@@ -71,11 +71,13 @@
     $itemBase = 'flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors';
 
     // 활성 = Label/Assistive 28% 면 + Background/Normal/Alternative 글자 (node 1-4530).
-    // 비활성 글자는 Cool Neutral/50 — 대비 약 4:1 로 읽힌다.
-    // ⚠️ 하단 '설정'만 아직 Cool Neutral/25(대비 약 1.9:1) 다. 원본(1:4013)이 갱신에서
-    //    빠져 그대로 남았다. 메뉴와 같이 올릴 거면 $itemOffFooter 를 $itemOff 로 합친다.
+    // 비활성 글자는 Cool Neutral/50 — 다크 면에서 대비 약 4:1 로 읽힌다.
+    //
+    // ⚠️ 하단 '설정'은 원본(1:4013)이 Cool Neutral/25 다. 그 값은 대비가 약 1.9:1 이라
+    //    글자가 거의 안 보인다. 원본이 node 1-4530 갱신에서 빠져 옛 값이 남은 것으로 보고
+    //    본문 메뉴와 같은 Cool Neutral/50 으로 올렸다. 원본대로 되돌릴 거면
+    //    text-workspace-cool-25 로 바꾸면 된다.
     $itemOff = 'text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white';
-    $itemOffFooter = 'text-workspace-cool-25 hover:bg-workspace-cool-25/28 hover:text-workspace-white';
     $itemOn = 'bg-workspace-cool-25/28 text-workspace-white';
 
     // 레일 심볼 활성/비활성 — Figma node 1-4661 이 정의한 그대로.
@@ -183,7 +185,7 @@
 
                         <a href="{{ $item['href'] ?? '#' }}"
                            @if ($active) aria-current="page" @endif
-                           @class([$itemBase, $itemOn => $active, $itemOffFooter => ! $active])>
+                           @class([$itemBase, $itemOn => $active, $itemOff => ! $active])>
                             @if (! empty($item['icon']))
                                 <x-dynamic-component :component="'icon-' . $item['icon']" class="size-6 shrink-0" />
                             @endif

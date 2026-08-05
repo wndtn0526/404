@@ -25,12 +25,24 @@ return [
     | 상태 표현은 Figma node 1-4661 이 정의한다.
     */
     'rail' => [
-        ['icon' => 'compass', 'href' => '/community', 'label' => '커뮤니티', 'match' => ['community', 'community/*']],
+        ['icon' => 'compass', 'href' => '/public-space', 'label' => '퍼블릭 스페이스',
+            'match' => ['public-space', 'public-space/*']],
 
         // 워크스페이스 심볼은 워크스페이스 안쪽 어디에 있든 켜져 있어야 한다.
         // href 한 곳만 보면 /contents 에서 꺼져 버린다.
         ['mark' => 'cdw-mark', 'href' => '/workspace', 'label' => '청담원 워크스페이스',
             'match' => ['workspace', 'workspace/*', 'contents', 'contents/*', 'settings', 'settings/*']],
+    ],
+
+    /*
+    | 퍼블릭 스페이스 안쪽 메뉴 — 워크스페이스와 별개다 (Figma node 1104-55195).
+    */
+    // 아티클·그룹 화면은 아직 없다. 경로로 적으면 정적 배포에서 치환 대상이 없어
+    // 절대 URL 검사가 빌드를 세운다. 화면이 생기면 경로로 바꾸고 PAGES 에도 추가한다.
+    'public_items' => [
+        ['label' => '홈', 'href' => '/public-space', 'icon' => 'home'],
+        ['label' => '아티클', 'href' => '#', 'icon' => 'document'],
+        ['label' => '그룹', 'href' => '#', 'icon' => 'persons'],
     ],
 
     /*
