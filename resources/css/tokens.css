@@ -120,14 +120,26 @@
     --color-sidebar-bg-02: #202020;
     --color-surface-overlay: #212121;
 
-    /* ── 워크스페이스 타일 ─────────────────────────────────────────────────
-       출처가 다르다. 디자인 가이드(1002-517500)가 아니라 워크스페이스 화면
-       파일(Lnsej46BaxtyKq3rhssFH3 · node 1-299)의 변수다.
-       Figma 원본명은 각각 Atomic/Neutral/50 과 Semantic/Primary/Normal 인데,
-       후자를 --color-primary-* 로 넣으면 우리 브랜드색(검정)과 충돌한다.
-       그래서 역할 이름으로 받았다. 워크스페이스 레일 아바타 타일에만 쓴다. */
-    --color-workspace-tile-neutral: #737373;
-    --color-workspace-tile-teal: #3694ab;
+    /* ── 워크스페이스 (Cool Neutral 계열) ──────────────────────────────────
+       ⚠️ 출처가 다르다. 디자인 가이드(1002-517500)가 아니라 워크스페이스 화면
+          파일(Lnsej46BaxtyKq3rhssFH3 · node 1-4003)의 변수다.
+
+       이름을 그대로 못 쓴 이유 — 같은 이름이 다른 값을 뜻한다:
+         Label/Normal    워크스페이스 #171719  vs  우리 DS #111111
+         Label/Assistive 워크스페이스 #37383c  vs  우리 DS #c2c2c2
+         Primary/Strong  워크스페이스 #04718b  vs  우리 DS #000000(검정)
+       DS 의미 계층에 덮어쓰면 전자결재 화면 색이 통째로 틀어진다.
+       그래서 workspace- 접두어로 격리했다. 워크스페이스 셸에서만 쓴다.
+
+       Cool Neutral 20/25 는 다크 면 위 대비가 1.3:1 · 1.9:1 이다. 원본 값이라
+       그대로 넣었지만 본문 텍스트에는 쓰지 않는다. */
+    --color-workspace-bg: #171719; /* Label/Normal · 사이드바 면 */
+    --color-workspace-cool-20: #292a2d; /* Cool Neutral/20 */
+    --color-workspace-cool-25: #37383c; /* Cool Neutral/25 · 활성 항목 면(28%)에도 쓴다 */
+    --color-workspace-cool-30: #46474c; /* Cool Neutral/30 */
+    --color-workspace-cool-50: #70737c; /* Cool Neutral/50 */
+    --color-workspace-cool-60: #878a93; /* Cool Neutral/60 */
+    --color-workspace-tile-teal: #04718b; /* Primary/Strong */
 
     /* ========================================================================
        2. 의미 계층 — 컴포넌트가 쓰는 이름

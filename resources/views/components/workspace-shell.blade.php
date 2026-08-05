@@ -39,16 +39,17 @@
     // 원본 실측: pl 10 · py 6 · gap 12 · 반경 6. 활성만 BG 02 를 깐다.
     $itemBase = 'flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors';
 
-    // ⚠️ 비활성 텍스트는 원본이 label/alternative(rgba(55,56,60,0.61)) 를 쓴다. 그 값을
-    //    Side Bar/BG 01 위에 얹으면 대비가 1.2:1 로 떨어져 사실상 안 보인다. 같은 성격의
-    //    '설정' 항목은 원본에서 Warm gray/700 이라 그쪽에 맞췄다. 원본을 글자 그대로
-    //    따르면 읽을 수 없는 라벨이 나온다.
-    $itemOff = 'text-warm-gray-700 hover:bg-sidebar-bg-02 hover:text-warm-gray-500';
-    $itemOn = 'bg-sidebar-bg-02 text-white';
+    // 활성 = Label/Assistive 28% 면 + Static/White 글자.
+    // ⚠️ 비활성 글자색은 원본 그대로다. 항목별로 값이 다르고 둘 다 대비가 낮다 —
+    //    Cool Neutral/20 은 약 1.3:1, Cool Neutral/25 는 약 1.9:1. 원본이 그래서 따랐다.
+    //    읽히게 올릴 거면 여기 한 곳만 고치면 된다.
+    $itemOff = 'text-workspace-cool-20 hover:bg-workspace-cool-25/28 hover:text-workspace-cool-60';
+    $itemOffFooter = 'text-workspace-cool-25 hover:bg-workspace-cool-25/28 hover:text-workspace-cool-60';
+    $itemOn = 'bg-workspace-cool-25/28 text-white';
 
     // 레일 타일 색 — Tailwind 는 파일을 문자열로 훑으므로 완성된 클래스명을 담는다.
     $railTones = [
-        'neutral' => 'bg-workspace-tile-neutral',
+        'neutral' => 'bg-workspace-cool-60',
         'teal' => 'bg-workspace-tile-teal',
     ];
 
@@ -57,7 +58,7 @@
 
 <div {{ $attributes->class('flex min-h-screen bg-mono-global-bg') }}>
     {{-- ═══ LNB — 240px 다크 사이드바 ═══ --}}
-    <aside class="relative flex w-60 shrink-0 flex-col bg-sidebar-bg-01"
+    <aside class="relative flex w-60 shrink-0 flex-col bg-workspace-bg"
            x-data="{ open: false }"
            @lnb-toggle.window="open = ! open"
            :class="open ? 'max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-40' : 'max-lg:hidden'">
@@ -90,7 +91,7 @@
 
         {{-- 워크스페이스 추가 — 원본 bottom 20 · BG Mono/900 --}}
         <button type="button"
-                class="absolute bottom-5 left-3 flex size-[30px] items-center justify-center rounded-lg bg-mono-900 text-white transition-colors hover:bg-warm-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                class="absolute bottom-5 left-3 flex size-[30px] items-center justify-center rounded-lg bg-workspace-cool-30 text-white transition-colors hover:bg-workspace-cool-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
                 aria-label="워크스페이스 추가">
             <x-icon-plus class="size-3" />
         </button>
@@ -104,14 +105,14 @@
                         <p class="truncate text-body-2 font-bold leading-[21px] text-white">{{ $workspace }}</p>
                     @endif
                     @if ($domain)
-                        <p class="truncate pt-[2px] text-caption-2 leading-[14px] text-warm-gray-700">{{ $domain }}</p>
+                        <p class="truncate pt-[2px] text-caption-2 leading-[14px] text-workspace-cool-50">{{ $domain }}</p>
                     @endif
                 </div>
             @endif
 
-            {{-- 주요 메뉴 — 원본 첫 항목 top 70, 두 번째 top 121.
-                 항목 높이 36(아이콘 24 + py 6·6) → 간격 15. 이름/도메인 블록이 53 까지 차지하므로 pt 17. --}}
-            <nav class="flex flex-col gap-[15px] pt-[17px]" aria-label="주요 메뉴">
+            {{-- 주요 메뉴 — 원본이 auto-layout 컨테이너(1:4530)로 바뀌었다. top 70 · gap 16.
+                 이름/도메인 블록이 53 까지 차지하므로 pt 17. --}}
+            <nav class="flex flex-col gap-4 pt-[17px]" aria-label="주요 메뉴">
                 @foreach ($items as $item)
                     @php
                         $active = (bool) ($item['active'] ?? false);
@@ -130,7 +131,7 @@
 
             {{-- 하단 메뉴 — 원본 bottom 17 --}}
             @if ($footerItems)
-                <nav class="mt-auto flex flex-col gap-[15px] pb-[17px]" aria-label="보조 메뉴">
+                <nav class="mt-auto flex flex-col gap-4 pb-[17px]" aria-label="보조 메뉴">
                     @foreach ($footerItems as $item)
                         @php
                             $active = (bool) ($item['active'] ?? false);
@@ -138,7 +139,7 @@
 
                         <a href="{{ $item['href'] ?? '#' }}"
                            @if ($active) aria-current="page" @endif
-                           @class([$itemBase, $itemOn => $active, $itemOff => ! $active])>
+                           @class([$itemBase, $itemOn => $active, $itemOffFooter => ! $active])>
                             @if (! empty($item['icon']))
                                 <x-dynamic-component :component="'icon-' . $item['icon']" class="size-6 shrink-0" />
                             @endif
