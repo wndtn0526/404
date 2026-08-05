@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Enums\DocumentStatus;
-use Illuminate\Support\Facades\Blade;
 use Tests\TestCase;
 
 class DesignSystemTest extends TestCase
@@ -73,64 +71,6 @@ class DesignSystemTest extends TestCase
         }
 
         return $files;
-    }
-
-    public function test_doc_status_component_renders_label_and_ds_color(): void
-    {
-        $html = Blade::render('<x-doc-status :status="$s" />', ['s' => DocumentStatus::Rejected]);
-
-        $this->assertStringContainsString('반려', $html);
-        // red 계열은 DS accent foreground 토큰을 타야 한다 (raw hex 금지)
-        $this->assertStringContainsString('accent-fg-red', $html);
-        $this->assertStringNotContainsString('#', $html);
-    }
-
-    public function test_doc_status_accepts_a_plain_string(): void
-    {
-        $html = Blade::render('<x-doc-status status="approved" />');
-
-        $this->assertStringContainsString('승인', $html);
-    }
-
-    /** 상태 전이는 화면이 아니라 enum 이 막는다. */
-    public function test_document_status_blocks_illegal_transitions(): void
-    {
-        $this->assertTrue(DocumentStatus::Draft->canTransitionTo(DocumentStatus::Pending));
-        $this->assertTrue(DocumentStatus::Pending->canTransitionTo(DocumentStatus::Rejected));
-        $this->assertTrue(DocumentStatus::Approved->canTransitionTo(DocumentStatus::Completed));
-
-        // 기안에서 곧바로 완료로 점프할 수 없다
-        $this->assertFalse(DocumentStatus::Draft->canTransitionTo(DocumentStatus::Completed));
-        $this->assertFalse(DocumentStatus::Draft->canTransitionTo(DocumentStatus::Approved));
-
-        // 종료 상태에서는 어디로도 갈 수 없다
-        foreach ([DocumentStatus::Rejected, DocumentStatus::Withdrawn, DocumentStatus::Completed] as $terminal) {
-            $this->assertTrue($terminal->isTerminal());
-            $this->assertSame([], $terminal->allowedTransitions());
-
-            foreach (DocumentStatus::cases() as $next) {
-                $this->assertFalse($terminal->canTransitionTo($next));
-            }
-        }
-    }
-
-    public function test_only_a_draft_is_editable(): void
-    {
-        foreach (DocumentStatus::cases() as $status) {
-            $this->assertSame($status === DocumentStatus::Draft, $status->isEditable());
-        }
-    }
-
-    /** 모든 상태가 라벨·배지색·아이콘을 갖는다 — 새 상태를 추가하고 매핑을 빼먹으면 여기서 걸린다. */
-    public function test_every_status_has_presentation_metadata(): void
-    {
-        $badgeColors = ['neutral', 'primary', 'blue', 'green', 'red', 'cyan', 'orange', 'violet'];
-
-        foreach (DocumentStatus::cases() as $status) {
-            $this->assertNotSame('', $status->label());
-            $this->assertContains($status->badgeColor(), $badgeColors, "{$status->value} 의 배지색이 DS 팔레트 밖이다.");
-            $this->assertFileExists(resource_path("svg/icons/{$status->icon()}.svg"));
-        }
     }
 
     /** 뷰에 raw hex 가 새로 들어오는 것을 막는다. 색은 토큰에서만 온다. */

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>디자인 시스템</title>
 
-        <link rel="preload" as="style" href="./build/assets/app-Cdl7gAJy.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-Cdl7gAJy.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="preload" as="style" href="./build/assets/app-B55JDfC9.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-B55JDfC9.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
     <meta name="robots" content="noindex">
 </head>
@@ -29,10 +29,6 @@
                             <a href="#badges"
                    class="rounded-md px-3 py-1.5 text-label-1 text-label-alternative transition-colors hover:bg-fill-normal hover:text-label-normal">
                     배지
-                </a>
-                            <a href="#doc-status"
-                   class="rounded-md px-3 py-1.5 text-label-1 text-label-alternative transition-colors hover:bg-fill-normal hover:text-label-normal">
-                    문서 상태
                 </a>
                             <a href="#forms"
                    class="rounded-md px-3 py-1.5 text-label-1 text-label-alternative transition-colors hover:bg-fill-normal hover:text-label-normal">
@@ -722,166 +718,6 @@
             </section>
 
             
-            <section id="doc-status" class="flex flex-col gap-5">
-                <div>
-                    <h2 class="text-title-3 font-bold text-label-normal">문서 상태</h2>
-                    <p class="mt-1 text-body-2 text-label-alternative">
-                        상태의 이름·색·아이콘·허용 전이는 전부
-                        <code class="font-mono text-label-2">App\Enums\DocumentStatus</code> 한 곳에 있다.
-                        <code class="font-mono text-label-2">&lt;x-doc-status&gt;</code> 는 그것을 DS 배지에 꽂아주는 역할만 한다.
-                    </p>
-                </div>
-
-                <div class="bg-background-elevated-normal rounded-none p-6 shadow-elevation-sm">
-    <div class="flex flex-wrap items-center gap-3">
-                                                    <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-2 py-[5px] rounded-xs gap-1 text-label-2 bg-fill-normal text-label-alternative">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-4 h-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M13.2793 2.15275C13.0563 2.09922 12.8293 2.09974 12.6374 2.10018L12.5872 2.10026L7.91462 2.10026C7.38475 2.10024 6.93357 2.10023 6.56314 2.13049C6.17398 2.16229 5.79539 2.23192 5.43346 2.41634C4.88779 2.69437 4.44415 3.13801 4.16612 3.68368C3.98171 4.04562 3.91207 4.42421 3.88028 4.81337C3.85001 5.18378 3.85002 5.63494 3.85004 6.16477V17.8357C3.85002 18.3655 3.85001 18.8167 3.88028 19.1871C3.91207 19.5763 3.98171 19.9549 4.16612 20.3168C4.44415 20.8625 4.88779 21.3061 5.43346 21.5842C5.79539 21.7686 6.17398 21.8382 6.56314 21.87C6.93356 21.9003 7.38472 21.9003 7.91456 21.9003H16.0854C16.6152 21.9003 17.0665 21.9003 17.4369 21.87C17.826 21.8382 18.2046 21.7686 18.5666 21.5842C19.1122 21.3061 19.5559 20.8625 19.8339 20.3168C20.0183 19.9549 20.0879 19.5763 20.1197 19.1871C20.15 18.8167 20.15 18.3656 20.15 17.8357V9.66255L20.1501 9.61237C20.1505 9.4205 20.151 9.19343 20.0975 8.97044C20.0509 8.77656 19.9741 8.59121 19.87 8.42121C19.7501 8.22567 19.5892 8.06549 19.4532 7.93013L19.4177 7.8947L14.3549 2.83241L14.3195 2.79688C14.1841 2.66091 14.024 2.50002 13.8284 2.38021C13.6585 2.27605 13.4731 2.19929 13.2793 2.15275ZM12.6004 3.90049C12.5961 3.90049 12.5917 3.90049 12.5872 3.90049H7.95C7.3751 3.90049 6.99805 3.90119 6.7097 3.92475C6.43186 3.94745 6.31651 3.98681 6.25062 4.02038C6.04364 4.12585 5.87537 4.29412 5.76991 4.5011C5.73633 4.56699 5.69697 4.68234 5.67427 4.96018C5.65071 5.24854 5.65001 5.62559 5.65001 6.20049V17.8005C5.65001 18.3754 5.65071 18.7524 5.67427 19.0408C5.69697 19.3186 5.73633 19.434 5.76991 19.4999C5.87537 19.7069 6.04364 19.8751 6.25062 19.9806C6.31651 20.0142 6.43186 20.0535 6.7097 20.0762C6.99805 20.0998 7.3751 20.1005 7.95 20.1005H16.05C16.6249 20.1005 17.0019 20.0998 17.2903 20.0762C17.5681 20.0535 17.6835 20.0142 17.7494 19.9806C17.9563 19.8751 18.1246 19.7069 18.2301 19.4999C18.2636 19.434 18.303 19.3186 18.3257 19.0408C18.3493 18.7524 18.35 18.3754 18.35 17.8005V9.9002L15.0706 9.9002C14.8163 9.90023 14.5742 9.90025 14.3703 9.88359C14.1479 9.86542 13.8928 9.82303 13.6378 9.69311C13.2803 9.51096 12.9896 9.22029 12.8075 8.86278C12.6775 8.60781 12.6352 8.3527 12.617 8.13029C12.6003 7.92634 12.6003 7.68432 12.6004 7.43002L12.6004 3.90049ZM17.0772 8.1002L14.4004 5.42358V8.0002C14.4004 8.05542 14.4452 8.1002 14.5004 8.1002H17.0772Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        기안
-    </span>
-                                                    <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-2 py-[5px] rounded-xs gap-1 text-label-2 bg-accent-fg-orange/[0.08] text-accent-fg-orange">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-4 h-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M11.4999 6.59971C11.9969 6.59971 12.3998 7.00265 12.3998 7.49971V12.127L14.611 14.3382C14.9625 14.6897 14.9625 15.2595 14.611 15.611C14.2595 15.9624 13.6897 15.9624 13.3382 15.611L10.8633 13.1361C10.6838 12.9566 10.596 12.7201 10.5999 12.4848V7.49971C10.5999 7.00265 11.0028 6.59971 11.4999 6.59971Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.1001C6.5324 2.1001 2.10004 6.53248 2.10004 12.0001C2.10004 17.4677 6.5324 21.9001 12 21.9001C17.4676 21.9001 21.9 17.4677 21.9 12.0001C21.9 6.53248 17.4676 2.1001 12 2.1001ZM3.90003 12.0001C3.90003 7.52659 7.52651 3.9001 12 3.9001C16.4735 3.9001 20.1 7.52659 20.1 12.0001C20.1 16.4736 16.4735 20.1001 12 20.1001C7.52651 20.1001 3.90003 16.4736 3.90003 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        결재 대기
-    </span>
-                                                    <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-2 py-[5px] rounded-xs gap-1 text-label-2 bg-accent-fg-blue/[0.08] text-accent-fg-blue">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-4 h-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.1 12C8.1 9.84609 9.84609 8.1 12 8.1C14.1539 8.1 15.9 9.84609 15.9 12C15.9 14.1539 14.1539 15.9 12 15.9C9.84609 15.9 8.1 14.1539 8.1 12Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M2.09998 12.0001C2.09998 6.53248 6.53236 2.1001 12 2.1001C17.4676 2.1001 21.9 6.53248 21.9 12.0001C21.9 17.4677 17.4676 21.9001 12 21.9001C6.53236 21.9001 2.09998 17.4677 2.09998 12.0001ZM12 3.9001C7.52647 3.9001 3.89998 7.52659 3.89998 12.0001C3.89998 16.4736 7.52647 20.1001 12 20.1001C16.4735 20.1001 20.1 16.4736 20.1 12.0001C20.1 7.52659 16.4735 3.9001 12 3.9001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        진행 중
-    </span>
-                                                    <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-2 py-[5px] rounded-xs gap-1 text-label-2 bg-accent-fg-green/[0.08] text-accent-fg-green">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-4 h-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M16.6466 9.87603C16.9923 9.51888 16.983 8.94911 16.6259 8.60341C16.2687 8.25772 15.6989 8.26701 15.3532 8.62416L10.6773 13.4551L8.64749 11.3523C8.30228 10.9947 7.73252 10.9846 7.3749 11.3298C7.01727 11.675 7.00721 12.2448 7.35242 12.6024L10.0289 15.3752C10.1983 15.5507 10.4318 15.6499 10.6758 15.6501C10.9198 15.6503 11.1534 15.5514 11.3231 15.376L16.6466 9.87603Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C6.53234 2.1001 2.09998 6.53248 2.09998 12.0001C2.09998 17.4677 6.53234 21.9001 11.9999 21.9001C17.4675 21.9001 21.8999 17.4677 21.8999 12.0001C21.8999 6.53248 17.4675 2.1001 11.9999 2.1001ZM3.89997 12.0001C3.89997 7.52659 7.52645 3.9001 11.9999 3.9001C16.4734 3.9001 20.0999 7.52659 20.0999 12.0001C20.0999 16.4736 16.4734 20.1001 11.9999 20.1001C7.52645 20.1001 3.89997 16.4736 3.89997 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        승인
-    </span>
-                                                    <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-2 py-[5px] rounded-xs gap-1 text-label-2 bg-accent-fg-red/[0.08] text-accent-fg-red">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-4 h-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.63631 8.36409C9.28484 8.01262 8.715 8.01262 8.36352 8.36409C8.01205 8.71556 8.01205 9.28541 8.36352 9.63688L10.7271 12.0005L8.36352 14.3641C8.01205 14.7156 8.01205 15.2854 8.36352 15.6369C8.715 15.9884 9.28484 15.9884 9.63631 15.6369L11.9999 13.2733L14.3635 15.6369C14.715 15.9884 15.2848 15.9884 15.6363 15.6369C15.9878 15.2854 15.9878 14.7156 15.6363 14.3641L13.2727 12.0005L15.6363 9.63688C15.9878 9.28541 15.9878 8.71556 15.6363 8.36409C15.2848 8.01262 14.715 8.01262 14.3635 8.36409L11.9999 10.7277L9.63631 8.36409Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C6.53231 2.1001 2.09995 6.53248 2.09995 12.0001C2.09995 17.4677 6.53231 21.9001 11.9999 21.9001C17.4675 21.9001 21.8999 17.4677 21.8999 12.0001C21.8999 6.53248 17.4675 2.1001 11.9999 2.1001ZM3.89994 12.0001C3.89994 7.52659 7.52642 3.9001 11.9999 3.9001C16.4734 3.9001 20.0999 7.52659 20.0999 12.0001C20.0999 16.4736 16.4734 20.1001 11.9999 20.1001C7.52642 20.1001 3.89994 16.4736 3.89994 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        반려
-    </span>
-                                                    <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-2 py-[5px] rounded-xs gap-1 text-label-2 bg-fill-normal text-label-alternative">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-4 h-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.1001C6.5324 2.1001 2.10004 6.53248 2.10004 12.0001C2.10004 17.4677 6.5324 21.9001 12 21.9001C17.4676 21.9001 21.9 17.4677 21.9 12.0001C21.9 6.53248 17.4676 2.1001 12 2.1001ZM3.90003 12.0001C3.90003 7.52659 7.52651 3.9001 12 3.9001C13.9125 3.9001 15.6702 4.56292 17.0559 5.67139L5.67131 17.056C4.56285 15.6703 3.90003 13.9126 3.90003 12.0001ZM6.9441 18.3288C8.3298 19.4373 10.0875 20.1001 12 20.1001C16.4735 20.1001 20.1 16.4736 20.1 12.0001C20.1 10.0876 19.4371 8.32988 18.3287 6.94418L6.9441 18.3288Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        회수
-    </span>
-                                                    <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-2 py-[5px] rounded-xs gap-1 text-label-2 bg-accent-fg-green/[0.08] text-accent-fg-green">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-4 h-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        완료
-    </span>
-                                            </div>
-</div>
-
-                <div class="bg-background-elevated-normal rounded-none p-6 shadow-elevation-sm">
-    <p class="mb-4 text-label-1 font-semibold text-label-alternative">허용된 상태 전이</p>
-                    <div class="flex flex-col gap-2">
-                                                    <div class="flex flex-wrap items-center gap-2 py-1">
-                                <span class="w-32 shrink-0"><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-fill-normal text-label-alternative">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M13.2793 2.15275C13.0563 2.09922 12.8293 2.09974 12.6374 2.10018L12.5872 2.10026L7.91462 2.10026C7.38475 2.10024 6.93357 2.10023 6.56314 2.13049C6.17398 2.16229 5.79539 2.23192 5.43346 2.41634C4.88779 2.69437 4.44415 3.13801 4.16612 3.68368C3.98171 4.04562 3.91207 4.42421 3.88028 4.81337C3.85001 5.18378 3.85002 5.63494 3.85004 6.16477V17.8357C3.85002 18.3655 3.85001 18.8167 3.88028 19.1871C3.91207 19.5763 3.98171 19.9549 4.16612 20.3168C4.44415 20.8625 4.88779 21.3061 5.43346 21.5842C5.79539 21.7686 6.17398 21.8382 6.56314 21.87C6.93356 21.9003 7.38472 21.9003 7.91456 21.9003H16.0854C16.6152 21.9003 17.0665 21.9003 17.4369 21.87C17.826 21.8382 18.2046 21.7686 18.5666 21.5842C19.1122 21.3061 19.5559 20.8625 19.8339 20.3168C20.0183 19.9549 20.0879 19.5763 20.1197 19.1871C20.15 18.8167 20.15 18.3656 20.15 17.8357V9.66255L20.1501 9.61237C20.1505 9.4205 20.151 9.19343 20.0975 8.97044C20.0509 8.77656 19.9741 8.59121 19.87 8.42121C19.7501 8.22567 19.5892 8.06549 19.4532 7.93013L19.4177 7.8947L14.3549 2.83241L14.3195 2.79688C14.1841 2.66091 14.024 2.50002 13.8284 2.38021C13.6585 2.27605 13.4731 2.19929 13.2793 2.15275ZM12.6004 3.90049C12.5961 3.90049 12.5917 3.90049 12.5872 3.90049H7.95C7.3751 3.90049 6.99805 3.90119 6.7097 3.92475C6.43186 3.94745 6.31651 3.98681 6.25062 4.02038C6.04364 4.12585 5.87537 4.29412 5.76991 4.5011C5.73633 4.56699 5.69697 4.68234 5.67427 4.96018C5.65071 5.24854 5.65001 5.62559 5.65001 6.20049V17.8005C5.65001 18.3754 5.65071 18.7524 5.67427 19.0408C5.69697 19.3186 5.73633 19.434 5.76991 19.4999C5.87537 19.7069 6.04364 19.8751 6.25062 19.9806C6.31651 20.0142 6.43186 20.0535 6.7097 20.0762C6.99805 20.0998 7.3751 20.1005 7.95 20.1005H16.05C16.6249 20.1005 17.0019 20.0998 17.2903 20.0762C17.5681 20.0535 17.6835 20.0142 17.7494 19.9806C17.9563 19.8751 18.1246 19.7069 18.2301 19.4999C18.2636 19.434 18.303 19.3186 18.3257 19.0408C18.3493 18.7524 18.35 18.3754 18.35 17.8005V9.9002L15.0706 9.9002C14.8163 9.90023 14.5742 9.90025 14.3703 9.88359C14.1479 9.86542 13.8928 9.82303 13.6378 9.69311C13.2803 9.51096 12.9896 9.22029 12.8075 8.86278C12.6775 8.60781 12.6352 8.3527 12.617 8.13029C12.6003 7.92634 12.6003 7.68432 12.6004 7.43002L12.6004 3.90049ZM17.0772 8.1002L14.4004 5.42358V8.0002C14.4004 8.05542 14.4452 8.1002 14.5004 8.1002H17.0772Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        기안
-    </span>
-</span>
-                                                                    <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M21.1365 12.6362C21.4879 12.2848 21.4879 11.7149 21.1365 11.3635L14.1365 4.36346C13.785 4.01199 13.2152 4.01199 12.8637 4.36346C12.5122 4.71493 12.5122 5.28478 12.8637 5.63625L18.3273 11.0999H3.50012C3.00307 11.0999 2.60013 11.5028 2.60013 11.9999C2.60013 12.4969 3.00307 12.8999 3.50012 12.8999H18.3273L12.8637 18.3635C12.5122 18.7149 12.5122 19.2848 12.8637 19.6363C13.2152 19.9877 13.785 19.9877 14.1365 19.6362L21.1365 12.6362Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                                            <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 border border-accent-fg-orange/[0.43] text-accent-fg-orange">
-        결재 대기
-    </span>
-                                                                                                </div>
-                                                    <div class="flex flex-wrap items-center gap-2 py-1">
-                                <span class="w-32 shrink-0"><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-orange/[0.08] text-accent-fg-orange">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M11.4999 6.59971C11.9969 6.59971 12.3998 7.00265 12.3998 7.49971V12.127L14.611 14.3382C14.9625 14.6897 14.9625 15.2595 14.611 15.611C14.2595 15.9624 13.6897 15.9624 13.3382 15.611L10.8633 13.1361C10.6838 12.9566 10.596 12.7201 10.5999 12.4848V7.49971C10.5999 7.00265 11.0028 6.59971 11.4999 6.59971Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.1001C6.5324 2.1001 2.10004 6.53248 2.10004 12.0001C2.10004 17.4677 6.5324 21.9001 12 21.9001C17.4676 21.9001 21.9 17.4677 21.9 12.0001C21.9 6.53248 17.4676 2.1001 12 2.1001ZM3.90003 12.0001C3.90003 7.52659 7.52651 3.9001 12 3.9001C16.4735 3.9001 20.1 7.52659 20.1 12.0001C20.1 16.4736 16.4735 20.1001 12 20.1001C7.52651 20.1001 3.90003 16.4736 3.90003 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        결재 대기
-    </span>
-</span>
-                                                                    <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M21.1365 12.6362C21.4879 12.2848 21.4879 11.7149 21.1365 11.3635L14.1365 4.36346C13.785 4.01199 13.2152 4.01199 12.8637 4.36346C12.5122 4.71493 12.5122 5.28478 12.8637 5.63625L18.3273 11.0999H3.50012C3.00307 11.0999 2.60013 11.5028 2.60013 11.9999C2.60013 12.4969 3.00307 12.8999 3.50012 12.8999H18.3273L12.8637 18.3635C12.5122 18.7149 12.5122 19.2848 12.8637 19.6363C13.2152 19.9877 13.785 19.9877 14.1365 19.6362L21.1365 12.6362Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                                            <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 border border-accent-fg-blue/[0.43] text-accent-fg-blue">
-        진행 중
-    </span>
-                                                                            <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 border border-accent-fg-green/[0.43] text-accent-fg-green">
-        승인
-    </span>
-                                                                            <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 border border-accent-fg-red/[0.43] text-accent-fg-red">
-        반려
-    </span>
-                                                                            <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 border border-line-normal-neutral text-label-alternative">
-        회수
-    </span>
-                                                                                                </div>
-                                                    <div class="flex flex-wrap items-center gap-2 py-1">
-                                <span class="w-32 shrink-0"><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-blue/[0.08] text-accent-fg-blue">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.1 12C8.1 9.84609 9.84609 8.1 12 8.1C14.1539 8.1 15.9 9.84609 15.9 12C15.9 14.1539 14.1539 15.9 12 15.9C9.84609 15.9 8.1 14.1539 8.1 12Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M2.09998 12.0001C2.09998 6.53248 6.53236 2.1001 12 2.1001C17.4676 2.1001 21.9 6.53248 21.9 12.0001C21.9 17.4677 17.4676 21.9001 12 21.9001C6.53236 21.9001 2.09998 17.4677 2.09998 12.0001ZM12 3.9001C7.52647 3.9001 3.89998 7.52659 3.89998 12.0001C3.89998 16.4736 7.52647 20.1001 12 20.1001C16.4735 20.1001 20.1 16.4736 20.1 12.0001C20.1 7.52659 16.4735 3.9001 12 3.9001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        진행 중
-    </span>
-</span>
-                                                                    <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M21.1365 12.6362C21.4879 12.2848 21.4879 11.7149 21.1365 11.3635L14.1365 4.36346C13.785 4.01199 13.2152 4.01199 12.8637 4.36346C12.5122 4.71493 12.5122 5.28478 12.8637 5.63625L18.3273 11.0999H3.50012C3.00307 11.0999 2.60013 11.5028 2.60013 11.9999C2.60013 12.4969 3.00307 12.8999 3.50012 12.8999H18.3273L12.8637 18.3635C12.5122 18.7149 12.5122 19.2848 12.8637 19.6363C13.2152 19.9877 13.785 19.9877 14.1365 19.6362L21.1365 12.6362Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                                            <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 border border-accent-fg-green/[0.43] text-accent-fg-green">
-        승인
-    </span>
-                                                                            <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 border border-accent-fg-red/[0.43] text-accent-fg-red">
-        반려
-    </span>
-                                                                            <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 border border-line-normal-neutral text-label-alternative">
-        회수
-    </span>
-                                                                                                </div>
-                                                    <div class="flex flex-wrap items-center gap-2 py-1">
-                                <span class="w-32 shrink-0"><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-green/[0.08] text-accent-fg-green">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M16.6466 9.87603C16.9923 9.51888 16.983 8.94911 16.6259 8.60341C16.2687 8.25772 15.6989 8.26701 15.3532 8.62416L10.6773 13.4551L8.64749 11.3523C8.30228 10.9947 7.73252 10.9846 7.3749 11.3298C7.01727 11.675 7.00721 12.2448 7.35242 12.6024L10.0289 15.3752C10.1983 15.5507 10.4318 15.6499 10.6758 15.6501C10.9198 15.6503 11.1534 15.5514 11.3231 15.376L16.6466 9.87603Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C6.53234 2.1001 2.09998 6.53248 2.09998 12.0001C2.09998 17.4677 6.53234 21.9001 11.9999 21.9001C17.4675 21.9001 21.8999 17.4677 21.8999 12.0001C21.8999 6.53248 17.4675 2.1001 11.9999 2.1001ZM3.89997 12.0001C3.89997 7.52659 7.52645 3.9001 11.9999 3.9001C16.4734 3.9001 20.0999 7.52659 20.0999 12.0001C20.0999 16.4736 16.4734 20.1001 11.9999 20.1001C7.52645 20.1001 3.89997 16.4736 3.89997 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        승인
-    </span>
-</span>
-                                                                    <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M21.1365 12.6362C21.4879 12.2848 21.4879 11.7149 21.1365 11.3635L14.1365 4.36346C13.785 4.01199 13.2152 4.01199 12.8637 4.36346C12.5122 4.71493 12.5122 5.28478 12.8637 5.63625L18.3273 11.0999H3.50012C3.00307 11.0999 2.60013 11.5028 2.60013 11.9999C2.60013 12.4969 3.00307 12.8999 3.50012 12.8999H18.3273L12.8637 18.3635C12.5122 18.7149 12.5122 19.2848 12.8637 19.6363C13.2152 19.9877 13.785 19.9877 14.1365 19.6362L21.1365 12.6362Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                                            <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 border border-accent-fg-green/[0.43] text-accent-fg-green">
-        완료
-    </span>
-                                                                                                </div>
-                                                    <div class="flex flex-wrap items-center gap-2 py-1">
-                                <span class="w-32 shrink-0"><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-red/[0.08] text-accent-fg-red">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.63631 8.36409C9.28484 8.01262 8.715 8.01262 8.36352 8.36409C8.01205 8.71556 8.01205 9.28541 8.36352 9.63688L10.7271 12.0005L8.36352 14.3641C8.01205 14.7156 8.01205 15.2854 8.36352 15.6369C8.715 15.9884 9.28484 15.9884 9.63631 15.6369L11.9999 13.2733L14.3635 15.6369C14.715 15.9884 15.2848 15.9884 15.6363 15.6369C15.9878 15.2854 15.9878 14.7156 15.6363 14.3641L13.2727 12.0005L15.6363 9.63688C15.9878 9.28541 15.9878 8.71556 15.6363 8.36409C15.2848 8.01262 14.715 8.01262 14.3635 8.36409L11.9999 10.7277L9.63631 8.36409Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C6.53231 2.1001 2.09995 6.53248 2.09995 12.0001C2.09995 17.4677 6.53231 21.9001 11.9999 21.9001C17.4675 21.9001 21.8999 17.4677 21.8999 12.0001C21.8999 6.53248 17.4675 2.1001 11.9999 2.1001ZM3.89994 12.0001C3.89994 7.52659 7.52642 3.9001 11.9999 3.9001C16.4734 3.9001 20.0999 7.52659 20.0999 12.0001C20.0999 16.4736 16.4734 20.1001 11.9999 20.1001C7.52642 20.1001 3.89994 16.4736 3.89994 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        반려
-    </span>
-</span>
-                                                                    <span class="text-label-2 text-label-assistive">종료 상태 — 재상신은 새 문서로</span>
-                                                            </div>
-                                                    <div class="flex flex-wrap items-center gap-2 py-1">
-                                <span class="w-32 shrink-0"><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-fill-normal text-label-alternative">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.1001C6.5324 2.1001 2.10004 6.53248 2.10004 12.0001C2.10004 17.4677 6.5324 21.9001 12 21.9001C17.4676 21.9001 21.9 17.4677 21.9 12.0001C21.9 6.53248 17.4676 2.1001 12 2.1001ZM3.90003 12.0001C3.90003 7.52659 7.52651 3.9001 12 3.9001C13.9125 3.9001 15.6702 4.56292 17.0559 5.67139L5.67131 17.056C4.56285 15.6703 3.90003 13.9126 3.90003 12.0001ZM6.9441 18.3288C8.3298 19.4373 10.0875 20.1001 12 20.1001C16.4735 20.1001 20.1 16.4736 20.1 12.0001C20.1 10.0876 19.4371 8.32988 18.3287 6.94418L6.9441 18.3288Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        회수
-    </span>
-</span>
-                                                                    <span class="text-label-2 text-label-assistive">종료 상태 — 재상신은 새 문서로</span>
-                                                            </div>
-                                                    <div class="flex flex-wrap items-center gap-2 py-1">
-                                <span class="w-32 shrink-0"><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-green/[0.08] text-accent-fg-green">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        완료
-    </span>
-</span>
-                                                                    <span class="text-label-2 text-label-assistive">종료 상태 — 재상신은 새 문서로</span>
-                                                            </div>
-                                            </div>
-</div>
-            </section>
-
-            
             <section id="forms" class="flex flex-col gap-5">
                 <h2 class="text-title-3 font-bold text-label-normal">폼 컨트롤</h2>
 
@@ -958,7 +794,7 @@
          >
         
         <input
-            id="input-6a72bd9e555d1"
+            id="input-6a72bfd28134c"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="Placeholder"         />
 
@@ -971,7 +807,7 @@
          >
         
         <input
-            id="input-6a72bd9e555ea"
+            id="input-6a72bfd28144e"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled"         />
 
@@ -988,7 +824,7 @@
 </svg>            </span>
         
         <input
-            id="input-6a72bd9e555fe"
+            id="input-6a72bfd28153d"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-10 pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled"         />
 
@@ -1001,7 +837,7 @@
          >
         
         <input
-            id="input-6a72bd9e55699"
+            id="input-6a72bfd281790"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled" disabled="disabled"         />
 
@@ -1018,7 +854,7 @@
          >
         
         <input
-            id="input-6a72bd9e556ae"
+            id="input-6a72bfd28189a"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="Placeholder"         />
 
@@ -1031,7 +867,7 @@
          >
         
         <input
-            id="input-6a72bd9e556c0"
+            id="input-6a72bfd281995"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled"         />
 
@@ -1048,7 +884,7 @@
 </svg>            </span>
         
         <input
-            id="input-6a72bd9e556d3"
+            id="input-6a72bfd281a9d"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-10 pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled"         />
 
@@ -1061,7 +897,7 @@
          >
         
         <input
-            id="input-6a72bd9e55712"
+            id="input-6a72bfd281c14"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled" disabled="disabled"         />
 
@@ -1076,7 +912,7 @@
      >
     
             <textarea
-            id="textarea-6a72bd9e5572e"
+            id="textarea-6a72bfd281c9d"
             rows="3"
                                                 class="w-full rounded-md px-4 py-3 text-body-1 bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive resize-y border transition-colors duration-150 focus:outline-none disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900" placeholder="Placeholder"></textarea>
     
@@ -1085,12 +921,12 @@
      >
     
             <textarea
-            id="textarea-6a72bd9e5573f"
+            id="textarea-6a72bfd281d03"
             rows="3"
-                                     aria-invalid="true" aria-describedby="textarea-6a72bd9e5573f-msg"             class="w-full rounded-md px-4 py-3 text-body-1 bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive resize-y border transition-colors duration-150 focus:outline-none disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable border-status-negative focus:border-status-negative">Typing</textarea>
+                                     aria-invalid="true" aria-describedby="textarea-6a72bfd281d03-msg"             class="w-full rounded-md px-4 py-3 text-body-1 bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive resize-y border transition-colors duration-150 focus:outline-none disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable border-status-negative focus:border-status-negative">Typing</textarea>
     
             <div class="flex items-start justify-between gap-2">
-            <p id="textarea-6a72bd9e5573f-msg"
+            <p id="textarea-6a72bfd281d03-msg"
                class="flex-1 text-label-2 text-status-negative">
                 내용을 입력해 주세요
             </p>
@@ -1106,7 +942,7 @@
          >
         
         <input
-            id="input-6a72bd9e55754"
+            id="input-6a72bfd281df0"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border-0 border-b rounded-none transition-colors duration-150 focus:outline-none pl-0 pr-0 border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="Placeholder"         />
 
@@ -1119,7 +955,7 @@
          >
         
         <input
-            id="input-6a72bd9e55766"
+            id="input-6a72bfd281ed9"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border-0 border-b rounded-none transition-colors duration-150 focus:outline-none pl-0 pr-0 border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled"         />
 
@@ -1132,13 +968,13 @@
          >
         
         <input
-            id="input-6a72bd9e55778"
+            id="input-6a72bfd281fcb"
             type="text"
-                                                             aria-invalid="true" aria-describedby="input-6a72bd9e55778-msg" @input="err = false" @change="err = false" :class="err ? 'border-status-negative focus:border-status-negative' : 'border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900'"                                      class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border-0 border-b rounded-none transition-colors duration-150 focus:outline-none pl-0 pr-0  disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Typing"         />
+                                                             aria-invalid="true" aria-describedby="input-6a72bfd281fcb-msg" @input="err = false" @change="err = false" :class="err ? 'border-status-negative focus:border-status-negative' : 'border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900'"                                      class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border-0 border-b rounded-none transition-colors duration-150 focus:outline-none pl-0 pr-0  disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Typing"         />
 
             </div>
     
-            <p id="input-6a72bd9e55778-msg" x-show="err" class="text-label-2 text-status-negative">확인이 필요합니다</p>
+            <p id="input-6a72bfd281fcb-msg" x-show="err" class="text-label-2 text-status-negative">확인이 필요합니다</p>
             </div>
                             <div class="flex flex-col gap-1.5"  >
     
@@ -1146,7 +982,7 @@
          >
         
         <input
-            id="input-6a72bd9e5578b"
+            id="input-6a72bfd2820b2"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border-0 border-b rounded-none transition-colors duration-150 focus:outline-none pl-0 pr-0 border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled" disabled="disabled"         />
 
@@ -1173,7 +1009,7 @@
     </span>
             
             <input
-                id="input-6a72bd9e5579e"
+                id="input-6a72bfd2821a7"
                 type="text"
                                                 class="min-w-24 flex-1 border-0 bg-transparent p-0 text-label-1 text-label-strong caret-deep-blue-900 placeholder:text-label-assistive focus:outline-none focus:ring-0" placeholder="이름 입력"
             />
@@ -1195,7 +1031,7 @@
     </span>
             
             <input
-                id="input-6a72bd9e557e2"
+                id="input-6a72bfd2823ba"
                 type="text"
                                                 class="min-w-24 flex-1 border-0 bg-transparent p-0 text-label-1 text-label-strong caret-deep-blue-900 placeholder:text-label-assistive focus:outline-none focus:ring-0" placeholder="태그 입력"
             />
@@ -1801,10 +1637,7 @@
                                 <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
 ><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-orange/[0.08] text-accent-fg-orange">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M11.4999 6.59971C11.9969 6.59971 12.3998 7.00265 12.3998 7.49971V12.127L14.611 14.3382C14.9625 14.6897 14.9625 15.2595 14.611 15.611C14.2595 15.9624 13.6897 15.9624 13.3382 15.611L10.8633 13.1361C10.6838 12.9566 10.596 12.7201 10.5999 12.4848V7.49971C10.5999 7.00265 11.0028 6.59971 11.4999 6.59971Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.1001C6.5324 2.1001 2.10004 6.53248 2.10004 12.0001C2.10004 17.4677 6.5324 21.9001 12 21.9001C17.4676 21.9001 21.9 17.4677 21.9 12.0001C21.9 6.53248 17.4676 2.1001 12 2.1001ZM3.90003 12.0001C3.90003 7.52659 7.52651 3.9001 12 3.9001C16.4735 3.9001 20.1 7.52659 20.1 12.0001C20.1 16.4736 16.4735 20.1001 12 20.1001C7.52651 20.1001 3.90003 16.4736 3.90003 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        결재 대기
+        결재 대기
     </span></td>
                                 <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
@@ -1834,10 +1667,7 @@
                                 <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
 ><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-blue/[0.08] text-accent-fg-blue">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.1 12C8.1 9.84609 9.84609 8.1 12 8.1C14.1539 8.1 15.9 9.84609 15.9 12C15.9 14.1539 14.1539 15.9 12 15.9C9.84609 15.9 8.1 14.1539 8.1 12Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M2.09998 12.0001C2.09998 6.53248 6.53236 2.1001 12 2.1001C17.4676 2.1001 21.9 6.53248 21.9 12.0001C21.9 17.4677 17.4676 21.9001 12 21.9001C6.53236 21.9001 2.09998 17.4677 2.09998 12.0001ZM12 3.9001C7.52647 3.9001 3.89998 7.52659 3.89998 12.0001C3.89998 16.4736 7.52647 20.1001 12 20.1001C16.4735 20.1001 20.1 16.4736 20.1 12.0001C20.1 7.52659 16.4735 3.9001 12 3.9001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        진행 중
+        진행 중
     </span></td>
                                 <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
@@ -1867,10 +1697,7 @@
                                 <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
 ><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-green/[0.08] text-accent-fg-green">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M16.6466 9.87603C16.9923 9.51888 16.983 8.94911 16.6259 8.60341C16.2687 8.25772 15.6989 8.26701 15.3532 8.62416L10.6773 13.4551L8.64749 11.3523C8.30228 10.9947 7.73252 10.9846 7.3749 11.3298C7.01727 11.675 7.00721 12.2448 7.35242 12.6024L10.0289 15.3752C10.1983 15.5507 10.4318 15.6499 10.6758 15.6501C10.9198 15.6503 11.1534 15.5514 11.3231 15.376L16.6466 9.87603Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C6.53234 2.1001 2.09998 6.53248 2.09998 12.0001C2.09998 17.4677 6.53234 21.9001 11.9999 21.9001C17.4675 21.9001 21.8999 17.4677 21.8999 12.0001C21.8999 6.53248 17.4675 2.1001 11.9999 2.1001ZM3.89997 12.0001C3.89997 7.52659 7.52645 3.9001 11.9999 3.9001C16.4734 3.9001 20.0999 7.52659 20.0999 12.0001C20.0999 16.4736 16.4734 20.1001 11.9999 20.1001C7.52645 20.1001 3.89997 16.4736 3.89997 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        승인
+        승인
     </span></td>
                                 <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
@@ -1900,10 +1727,7 @@
                                 <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
 ><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-red/[0.08] text-accent-fg-red">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.63631 8.36409C9.28484 8.01262 8.715 8.01262 8.36352 8.36409C8.01205 8.71556 8.01205 9.28541 8.36352 9.63688L10.7271 12.0005L8.36352 14.3641C8.01205 14.7156 8.01205 15.2854 8.36352 15.6369C8.715 15.9884 9.28484 15.9884 9.63631 15.6369L11.9999 13.2733L14.3635 15.6369C14.715 15.9884 15.2848 15.9884 15.6363 15.6369C15.9878 15.2854 15.9878 14.7156 15.6363 14.3641L13.2727 12.0005L15.6363 9.63688C15.9878 9.28541 15.9878 8.71556 15.6363 8.36409C15.2848 8.01262 14.715 8.01262 14.3635 8.36409L11.9999 10.7277L9.63631 8.36409Z" fill="currentColor" fill-opacity="0.88"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C6.53231 2.1001 2.09995 6.53248 2.09995 12.0001C2.09995 17.4677 6.53231 21.9001 11.9999 21.9001C17.4675 21.9001 21.8999 17.4677 21.8999 12.0001C21.8999 6.53248 17.4675 2.1001 11.9999 2.1001ZM3.89994 12.0001C3.89994 7.52659 7.52642 3.9001 11.9999 3.9001C16.4734 3.9001 20.0999 7.52659 20.0999 12.0001C20.0999 16.4736 16.4734 20.1001 11.9999 20.1001C7.52642 20.1001 3.89994 16.4736 3.89994 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        반려
+        반려
     </span></td>
                                 <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
@@ -1933,9 +1757,7 @@
                                 <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
 ><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-green/[0.08] text-accent-fg-green">
-            <svg width="1em" height="1em" aria-hidden="true" class="w-3.5 h-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        완료
+        완료
     </span></td>
                                 <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
@@ -2402,7 +2224,7 @@
       x-data="{ open: false }"
       @mouseenter="open = true" @mouseleave="open = false"
       @focusin="open = true" @focusout="open = false">
-    <span aria-describedby="tip-6a72bd9e569d7" class="inline-flex"><button
+    <span aria-describedby="tip-6a72bfd2855a4" class="inline-flex"><button
             type="button"
                 class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-status-negative text-white hover:bg-accent-fg-red active:bg-accent-fg-red disabled:bg-interaction-disable disabled:text-label-disable h-12 px-5 text-body-1"
 >
@@ -2411,7 +2233,7 @@
 
     </button></span>
 
-    <span x-show="open" x-cloak id="tip-6a72bd9e569d7" role="tooltip"
+    <span x-show="open" x-cloak id="tip-6a72bfd2855a4" role="tooltip"
           x-transition:enter="transition ease-out duration-150"
           x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
           x-transition:leave="transition ease-in duration-100"
@@ -2426,7 +2248,7 @@
       x-data="{ open: false }"
       @mouseenter="open = true" @mouseleave="open = false"
       @focusin="open = true" @focusout="open = false">
-    <span aria-describedby="tip-6a72bd9e569f6" class="inline-flex"><button
+    <span aria-describedby="tip-6a72bfd285644" class="inline-flex"><button
             type="button"
                 class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-primary text-white hover:bg-primary-strong active:bg-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-12 px-5 text-body-1"
 >
@@ -2435,7 +2257,7 @@
 
     </button></span>
 
-    <span x-show="open" x-cloak id="tip-6a72bd9e569f6" role="tooltip"
+    <span x-show="open" x-cloak id="tip-6a72bfd285644" role="tooltip"
           x-transition:enter="transition ease-out duration-150"
           x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
           x-transition:leave="transition ease-in duration-100"
@@ -2450,7 +2272,7 @@
       x-data="{ open: false }"
       @mouseenter="open = true" @mouseleave="open = false"
       @focusin="open = true" @focusout="open = false">
-    <span aria-describedby="tip-6a72bd9e56a13" class="inline-flex"><button
+    <span aria-describedby="tip-6a72bfd2856e7" class="inline-flex"><button
             type="button"
                 class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-fill-normal text-label-normal hover:bg-fill-strong active:bg-fill-strong disabled:bg-interaction-disable disabled:text-label-disable h-12 px-5 text-body-1"
 >
@@ -2459,7 +2281,7 @@
 
     </button></span>
 
-    <span x-show="open" x-cloak id="tip-6a72bd9e56a13" role="tooltip"
+    <span x-show="open" x-cloak id="tip-6a72bfd2856e7" role="tooltip"
           x-transition:enter="transition ease-out duration-150"
           x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
           x-transition:leave="transition ease-in duration-100"

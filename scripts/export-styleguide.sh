@@ -17,6 +17,12 @@ SRC="http://127.0.0.1:${PORT}"
 
 cd "$ROOT"
 
+# 컴파일된 Blade 캐시를 먼저 비운다. app.css 가 storage/framework/views 를 @source 로
+# 스캔하기 때문에, 삭제된 컴포넌트의 낡은 캐시가 남아 있으면 죽은 유틸리티 클래스가
+# 그대로 CSS 에 실려 나간다.
+echo "▸ 뷰 캐시 정리"
+php artisan view:clear
+
 echo "▸ 에셋 빌드"
 npm run build --silent
 

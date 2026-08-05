@@ -1,6 +1,4 @@
 @php
-    use App\Enums\DocumentStatus;
-
     /* 개발용 살아있는 스타일가이드. 컴포넌트를 실제로 렌더하므로 토큰이나 컴포넌트가 깨지면
        여기서 바로 드러난다. 새 컴포넌트를 만들면 여기에도 추가한다.
 
@@ -13,7 +11,6 @@
         'typography' => '타이포',
         'buttons' => '버튼',
         'badges' => '배지',
-        'doc-status' => '문서 상태',
         'forms' => '폼 컨트롤',
         'table' => '표',
         'nav' => '탭 · 페이지네이션',
@@ -114,11 +111,11 @@
         ->values();
 
     $docs = [
-        ['no' => 'EA-2026-0142', 'title' => '노트북 4대 구매 요청', 'writer' => '김기안', 'status' => DocumentStatus::Pending, 'at' => '2026-07-31'],
-        ['no' => 'EA-2026-0141', 'title' => '7월 방문간호 차량 유지비 정산', 'writer' => '이대리', 'status' => DocumentStatus::InProgress, 'at' => '2026-07-30'],
-        ['no' => 'EA-2026-0140', 'title' => '재직증명서 발급 신청', 'writer' => '박사원', 'status' => DocumentStatus::Approved, 'at' => '2026-07-30'],
-        ['no' => 'EA-2026-0139', 'title' => '외부 교육 참가비 지원', 'writer' => '최주임', 'status' => DocumentStatus::Rejected, 'at' => '2026-07-29'],
-        ['no' => 'EA-2026-0138', 'title' => '사무용품 정기 발주', 'writer' => '정과장', 'status' => DocumentStatus::Completed, 'at' => '2026-07-28'],
+        ['no' => 'EA-2026-0142', 'title' => '노트북 4대 구매 요청', 'writer' => '김기안', 'status' => '결재 대기', 'tone' => 'orange', 'at' => '2026-07-31'],
+        ['no' => 'EA-2026-0141', 'title' => '7월 방문간호 차량 유지비 정산', 'writer' => '이대리', 'status' => '진행 중', 'tone' => 'blue', 'at' => '2026-07-30'],
+        ['no' => 'EA-2026-0140', 'title' => '재직증명서 발급 신청', 'writer' => '박사원', 'status' => '승인', 'tone' => 'green', 'at' => '2026-07-30'],
+        ['no' => 'EA-2026-0139', 'title' => '외부 교육 참가비 지원', 'writer' => '최주임', 'status' => '반려', 'tone' => 'red', 'at' => '2026-07-29'],
+        ['no' => 'EA-2026-0138', 'title' => '사무용품 정기 발주', 'writer' => '정과장', 'status' => '완료', 'tone' => 'green', 'at' => '2026-07-28'],
     ];
 @endphp
 
@@ -345,45 +342,6 @@
                 </x-card>
             </section>
 
-            {{-- ═══ 문서 상태 ═══ --}}
-            <section id="doc-status" class="flex flex-col gap-5">
-                <div>
-                    <h2 class="text-title-3 font-bold text-label-normal">문서 상태</h2>
-                    <p class="mt-1 text-body-2 text-label-alternative">
-                        상태의 이름·색·아이콘·허용 전이는 전부
-                        <code class="font-mono text-label-2">App\Enums\DocumentStatus</code> 한 곳에 있다.
-                        <code class="font-mono text-label-2">&lt;x-doc-status&gt;</code> 는 그것을 DS 배지에 꽂아주는 역할만 한다.
-                    </p>
-                </div>
-
-                <x-card>
-                    <div class="flex flex-wrap items-center gap-3">
-                        @foreach (DocumentStatus::cases() as $status)
-                            <x-doc-status :status="$status" size="md" />
-                        @endforeach
-                    </div>
-                </x-card>
-
-                <x-card>
-                    <p class="mb-4 text-label-1 font-semibold text-label-alternative">허용된 상태 전이</p>
-                    <div class="flex flex-col gap-2">
-                        @foreach (DocumentStatus::cases() as $status)
-                            <div class="flex flex-wrap items-center gap-2 py-1">
-                                <span class="w-32 shrink-0"><x-doc-status :status="$status" size="sm" /></span>
-                                @if ($status->allowedTransitions())
-                                    <x-icon-arrow-right class="h-4 w-4 shrink-0 text-label-assistive" />
-                                    @foreach ($status->allowedTransitions() as $next)
-                                        <x-doc-status :status="$next" size="sm" variant="outlined" :show-icon="false" />
-                                    @endforeach
-                                @else
-                                    <span class="text-label-2 text-label-assistive">종료 상태 — 재상신은 새 문서로</span>
-                                @endif
-                            </div>
-                        @endforeach
-                    </div>
-                </x-card>
-            </section>
-
             {{-- ═══ 폼 ═══ --}}
             <section id="forms" class="flex flex-col gap-5">
                 <h2 class="text-title-3 font-bold text-label-normal">폼 컨트롤</h2>
@@ -559,7 +517,7 @@
                                 <x-table.cell tone="strong">{{ $doc['title'] }}</x-table.cell>
                                 <x-table.cell tone="muted">{{ $doc['writer'] }}</x-table.cell>
                                 <x-table.cell align="center">
-                                    <x-doc-status :status="$doc['status']" size="sm" />
+                                    <x-badge :color="$doc['tone']" size="sm">{{ $doc['status'] }}</x-badge>
                                 </x-table.cell>
                                 <x-table.cell align="right" tone="muted" nowrap>{{ $doc['at'] }}</x-table.cell>
                             </x-table.row>
