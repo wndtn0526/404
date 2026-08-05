@@ -13,7 +13,7 @@ namespace App\Enums;
  */
 enum DocumentStatus: string
 {
-    /** 작성 중. 아직 결재선에 올라가지 않았다. */
+    /** 작성 중. 아직 상신하지 않았다. */
     case Draft = 'draft';
 
     /** 상신됨. 첫 결재자의 처리를 기다린다. */
@@ -22,7 +22,7 @@ enum DocumentStatus: string
     /** 중간 결재자까지 승인. 남은 결재자가 있다. */
     case InProgress = 'in_progress';
 
-    /** 결재선 전원 승인. */
+    /** 결재자 전원 승인. */
     case Approved = 'approved';
 
     /** 결재자 중 한 명이 반려. */
