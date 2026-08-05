@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Enums\ApprovalStepStatus;
 use App\Enums\DocumentStatus;
 use Illuminate\Support\Facades\Blade;
 use Tests\TestCase;
@@ -22,9 +21,7 @@ class DesignSystemTest extends TestCase
     {
         $this->get('/styleguide')
             ->assertOk()
-            ->assertSee('디자인 시스템')
-            ->assertSee('결재선')
-            ->assertSee('반려로 멈춘 결재선');
+            ->assertSee('디자인 시스템');
     }
 
     public function test_styleguide_lists_the_whole_ds_icon_set(): void
@@ -95,28 +92,6 @@ class DesignSystemTest extends TestCase
         $this->assertStringContainsString('승인', $html);
     }
 
-    public function test_approval_line_renders_each_step_with_its_status(): void
-    {
-        $html = Blade::render('<x-approval-line :steps="$steps" />', [
-            'steps' => [
-                ['name' => '김기안', 'role' => '사원', 'status' => ApprovalStepStatus::Approved, 'at' => '2026-07-31 09:00'],
-                ['name' => '박부장', 'role' => '부장', 'status' => ApprovalStepStatus::Current],
-            ],
-        ]);
-
-        $this->assertStringContainsString('김기안', $html);
-        $this->assertStringContainsString('박부장', $html);
-        $this->assertStringContainsString('결재 차례', $html);
-        $this->assertStringContainsString('2단계', $html);
-    }
-
-    public function test_approval_line_handles_an_empty_line(): void
-    {
-        $html = Blade::render('<x-approval-line :steps="[]" />');
-
-        $this->assertStringContainsString('지정된 결재자가 없습니다', $html);
-    }
-
     /** 상태 전이는 화면이 아니라 enum 이 막는다. */
     public function test_document_status_blocks_illegal_transitions(): void
     {
@@ -156,25 +131,6 @@ class DesignSystemTest extends TestCase
             $this->assertContains($status->badgeColor(), $badgeColors, "{$status->value} 의 배지색이 DS 팔레트 밖이다.");
             $this->assertFileExists(resource_path("svg/icons/{$status->icon()}.svg"));
         }
-
-        foreach (ApprovalStepStatus::cases() as $step) {
-            $this->assertNotSame('', $step->label());
-            $this->assertContains($step->badgeColor(), $badgeColors);
-            $this->assertNotSame('', $step->markerClasses());
-
-            if ($icon = $step->icon()) {
-                $this->assertFileExists(resource_path("svg/icons/{$icon}.svg"));
-            }
-        }
-    }
-
-    /** 반려·보류에서 결재선이 멈춘다. */
-    public function test_rejection_and_hold_block_progress(): void
-    {
-        $this->assertTrue(ApprovalStepStatus::Rejected->blocksProgress());
-        $this->assertTrue(ApprovalStepStatus::Held->blocksProgress());
-        $this->assertFalse(ApprovalStepStatus::Approved->blocksProgress());
-        $this->assertFalse(ApprovalStepStatus::Waiting->blocksProgress());
     }
 
     /** 뷰에 raw hex 가 새로 들어오는 것을 막는다. 색은 토큰에서만 온다. */

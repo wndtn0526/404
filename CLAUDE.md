@@ -124,7 +124,6 @@ Figma 를 봐도 나오지 않는다. 새로 만들 때 여기 있는지 먼저 
 
 - `<x-button variant="danger">` — 반려·삭제. 승인 버튼과 색이 겹치면 사고가 난다.
 - `<x-doc-status :status="…">` — 문서 상태 배지. 값은 `App\Enums\DocumentStatus`.
-- `<x-approval-line :steps="…">` — 결재선. 단계 상태는 `App\Enums\ApprovalStepStatus`.
 
 상태의 라벨·색·아이콘·**허용 전이**는 전부 enum 에 있다. 뷰에서 상태를 판단하지 말고 enum 에 묻는다.
 
@@ -141,7 +140,7 @@ Figma 를 봐도 나오지 않는다. 새로 만들 때 여기 있는지 먼저 
 
 ## 전자결재 도메인에서 특히 주의할 것
 
-- **결재선·승인 이력은 append-only로 남긴다.** 승인/반려 기록을 UPDATE로 덮어쓰지 않는다.
+- **승인 이력은 append-only로 남긴다.** 승인/반려 기록을 UPDATE로 덮어쓰지 않는다.
   누가 언제 무엇을 승인했는지가 이 시스템의 존재 이유다.
 - 승인 권한 검사는 Policy에 모으고, 화면에서 버튼을 숨기는 것으로 대신하지 않는다.
 - 문서 상태 전이(기안 → 상신 → 승인/반려 → 완료)는 한 곳에서 정의하고,
@@ -162,7 +161,7 @@ PHPUnit. 테스트 DB는 Sail이 자동 생성하는 `eapproval_testing`.
 
 개발환경 + 디자인 시스템까지. **도메인 코드(모델·마이그레이션·서비스)는 아직 없다.**
 
-- `app/Enums/DocumentStatus.php` · `ApprovalStepStatus.php` — 상태 정의만 있고 이걸 쓰는 모델은 없다.
-- `/styleguide` 의 결재선·표 데이터는 뷰에 박아둔 예시다. DB 에서 오지 않는다.
+- `app/Enums/DocumentStatus.php` — 상태 정의만 있고 이걸 쓰는 모델은 없다.
+- `/styleguide` 의 표 데이터는 뷰에 박아둔 예시다. DB 에서 오지 않는다.
 - `⚡health-check.blade.php` 와 `/health` 는 환경 점검용. 실제 기능이 붙으면 지운다.
 - `/styleguide` 는 로컬 전용. 운영에 올릴 땐 환경 가드나 인증 미들웨어를 붙인다.

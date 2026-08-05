@@ -34,10 +34,6 @@
                    class="rounded-md px-3 py-1.5 text-label-1 text-label-alternative transition-colors hover:bg-fill-normal hover:text-label-normal">
                     문서 상태
                 </a>
-                            <a href="#approval"
-                   class="rounded-md px-3 py-1.5 text-label-1 text-label-alternative transition-colors hover:bg-fill-normal hover:text-label-normal">
-                    결재선
-                </a>
                             <a href="#forms"
                    class="rounded-md px-3 py-1.5 text-label-1 text-label-alternative transition-colors hover:bg-fill-normal hover:text-label-normal">
                     폼 컨트롤
@@ -886,439 +882,6 @@
             </section>
 
             
-            <section id="approval" class="flex flex-col gap-5">
-                <div>
-                    <h2 class="text-title-3 font-bold text-label-normal">결재선</h2>
-                    <p class="mt-1 text-body-2 text-label-alternative">
-                        이 시스템의 핵심 컴포넌트. 단계 상태는
-                        <code class="font-mono text-label-2">App\Enums\ApprovalStepStatus</code> 에 정의돼 있고,
-                        문서 전체 상태와 별개다.
-                    </p>
-                </div>
-
-                <div class="grid gap-5 lg:grid-cols-2">
-                    <div class="bg-background-elevated-normal rounded-none p-6 shadow-elevation-sm">
-    <div class="flex flex-col gap-3">
-            <div class="flex items-baseline gap-2">
-            <h3 class="text-headline-2 font-semibold text-label-normal">진행 중</h3>
-            <span class="text-label-2 text-label-alternative">3단계</span>
-        </div>
-    
-            <ol class="flex flex-col">
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-status-positive border-status-positive text-white"
-                            aria-hidden="true"
-                        >
-                                                            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                    </span>
-
-                                                    
-                            <span
-                                class="my-1 w-px flex-1 bg-line-solid-normal"
-                            ></span>
-                                            </div>
-
-                    
-                    <div class="flex-1 pb-5">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">김기안</span>
-                                                            <span class="text-label-2 text-label-alternative">기획팀 사원</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-accent-fg-green/[0.08] text-accent-fg-green">
-        승인
-    </span>
-                        </div>
-
-                                                    <p class="mt-0.5 text-caption-1 text-label-assistive">2026-07-31 08:55</p>
-                        
-                                            </div>
-                </li>
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-primary-surface border-primary text-primary-strong"
-                            aria-hidden="true"
-                        >
-                                                            2
-                                                    </span>
-
-                                                    
-                            <span
-                                class="my-1 w-px flex-1 bg-line-solid-normal"
-                            ></span>
-                                            </div>
-
-                    
-                    <div class="flex-1 pb-5">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">이대리</span>
-                                                            <span class="text-label-2 text-label-alternative">기획팀 대리</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-primary/[0.08] text-primary-strong">
-        결재 차례
-    </span>
-                        </div>
-
-                        
-                                            </div>
-                </li>
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-background-normal border-line-solid-normal text-label-assistive"
-                            aria-hidden="true"
-                        >
-                                                            3
-                                                    </span>
-
-                                            </div>
-
-                    
-                    <div class="flex-1 ">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">박부장</span>
-                                                            <span class="text-label-2 text-label-alternative">기획팀 부장</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-fill-normal text-label-alternative">
-        대기
-    </span>
-                        </div>
-
-                        
-                                            </div>
-                </li>
-                    </ol>
-    </div>
-</div>
-                    <div class="bg-background-elevated-normal rounded-none p-6 shadow-elevation-sm">
-    <div class="flex flex-col gap-3">
-            <div class="flex items-baseline gap-2">
-            <h3 class="text-headline-2 font-semibold text-label-normal">반려로 멈춘 결재선</h3>
-            <span class="text-label-2 text-label-alternative">4단계</span>
-        </div>
-    
-            <ol class="flex flex-col">
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-status-positive border-status-positive text-white"
-                            aria-hidden="true"
-                        >
-                                                            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                    </span>
-
-                                                    
-                            <span
-                                class="my-1 w-px flex-1 bg-line-solid-normal"
-                            ></span>
-                                            </div>
-
-                    
-                    <div class="flex-1 pb-5">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">김기안</span>
-                                                            <span class="text-label-2 text-label-alternative">기획팀 사원</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-accent-fg-green/[0.08] text-accent-fg-green">
-        승인
-    </span>
-                        </div>
-
-                                                    <p class="mt-0.5 text-caption-1 text-label-assistive">2026-07-30 09:12</p>
-                        
-                                                    <p class="mt-1.5 rounded-md bg-fill-alternative px-3 py-2 text-label-1 text-label-neutral">
-                                분기 예산 범위 내입니다.
-                            </p>
-                                            </div>
-                </li>
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-status-positive border-status-positive text-white"
-                            aria-hidden="true"
-                        >
-                                                            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                    </span>
-
-                                                    
-                            <span
-                                class="my-1 w-px flex-1 bg-line-solid-normal"
-                            ></span>
-                                            </div>
-
-                    
-                    <div class="flex-1 pb-5">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">이대리</span>
-                                                            <span class="text-label-2 text-label-alternative">기획팀 대리</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-accent-fg-green/[0.08] text-accent-fg-green">
-        승인
-    </span>
-                        </div>
-
-                                                    <p class="mt-0.5 text-caption-1 text-label-assistive">2026-07-30 11:40</p>
-                        
-                                            </div>
-                </li>
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-status-negative border-status-negative text-white"
-                            aria-hidden="true"
-                        >
-                                                            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M4.86352 4.86321C5.21499 4.51174 5.78484 4.51174 6.13631 4.86321L11.9999 10.7268L17.8635 4.86321C18.2149 4.51174 18.7848 4.51174 19.1363 4.86321C19.4877 5.21468 19.4877 5.78453 19.1363 6.13601L13.2727 11.9996L19.1363 17.8632C19.4877 18.2147 19.4877 18.7845 19.1363 19.136C18.7848 19.4875 18.2149 19.4875 17.8635 19.136L11.9999 13.2724L6.13631 19.136C5.78484 19.4875 5.21499 19.4875 4.86352 19.136C4.51205 18.7845 4.51205 18.2147 4.86352 17.8632L10.7271 11.9996L4.86352 6.13601C4.51205 5.78453 4.51205 5.21468 4.86352 4.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                    </span>
-
-                                                    
-                            <span
-                                class="my-1 w-px flex-1 bg-line-solid-alternative"
-                            ></span>
-                                            </div>
-
-                    
-                    <div class="flex-1 pb-5">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">박부장</span>
-                                                            <span class="text-label-2 text-label-alternative">기획팀 부장</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-accent-fg-red/[0.08] text-accent-fg-red">
-        반려
-    </span>
-                        </div>
-
-                                                    <p class="mt-0.5 text-caption-1 text-label-assistive">2026-07-30 14:05</p>
-                        
-                                                    <p class="mt-1.5 rounded-md bg-fill-alternative px-3 py-2 text-label-1 text-label-neutral">
-                                견적서 3사 비교 자료를 첨부해 다시 올려주세요.
-                            </p>
-                                            </div>
-                </li>
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-background-normal border-line-solid-normal text-label-assistive"
-                            aria-hidden="true"
-                        >
-                                                            4
-                                                    </span>
-
-                                            </div>
-
-                    
-                    <div class="flex-1 ">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">최이사</span>
-                                                            <span class="text-label-2 text-label-alternative">경영지원본부 이사</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-fill-normal text-label-alternative">
-        대기
-    </span>
-                        </div>
-
-                        
-                                            </div>
-                </li>
-                    </ol>
-    </div>
-                        <p class="mt-4 border-t border-line-solid-alternative pt-3 text-label-1 text-label-alternative">
-                            반려·보류 뒤로는 연결선이 흐려진다. 뒤 결재자는 처리되지 않는다는 뜻.
-                        </p>
-</div>
-                </div>
-
-                <div class="bg-background-elevated-normal rounded-none p-6 shadow-elevation-sm">
-    <p class="mb-3 text-label-1 font-semibold text-label-alternative">단계 상태 전체</p>
-                    <div class="flex flex-col gap-3">
-    
-            <ol class="flex flex-col">
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-background-normal border-line-solid-normal text-label-assistive"
-                            aria-hidden="true"
-                        >
-                                                            1
-                                                    </span>
-
-                                                    
-                            <span
-                                class="my-1 w-px flex-1 bg-line-solid-normal"
-                            ></span>
-                                            </div>
-
-                    
-                    <div class="flex-1 pb-5">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">대기 상태</span>
-                                                            <span class="text-label-2 text-label-alternative">waiting</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-fill-normal text-label-alternative">
-        대기
-    </span>
-                        </div>
-
-                        
-                                            </div>
-                </li>
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-primary-surface border-primary text-primary-strong"
-                            aria-hidden="true"
-                        >
-                                                            2
-                                                    </span>
-
-                                                    
-                            <span
-                                class="my-1 w-px flex-1 bg-line-solid-normal"
-                            ></span>
-                                            </div>
-
-                    
-                    <div class="flex-1 pb-5">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">결재 차례 상태</span>
-                                                            <span class="text-label-2 text-label-alternative">current</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-primary/[0.08] text-primary-strong">
-        결재 차례
-    </span>
-                        </div>
-
-                        
-                                            </div>
-                </li>
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-status-positive border-status-positive text-white"
-                            aria-hidden="true"
-                        >
-                                                            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                    </span>
-
-                                                    
-                            <span
-                                class="my-1 w-px flex-1 bg-line-solid-normal"
-                            ></span>
-                                            </div>
-
-                    
-                    <div class="flex-1 pb-5">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">승인 상태</span>
-                                                            <span class="text-label-2 text-label-alternative">approved</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-accent-fg-green/[0.08] text-accent-fg-green">
-        승인
-    </span>
-                        </div>
-
-                        
-                                            </div>
-                </li>
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-status-negative border-status-negative text-white"
-                            aria-hidden="true"
-                        >
-                                                            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M4.86352 4.86321C5.21499 4.51174 5.78484 4.51174 6.13631 4.86321L11.9999 10.7268L17.8635 4.86321C18.2149 4.51174 18.7848 4.51174 19.1363 4.86321C19.4877 5.21468 19.4877 5.78453 19.1363 6.13601L13.2727 11.9996L19.1363 17.8632C19.4877 18.2147 19.4877 18.7845 19.1363 19.136C18.7848 19.4875 18.2149 19.4875 17.8635 19.136L11.9999 13.2724L6.13631 19.136C5.78484 19.4875 5.21499 19.4875 4.86352 19.136C4.51205 18.7845 4.51205 18.2147 4.86352 17.8632L10.7271 11.9996L4.86352 6.13601C4.51205 5.78453 4.51205 5.21468 4.86352 4.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                    </span>
-
-                                                    
-                            <span
-                                class="my-1 w-px flex-1 bg-line-solid-alternative"
-                            ></span>
-                                            </div>
-
-                    
-                    <div class="flex-1 pb-5">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">반려 상태</span>
-                                                            <span class="text-label-2 text-label-alternative">rejected</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-accent-fg-red/[0.08] text-accent-fg-red">
-        반려
-    </span>
-                        </div>
-
-                        
-                                            </div>
-                </li>
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-status-cautionary border-status-cautionary text-white"
-                            aria-hidden="true"
-                        >
-                                                            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.9 5.0001C12.9 4.50304 12.497 4.1001 12 4.1001C11.5029 4.1001 11.1 4.50304 11.1 5.0001V14.5001C11.1 14.9972 11.5029 15.4001 12 15.4001C12.497 15.4001 12.9 14.9972 12.9 14.5001V5.0001Z" fill="currentColor" fill-opacity="0.88"/>
-<path d="M11.9998 20.2501C12.6902 20.2501 13.2498 19.6905 13.2498 19.0001C13.2498 18.3097 12.6902 17.7501 11.9998 17.7501C11.3095 17.7501 10.7498 18.3097 10.7498 19.0001C10.7498 19.6905 11.3095 20.2501 11.9998 20.2501Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                    </span>
-
-                                                    
-                            <span
-                                class="my-1 w-px flex-1 bg-line-solid-alternative"
-                            ></span>
-                                            </div>
-
-                    
-                    <div class="flex-1 pb-5">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">보류 상태</span>
-                                                            <span class="text-label-2 text-label-alternative">held</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-accent-fg-orange/[0.08] text-accent-fg-orange">
-        보류
-    </span>
-                        </div>
-
-                        
-                                            </div>
-                </li>
-                                            <li class="flex gap-3">
-                    
-                    <div class="flex flex-col items-center">
-                        <span
-                            class="flex size-8 shrink-0 items-center justify-center rounded-full border text-label-2 font-semibold bg-fill-normal border-line-solid-normal text-label-assistive"
-                            aria-hidden="true"
-                        >
-                                                            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M5.89988 3.99717C5.89988 3.50011 5.49694 3.09717 4.99988 3.09717C4.50283 3.09717 4.09988 3.50011 4.09988 3.99717V5.5369C4.09988 6.90337 4.09987 7.98396 4.17099 8.85445C4.24366 9.74386 4.39504 10.4929 4.74295 11.1757C5.3086 12.2859 6.21118 13.1885 7.32134 13.7541C8.00414 14.102 8.75319 14.2534 9.64261 14.3261C10.5131 14.3972 11.5937 14.3972 12.9601 14.3972H17.3285L13.8635 17.8621C13.512 18.2136 13.512 18.7835 13.8635 19.1349C14.215 19.4864 14.7848 19.4864 15.1363 19.1349L20.1363 14.1349C20.4877 13.7835 20.4877 13.2136 20.1363 12.8621L15.1363 7.86214C14.7848 7.51067 14.215 7.51067 13.8635 7.86214C13.512 8.21361 13.512 8.78346 13.8635 9.13493L17.3257 12.5972H12.9999C11.5849 12.5972 10.5778 12.5965 9.78918 12.532C9.01108 12.4685 8.52528 12.3474 8.13852 12.1503C7.36706 11.7572 6.73984 11.13 6.34676 10.3585C6.14969 9.97177 6.02859 9.48597 5.96502 8.70787C5.90058 7.91926 5.89988 6.91215 5.89988 5.49717V3.99717Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                    </span>
-
-                                            </div>
-
-                    
-                    <div class="flex-1 ">
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span class="text-body-2 font-semibold text-label-normal">생략 상태</span>
-                                                            <span class="text-label-2 text-label-alternative">skipped</span>
-                                                        <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-[3px] rounded-xs gap-0.5 text-caption-2 bg-fill-normal text-label-alternative">
-        생략
-    </span>
-                        </div>
-
-                        
-                                            </div>
-                </li>
-                    </ol>
-    </div>
-</div>
-            </section>
-
-            
             <section id="forms" class="flex flex-col gap-5">
                 <h2 class="text-title-3 font-bold text-label-normal">폼 컨트롤</h2>
 
@@ -1395,7 +958,7 @@
          >
         
         <input
-            id="input-6a72a8c2f1309"
+            id="input-6a72b2529a88f"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="Placeholder"         />
 
@@ -1408,7 +971,7 @@
          >
         
         <input
-            id="input-6a72a8c2f1321"
+            id="input-6a72b2529a8ab"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled"         />
 
@@ -1425,7 +988,7 @@
 </svg>            </span>
         
         <input
-            id="input-6a72a8c2f1335"
+            id="input-6a72b2529a8c0"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-10 pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled"         />
 
@@ -1438,7 +1001,7 @@
          >
         
         <input
-            id="input-6a72a8c2f13cc"
+            id="input-6a72b2529aa14"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled" disabled="disabled"         />
 
@@ -1455,7 +1018,7 @@
          >
         
         <input
-            id="input-6a72a8c2f13e0"
+            id="input-6a72b2529aa2f"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="Placeholder"         />
 
@@ -1468,7 +1031,7 @@
          >
         
         <input
-            id="input-6a72a8c2f13f2"
+            id="input-6a72b2529aa42"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled"         />
 
@@ -1485,7 +1048,7 @@
 </svg>            </span>
         
         <input
-            id="input-6a72a8c2f1403"
+            id="input-6a72b2529aa54"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-10 pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled"         />
 
@@ -1498,7 +1061,7 @@
          >
         
         <input
-            id="input-6a72a8c2f1440"
+            id="input-6a72b2529aaac"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled" disabled="disabled"         />
 
@@ -1513,7 +1076,7 @@
      >
     
             <textarea
-            id="textarea-6a72a8c2f145c"
+            id="textarea-6a72b2529aadc"
             rows="3"
                                                 class="w-full rounded-md px-4 py-3 text-body-1 bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive resize-y border transition-colors duration-150 focus:outline-none disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900" placeholder="Placeholder"></textarea>
     
@@ -1522,12 +1085,12 @@
      >
     
             <textarea
-            id="textarea-6a72a8c2f146d"
+            id="textarea-6a72b2529aaee"
             rows="3"
-                                     aria-invalid="true" aria-describedby="textarea-6a72a8c2f146d-msg"             class="w-full rounded-md px-4 py-3 text-body-1 bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive resize-y border transition-colors duration-150 focus:outline-none disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable border-status-negative focus:border-status-negative">Typing</textarea>
+                                     aria-invalid="true" aria-describedby="textarea-6a72b2529aaee-msg"             class="w-full rounded-md px-4 py-3 text-body-1 bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive resize-y border transition-colors duration-150 focus:outline-none disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable border-status-negative focus:border-status-negative">Typing</textarea>
     
             <div class="flex items-start justify-between gap-2">
-            <p id="textarea-6a72a8c2f146d-msg"
+            <p id="textarea-6a72b2529aaee-msg"
                class="flex-1 text-label-2 text-status-negative">
                 내용을 입력해 주세요
             </p>
@@ -1543,7 +1106,7 @@
          >
         
         <input
-            id="input-6a72a8c2f1482"
+            id="input-6a72b2529ab04"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border-0 border-b rounded-none transition-colors duration-150 focus:outline-none pl-0 pr-0 border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="Placeholder"         />
 
@@ -1556,7 +1119,7 @@
          >
         
         <input
-            id="input-6a72a8c2f1494"
+            id="input-6a72b2529ab17"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border-0 border-b rounded-none transition-colors duration-150 focus:outline-none pl-0 pr-0 border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled"         />
 
@@ -1569,13 +1132,13 @@
          >
         
         <input
-            id="input-6a72a8c2f14a5"
+            id="input-6a72b2529ab29"
             type="text"
-                                                             aria-invalid="true" aria-describedby="input-6a72a8c2f14a5-msg" @input="err = false" @change="err = false" :class="err ? 'border-status-negative focus:border-status-negative' : 'border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900'"                                      class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border-0 border-b rounded-none transition-colors duration-150 focus:outline-none pl-0 pr-0  disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Typing"         />
+                                                             aria-invalid="true" aria-describedby="input-6a72b2529ab29-msg" @input="err = false" @change="err = false" :class="err ? 'border-status-negative focus:border-status-negative' : 'border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900'"                                      class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border-0 border-b rounded-none transition-colors duration-150 focus:outline-none pl-0 pr-0  disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Typing"         />
 
             </div>
     
-            <p id="input-6a72a8c2f14a5-msg" x-show="err" class="text-label-2 text-status-negative">확인이 필요합니다</p>
+            <p id="input-6a72b2529ab29-msg" x-show="err" class="text-label-2 text-status-negative">확인이 필요합니다</p>
             </div>
                             <div class="flex flex-col gap-1.5"  >
     
@@ -1583,7 +1146,7 @@
          >
         
         <input
-            id="input-6a72a8c2f14b9"
+            id="input-6a72b2529ab3c"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border-0 border-b rounded-none transition-colors duration-150 focus:outline-none pl-0 pr-0 border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="Filled" disabled="disabled"         />
 
@@ -1610,7 +1173,7 @@
     </span>
             
             <input
-                id="input-6a72a8c2f14cb"
+                id="input-6a72b2529ab4e"
                 type="text"
                                                 class="min-w-24 flex-1 border-0 bg-transparent p-0 text-label-1 text-label-strong caret-deep-blue-900 placeholder:text-label-assistive focus:outline-none focus:ring-0" placeholder="이름 입력"
             />
@@ -1632,7 +1195,7 @@
     </span>
             
             <input
-                id="input-6a72a8c2f150e"
+                id="input-6a72b2529ab9c"
                 type="text"
                                                 class="min-w-24 flex-1 border-0 bg-transparent p-0 text-label-1 text-label-strong caret-deep-blue-900 placeholder:text-label-assistive focus:outline-none focus:ring-0" placeholder="태그 입력"
             />
@@ -2839,7 +2402,7 @@
       x-data="{ open: false }"
       @mouseenter="open = true" @mouseleave="open = false"
       @focusin="open = true" @focusout="open = false">
-    <span aria-describedby="tip-6a72a8c2f29ff" class="inline-flex"><button
+    <span aria-describedby="tip-6a72b2529bc48" class="inline-flex"><button
             type="button"
                 class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-status-negative text-white hover:bg-accent-fg-red active:bg-accent-fg-red disabled:bg-interaction-disable disabled:text-label-disable h-12 px-5 text-body-1"
 >
@@ -2848,7 +2411,7 @@
 
     </button></span>
 
-    <span x-show="open" x-cloak id="tip-6a72a8c2f29ff" role="tooltip"
+    <span x-show="open" x-cloak id="tip-6a72b2529bc48" role="tooltip"
           x-transition:enter="transition ease-out duration-150"
           x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
           x-transition:leave="transition ease-in duration-100"
@@ -2863,7 +2426,7 @@
       x-data="{ open: false }"
       @mouseenter="open = true" @mouseleave="open = false"
       @focusin="open = true" @focusout="open = false">
-    <span aria-describedby="tip-6a72a8c2f2a1f" class="inline-flex"><button
+    <span aria-describedby="tip-6a72b2529bc67" class="inline-flex"><button
             type="button"
                 class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-primary text-white hover:bg-primary-strong active:bg-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-12 px-5 text-body-1"
 >
@@ -2872,7 +2435,7 @@
 
     </button></span>
 
-    <span x-show="open" x-cloak id="tip-6a72a8c2f2a1f" role="tooltip"
+    <span x-show="open" x-cloak id="tip-6a72b2529bc67" role="tooltip"
           x-transition:enter="transition ease-out duration-150"
           x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
           x-transition:leave="transition ease-in duration-100"
@@ -2887,7 +2450,7 @@
       x-data="{ open: false }"
       @mouseenter="open = true" @mouseleave="open = false"
       @focusin="open = true" @focusout="open = false">
-    <span aria-describedby="tip-6a72a8c2f2a3c" class="inline-flex"><button
+    <span aria-describedby="tip-6a72b2529bc85" class="inline-flex"><button
             type="button"
                 class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-fill-normal text-label-normal hover:bg-fill-strong active:bg-fill-strong disabled:bg-interaction-disable disabled:text-label-disable h-12 px-5 text-body-1"
 >
@@ -2896,7 +2459,7 @@
 
     </button></span>
 
-    <span x-show="open" x-cloak id="tip-6a72a8c2f2a3c" role="tooltip"
+    <span x-show="open" x-cloak id="tip-6a72b2529bc85" role="tooltip"
           x-transition:enter="transition ease-out duration-150"
           x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
           x-transition:leave="transition ease-in duration-100"

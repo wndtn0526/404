@@ -5,7 +5,7 @@
            confirmLabel: '저장하기',                   // 기본 '확인'
            cancelLabel: '취소하기',                    // 기본 '취소하기'
            onConfirm: () => { ... },                  // 확인 클릭 시 실행 (취소·ESC·백드롭은 아무 것도 실행 안 함)
-           footerText: '결재선을 다시 확인하셨나요?',     // 선택 — 버튼 아래 보조 안내
+           footerText: '내용을 다시 확인하셨나요?',       // 선택 — 버튼 아래 보조 안내
            footerLinkLabel: '회원가입하기',               // 선택 — footerText 옆 링크 라벨
            footerHref: '/signup',                         // 선택 — 링크 이동 경로
        } }))

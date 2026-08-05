@@ -1,5 +1,4 @@
 @php
-    use App\Enums\ApprovalStepStatus;
     use App\Enums\DocumentStatus;
 
     /* 개발용 살아있는 스타일가이드. 컴포넌트를 실제로 렌더하므로 토큰이나 컴포넌트가 깨지면
@@ -15,7 +14,6 @@
         'buttons' => '버튼',
         'badges' => '배지',
         'doc-status' => '문서 상태',
-        'approval' => '결재선',
         'forms' => '폼 컨트롤',
         'table' => '표',
         'nav' => '탭 · 페이지네이션',
@@ -114,20 +112,6 @@
         ->map(fn ($p) => pathinfo($p, PATHINFO_FILENAME))
         ->sort()
         ->values();
-
-    // 결재선 예시 — 반려로 멈춘 결재선(뒤 결재자는 처리되지 않는다)
-    $lineRejected = [
-        ['name' => '김기안', 'role' => '기획팀 사원', 'status' => ApprovalStepStatus::Approved, 'at' => '2026-07-30 09:12', 'comment' => '분기 예산 범위 내입니다.'],
-        ['name' => '이대리', 'role' => '기획팀 대리', 'status' => ApprovalStepStatus::Approved, 'at' => '2026-07-30 11:40'],
-        ['name' => '박부장', 'role' => '기획팀 부장', 'status' => ApprovalStepStatus::Rejected, 'at' => '2026-07-30 14:05', 'comment' => '견적서 3사 비교 자료를 첨부해 다시 올려주세요.'],
-        ['name' => '최이사', 'role' => '경영지원본부 이사', 'status' => ApprovalStepStatus::Waiting],
-    ];
-
-    $lineProgress = [
-        ['name' => '김기안', 'role' => '기획팀 사원', 'status' => ApprovalStepStatus::Approved, 'at' => '2026-07-31 08:55'],
-        ['name' => '이대리', 'role' => '기획팀 대리', 'status' => ApprovalStepStatus::Current],
-        ['name' => '박부장', 'role' => '기획팀 부장', 'status' => ApprovalStepStatus::Waiting],
-    ];
 
     $docs = [
         ['no' => 'EA-2026-0142', 'title' => '노트북 4대 구매 요청', 'writer' => '김기안', 'status' => DocumentStatus::Pending, 'at' => '2026-07-31'],
@@ -397,38 +381,6 @@
                             </div>
                         @endforeach
                     </div>
-                </x-card>
-            </section>
-
-            {{-- ═══ 결재선 ═══ --}}
-            <section id="approval" class="flex flex-col gap-5">
-                <div>
-                    <h2 class="text-title-3 font-bold text-label-normal">결재선</h2>
-                    <p class="mt-1 text-body-2 text-label-alternative">
-                        이 시스템의 핵심 컴포넌트. 단계 상태는
-                        <code class="font-mono text-label-2">App\Enums\ApprovalStepStatus</code> 에 정의돼 있고,
-                        문서 전체 상태와 별개다.
-                    </p>
-                </div>
-
-                <div class="grid gap-5 lg:grid-cols-2">
-                    <x-card>
-                        <x-approval-line title="진행 중" :steps="$lineProgress" />
-                    </x-card>
-                    <x-card>
-                        <x-approval-line title="반려로 멈춘 결재선" :steps="$lineRejected" />
-                        <p class="mt-4 border-t border-line-solid-alternative pt-3 text-label-1 text-label-alternative">
-                            반려·보류 뒤로는 연결선이 흐려진다. 뒤 결재자는 처리되지 않는다는 뜻.
-                        </p>
-                    </x-card>
-                </div>
-
-                <x-card>
-                    <p class="mb-3 text-label-1 font-semibold text-label-alternative">단계 상태 전체</p>
-                    <x-approval-line
-                        :show-title="false"
-                        :steps="collect(ApprovalStepStatus::cases())->map(fn ($s) => ['name' => $s->label() . ' 상태', 'role' => $s->value, 'status' => $s])->all()"
-                    />
                 </x-card>
             </section>
 
