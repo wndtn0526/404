@@ -1,8 +1,34 @@
 {{-- 컨텐츠 관리 — Figma 워크스페이스 화면 (Lnsej46BaxtyKq3rhssFH3 · node 1-299)
-     원본은 본문이 비어 있는 화면 틀이다. 표·필터가 붙기 전까지 그대로 둔다.
+     크롬(LNB·GNB·헤더)은 <x-workspace-shell> 이 갖고 있다. 이 파일은 화면 고유의
+     브레드크럼·타이틀·탭·기준일과 본문 표를 채운다.
 
-     LNB·GNB·헤더 크롬은 <x-workspace-shell> 이 갖고 있다. 이 파일은 화면 고유의
-     브레드크럼·타이틀·탭·기준일만 채운다. --}}
+     ⚠️ 표는 Figma 에 디자인이 없다. 원본 node 1-299 의 본문은 비어 있다.
+        DS 표 컴포넌트(Data Tables 1002:523369)로 조립하고 컬럼은 컨텐츠 관리에
+        필요할 만한 것으로 잡았다. 디자인이 나오면 컬럼·정렬·상태값을 맞춰야 한다.
+
+     ⚠️ 행 데이터는 뷰에 박아둔 예시다. DB 에서 오지 않는다. 모델·서비스가 붙으면
+        컨트롤러에서 넘겨받는다(로직은 Service Layer). --}}
+@php
+    // 상태 배지 색은 완성된 토큰 이름을 담는다 — x-badge 의 color 매트릭스가 받는다.
+    $rows = [
+        ['id' => 'C-1042', 'title' => '요양보호사 직무향상 1차시 — 감염관리', 'type' => '동영상',
+            'group' => '요양보호', 'writer' => '김기안', 'runtime' => '24:10',
+            'state' => '공개', 'tone' => 'green', 'at' => '2021.07.31'],
+        ['id' => 'C-1041', 'title' => '방문간호 기록지 작성 가이드', 'type' => '문서',
+            'group' => '방문간호', 'writer' => '이대리', 'runtime' => '—',
+            'state' => '검수중', 'tone' => 'orange', 'at' => '2021.07.30'],
+        ['id' => 'C-1040', 'title' => '치매전문교육 2차시 — 의사소통', 'type' => '동영상',
+            'group' => '치매전문', 'writer' => '박사원', 'runtime' => '31:45',
+            'state' => '공개', 'tone' => 'green', 'at' => '2021.07.30'],
+        ['id' => 'C-1039', 'title' => '안전사고 예방 체크리스트', 'type' => '문서',
+            'group' => '공통', 'writer' => '최주임', 'runtime' => '—',
+            'state' => '비공개', 'tone' => 'neutral', 'at' => '2021.07.29'],
+        ['id' => 'C-1038', 'title' => '노인학대 예방 교육 — 사례 중심', 'type' => '동영상',
+            'group' => '공통', 'writer' => '정과장', 'runtime' => '18:02',
+            'state' => '반려', 'tone' => 'red', 'at' => '2021.07.28'],
+    ];
+@endphp
+
 <x-layout title="컨텐츠 관리">
     <x-workspace-shell
         workspace="청담원"
@@ -50,6 +76,46 @@
             </button>
         </x-slot:actions>
 
-        {{-- 원본의 본문은 비어 있다. --}}
+        {{-- ═══ 컨텐츠 목록 ═══ --}}
+        <div class="flex items-baseline justify-between pb-3">
+            <p class="text-label-1 text-label-alternative">
+                전체 <strong class="font-semibold text-label-normal">{{ count($rows) }}</strong>건
+            </p>
+        </div>
+
+        <x-table selectable min-width="1080px">
+            <x-table.head
+                selectable
+                :all-ids="collect($rows)->pluck('id')->all()"
+                :columns="[
+                    ['label' => '컨텐츠 ID', 'width' => '120px'],
+                    ['label' => '제목'],
+                    ['label' => '유형', 'align' => 'center', 'width' => '90px'],
+                    ['label' => '분류', 'width' => '110px'],
+                    ['label' => '등록자', 'width' => '100px'],
+                    ['label' => '재생시간', 'align' => 'right', 'width' => '100px'],
+                    ['label' => '상태', 'align' => 'center', 'width' => '110px'],
+                    ['label' => '등록일', 'align' => 'right', 'width' => '110px'],
+                ]"
+            />
+            <tbody>
+                @foreach ($rows as $row)
+                    <x-table.row selectable :value="$row['id']">
+                        <x-table.cell tone="muted" nowrap>
+                            <code class="font-mono text-label-2">{{ $row['id'] }}</code>
+                        </x-table.cell>
+                        <x-table.cell tone="strong">{{ $row['title'] }}</x-table.cell>
+                        <x-table.cell align="center" tone="muted" nowrap>{{ $row['type'] }}</x-table.cell>
+                        <x-table.cell tone="muted" nowrap>{{ $row['group'] }}</x-table.cell>
+                        <x-table.cell tone="muted" nowrap>{{ $row['writer'] }}</x-table.cell>
+                        <x-table.cell align="right" tone="muted" nowrap>{{ $row['runtime'] }}</x-table.cell>
+                        <x-table.cell align="center">
+                            <x-badge :color="$row['tone']" size="sm">{{ $row['state'] }}</x-badge>
+                        </x-table.cell>
+                        <x-table.cell align="right" tone="muted" nowrap>{{ $row['at'] }}</x-table.cell>
+                    </x-table.row>
+                @endforeach
+            </tbody>
+        </x-table>
     </x-workspace-shell>
 </x-layout>

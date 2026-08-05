@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>컨텐츠 관리 · 전자결재</title>
 
-        <link rel="preload" as="style" href="./build/assets/app-LtJ4HjX5.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-LtJ4HjX5.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="preload" as="style" href="./build/assets/app-DxLrFL_h.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-DxLrFL_h.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
     <meta name="robots" content="noindex">
 </head>
@@ -195,7 +195,246 @@
 
         
         <main class="min-h-0 flex-1 px-20 pb-20 pt-8">
+            <div class="flex items-baseline justify-between pb-3">
+            <p class="text-label-1 text-label-alternative">
+                전체 <strong class="font-semibold text-label-normal">5</strong>건
+            </p>
+        </div>
+
+        <div class="w-full overflow-x-auto rounded-xs border border-line-solid-neutral bg-background-normal"
+      x-data="{ selected: [] }" >
+    <table class="w-full border-collapse text-left" style="min-width: 1080px">
+        <thead class="border-b border-line-solid-normal bg-background-alternative">
+    <tr>
+                    <th scope="col" class="h-14 w-12 px-5 align-middle">
+                
+                <label class="relative inline-flex cursor-pointer items-center justify-center align-middle">
+                    <input type="checkbox" aria-label="전체 선택" class="peer sr-only"
+                           @change="selected = $event.target.checked ? JSON.parse('[\u0022C-1042\u0022,\u0022C-1041\u0022,\u0022C-1040\u0022,\u0022C-1039\u0022,\u0022C-1038\u0022]') : []"
+                           x-effect="$el.checked = selected.length === 5 && selected.length > 0; $el.indeterminate = selected.length > 0 && selected.length < 5">
+                    <span class="h-5 w-5 rounded-xs border-[1.5px] border-line-normal-strong bg-background-normal transition-colors duration-150 peer-checked:border-primary peer-checked:bg-primary peer-indeterminate:border-primary peer-indeterminate:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40"></span>
+                    <svg width="1em" height="1em" aria-hidden="true" class="pointer-events-none absolute h-[90%] w-[90%] text-white opacity-0 transition-opacity duration-150 peer-checked:opacity-100 [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    <span aria-hidden="true" class="pointer-events-none absolute h-0.5 w-2.5 rounded-full bg-white opacity-0 peer-indeterminate:opacity-100"></span>
+                </label>
+            </th>
+                                                            <th scope="col"
+                     style="width: 120px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">컨텐츠 ID</th>
+                                            <th scope="col"
+                                        class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">제목</th>
+                                            <th scope="col"
+                     style="width: 90px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-center">유형</th>
+                                            <th scope="col"
+                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">분류</th>
+                                            <th scope="col"
+                     style="width: 100px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">등록자</th>
+                                            <th scope="col"
+                     style="width: 100px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-right">재생시간</th>
+                                            <th scope="col"
+                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-center">상태</th>
+                                            <th scope="col"
+                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-right">등록일</th>
+                        </tr>
+</thead>
+            <tbody>
+                                    <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors"
+            :class="selected.includes('C-1042') ? 'bg-inverse-primary/50' : 'hover:bg-fill-alternative'"
+    >
+            <td class="h-14 w-12 px-5 align-middle">
             
+            <label class="relative inline-flex cursor-pointer items-center justify-center align-middle">
+                <input type="checkbox" value="C-1042" x-model="selected" aria-label="행 선택" class="peer sr-only">
+                <span class="h-5 w-5 rounded-xs border-[1.5px] border-line-normal-strong bg-background-normal transition-colors duration-150 peer-checked:border-primary peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40"></span>
+                <svg width="1em" height="1em" aria-hidden="true" class="pointer-events-none absolute h-[90%] w-[90%] text-white opacity-0 transition-opacity duration-150 peer-checked:opacity-100 [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </label>
+        </td>
+        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+><code class="font-mono text-label-2">C-1042</code></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+>요양보호사 직무향상 1차시 — 감염관리</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-center whitespace-nowrap"
+>동영상</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>요양보호</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>김기안</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+>24:10</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
+><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-green/[0.08] text-accent-fg-green">
+        공개
+    </span></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+>2021.07.31</td>
+</tr>
+                                    <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors"
+            :class="selected.includes('C-1041') ? 'bg-inverse-primary/50' : 'hover:bg-fill-alternative'"
+    >
+            <td class="h-14 w-12 px-5 align-middle">
+            
+            <label class="relative inline-flex cursor-pointer items-center justify-center align-middle">
+                <input type="checkbox" value="C-1041" x-model="selected" aria-label="행 선택" class="peer sr-only">
+                <span class="h-5 w-5 rounded-xs border-[1.5px] border-line-normal-strong bg-background-normal transition-colors duration-150 peer-checked:border-primary peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40"></span>
+                <svg width="1em" height="1em" aria-hidden="true" class="pointer-events-none absolute h-[90%] w-[90%] text-white opacity-0 transition-opacity duration-150 peer-checked:opacity-100 [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </label>
+        </td>
+        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+><code class="font-mono text-label-2">C-1041</code></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+>방문간호 기록지 작성 가이드</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-center whitespace-nowrap"
+>문서</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>방문간호</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>이대리</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+>—</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
+><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-orange/[0.08] text-accent-fg-orange">
+        검수중
+    </span></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+>2021.07.30</td>
+</tr>
+                                    <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors"
+            :class="selected.includes('C-1040') ? 'bg-inverse-primary/50' : 'hover:bg-fill-alternative'"
+    >
+            <td class="h-14 w-12 px-5 align-middle">
+            
+            <label class="relative inline-flex cursor-pointer items-center justify-center align-middle">
+                <input type="checkbox" value="C-1040" x-model="selected" aria-label="행 선택" class="peer sr-only">
+                <span class="h-5 w-5 rounded-xs border-[1.5px] border-line-normal-strong bg-background-normal transition-colors duration-150 peer-checked:border-primary peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40"></span>
+                <svg width="1em" height="1em" aria-hidden="true" class="pointer-events-none absolute h-[90%] w-[90%] text-white opacity-0 transition-opacity duration-150 peer-checked:opacity-100 [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </label>
+        </td>
+        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+><code class="font-mono text-label-2">C-1040</code></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+>치매전문교육 2차시 — 의사소통</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-center whitespace-nowrap"
+>동영상</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>치매전문</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>박사원</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+>31:45</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
+><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-green/[0.08] text-accent-fg-green">
+        공개
+    </span></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+>2021.07.30</td>
+</tr>
+                                    <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors"
+            :class="selected.includes('C-1039') ? 'bg-inverse-primary/50' : 'hover:bg-fill-alternative'"
+    >
+            <td class="h-14 w-12 px-5 align-middle">
+            
+            <label class="relative inline-flex cursor-pointer items-center justify-center align-middle">
+                <input type="checkbox" value="C-1039" x-model="selected" aria-label="행 선택" class="peer sr-only">
+                <span class="h-5 w-5 rounded-xs border-[1.5px] border-line-normal-strong bg-background-normal transition-colors duration-150 peer-checked:border-primary peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40"></span>
+                <svg width="1em" height="1em" aria-hidden="true" class="pointer-events-none absolute h-[90%] w-[90%] text-white opacity-0 transition-opacity duration-150 peer-checked:opacity-100 [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </label>
+        </td>
+        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+><code class="font-mono text-label-2">C-1039</code></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+>안전사고 예방 체크리스트</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-center whitespace-nowrap"
+>문서</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>공통</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>최주임</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+>—</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
+><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-fill-normal text-label-alternative">
+        비공개
+    </span></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+>2021.07.29</td>
+</tr>
+                                    <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors"
+            :class="selected.includes('C-1038') ? 'bg-inverse-primary/50' : 'hover:bg-fill-alternative'"
+    >
+            <td class="h-14 w-12 px-5 align-middle">
+            
+            <label class="relative inline-flex cursor-pointer items-center justify-center align-middle">
+                <input type="checkbox" value="C-1038" x-model="selected" aria-label="행 선택" class="peer sr-only">
+                <span class="h-5 w-5 rounded-xs border-[1.5px] border-line-normal-strong bg-background-normal transition-colors duration-150 peer-checked:border-primary peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40"></span>
+                <svg width="1em" height="1em" aria-hidden="true" class="pointer-events-none absolute h-[90%] w-[90%] text-white opacity-0 transition-opacity duration-150 peer-checked:opacity-100 [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </label>
+        </td>
+        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+><code class="font-mono text-label-2">C-1038</code></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+>노인학대 예방 교육 — 사례 중심</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-center whitespace-nowrap"
+>동영상</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>공통</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>정과장</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+>18:02</td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-normal text-center"
+><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-red/[0.08] text-accent-fg-red">
+        반려
+    </span></td>
+                        <td
+            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
+>2021.07.28</td>
+</tr>
+                            </tbody>
+    </table>
+</div>
         </main>
     </div>
 </div>
