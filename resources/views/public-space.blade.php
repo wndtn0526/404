@@ -77,6 +77,42 @@
             'members' => '93', 'tone' => 'bg-mono-black', 'initial' => 'A'],
     ];
 
+    /*
+     * 커리어 탭 — Figma node 1104-58476 "퍼블릭" (커리어가 활성인 상태).
+     * ⚠️ 로고는 원본이 네이버·워크앤조이·하버드 이미지다. 타사 상표라 넣지 않고
+     *    이니셜 타일로 뒀다. 배경은 완성된 클래스명을 담는다(Tailwind 문자열 스캔).
+     */
+    $career = [
+        'basics' => [
+            ['label' => '이름', 'value' => '신고수'],
+            ['label' => '이메일', 'value' => 'Gosu@gmail.com'],
+            ['label' => '연락처', 'value' => '010 3366 9393'],
+            ['label' => '국적', 'value' => '대한민국'],
+            ['label' => '총 경력', 'value' => '7년'],
+        ],
+        'jobs' => [
+            ['initial' => 'N', 'tone' => 'bg-status-positive', 'title' => '프로덕트 디자이너',
+                'org' => '네이버 · 프로덕트 디자인팀', 'period' => '2020년 12월 31일 - 현재 · 10개월'],
+            ['initial' => 'G', 'tone' => 'bg-warm-gray-800', 'title' => '프로덕트 디자이너',
+                'org' => '워크앤조이 · 프로덕트 디자인팀', 'period' => '2020년 12월 31일 - 2020년 12월 31일 · 1년 10개월'],
+        ],
+        'schools' => [
+            ['initial' => 'HA', 'tone' => 'bg-deep-blue-800', 'title' => '하버드 대학교',
+                'org' => '학사 · 디자인학과', 'period' => '2020 - 2020'],
+        ],
+        'skills' => [
+            ['title' => '프로덕트 디자인',
+                'desc' => '웹, 앱 프로덕트 디자인 프로젝트 수주 사용자 경험을 기반으로 프로덕트 기획, 개선 작업 기존 프로덕트 유지 보수 및 신규 기능 설계 데이터 베이스의 문제 정의, 가설 검증'],
+            ['title' => '인터랙션 디자인',
+                'desc' => '모션 그래픽을 기반으로 인터랙션 디자인 가이드 제작 모바일과 웹 프로토타이핑 작업 진행'],
+        ],
+        'files' => [
+            ['title' => '2021 신고수 이력서', 'kind' => 'PDF 파일'],
+            ['title' => '2021 신고수 자기소개', 'kind' => 'PDF 파일'],
+        ],
+        'interests' => ['프로덕트 디자인', '비즈니스', 'UXUI'],
+    ];
+
     $cardIcon = 'inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40';
 @endphp
 
@@ -91,6 +127,11 @@
         :footer-items="config('workspace.footer_items')"
         :scale="config('workspace.lnb_scale')"
     >
+        {{-- 탭 전환 — x-tabs 는 x-modelable="value" 라 x-model 로 부모 상태에 묶인다.
+             기본값은 커리어(연결된 PC 노드가 커리어 활성 상태다).
+             ⚠️ 모바일 노드(1104-59162)는 피드가 활성이다. 한쪽으로 맞춰야 해서 커리어로 뒀다. --}}
+        <div x-data="{ tab: 'career' }" class="min-w-0">
+
         {{-- ═══ 프로필 헤더 + 탭 ═══
              Figma GPRO_PORTFOLIO node 1104-58466 → 화면은 그 안의 1104-58476 "퍼블릭".
              원본 실측(1200 컨테이너 기준) — 아바타 120 (top 40) · 제목 left 160 top 58
@@ -138,8 +179,9 @@
                 <div class="mt-8 min-w-0">
                     <x-tabs
                         name="profile_tab_mobile"
+                        x-model="tab"
                         :options="['feed' => '피드', 'career' => '커리어']"
-                        selected="feed"
+                        selected="career"
                         accent="strong"
                     />
                 </div>
@@ -173,6 +215,7 @@
             <div class="relative mt-14 hidden lg:block">
                 <x-tabs
                     name="profile_tab"
+                    x-model="tab"
                     :options="['posting' => '포스팅', 'career' => '커리어', 'group' => '그룹', 'article' => '아티클']"
                     selected="career"
                     accent="strong"
@@ -189,9 +232,11 @@
         </div>
 
         {{-- 원본에는 브레드크럼·타이틀이 없다. 본문이 프로필·탭 아래에서 시작한다. --}}
-        {{-- 모바일에서는 블록으로 둔다. flex 행의 아이템이 되면 min-content 가 밀려 올라와
+        {{-- ═══ 포스팅 / 피드 패널 ═══
+             모바일에서는 블록으로 둔다. flex 행의 아이템이 되면 min-content 가 밀려 올라와
              카드가 뷰포트를 넘어간다. 블록 자식은 컨테이너 폭을 넘지 못한다. --}}
-        <div class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
+        <div x-show="tab !== 'career'" x-cloak
+             class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
 
             {{-- ═══ 좌: 피드 690 ═══ --}}
             {{-- 모바일에서는 화면 폭을 그대로 쓴다. shrink-0 을 걸면 690 이 강제돼 오버플로가 난다. --}}
@@ -345,5 +390,155 @@
                 </section>
             </aside>
         </div>
+
+        {{-- ═══ 커리어 패널 ═══ Figma node 1104-58476 (커리어 활성 상태)
+             좌 687: 기본 정보 · 경력과 학력 · 업무와 스킬 · 추가 서류
+             우 486: 소개 · 관심사 · 오늘의 아티클 추천
+
+             원본 실측 — 카드 반경 6 · 내부 좌우 패딩 30 · 섹션 제목 20px Bold · lh 30 · -1px
+                         (DS heading-2 와 정확히 일치) · 제목 영역 높이 56
+                         기본 정보 행 높이 48 (pt 13 · pb 12) · 라벨 폭 113 · 라벨/값 15px Bold
+                         (DS body-2 와 정확히 일치) · 라벨색 Warm gray/500 --}}
+        <div x-show="tab === 'career'"
+             class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
+
+            {{-- ── 좌: 687 ── --}}
+            <div class="flex w-full min-w-0 flex-col gap-6 lg:max-w-[690px] lg:shrink-0">
+
+                {{-- 기본 정보 --}}
+                <section class="min-w-0 rounded-lg bg-background-normal">
+                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">기본 정보</h2>
+                        <button type="button" class="{{ $cardIcon }} shrink-0" aria-label="더보기">
+                            <x-icon-more-horizontal class="size-6" />
+                        </button>
+                    </div>
+                    <dl class="pb-[17px]">
+                        @foreach ($career['basics'] as $row)
+                            <div class="flex items-start px-5 lg:px-[30px]">
+                                <dt class="w-[113px] shrink-0 pb-3 pr-2.5 pt-[13px] text-body-2 font-bold leading-[23px] text-warm-gray-500">
+                                    {{ $row['label'] }}
+                                </dt>
+                                <dd class="min-w-0 pb-3 pt-[13px] text-body-2 font-bold leading-[23px] text-mono-black">
+                                    {{ $row['value'] }}
+                                </dd>
+                            </div>
+                        @endforeach
+                    </dl>
+                </section>
+
+                {{-- 경력과 학력 — 경력 목록 뒤에 구분선을 두고 학력이 온다 --}}
+                <section class="min-w-0 rounded-lg bg-background-normal pb-[30px]">
+                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">경력과 학력</h2>
+                        <button type="button" class="{{ $cardIcon }} shrink-0" aria-label="더보기">
+                            <x-icon-more-horizontal class="size-6" />
+                        </button>
+                    </div>
+
+                    <ul class="flex flex-col gap-5 px-5 pt-3 lg:px-[30px]">
+                        @foreach ($career['jobs'] as $job)
+                            @include('partials.career-entry', ['entry' => $job])
+                        @endforeach
+                    </ul>
+
+                    <div class="mx-5 mt-[26px] h-px bg-warm-gray-100 lg:mx-[30px]" aria-hidden="true"></div>
+
+                    <ul class="flex flex-col gap-5 px-5 pt-[26px] lg:px-[30px]">
+                        @foreach ($career['schools'] as $school)
+                            @include('partials.career-entry', ['entry' => $school])
+                        @endforeach
+                    </ul>
+                </section>
+
+                {{-- 업무와 스킬 --}}
+                <section class="min-w-0 rounded-lg bg-background-normal pb-[30px]">
+                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">업무와 스킬</h2>
+                        <button type="button" class="{{ $cardIcon }} shrink-0" aria-label="더보기">
+                            <x-icon-more-horizontal class="size-6" />
+                        </button>
+                    </div>
+
+                    <div class="flex flex-col gap-[26px] px-5 pt-3 lg:px-[30px]">
+                        @foreach ($career['skills'] as $skill)
+                            <div class="min-w-0">
+                                <h3 class="text-body-2 font-bold leading-[23px] text-mono-black">{{ $skill['title'] }}</h3>
+                                <p class="pt-2 text-body-2 leading-[23px] text-mono-black">{{ $skill['desc'] }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                </section>
+
+                {{-- 추가 서류 --}}
+                <section class="min-w-0 rounded-lg bg-background-normal pb-[30px]">
+                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">추가 서류</h2>
+                        <button type="button" class="{{ $cardIcon }} shrink-0" aria-label="더보기">
+                            <x-icon-more-horizontal class="size-6" />
+                        </button>
+                    </div>
+
+                    <ul class="flex flex-col gap-4 px-5 pt-3 lg:px-[30px]">
+                        @foreach ($career['files'] as $file)
+                            <li class="flex min-w-0 items-center gap-4">
+                                <div class="min-w-0 flex-1">
+                                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">{{ $file['title'] }}</p>
+                                    <p class="truncate pt-[3px] text-label-2 leading-5 text-warm-gray-500">{{ $file['kind'] }}</p>
+                                </div>
+                                <x-button variant="primary" size="sm" class="shrink-0">다운로드</x-button>
+                            </li>
+                        @endforeach
+                    </ul>
+                </section>
+            </div>
+
+            {{-- ── 우: 486 ── --}}
+            <aside class="hidden w-[486px] shrink-0 flex-col gap-6 xl:flex">
+
+                {{-- 소개 --}}
+                <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
+                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">소개</h2>
+                    <p class="pt-[26px] text-body-2 leading-[23px] text-mono-black">{{ $profile['bio'] }}</p>
+                    <p class="text-body-2 leading-[23px] text-mono-black">유용한 정보들 함께 공유해요!</p>
+                </section>
+
+                {{-- 관심사 --}}
+                <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
+                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">관심사</h2>
+                    <div class="flex flex-wrap gap-2 pt-[26px]">
+                        @foreach ($career['interests'] as $interest)
+                            <x-chip size="medium">{{ $interest }}</x-chip>
+                        @endforeach
+                    </div>
+                </section>
+
+                {{-- 오늘의 아티클 추천 — 피드 탭과 같은 카드다 --}}
+                <section class="rounded-lg bg-background-normal p-[30px]">
+                    <div class="flex items-baseline justify-between">
+                        <h2 class="text-headline-2 font-bold leading-[27px] text-mono-black">오늘의 아티클 추천</h2>
+                        <a href="#" class="text-body-2 leading-[23px] text-warm-gray-500 transition-colors hover:text-label-normal">더보기</a>
+                    </div>
+
+                    <div class="flex flex-col gap-[40px] pt-[37px]">
+                        @foreach ($articles as $article)
+                            <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
+                                <span class="size-[120px] shrink-0 rounded-md {{ $article['tone'] }}" aria-hidden="true"></span>
+                                <span class="flex min-w-0 flex-1 flex-col">
+                                    <span class="text-body-2 font-bold leading-[23px] text-mono-black">{{ $article['title'] }}</span>
+                                    <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">{{ $article['desc'] }}</span>
+                                    <span class="flex items-center gap-1.5 pt-[14px]">
+                                        <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
+                                        <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">{{ $article['source'] }}</span>
+                                    </span>
+                                </span>
+                            </a>
+                        @endforeach
+                    </div>
+                </section>
+            </aside>
+        </div>
+
+        </div>{{-- /x-data tab --}}
     </x-workspace-shell>
 </x-layout>

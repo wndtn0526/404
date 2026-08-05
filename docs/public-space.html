@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>퍼블릭 스페이스 · 전자결재</title>
 
-        <link rel="preload" as="style" href="./build/assets/app-STQmVk2x.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-STQmVk2x.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="preload" as="style" href="./build/assets/app-UxbMkI5C.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-UxbMkI5C.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
     <meta name="robots" content="noindex">
 </head>
@@ -162,7 +162,10 @@
         
         
         <main class="min-h-0 min-w-0 flex-1 px-5 pb-20 pt-8 lg:px-20">
-            <div class="mx-auto w-full min-w-0 max-w-[1200px]">
+            <div x-data="{ tab: 'career' }" class="min-w-0">
+
+        
+        <div class="mx-auto w-full min-w-0 max-w-[1200px]">
 
             
             <div class="min-w-0 lg:hidden">
@@ -195,9 +198,9 @@
 
                 
                 <div class="mt-8 min-w-0">
-                    <div x-data="{ value: 'feed' }"
+                    <div x-data="{ value: 'career' }"
      x-modelable="value"
-     
+     x-model="tab"
      role="tablist"
      
      class="relative flex items-center gap-6 border-b border-line-normal-alternative">
@@ -254,7 +257,7 @@
             <div class="relative mt-14 hidden lg:block">
                 <div x-data="{ value: 'career' }"
      x-modelable="value"
-     
+     x-model="tab"
      role="tablist"
      
      class="relative flex items-center gap-6 border-b border-line-normal-alternative pr-[176px]">
@@ -322,7 +325,8 @@
 
         
         
-        <div class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
+        <div x-show="tab !== 'career'" x-cloak
+             class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
 
             
             
@@ -665,6 +669,268 @@
                                             </ul>
                 </section>
             </aside>
+        </div>
+
+        
+        <div x-show="tab === 'career'"
+             class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
+
+            
+            <div class="flex w-full min-w-0 flex-col gap-6 lg:max-w-[690px] lg:shrink-0">
+
+                
+                <section class="min-w-0 rounded-lg bg-background-normal">
+                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">기본 정보</h2>
+                        <button type="button" class="inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 shrink-0" aria-label="더보기">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.24969 13.75C6.21618 13.75 6.99968 12.9665 6.99968 12C6.99968 11.0335 6.21618 10.25 5.24969 10.25C4.28319 10.25 3.49969 11.0335 3.49969 12C3.49969 12.9665 4.28319 13.75 5.24969 13.75Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M13.7497 12C13.7497 12.9665 12.9662 13.75 11.9997 13.75C11.0332 13.75 10.2497 12.9665 10.2497 12C10.2497 11.0335 11.0332 10.25 11.9997 10.25C12.9662 10.25 13.7497 11.0335 13.7497 12Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M20.4996 12C20.4996 12.9665 19.7161 13.75 18.7496 13.75C17.7832 13.75 16.9997 12.9665 16.9997 12C16.9997 11.0335 17.7832 10.25 18.7496 10.25C19.7161 10.25 20.4996 11.0335 20.4996 12Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                        </button>
+                    </div>
+                    <dl class="pb-[17px]">
+                                                    <div class="flex items-start px-5 lg:px-[30px]">
+                                <dt class="w-[113px] shrink-0 pb-3 pr-2.5 pt-[13px] text-body-2 font-bold leading-[23px] text-warm-gray-500">
+                                    이름
+                                </dt>
+                                <dd class="min-w-0 pb-3 pt-[13px] text-body-2 font-bold leading-[23px] text-mono-black">
+                                    신고수
+                                </dd>
+                            </div>
+                                                    <div class="flex items-start px-5 lg:px-[30px]">
+                                <dt class="w-[113px] shrink-0 pb-3 pr-2.5 pt-[13px] text-body-2 font-bold leading-[23px] text-warm-gray-500">
+                                    이메일
+                                </dt>
+                                <dd class="min-w-0 pb-3 pt-[13px] text-body-2 font-bold leading-[23px] text-mono-black">
+                                    Gosu@gmail.com
+                                </dd>
+                            </div>
+                                                    <div class="flex items-start px-5 lg:px-[30px]">
+                                <dt class="w-[113px] shrink-0 pb-3 pr-2.5 pt-[13px] text-body-2 font-bold leading-[23px] text-warm-gray-500">
+                                    연락처
+                                </dt>
+                                <dd class="min-w-0 pb-3 pt-[13px] text-body-2 font-bold leading-[23px] text-mono-black">
+                                    010 3366 9393
+                                </dd>
+                            </div>
+                                                    <div class="flex items-start px-5 lg:px-[30px]">
+                                <dt class="w-[113px] shrink-0 pb-3 pr-2.5 pt-[13px] text-body-2 font-bold leading-[23px] text-warm-gray-500">
+                                    국적
+                                </dt>
+                                <dd class="min-w-0 pb-3 pt-[13px] text-body-2 font-bold leading-[23px] text-mono-black">
+                                    대한민국
+                                </dd>
+                            </div>
+                                                    <div class="flex items-start px-5 lg:px-[30px]">
+                                <dt class="w-[113px] shrink-0 pb-3 pr-2.5 pt-[13px] text-body-2 font-bold leading-[23px] text-warm-gray-500">
+                                    총 경력
+                                </dt>
+                                <dd class="min-w-0 pb-3 pt-[13px] text-body-2 font-bold leading-[23px] text-mono-black">
+                                    7년
+                                </dd>
+                            </div>
+                                            </dl>
+                </section>
+
+                
+                <section class="min-w-0 rounded-lg bg-background-normal pb-[30px]">
+                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">경력과 학력</h2>
+                        <button type="button" class="inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 shrink-0" aria-label="더보기">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.24969 13.75C6.21618 13.75 6.99968 12.9665 6.99968 12C6.99968 11.0335 6.21618 10.25 5.24969 10.25C4.28319 10.25 3.49969 11.0335 3.49969 12C3.49969 12.9665 4.28319 13.75 5.24969 13.75Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M13.7497 12C13.7497 12.9665 12.9662 13.75 11.9997 13.75C11.0332 13.75 10.2497 12.9665 10.2497 12C10.2497 11.0335 11.0332 10.25 11.9997 10.25C12.9662 10.25 13.7497 11.0335 13.7497 12Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M20.4996 12C20.4996 12.9665 19.7161 13.75 18.7496 13.75C17.7832 13.75 16.9997 12.9665 16.9997 12C16.9997 11.0335 17.7832 10.25 18.7496 10.25C19.7161 10.25 20.4996 11.0335 20.4996 12Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                        </button>
+                    </div>
+
+                    <ul class="flex flex-col gap-5 px-5 pt-3 lg:px-[30px]">
+                                                    <li class="flex min-w-0 items-start gap-4">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-status-positive text-body-2 font-bold text-white"
+          aria-hidden="true">N</span>
+
+    <div class="min-w-0 flex-1 pt-0.5">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">프로덕트 디자이너</p>
+        <p class="truncate pt-[3px] text-body-2 leading-[23px] text-mono-black">네이버 · 프로덕트 디자인팀</p>
+        <p class="truncate pt-[5px] text-label-2 leading-5 text-warm-gray-400">2020년 12월 31일 - 현재 · 10개월</p>
+    </div>
+</li>
+                                                    <li class="flex min-w-0 items-start gap-4">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-warm-gray-800 text-body-2 font-bold text-white"
+          aria-hidden="true">G</span>
+
+    <div class="min-w-0 flex-1 pt-0.5">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">프로덕트 디자이너</p>
+        <p class="truncate pt-[3px] text-body-2 leading-[23px] text-mono-black">워크앤조이 · 프로덕트 디자인팀</p>
+        <p class="truncate pt-[5px] text-label-2 leading-5 text-warm-gray-400">2020년 12월 31일 - 2020년 12월 31일 · 1년 10개월</p>
+    </div>
+</li>
+                                            </ul>
+
+                    <div class="mx-5 mt-[26px] h-px bg-warm-gray-100 lg:mx-[30px]" aria-hidden="true"></div>
+
+                    <ul class="flex flex-col gap-5 px-5 pt-[26px] lg:px-[30px]">
+                                                    <li class="flex min-w-0 items-start gap-4">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-deep-blue-800 text-body-2 font-bold text-white"
+          aria-hidden="true">HA</span>
+
+    <div class="min-w-0 flex-1 pt-0.5">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">하버드 대학교</p>
+        <p class="truncate pt-[3px] text-body-2 leading-[23px] text-mono-black">학사 · 디자인학과</p>
+        <p class="truncate pt-[5px] text-label-2 leading-5 text-warm-gray-400">2020 - 2020</p>
+    </div>
+</li>
+                                            </ul>
+                </section>
+
+                
+                <section class="min-w-0 rounded-lg bg-background-normal pb-[30px]">
+                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">업무와 스킬</h2>
+                        <button type="button" class="inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 shrink-0" aria-label="더보기">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.24969 13.75C6.21618 13.75 6.99968 12.9665 6.99968 12C6.99968 11.0335 6.21618 10.25 5.24969 10.25C4.28319 10.25 3.49969 11.0335 3.49969 12C3.49969 12.9665 4.28319 13.75 5.24969 13.75Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M13.7497 12C13.7497 12.9665 12.9662 13.75 11.9997 13.75C11.0332 13.75 10.2497 12.9665 10.2497 12C10.2497 11.0335 11.0332 10.25 11.9997 10.25C12.9662 10.25 13.7497 11.0335 13.7497 12Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M20.4996 12C20.4996 12.9665 19.7161 13.75 18.7496 13.75C17.7832 13.75 16.9997 12.9665 16.9997 12C16.9997 11.0335 17.7832 10.25 18.7496 10.25C19.7161 10.25 20.4996 11.0335 20.4996 12Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                        </button>
+                    </div>
+
+                    <div class="flex flex-col gap-[26px] px-5 pt-3 lg:px-[30px]">
+                                                    <div class="min-w-0">
+                                <h3 class="text-body-2 font-bold leading-[23px] text-mono-black">프로덕트 디자인</h3>
+                                <p class="pt-2 text-body-2 leading-[23px] text-mono-black">웹, 앱 프로덕트 디자인 프로젝트 수주 사용자 경험을 기반으로 프로덕트 기획, 개선 작업 기존 프로덕트 유지 보수 및 신규 기능 설계 데이터 베이스의 문제 정의, 가설 검증</p>
+                            </div>
+                                                    <div class="min-w-0">
+                                <h3 class="text-body-2 font-bold leading-[23px] text-mono-black">인터랙션 디자인</h3>
+                                <p class="pt-2 text-body-2 leading-[23px] text-mono-black">모션 그래픽을 기반으로 인터랙션 디자인 가이드 제작 모바일과 웹 프로토타이핑 작업 진행</p>
+                            </div>
+                                            </div>
+                </section>
+
+                
+                <section class="min-w-0 rounded-lg bg-background-normal pb-[30px]">
+                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">추가 서류</h2>
+                        <button type="button" class="inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 shrink-0" aria-label="더보기">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.24969 13.75C6.21618 13.75 6.99968 12.9665 6.99968 12C6.99968 11.0335 6.21618 10.25 5.24969 10.25C4.28319 10.25 3.49969 11.0335 3.49969 12C3.49969 12.9665 4.28319 13.75 5.24969 13.75Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M13.7497 12C13.7497 12.9665 12.9662 13.75 11.9997 13.75C11.0332 13.75 10.2497 12.9665 10.2497 12C10.2497 11.0335 11.0332 10.25 11.9997 10.25C12.9662 10.25 13.7497 11.0335 13.7497 12Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M20.4996 12C20.4996 12.9665 19.7161 13.75 18.7496 13.75C17.7832 13.75 16.9997 12.9665 16.9997 12C16.9997 11.0335 17.7832 10.25 18.7496 10.25C19.7161 10.25 20.4996 11.0335 20.4996 12Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                        </button>
+                    </div>
+
+                    <ul class="flex flex-col gap-4 px-5 pt-3 lg:px-[30px]">
+                                                    <li class="flex min-w-0 items-center gap-4">
+                                <div class="min-w-0 flex-1">
+                                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">2021 신고수 이력서</p>
+                                    <p class="truncate pt-[3px] text-label-2 leading-5 text-warm-gray-500">PDF 파일</p>
+                                </div>
+                                <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-primary text-white hover:bg-primary-strong active:bg-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-10 px-4 text-body-2  shrink-0"
+>
+    
+    다운로드
+
+    </button>
+                            </li>
+                                                    <li class="flex min-w-0 items-center gap-4">
+                                <div class="min-w-0 flex-1">
+                                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">2021 신고수 자기소개</p>
+                                    <p class="truncate pt-[3px] text-label-2 leading-5 text-warm-gray-500">PDF 파일</p>
+                                </div>
+                                <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-primary text-white hover:bg-primary-strong active:bg-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-10 px-4 text-body-2  shrink-0"
+>
+    
+    다운로드
+
+    </button>
+                            </li>
+                                            </ul>
+                </section>
+            </div>
+
+            
+            <aside class="hidden w-[486px] shrink-0 flex-col gap-6 xl:flex">
+
+                
+                <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
+                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">소개</h2>
+                    <p class="pt-[26px] text-body-2 leading-[23px] text-mono-black">스타트업에서 일하고 있는 7년 차 프로덕트 디자이너입니다:)</p>
+                    <p class="text-body-2 leading-[23px] text-mono-black">유용한 정보들 함께 공유해요!</p>
+                </section>
+
+                
+                <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
+                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">관심사</h2>
+                    <div class="flex flex-wrap gap-2 pt-[26px]">
+                                                    <span
+                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors gap-[3px] px-[11px] py-[7px] rounded-md text-body-2 bg-fill-alternative text-label-alternative"
+>
+        <span class="px-0.5">프로덕트 디자인</span>
+    </span>
+                                                    <span
+                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors gap-[3px] px-[11px] py-[7px] rounded-md text-body-2 bg-fill-alternative text-label-alternative"
+>
+        <span class="px-0.5">비즈니스</span>
+    </span>
+                                                    <span
+                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors gap-[3px] px-[11px] py-[7px] rounded-md text-body-2 bg-fill-alternative text-label-alternative"
+>
+        <span class="px-0.5">UXUI</span>
+    </span>
+                                            </div>
+                </section>
+
+                
+                <section class="rounded-lg bg-background-normal p-[30px]">
+                    <div class="flex items-baseline justify-between">
+                        <h2 class="text-headline-2 font-bold leading-[27px] text-mono-black">오늘의 아티클 추천</h2>
+                        <a href="#" class="text-body-2 leading-[23px] text-warm-gray-500 transition-colors hover:text-label-normal">더보기</a>
+                    </div>
+
+                    <div class="flex flex-col gap-[40px] pt-[37px]">
+                                                    <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
+                                <span class="size-[120px] shrink-0 rounded-md bg-warm-gray-800" aria-hidden="true"></span>
+                                <span class="flex min-w-0 flex-1 flex-col">
+                                    <span class="text-body-2 font-bold leading-[23px] text-mono-black">컬러 조합, 그라데이션, 영문 폰트 조합</span>
+                                    <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주거나 그라데이션을 직접 조합할 수 있는 환...</span>
+                                    <span class="flex items-center gap-1.5 pt-[14px]">
+                                        <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
+                                        <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">Medium · Jay Yoon</span>
+                                    </span>
+                                </span>
+                            </a>
+                                                    <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
+                                <span class="size-[120px] shrink-0 rounded-md bg-warm-gray-300" aria-hidden="true"></span>
+                                <span class="flex min-w-0 flex-1 flex-col">
+                                    <span class="text-body-2 font-bold leading-[23px] text-mono-black">4560 디자인 하우스</span>
+                                    <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주거나 그라데이션을 직접 조합할 수 있는 환경.</span>
+                                    <span class="flex items-center gap-1.5 pt-[14px]">
+                                        <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
+                                        <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">브런치 · Sarah Kim</span>
+                                    </span>
+                                </span>
+                            </a>
+                                                    <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
+                                <span class="size-[120px] shrink-0 rounded-md bg-cool-gray-800" aria-hidden="true"></span>
+                                <span class="flex min-w-0 flex-1 flex-col">
+                                    <span class="text-body-2 font-bold leading-[23px] text-mono-black">이미지 편집, 컬러 CSS 생성</span>
+                                    <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주고 그라데이션을 직접 조합.</span>
+                                    <span class="flex items-center gap-1.5 pt-[14px]">
+                                        <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
+                                        <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">Craftwork Design</span>
+                                    </span>
+                                </span>
+                            </a>
+                                            </div>
+                </section>
+            </aside>
+        </div>
+
         </div>
         </main>
     </div>

@@ -16,6 +16,13 @@
     body {
         @apply bg-background-alternative text-label-normal font-sans antialiased;
     }
+
+    /* Alpine x-cloak — 초기화 전 깜빡임을 막는다.
+       filter-bar·datepicker 등이 이미 x-cloak 을 쓰고 있는데 이 규칙이 없어서
+       동작하지 않고 있었다(팝오버가 한 프레임 노출됨). */
+    [x-cloak] {
+        display: none !important;
+    }
 }
 
 @layer utilities {
