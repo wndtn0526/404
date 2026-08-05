@@ -78,6 +78,19 @@
     ];
 
     /*
+     * 그룹 탭 — Figma node 1104-58981. 가입한 그룹 3개 + 추천 3개(피드 탭과 같은 목록).
+     * ⚠️ 원본 썸네일은 Nike·Framer·Apple 로고와 사진이다. 이니셜 타일로 뒀다.
+     */
+    $joinedGroups = [
+        ['name' => 'DINO OFFICIAL', 'desc' => '디노 퍼블릭 공식 그룹입니다.',
+            'members' => '1,033', 'tone' => 'bg-workspace-bg', 'initial' => 'D'],
+        ['name' => '나이키 러닝 클럽', 'desc' => '강남구 나이키 러닝 클럽입니다.',
+            'members' => '33', 'tone' => 'bg-mono-black', 'initial' => 'NRC'],
+        ['name' => '사고 팔고', 'desc' => '중고품 사고 팔아요!',
+            'members' => '100', 'tone' => 'bg-warm-gray-800', 'initial' => '사고'],
+    ];
+
+    /*
      * 커리어 탭 — Figma node 1104-58476 "퍼블릭" (커리어가 활성인 상태).
      * ⚠️ 로고는 원본이 네이버·워크앤조이·하버드 이미지다. 타사 상표라 넣지 않고
      *    이니셜 타일로 뒀다. 배경은 완성된 클래스명을 담는다(Tailwind 문자열 스캔).
@@ -232,7 +245,8 @@
         {{-- ═══ 포스팅 / 피드 패널 ═══
              모바일에서는 블록으로 둔다. flex 행의 아이템이 되면 min-content 가 밀려 올라와
              카드가 뷰포트를 넘어간다. 블록 자식은 컨테이너 폭을 넘지 못한다. --}}
-        <div x-show="tab !== 'career'" x-cloak
+        {{-- 피드는 PC 의 '포스팅' 과 모바일의 '피드' 두 값을 받는다. --}}
+        <div x-show="tab === 'posting' || tab === 'feed'" x-cloak
              class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
 
             {{-- ═══ 좌: 피드 690 ═══ --}}
@@ -369,19 +383,7 @@
 
                     <ul class="pt-[37px]">
                         @foreach ($groups as $i => $group)
-                            <li @class(['flex items-start gap-5 py-[24px]', 'border-t border-warm-gray-100' => $i > 0, 'pt-0' => $i === 0])>
-                                {{-- 썸네일 48 — 원본은 Apple·Framer 로고. 타사 상표라 이니셜로 뒀다. --}}
-                                <span class="flex size-12 shrink-0 items-center justify-center rounded-md {{ $group['tone'] }} text-caption-1 font-bold text-white" aria-hidden="true">
-                                    {{ $group['initial'] }}
-                                </span>
-                                <div class="min-w-0 flex-1">
-                                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">{{ $group['name'] }}</p>
-                                    <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">{{ $group['desc'] }}</p>
-                                    <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
-                                        <span class="tabular-nums">{{ $group['members'] }}</span>명 참여중
-                                    </p>
-                                </div>
-                            </li>
+                            @include('partials.group-entry', ['group' => $group, 'first' => $i === 0])
                         @endforeach
                     </ul>
                 </section>
@@ -490,53 +492,49 @@
                 </section>
             </div>
 
-            {{-- ── 우: 486 ── --}}
-            <aside class="hidden w-[486px] shrink-0 flex-col gap-6 xl:flex">
+            {{-- 우: 486 — 소개 · 관심사 · 아티클 추천. 그룹 탭과 같은 구성이라 partial 로 뺐다. --}}
+            @include('partials.profile-aside')
+        </div>
 
-                {{-- 소개 --}}
-                <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
-                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">소개</h2>
-                    <p class="pt-[26px] text-body-2 leading-[23px] text-mono-black">{{ $profile['bio'] }}</p>
-                    <p class="text-body-2 leading-[23px] text-mono-black">유용한 정보들 함께 공유해요!</p>
-                </section>
+        {{-- ═══ 그룹 패널 ═══ Figma node 1104-58981
+             좌 687: 가입한 그룹 · 이런 그룹은 어때요?
+             우 486: 커리어 탭과 같은 사이드(소개 · 관심사 · 아티클 추천)
 
-                {{-- 관심사 --}}
-                <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
-                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">관심사</h2>
-                    <div class="flex flex-wrap gap-2 pt-[26px]">
-                        @foreach ($career['interests'] as $interest)
-                            <x-chip size="medium">{{ $interest }}</x-chip>
+             원본 실측 — 섹션 제목 20px Bold · lh 30 (DS heading-2) · 썸네일 48 · 반경 4
+                         항목 사이 Warm gray/100 구분선 · 참여수 13px Warm gray/500
+
+             ⚠️ '이런 그룹은 어때요?' 는 피드 탭의 '이런 그룹 어때요?' 와 문구가 다르다.
+                원본이 그렇게 갈려 있어 각 노드대로 뒀다. --}}
+        <div x-show="tab === 'group'" x-cloak
+             class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
+
+            {{-- ── 좌: 687 ── --}}
+            <div class="flex w-full min-w-0 flex-col gap-6 lg:max-w-[690px] lg:shrink-0">
+
+                {{-- 가입한 그룹 --}}
+                <section class="min-w-0 rounded-lg bg-background-normal px-5 pb-[30px] pt-[17px] lg:px-[30px]">
+                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">가입한 그룹</h2>
+                    <ul class="pt-[26px]">
+                        @foreach ($joinedGroups as $i => $group)
+                            @include('partials.group-entry', ['group' => $group, 'first' => $i === 0])
                         @endforeach
-                    </div>
+                    </ul>
                 </section>
 
-                {{-- 오늘의 아티클 추천 — 피드 탭과 같은 카드다 --}}
-                <section class="rounded-lg bg-background-normal p-[30px]">
-                    <div class="flex items-baseline justify-between">
-                        <h2 class="text-headline-2 font-bold leading-[27px] text-mono-black">오늘의 아티클 추천</h2>
-                        <a href="#" class="text-body-2 leading-[23px] text-warm-gray-500 transition-colors hover:text-label-normal">더보기</a>
-                    </div>
-
-                    <div class="flex flex-col gap-[40px] pt-[37px]">
-                        @foreach ($articles as $article)
-                            <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
-                                <span class="size-[120px] shrink-0 rounded-md {{ $article['tone'] }}" aria-hidden="true"></span>
-                                <span class="flex min-w-0 flex-1 flex-col">
-                                    <span class="text-body-2 font-bold leading-[23px] text-mono-black">{{ $article['title'] }}</span>
-                                    <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">{{ $article['desc'] }}</span>
-                                    <span class="flex items-center gap-1.5 pt-[14px]">
-                                        <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
-                                        <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">{{ $article['source'] }}</span>
-                                    </span>
-                                </span>
-                            </a>
+                {{-- 이런 그룹은 어때요? --}}
+                <section class="min-w-0 rounded-lg bg-background-normal px-5 pb-[30px] pt-[17px] lg:px-[30px]">
+                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">이런 그룹은 어때요?</h2>
+                    <ul class="pt-[26px]">
+                        @foreach ($groups as $i => $group)
+                            @include('partials.group-entry', ['group' => $group, 'first' => $i === 0])
                         @endforeach
-                    </div>
+                    </ul>
                 </section>
-            </aside>
+            </div>
+
+            @include('partials.profile-aside')
         </div>
 
         </div>{{-- /x-data tab --}}
-    
     </x-workspace-shell>
 </x-layout>

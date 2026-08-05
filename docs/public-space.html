@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>퍼블릭 스페이스 · 전자결재</title>
 
-        <link rel="preload" as="style" href="./build/assets/app-C0xcKUFK.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-C0xcKUFK.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="preload" as="style" href="./build/assets/app-DA2mVKdw.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-DA2mVKdw.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
     <meta name="robots" content="noindex">
 </head>
@@ -325,7 +325,8 @@
 
         
         
-        <div x-show="tab !== 'career'" x-cloak
+        
+        <div x-show="tab === 'posting' || tab === 'feed'" x-cloak
              class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
 
             
@@ -627,45 +628,42 @@
                     </div>
 
                     <ul class="pt-[37px]">
-                                                    <li class="flex items-start gap-5 py-[24px] pt-0">
-                                
-                                <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-cool-gray-800 text-caption-1 font-bold text-white" aria-hidden="true">
-                                    P
-                                </span>
-                                <div class="min-w-0 flex-1">
-                                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">프로덕트 디자이너 그룹</p>
-                                    <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">서로 정보 공유도 하고 네트워킹합시다!</p>
-                                    <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
-                                        <span class="tabular-nums">673</span>명 참여중
-                                    </p>
-                                </div>
-                            </li>
-                                                    <li class="flex items-start gap-5 py-[24px] border-t border-warm-gray-100">
-                                
-                                <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-deep-blue-800 text-caption-1 font-bold text-white" aria-hidden="true">
-                                    맛집
-                                </span>
-                                <div class="min-w-0 flex-1">
-                                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">맛집 추천 그룹</p>
-                                    <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">서울 경기 지역 맛집 정보 공유 그룹.</p>
-                                    <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
-                                        <span class="tabular-nums">420</span>명 참여중
-                                    </p>
-                                </div>
-                            </li>
-                                                    <li class="flex items-start gap-5 py-[24px] border-t border-warm-gray-100">
-                                
-                                <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-mono-black text-caption-1 font-bold text-white" aria-hidden="true">
-                                    A
-                                </span>
-                                <div class="min-w-0 flex-1">
-                                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">앱등이 모임</p>
-                                    <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">앱등이다 싶으면 바로 가입하세요.</p>
-                                    <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
-                                        <span class="tabular-nums">93</span>명 참여중
-                                    </p>
-                                </div>
-                            </li>
+                                                    <li class="flex min-w-0 items-start gap-5 py-6 pt-0">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-cool-gray-800 text-caption-1 font-bold text-white"
+          aria-hidden="true">P</span>
+
+    <div class="min-w-0 flex-1">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">프로덕트 디자이너 그룹</p>
+        <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">서로 정보 공유도 하고 네트워킹합시다!</p>
+        <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
+            <span class="tabular-nums">673</span>명 참여중
+        </p>
+    </div>
+</li>
+                                                    <li class="flex min-w-0 items-start gap-5 py-6 border-t border-warm-gray-100">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-deep-blue-800 text-caption-1 font-bold text-white"
+          aria-hidden="true">맛집</span>
+
+    <div class="min-w-0 flex-1">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">맛집 추천 그룹</p>
+        <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">서울 경기 지역 맛집 정보 공유 그룹.</p>
+        <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
+            <span class="tabular-nums">420</span>명 참여중
+        </p>
+    </div>
+</li>
+                                                    <li class="flex min-w-0 items-start gap-5 py-6 border-t border-warm-gray-100">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-mono-black text-caption-1 font-bold text-white"
+          aria-hidden="true">A</span>
+
+    <div class="min-w-0 flex-1">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">앱등이 모임</p>
+        <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">앱등이다 싶으면 바로 가입하세요.</p>
+        <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
+            <span class="tabular-nums">93</span>명 참여중
+        </p>
+    </div>
+</li>
                                             </ul>
                 </section>
             </aside>
@@ -856,79 +854,250 @@
             
             <aside class="hidden w-[486px] shrink-0 flex-col gap-6 xl:flex">
 
-                
-                <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
-                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">소개</h2>
-                    <p class="pt-[26px] text-body-2 leading-[23px] text-mono-black">스타트업에서 일하고 있는 7년 차 프로덕트 디자이너입니다:)</p>
-                    <p class="text-body-2 leading-[23px] text-mono-black">유용한 정보들 함께 공유해요!</p>
-                </section>
+    
+    <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
+        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">소개</h2>
+        <p class="pt-[26px] text-body-2 leading-[23px] text-mono-black">스타트업에서 일하고 있는 7년 차 프로덕트 디자이너입니다:)</p>
+        <p class="text-body-2 leading-[23px] text-mono-black">유용한 정보들 함께 공유해요!</p>
+    </section>
 
-                
-                <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
-                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">관심사</h2>
-                    <div class="flex flex-wrap gap-2 pt-[26px]">
-                                                    <span
+    
+    <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
+        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">관심사</h2>
+        <div class="flex flex-wrap gap-2 pt-[26px]">
+                            <span
                 class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors gap-[3px] px-[11px] py-[7px] rounded-md text-body-2 bg-fill-alternative text-label-alternative"
 >
         <span class="px-0.5">프로덕트 디자인</span>
     </span>
-                                                    <span
+                            <span
                 class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors gap-[3px] px-[11px] py-[7px] rounded-md text-body-2 bg-fill-alternative text-label-alternative"
 >
         <span class="px-0.5">비즈니스</span>
     </span>
-                                                    <span
+                            <span
                 class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors gap-[3px] px-[11px] py-[7px] rounded-md text-body-2 bg-fill-alternative text-label-alternative"
 >
         <span class="px-0.5">UXUI</span>
     </span>
-                                            </div>
+                    </div>
+    </section>
+
+    
+    <section class="rounded-lg bg-background-normal p-[30px]">
+        <div class="flex items-baseline justify-between">
+            <h2 class="text-headline-2 font-bold leading-[27px] text-mono-black">오늘의 아티클 추천</h2>
+            <a href="#" class="text-body-2 leading-[23px] text-warm-gray-500 transition-colors hover:text-label-normal">더보기</a>
+        </div>
+
+        <div class="flex flex-col gap-[40px] pt-[37px]">
+                            <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
+                    <span class="size-[120px] shrink-0 rounded-md bg-warm-gray-800" aria-hidden="true"></span>
+                    <span class="flex min-w-0 flex-1 flex-col">
+                        <span class="text-body-2 font-bold leading-[23px] text-mono-black">컬러 조합, 그라데이션, 영문 폰트 조합</span>
+                        <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주거나 그라데이션을 직접 조합할 수 있는 환...</span>
+                        <span class="flex items-center gap-1.5 pt-[14px]">
+                            <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
+                            <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">Medium · Jay Yoon</span>
+                        </span>
+                    </span>
+                </a>
+                            <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
+                    <span class="size-[120px] shrink-0 rounded-md bg-warm-gray-300" aria-hidden="true"></span>
+                    <span class="flex min-w-0 flex-1 flex-col">
+                        <span class="text-body-2 font-bold leading-[23px] text-mono-black">4560 디자인 하우스</span>
+                        <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주거나 그라데이션을 직접 조합할 수 있는 환경.</span>
+                        <span class="flex items-center gap-1.5 pt-[14px]">
+                            <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
+                            <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">브런치 · Sarah Kim</span>
+                        </span>
+                    </span>
+                </a>
+                            <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
+                    <span class="size-[120px] shrink-0 rounded-md bg-cool-gray-800" aria-hidden="true"></span>
+                    <span class="flex min-w-0 flex-1 flex-col">
+                        <span class="text-body-2 font-bold leading-[23px] text-mono-black">이미지 편집, 컬러 CSS 생성</span>
+                        <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주고 그라데이션을 직접 조합.</span>
+                        <span class="flex items-center gap-1.5 pt-[14px]">
+                            <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
+                            <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">Craftwork Design</span>
+                        </span>
+                    </span>
+                </a>
+                    </div>
+    </section>
+</aside>
+        </div>
+
+        
+        <div x-show="tab === 'group'" x-cloak
+             class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
+
+            
+            <div class="flex w-full min-w-0 flex-col gap-6 lg:max-w-[690px] lg:shrink-0">
+
+                
+                <section class="min-w-0 rounded-lg bg-background-normal px-5 pb-[30px] pt-[17px] lg:px-[30px]">
+                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">가입한 그룹</h2>
+                    <ul class="pt-[26px]">
+                                                    <li class="flex min-w-0 items-start gap-5 py-6 pt-0">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-workspace-bg text-caption-1 font-bold text-white"
+          aria-hidden="true">D</span>
+
+    <div class="min-w-0 flex-1">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">DINO OFFICIAL</p>
+        <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">디노 퍼블릭 공식 그룹입니다.</p>
+        <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
+            <span class="tabular-nums">1,033</span>명 참여중
+        </p>
+    </div>
+</li>
+                                                    <li class="flex min-w-0 items-start gap-5 py-6 border-t border-warm-gray-100">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-mono-black text-caption-1 font-bold text-white"
+          aria-hidden="true">NRC</span>
+
+    <div class="min-w-0 flex-1">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">나이키 러닝 클럽</p>
+        <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">강남구 나이키 러닝 클럽입니다.</p>
+        <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
+            <span class="tabular-nums">33</span>명 참여중
+        </p>
+    </div>
+</li>
+                                                    <li class="flex min-w-0 items-start gap-5 py-6 border-t border-warm-gray-100">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-warm-gray-800 text-caption-1 font-bold text-white"
+          aria-hidden="true">사고</span>
+
+    <div class="min-w-0 flex-1">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">사고 팔고</p>
+        <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">중고품 사고 팔아요!</p>
+        <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
+            <span class="tabular-nums">100</span>명 참여중
+        </p>
+    </div>
+</li>
+                                            </ul>
                 </section>
 
                 
-                <section class="rounded-lg bg-background-normal p-[30px]">
-                    <div class="flex items-baseline justify-between">
-                        <h2 class="text-headline-2 font-bold leading-[27px] text-mono-black">오늘의 아티클 추천</h2>
-                        <a href="#" class="text-body-2 leading-[23px] text-warm-gray-500 transition-colors hover:text-label-normal">더보기</a>
-                    </div>
+                <section class="min-w-0 rounded-lg bg-background-normal px-5 pb-[30px] pt-[17px] lg:px-[30px]">
+                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">이런 그룹은 어때요?</h2>
+                    <ul class="pt-[26px]">
+                                                    <li class="flex min-w-0 items-start gap-5 py-6 pt-0">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-cool-gray-800 text-caption-1 font-bold text-white"
+          aria-hidden="true">P</span>
 
-                    <div class="flex flex-col gap-[40px] pt-[37px]">
-                                                    <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
-                                <span class="size-[120px] shrink-0 rounded-md bg-warm-gray-800" aria-hidden="true"></span>
-                                <span class="flex min-w-0 flex-1 flex-col">
-                                    <span class="text-body-2 font-bold leading-[23px] text-mono-black">컬러 조합, 그라데이션, 영문 폰트 조합</span>
-                                    <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주거나 그라데이션을 직접 조합할 수 있는 환...</span>
-                                    <span class="flex items-center gap-1.5 pt-[14px]">
-                                        <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
-                                        <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">Medium · Jay Yoon</span>
-                                    </span>
-                                </span>
-                            </a>
-                                                    <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
-                                <span class="size-[120px] shrink-0 rounded-md bg-warm-gray-300" aria-hidden="true"></span>
-                                <span class="flex min-w-0 flex-1 flex-col">
-                                    <span class="text-body-2 font-bold leading-[23px] text-mono-black">4560 디자인 하우스</span>
-                                    <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주거나 그라데이션을 직접 조합할 수 있는 환경.</span>
-                                    <span class="flex items-center gap-1.5 pt-[14px]">
-                                        <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
-                                        <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">브런치 · Sarah Kim</span>
-                                    </span>
-                                </span>
-                            </a>
-                                                    <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
-                                <span class="size-[120px] shrink-0 rounded-md bg-cool-gray-800" aria-hidden="true"></span>
-                                <span class="flex min-w-0 flex-1 flex-col">
-                                    <span class="text-body-2 font-bold leading-[23px] text-mono-black">이미지 편집, 컬러 CSS 생성</span>
-                                    <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주고 그라데이션을 직접 조합.</span>
-                                    <span class="flex items-center gap-1.5 pt-[14px]">
-                                        <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
-                                        <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">Craftwork Design</span>
-                                    </span>
-                                </span>
-                            </a>
-                                            </div>
+    <div class="min-w-0 flex-1">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">프로덕트 디자이너 그룹</p>
+        <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">서로 정보 공유도 하고 네트워킹합시다!</p>
+        <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
+            <span class="tabular-nums">673</span>명 참여중
+        </p>
+    </div>
+</li>
+                                                    <li class="flex min-w-0 items-start gap-5 py-6 border-t border-warm-gray-100">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-deep-blue-800 text-caption-1 font-bold text-white"
+          aria-hidden="true">맛집</span>
+
+    <div class="min-w-0 flex-1">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">맛집 추천 그룹</p>
+        <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">서울 경기 지역 맛집 정보 공유 그룹.</p>
+        <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
+            <span class="tabular-nums">420</span>명 참여중
+        </p>
+    </div>
+</li>
+                                                    <li class="flex min-w-0 items-start gap-5 py-6 border-t border-warm-gray-100">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-md bg-mono-black text-caption-1 font-bold text-white"
+          aria-hidden="true">A</span>
+
+    <div class="min-w-0 flex-1">
+        <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">앱등이 모임</p>
+        <p class="truncate pt-[5px] text-body-2 leading-[23px] text-mono-black">앱등이다 싶으면 바로 가입하세요.</p>
+        <p class="pt-[5px] text-label-2 leading-5 text-warm-gray-500">
+            <span class="tabular-nums">93</span>명 참여중
+        </p>
+    </div>
+</li>
+                                            </ul>
                 </section>
-            </aside>
+            </div>
+
+            <aside class="hidden w-[486px] shrink-0 flex-col gap-6 xl:flex">
+
+    
+    <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
+        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">소개</h2>
+        <p class="pt-[26px] text-body-2 leading-[23px] text-mono-black">스타트업에서 일하고 있는 7년 차 프로덕트 디자이너입니다:)</p>
+        <p class="text-body-2 leading-[23px] text-mono-black">유용한 정보들 함께 공유해요!</p>
+    </section>
+
+    
+    <section class="rounded-lg bg-background-normal px-[30px] pb-[30px] pt-[17px]">
+        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">관심사</h2>
+        <div class="flex flex-wrap gap-2 pt-[26px]">
+                            <span
+                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors gap-[3px] px-[11px] py-[7px] rounded-md text-body-2 bg-fill-alternative text-label-alternative"
+>
+        <span class="px-0.5">프로덕트 디자인</span>
+    </span>
+                            <span
+                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors gap-[3px] px-[11px] py-[7px] rounded-md text-body-2 bg-fill-alternative text-label-alternative"
+>
+        <span class="px-0.5">비즈니스</span>
+    </span>
+                            <span
+                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors gap-[3px] px-[11px] py-[7px] rounded-md text-body-2 bg-fill-alternative text-label-alternative"
+>
+        <span class="px-0.5">UXUI</span>
+    </span>
+                    </div>
+    </section>
+
+    
+    <section class="rounded-lg bg-background-normal p-[30px]">
+        <div class="flex items-baseline justify-between">
+            <h2 class="text-headline-2 font-bold leading-[27px] text-mono-black">오늘의 아티클 추천</h2>
+            <a href="#" class="text-body-2 leading-[23px] text-warm-gray-500 transition-colors hover:text-label-normal">더보기</a>
+        </div>
+
+        <div class="flex flex-col gap-[40px] pt-[37px]">
+                            <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
+                    <span class="size-[120px] shrink-0 rounded-md bg-warm-gray-800" aria-hidden="true"></span>
+                    <span class="flex min-w-0 flex-1 flex-col">
+                        <span class="text-body-2 font-bold leading-[23px] text-mono-black">컬러 조합, 그라데이션, 영문 폰트 조합</span>
+                        <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주거나 그라데이션을 직접 조합할 수 있는 환...</span>
+                        <span class="flex items-center gap-1.5 pt-[14px]">
+                            <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
+                            <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">Medium · Jay Yoon</span>
+                        </span>
+                    </span>
+                </a>
+                            <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
+                    <span class="size-[120px] shrink-0 rounded-md bg-warm-gray-300" aria-hidden="true"></span>
+                    <span class="flex min-w-0 flex-1 flex-col">
+                        <span class="text-body-2 font-bold leading-[23px] text-mono-black">4560 디자인 하우스</span>
+                        <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주거나 그라데이션을 직접 조합할 수 있는 환경.</span>
+                        <span class="flex items-center gap-1.5 pt-[14px]">
+                            <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
+                            <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">브런치 · Sarah Kim</span>
+                        </span>
+                    </span>
+                </a>
+                            <a href="#" class="flex items-start gap-5 transition-opacity hover:opacity-70">
+                    <span class="size-[120px] shrink-0 rounded-md bg-cool-gray-800" aria-hidden="true"></span>
+                    <span class="flex min-w-0 flex-1 flex-col">
+                        <span class="text-body-2 font-bold leading-[23px] text-mono-black">이미지 편집, 컬러 CSS 생성</span>
+                        <span class="pt-[10px] text-body-2 leading-[23px] text-mono-black">앞서 소개했던 컬러 관련 서비스들은 컬러 조합을 제공해주고 그라데이션을 직접 조합.</span>
+                        <span class="flex items-center gap-1.5 pt-[14px]">
+                            <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
+                            <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">Craftwork Design</span>
+                        </span>
+                    </span>
+                </a>
+                    </div>
+    </section>
+</aside>
         </div>
 
         </div>
