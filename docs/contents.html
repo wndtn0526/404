@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko" class="h-full">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>컨텐츠 관리 · 전자결재</title>
+
+        <link rel="preload" as="style" href="./build/assets/app-Bv1_KQs3.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-Bv1_KQs3.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+    <meta name="robots" content="noindex">
+</head>
+    <body class="min-h-full">
+        <div class="flex min-h-screen bg-mono-global-bg">
+    
+    <aside class="relative flex w-60 shrink-0 flex-col bg-sidebar-bg-01"
+           x-data="{ open: false }"
+           @lnb-toggle.window="open = ! open"
+           :class="open ? 'max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-40' : 'max-lg:hidden'">
+
+        
+        <div class="absolute inset-y-0 left-[54px] w-px bg-white/5" aria-hidden="true"></div>
+
+        
+        <div class="absolute left-3 top-5 flex w-[30px] flex-col gap-5">
+                            
+                <button type="button"
+                        class="flex size-[30px] items-center justify-center rounded-md bg-workspace-tile-neutral transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                         aria-label="워크스페이스 탐색" >
+                                            <svg width="1em" height="1em" aria-hidden="true" class="size-[18px] text-white" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.92236 9.67041C9.82594 9.74072 9.74106 9.8256 9.67076 9.92201C9.58432 10.0405 9.53138 10.1724 9.51817 10.2053L9.51568 10.2114L7.6491 14.6625C7.59882 14.7822 7.54041 14.9214 7.50189 15.042C7.47025 15.1412 7.37504 15.4399 7.48335 15.7753C7.59693 16.1269 7.87258 16.4026 8.22423 16.5162C8.55959 16.6245 8.85833 16.5293 8.95748 16.4976C9.07814 16.4591 9.21728 16.4007 9.33704 16.3504L13.7881 14.4838L13.7942 14.4813C13.8271 14.4681 13.959 14.4152 14.0775 14.3288C14.1739 14.2585 14.2588 14.1736 14.3291 14.0772C14.4155 13.9586 14.4685 13.8268 14.4817 13.7939L14.4842 13.7877L16.3507 9.33674C16.401 9.21698 16.4594 9.07783 16.4979 8.95718C16.5296 8.85802 16.6248 8.55928 16.5165 8.22393C16.4029 7.87228 16.1272 7.59663 15.7756 7.48305C15.4402 7.37474 15.1415 7.46995 15.0423 7.50159C14.9217 7.5401 14.7826 7.59851 14.6628 7.64879L10.2118 9.51534L10.2057 9.51783C10.1727 9.53104 10.0409 9.58398 9.92236 9.67041ZM13 12.0002C13 12.5525 12.5522 13.0002 12 13.0002C11.4477 13.0002 11 12.5525 11 12.0002C11 11.4479 11.4477 11.0002 12 11.0002C12.5522 11.0002 13 11.4479 13 12.0002Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 2.09961C6.53248 2.09961 2.1001 6.53199 2.1001 11.9996C2.1001 17.4672 6.53248 21.8996 12.0001 21.8996C17.4677 21.8996 21.9001 17.4672 21.9001 11.9996C21.9001 6.53199 17.4677 2.09961 12.0001 2.09961ZM3.9001 11.9996C3.9001 7.5261 7.52659 3.89961 12.0001 3.89961C16.4736 3.89961 20.1001 7.5261 20.1001 11.9996C20.1001 16.4731 16.4736 20.0996 12.0001 20.0996C7.52659 20.0996 3.9001 16.4731 3.9001 11.9996Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                    </button>
+                            
+                <button type="button"
+                        class="flex size-[30px] items-center justify-center rounded-md bg-workspace-tile-teal transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                         aria-label="청담원" >
+                                            
+                        <svg aria-hidden="true" class="h-[13.333px] w-4" preserveAspectRatio="none" overflow="visible" style="display: block;" width="16" height="13.3333" viewBox="0 0 16 13.3333" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="_&#235;&#160;&#136;&#236;&#157;&#180;&#236;&#150;&#180;_1" clip-path="url(#clip0_0_161)">
+<path id="Vector" d="M4.51833 6.25833L8.83167 1.945C8.69833 1.77 8.55333 1.6 8.39333 1.44C7.43333 0.48 6.175 0 4.91667 0C3.65833 0 2.4 0.48 1.44 1.44C-0.48 3.36 -0.48 6.47333 1.44 8.39333C2.04167 8.995 2.76167 9.40667 3.525 9.63167C3.27333 8.45333 3.60167 7.175 4.51833 6.25833Z" fill="#F7F7F8"/>
+<path id="Vector_2" d="M15.6417 2.07167C15.4483 1.665 15.175 1.28833 14.825 0.961667C13.365 -0.396666 11.0683 -0.291666 9.65833 1.11833L8.83166 1.945C8.85166 1.97 8.87333 1.995 8.89166 2.02167C10.2967 3.945 10.13 6.65667 8.39333 8.39333C7.43333 9.35333 6.175 9.83333 4.91666 9.83333C4.465 9.83333 4.015 9.77167 3.57666 9.64833C3.55833 9.64333 3.54166 9.63667 3.52333 9.63167C3.66666 10.3017 3.99666 10.94 4.51666 11.4617L5.87333 12.8183C6.56 13.505 7.675 13.505 8.36333 12.8183L9.72 11.4617L14.9217 6.26C16.055 5.12667 16.295 3.44 15.64 2.07333L15.6417 2.07167Z" fill="#F7F7F8"/>
+<path id="Vector_3" d="M4.91666 9.83333C6.17499 9.83333 7.43332 9.35333 8.39332 8.39333C10.13 6.65667 10.295 3.945 8.89166 2.02167C8.87332 1.995 8.85166 1.97167 8.83166 1.945L4.51832 6.25833C3.60332 7.17333 3.27332 8.45167 3.52499 9.63167C3.54332 9.63667 3.55999 9.64333 3.57832 9.64833C4.01499 9.77167 4.46666 9.83333 4.91832 9.83333H4.91666Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_0_161">
+<rect width="16" height="13.3333" fill="white"/>
+</clipPath>
+</defs>
+</svg>                                    </button>
+                    </div>
+
+        
+        <button type="button"
+                class="absolute bottom-5 left-3 flex size-[30px] items-center justify-center rounded-lg bg-mono-900 text-white transition-colors hover:bg-warm-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                aria-label="워크스페이스 추가">
+            <svg width="1em" height="1em" aria-hidden="true" class="size-3" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>        </button>
+
+        
+        <div class="flex min-h-0 flex-1 flex-col pl-[67px] pr-3">
+            
+                            <div class="pt-4">
+                                            <p class="truncate text-body-2 font-bold leading-[21px] text-white">청담원</p>
+                                                                <p class="truncate pt-[2px] text-caption-2 leading-[14px] text-warm-gray-700">cdw.workspace.io</p>
+                                    </div>
+            
+            
+            <nav class="flex flex-col gap-[15px] pt-[17px]" aria-label="주요 메뉴">
+                                    
+                    <a href="#"
+                        aria-current="page"                        class="flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors bg-sidebar-bg-02 text-white">
+                                                    <svg width="1em" height="1em" aria-hidden="true" class="size-6 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.3616 2.27647C12.1248 2.21318 11.8755 2.21318 11.6387 2.27647C11.3579 2.3515 11.1251 2.5333 11.0025 2.62905L10.9675 2.65625L4.13427 7.88153C3.74746 8.17676 3.42128 8.42572 3.17853 8.75002C2.96523 9.03498 2.80621 9.35676 2.70942 9.69929C2.59927 10.0891 2.59965 10.4995 2.60009 10.9861L2.60015 17.335C2.60014 17.8648 2.60012 18.316 2.63039 18.6865C2.66218 19.0756 2.73182 19.4542 2.91623 19.8161C3.19426 20.3618 3.6379 20.8055 4.18357 21.0835C4.5455 21.2679 4.9241 21.3375 5.31326 21.3693C5.68367 21.3996 6.13483 21.3996 6.66467 21.3996H11.9898C11.9933 21.3996 11.9969 21.3996 12.0004 21.3996C12.0039 21.3996 12.0075 21.3996 12.011 21.3996H17.3355C17.8653 21.3996 18.3166 21.3996 18.687 21.3693C19.0761 21.3375 19.4547 21.2679 19.8167 21.0835C20.3623 20.8055 20.806 20.3618 21.084 19.8161C21.2684 19.4542 21.338 19.0756 21.3698 18.6865C21.4001 18.316 21.4001 17.8649 21.4001 17.335L21.4001 10.9861C21.4006 10.4994 21.401 10.0891 21.2908 9.69929C21.194 9.35676 21.035 9.03498 20.8217 8.75002C20.5789 8.42572 20.2528 8.17677 19.866 7.88153L13.0328 2.65625L12.9977 2.62905C12.8751 2.5333 12.6423 2.3515 12.3616 2.27647ZM12.9004 19.5994H17.7001C18.5147 19.5994 18.7085 19.5883 18.84 19.5456C19.1749 19.4368 19.4374 19.1742 19.5463 18.8393C19.589 18.7078 19.6001 18.514 19.6001 17.6994V10.883C19.6001 10.4628 19.5965 10.3673 19.5816 10.2869C19.5445 10.0871 19.4528 9.90143 19.3166 9.75057C19.2618 9.68986 19.1881 9.62903 18.8542 9.37376L12.0001 4.1324L5.146 9.37376C4.81217 9.62903 4.73848 9.68986 4.68367 9.75057C4.54748 9.90143 4.45574 10.0871 4.41864 10.2869C4.4037 10.3673 4.40015 10.4628 4.40015 10.883V17.6994C4.40015 18.514 4.41126 18.7078 4.45399 18.8393C4.5628 19.1742 4.82535 19.4368 5.16023 19.5456C5.29175 19.5883 5.48559 19.5994 6.30014 19.5994H11.1004V13.9996C11.1004 13.5026 11.5033 13.0996 12.0004 13.0996C12.4975 13.0996 12.9004 13.5026 12.9004 13.9996V19.5994Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                                <span class="truncate pt-[2px] text-label-2 font-medium leading-5">홈</span>
+                    </a>
+                                    
+                    <a href="#"
+                                              class="flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors text-warm-gray-700 hover:bg-sidebar-bg-02 hover:text-warm-gray-500">
+                                                    <svg width="1em" height="1em" aria-hidden="true" class="size-6 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11096 4.10016C7.58631 4.09965 7.14412 4.09921 6.72868 4.22538C6.36388 4.33617 6.0245 4.51781 5.72997 4.7599C5.39457 5.03558 5.14966 5.40376 4.85908 5.8406L2.25731 9.74365C2.08884 9.99605 1.94655 10.2092 1.84317 10.4461C1.75211 10.6547 1.68593 10.8733 1.64599 11.0973C1.60065 11.3518 1.6008 11.6081 1.60097 11.9115L1.601 15.8356C1.60098 16.3655 1.60097 16.8167 1.63123 17.1871C1.66303 17.5763 1.73266 17.9549 1.91708 18.3168C2.19511 18.8625 2.63875 19.3061 3.18442 19.5841C3.54636 19.7686 3.92495 19.8382 4.31411 19.87C4.68454 19.9003 5.13572 19.9002 5.66559 19.9002H18.3364C18.8663 19.9002 19.3174 19.9003 19.6879 19.87C20.077 19.8382 20.4556 19.7686 20.8176 19.5841C21.3632 19.3061 21.8069 18.8625 22.0849 18.3168C22.2693 17.9549 22.339 17.5763 22.3708 17.1871C22.401 16.8167 22.401 16.3655 22.401 15.8357L22.401 11.9115C22.4012 11.6081 22.4013 11.3517 22.356 11.0973C22.3161 10.8733 22.2499 10.6547 22.1588 10.4461C22.0554 10.2092 21.9131 9.99605 21.7447 9.74364L19.1429 5.84061C18.8523 5.40376 18.6074 5.03559 18.272 4.7599C17.9775 4.51781 17.6381 4.33617 17.2733 4.22538C16.8579 4.09921 16.4157 4.09965 15.891 4.10016H8.11096ZM7.35658 5.92133C7.44241 5.90424 7.54581 5.90015 7.99958 5.90015H16.0024C16.4562 5.90015 16.5596 5.90424 16.6454 5.92133C16.859 5.96387 17.0552 6.06886 17.2091 6.223C17.2709 6.28494 17.3317 6.3687 17.5834 6.74628L19.8194 10.1006H16.2503C15.02 10.1006 14.2522 11.1041 13.9215 11.8504C13.5943 12.5887 12.8561 13.1008 12.0003 13.1008C11.1446 13.1008 10.4063 12.5887 10.079 11.8504C9.7483 11.1041 8.98049 10.1006 7.75026 10.1006H4.18261L6.41865 6.74628C6.67034 6.3687 6.7311 6.28494 6.79293 6.223C6.9468 6.06886 7.14297 5.96387 7.35658 5.92133ZM3.401 11.9006V16.2001C3.401 17.0147 3.4121 17.2085 3.45484 17.3401C3.56365 17.6749 3.8262 17.9375 4.16108 18.0463C4.2926 18.089 4.48644 18.1001 5.301 18.1001H18.701C19.5156 18.1001 19.7094 18.089 19.8409 18.0463C20.1758 17.9375 20.4384 17.6749 20.5472 17.3401C20.5899 17.2085 20.601 17.0147 20.601 16.2001V11.9006H16.2503C15.9229 11.9006 15.6793 12.3266 15.5671 12.5797C14.962 13.9452 13.5938 14.9008 12.0003 14.9008C10.4069 14.9008 9.0386 13.9452 8.43342 12.5797C8.32124 12.3266 8.07766 11.9006 7.75026 11.9006H3.401Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                                <span class="truncate pt-[2px] text-label-2 font-medium leading-5">컨텐츠 관리</span>
+                    </a>
+                            </nav>
+
+            
+                            <nav class="mt-auto flex flex-col gap-[15px] pb-[17px]" aria-label="보조 메뉴">
+                                            
+                        <a href="#"
+                                                      class="flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors text-warm-gray-700 hover:bg-sidebar-bg-02 hover:text-warm-gray-500">
+                                                            <svg width="1em" height="1em" aria-hidden="true" class="size-6 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.04981 12C8.04981 9.81848 9.81827 8.05 11.9998 8.05C14.1813 8.05 15.9498 9.81848 15.9498 12C15.9498 14.1815 14.1813 15.95 11.9998 15.95C9.81827 15.95 8.04981 14.1815 8.04981 12ZM11.9998 9.95C10.8676 9.95 9.9498 10.8678 9.9498 12C9.9498 13.1322 10.8676 14.05 11.9998 14.05C13.132 14.05 14.0498 13.1322 14.0498 12C14.0498 10.8678 13.132 9.95 11.9998 9.95Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10.131 1.97079C10.7376 1.85842 11.3623 1.7998 11.9998 1.7998C12.6373 1.7998 13.262 1.85841 13.8686 1.97079C14.91 2.16373 15.3502 3.11319 15.4926 3.70446C15.589 4.10473 15.8415 4.46312 16.2246 4.68433C16.6075 4.90536 17.0437 4.94495 17.4382 4.82865C18.0215 4.65674 19.0614 4.56445 19.7491 5.36716C20.559 6.31261 21.1993 7.40878 21.6222 8.60855C21.9736 9.60576 21.3725 10.4599 20.9322 10.8783C20.6338 11.1619 20.4496 11.5597 20.4496 12.0022C20.4496 12.4444 20.6335 12.842 20.9317 13.1256C21.3718 13.5442 21.9725 14.3986 21.6206 15.3956C21.1964 16.5973 20.554 17.695 19.7415 18.6412C19.055 19.4408 18.0185 19.3502 17.4362 19.1795C17.0422 19.064 16.607 19.1039 16.2249 19.3245C15.8429 19.545 15.5908 19.9019 15.4938 20.3007C15.3503 20.8905 14.9095 21.8357 13.8712 22.0283C13.2639 22.141 12.6383 22.1998 11.9998 22.1998C11.3615 22.1998 10.7361 22.1411 10.1289 22.0284C9.09019 21.8358 8.6495 20.89 8.50612 20.3001C8.40915 19.9012 8.15701 19.5441 7.77488 19.3235C7.39269 19.1028 6.95733 19.063 6.5633 19.1786C5.98085 19.3494 4.94396 19.4403 4.25729 18.6403C3.44572 17.6949 2.80385 16.5983 2.37982 15.3978C2.02769 14.4009 2.62808 13.5464 3.06804 13.1277C3.36599 12.8442 3.54977 12.4467 3.54977 12.0046C3.54977 11.5621 3.36555 11.1641 3.06695 10.8805C2.6266 10.4623 2.02538 9.60831 2.37653 8.61109C2.79913 7.41098 3.43938 6.31446 4.24923 5.36869C4.93698 4.56551 5.97745 4.658 6.56082 4.83006C6.95546 4.94645 7.39177 4.90689 7.77468 4.68582C8.15801 4.4645 8.41057 4.10587 8.50684 3.70537C8.64903 3.11389 9.08917 2.16382 10.131 1.97079ZM10.4987 3.83504C10.4943 3.83949 10.4882 3.84629 10.4804 3.85628C10.4386 3.91001 10.3876 4.01039 10.3542 4.14947C10.1412 5.03543 9.57763 5.83881 8.72468 6.33126C7.87267 6.82317 6.89634 6.90993 6.02333 6.65245C5.88635 6.61205 5.77408 6.60604 5.70657 6.61545C5.69371 6.61725 5.68461 6.61918 5.67851 6.62077C5.02986 7.38223 4.51685 8.26159 4.17596 9.22152C4.17763 9.2275 4.18047 9.23613 4.18521 9.2478C4.21075 9.31067 4.27201 9.40465 4.37546 9.50291C5.03599 10.1303 5.44976 11.0199 5.44976 12.0046C5.44976 12.9881 5.03699 13.8768 4.37787 14.5041C4.27451 14.6024 4.21335 14.6965 4.18787 14.7594C4.18314 14.771 4.18032 14.7797 4.17865 14.7856C4.5207 15.7459 5.03504 16.6253 5.6851 17.3866C5.69117 17.3881 5.70023 17.3901 5.71303 17.3919C5.78019 17.4013 5.89196 17.3954 6.02857 17.3554C6.90029 17.0997 7.87452 17.1871 8.72488 17.678C9.57511 18.1689 10.1378 18.9688 10.3524 19.8514C10.386 19.9899 10.437 20.0897 10.4787 20.1431C10.4865 20.1531 10.4925 20.1598 10.4969 20.1642C10.9836 20.2532 11.4859 20.2998 11.9998 20.2998C12.5139 20.2998 13.0162 20.2532 13.5031 20.1642C13.5075 20.1597 13.5135 20.153 13.5213 20.1431C13.563 20.0897 13.614 19.99 13.6476 19.8515C13.8623 18.9692 14.425 18.1697 15.2749 17.679C16.1251 17.1882 17.099 17.1007 17.9706 17.3562C18.1071 17.3962 18.2188 17.402 18.286 17.3926C18.2988 17.3908 18.3078 17.3889 18.3139 17.3873C18.9646 16.6254 19.4794 15.7451 19.8216 14.7839C19.8199 14.7779 19.8171 14.7692 19.8124 14.7576C19.7869 14.6947 19.7257 14.6007 19.6223 14.5023C18.9627 13.875 18.5496 12.986 18.5496 12.0022C18.5496 11.0177 18.9632 10.1283 19.6235 9.50092C19.7269 9.40263 19.7881 9.30862 19.8137 9.24574C19.8184 9.23408 19.8212 9.22544 19.8229 9.21946C19.4818 8.2598 18.9687 7.38071 18.32 6.61951C18.3139 6.61792 18.3048 6.61599 18.292 6.6142C18.2245 6.60479 18.1123 6.61078 17.9754 6.65113C17.1025 6.90841 16.1264 6.82157 15.2746 6.32978C14.4221 5.83756 13.8586 5.0347 13.6454 4.14925C13.6119 4.01024 13.561 3.90995 13.5191 3.85626C13.5114 3.84628 13.5053 3.83949 13.5009 3.83504C13.0147 3.74629 12.5131 3.6998 11.9998 3.6998C11.4865 3.6998 10.9849 3.74629 10.4987 3.83504ZM19.8252 9.2087L19.8249 9.21084L19.8252 9.2087ZM19.8239 14.7946L19.8236 14.7925L19.8239 14.7946ZM4.17639 14.7964L4.17663 14.7943L4.17639 14.7964ZM4.17369 9.21077L4.17393 9.21292L4.17369 9.21077Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                                        <span class="truncate pt-[2px] text-label-2 font-medium leading-5">설정</span>
+                        </a>
+                                    </nav>
+                    </div>
+    </aside>
+
+    
+    <div class="flex min-w-0 flex-1 flex-col">
+        
+        <header class="flex h-14 shrink-0 items-center justify-between px-6">
+            
+            <button type="button"
+                    class="flex size-6 items-center justify-center rounded-md bg-warm-gray-200 text-label-normal transition-colors hover:bg-warm-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                    aria-label="사이드바 접기"
+                    @click="$dispatch('lnb-toggle')">
+                <svg width="1em" height="1em" aria-hidden="true" class="size-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.1363 3.36297C16.4878 3.71444 16.4878 4.28429 16.1363 4.63576L8.77271 11.9994L16.1363 19.363C16.4878 19.7144 16.4878 20.2843 16.1363 20.6358C15.7848 20.9872 15.215 20.9872 14.8635 20.6358L6.86352 12.6358C6.51205 12.2843 6.51205 11.7144 6.86352 11.363L14.8635 3.36297C15.215 3.0115 15.7848 3.0115 16.1363 3.36297Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </button>
+
+            
+            <div class="flex items-center gap-8">
+                <button type="button" class="inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40" aria-label="검색">
+                    <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.9997 2.1001C5.63667 2.1001 2.09973 5.63705 2.09973 10.0001C2.09973 14.3631 5.63667 17.9001 9.9997 17.9001C11.857 17.9001 13.5646 17.2592 14.9134 16.1864L19.8634 21.1365C20.2149 21.4879 20.7847 21.4879 21.1362 21.1365C21.4877 20.785 21.4877 20.2151 21.1362 19.8637L16.1861 14.9136C17.2588 13.5648 17.8997 11.8573 17.8997 10.0001C17.8997 5.63705 14.3627 2.1001 9.9997 2.1001ZM3.89972 10.0001C3.89972 6.63116 6.63078 3.9001 9.9997 3.9001C13.3686 3.9001 16.0997 6.63116 16.0997 10.0001C16.0997 13.369 13.3686 16.1001 9.9997 16.1001C6.63078 16.1001 3.89972 13.369 3.89972 10.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                </button>
+
+                <button type="button" class="inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 relative" aria-label="알림">
+                    <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C9.77471 2.1001 7.94532 2.88789 6.68783 4.37443C5.4477 5.84044 4.84996 7.8832 4.84996 10.2501L4.84997 11.0001C4.84997 13.4652 4.16674 14.9249 3.19362 15.8682C2.81208 16.2381 2.77247 16.7499 2.90886 17.1264C3.04756 17.5094 3.42766 17.9001 3.99952 17.9001H20.0003C20.5722 17.9001 20.9523 17.5094 21.091 17.1264C21.2274 16.7499 21.1878 16.2381 20.8063 15.8682C19.8331 14.9249 19.1499 13.4652 19.1499 11.0001L19.1499 10.2501C19.1499 7.8832 18.5522 5.84044 17.312 4.37443C16.0546 2.88789 14.2252 2.1001 11.9999 2.1001ZM6.64996 10.2501C6.64996 8.16522 7.17722 6.58298 8.06208 5.53693C8.92958 4.51142 10.2252 3.9001 11.9999 3.9001C13.7747 3.9001 15.0703 4.51142 15.9378 5.53693C16.8227 6.58297 17.3499 8.16522 17.3499 10.2501L17.3499 11.0001C17.3499 13.1628 17.8181 14.8273 18.6686 16.1001H5.33125C6.18182 14.8273 6.64996 13.1628 6.64996 11.0001L6.64996 10.2501Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M9.99995 20.0999C9.5029 20.0999 9.09995 20.5029 9.09995 20.9999C9.09995 21.497 9.5029 21.8999 9.99995 21.8999H13.9999C14.497 21.8999 14.8999 21.497 14.8999 20.9999C14.8999 20.5029 14.497 20.0999 13.9999 20.0999H9.99995Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                            <span class="absolute right-0 top-0 size-[6px] rounded-full bg-status-negative" aria-hidden="true"></span>
+                        <span class="sr-only">읽지 않은 알림 있음</span>
+                                    </button>
+
+                <button type="button" class="inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40" aria-label="앱 전환">
+                    <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18.5999 3.6001C17.6058 3.6001 16.7999 4.40599 16.7999 5.4001C16.7999 6.39421 17.6058 7.2001 18.5999 7.2001C19.5941 7.2001 20.3999 6.39421 20.3999 5.4001C20.3999 4.40599 19.5941 3.6001 18.5999 3.6001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M16.7999 12.0001C16.7999 11.006 17.6058 10.2001 18.5999 10.2001C19.5941 10.2001 20.3999 11.006 20.3999 12.0001C20.3999 12.9942 19.5941 13.8001 18.5999 13.8001C17.6058 13.8001 16.7999 12.9942 16.7999 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M5.39997 16.8001C4.40586 16.8001 3.59998 17.606 3.59998 18.6001C3.59998 19.5942 4.40586 20.4001 5.39997 20.4001C6.39408 20.4001 7.19996 19.5942 7.19996 18.6001C7.19996 17.606 6.39408 16.8001 5.39997 16.8001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M10.1999 18.6001C10.1999 17.606 11.0058 16.8001 11.9999 16.8001C12.994 16.8001 13.7999 17.606 13.7999 18.6001C13.7999 19.5942 12.994 20.4001 11.9999 20.4001C11.0058 20.4001 10.1999 19.5942 10.1999 18.6001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M16.7999 18.6001C16.7999 17.606 17.6058 16.8001 18.5999 16.8001C19.5941 16.8001 20.3999 17.606 20.3999 18.6001C20.3999 19.5942 19.5941 20.4001 18.5999 20.4001C17.6058 20.4001 16.7999 19.5942 16.7999 18.6001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M11.9999 10.2001C11.0058 10.2001 10.1999 11.006 10.1999 12.0001C10.1999 12.9942 11.0058 13.8001 11.9999 13.8001C12.994 13.8001 13.7999 12.9942 13.7999 12.0001C13.7999 11.006 12.994 10.2001 11.9999 10.2001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M3.59998 12.0001C3.59998 11.006 4.40586 10.2001 5.39997 10.2001C6.39408 10.2001 7.19996 11.006 7.19996 12.0001C7.19996 12.9942 6.39408 13.8001 5.39997 13.8001C4.40586 13.8001 3.59998 12.9942 3.59998 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M10.1999 5.4001C10.1999 4.40599 11.0058 3.6001 11.9999 3.6001C12.994 3.6001 13.7999 4.40599 13.7999 5.4001C13.7999 6.39421 12.994 7.2001 11.9999 7.2001C11.0058 7.2001 10.1999 6.39421 10.1999 5.4001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M5.39997 3.6001C4.40586 3.6001 3.59998 4.40599 3.59998 5.4001C3.59998 6.39421 4.40586 7.2001 5.39997 7.2001C6.39408 7.2001 7.19996 6.39421 7.19996 5.4001C7.19996 4.40599 6.39408 3.6001 5.39997 3.6001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                </button>
+
+                
+                <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-8 w-8 rounded-full bg-deep-blue-800 shrink-0">
+            <span class="text-caption-1 font-semibold text-white select-none">김</span>
+    </span>
+            </div>
+        </header>
+
+        
+        <div class="px-20">
+                            <div><nav aria-label="현재 위치">
+        <ol class="flex flex-wrap items-center gap-1.5">
+                            
+                <li class="flex items-center gap-1.5">
+                                            <a href="#"
+                           class="text-label-1 text-label-alternative transition-colors hover:text-label-normal">홈</a>
+                    
+                                            <svg width="1em" height="1em" aria-hidden="true" class="h-3.5 w-3.5 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.86337 3.36272C7.51189 3.7142 7.51189 4.28405 7.86337 4.63552L15.227 11.9991L7.86337 19.3627C7.51189 19.7142 7.51189 20.284 7.86337 20.6355C8.21484 20.987 8.78469 20.987 9.13616 20.6355L17.1362 12.6355C17.4876 12.284 17.4876 11.7142 17.1362 11.3627L9.13616 3.36272C8.78469 3.01125 8.21484 3.01125 7.86337 3.36272Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                    </li>
+                            
+                <li class="flex items-center gap-1.5">
+                                            <span class="text-label-1 text-label-normal  font-semibold "
+                               aria-current="page" >컨텐츠 관리</span>
+                    
+                                    </li>
+                    </ol>
+    </nav></div>
+            
+            
+            <div class="flex flex-wrap items-center justify-between gap-6 pt-[30px]">
+                                    <div class="flex flex-wrap items-center gap-8"><h1 class="text-title-2 font-bold text-mono-black">컨텐츠 관리</h1>
+
+            
+            <div class="flex items-start gap-4">
+                <span class="inline-flex items-center justify-center gap-1 rounded-lg bg-mono-black pb-[5px] pl-3 pr-2.5 pt-1.5">
+                    <span class="text-body-2 font-bold leading-[23px] text-white">컨텐츠 관리</span>
+                    <button type="button"
+                            class="inline-flex shrink-0 items-center pb-px text-white transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                            aria-label="컨텐츠 관리 탭 닫기">
+                        <svg width="1em" height="1em" aria-hidden="true" class="size-[18px]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.86352 4.86321C5.21499 4.51174 5.78484 4.51174 6.13631 4.86321L11.9999 10.7268L17.8635 4.86321C18.2149 4.51174 18.7848 4.51174 19.1363 4.86321C19.4877 5.21468 19.4877 5.78453 19.1363 6.13601L13.2727 11.9996L19.1363 17.8632C19.4877 18.2147 19.4877 18.7845 19.1363 19.136C18.7848 19.4875 18.2149 19.4875 17.8635 19.136L11.9999 13.2724L6.13631 19.136C5.78484 19.4875 5.21499 19.4875 4.86352 19.136C4.51205 18.7845 4.51205 18.2147 4.86352 17.8632L10.7271 11.9996L4.86352 6.13601C4.51205 5.78453 4.51205 5.21468 4.86352 4.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </button>
+                </span>
+
+                <a href="#"
+                   class="inline-flex items-center justify-center rounded-lg bg-warm-gray-200 px-3 pb-[5px] pt-1.5 text-body-2 font-bold leading-[23px] text-warm-gray-500 transition-colors hover:text-label-normal">
+                    과정 관리
+                </a>
+            </div></div>
+                
+                                    <div class="flex items-center gap-2"><button type="button"
+                    class="inline-flex items-center gap-2 text-label-1 text-mono-black transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
+                <span class="font-bold">기준일</span>
+                <span>2021.08.01</span>
+                <svg width="1em" height="1em" aria-hidden="true" class="size-3.5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </button></div>
+                            </div>
+        </div>
+
+        
+        <main class="min-h-0 flex-1 px-20 pb-20 pt-8">
+            
+        </main>
+    </div>
+</div>
+
+        <!-- Livewire Scripts -->
+
+    </body>
+</html>

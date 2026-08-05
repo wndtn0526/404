@@ -33,6 +33,24 @@ return [
             ],
         ],
 
+        /*
+        | 브랜드 마크 — DS 아이콘이 아니다. 세트를 나눈 이유:
+        |  · 색이 SVG 안에 박혀 있다(투톤). currentColor 로 물들지 않는다.
+        |  · resources/svg/icons 는 219종이라는 개수 자체가 테스트로 고정돼 있다.
+        | 사용: <x-brand-cdw-mark class="h-[13.33px] w-4" />
+        */
+        'brand' => [
+            'paths' => [
+                'resources/svg/brand',
+            ],
+            'prefix' => 'brand',
+            'fallback' => '',
+            'class' => '',
+            'attributes' => [
+                'aria-hidden' => 'true',
+            ],
+        ],
+
     ],
 
     /*

@@ -31,8 +31,12 @@
     $initial = filled($name) ? mb_substr(trim($name), 0, 1) : null;
 @endphp
 
-<span {{ $attributes->class("inline-flex shrink-0 items-center justify-center overflow-hidden {$sz['box']} {$round}") }}
-      @class(['bg-deep-blue-800' => blank($src)])>
+{{-- 폴백 배경은 $attributes->class 안에서 조건부로 합친다. @class 를 따로 쓰면
+     같은 태그에 class 속성이 두 번 나가고 뒤쪽이 무시돼 배경이 사라진다. --}}
+<span {{ $attributes->class([
+    "inline-flex shrink-0 items-center justify-center overflow-hidden {$sz['box']} {$round}",
+    'bg-deep-blue-800' => blank($src),
+]) }}>
     @if (filled($src))
         <img src="{{ $src }}" alt="{{ $name ?? '' }}" class="h-full w-full object-cover" />
     @elseif ($initial)

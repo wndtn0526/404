@@ -599,6 +599,23 @@
                 </div>
 
                 <x-card>
+                    <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">워크스페이스 셸</h3>
+                    <p class="text-label-1 text-label-alternative">
+                        <code class="font-mono text-label-2">&lt;x-workspace-shell&gt;</code> — 워크스페이스 레일(54px)이 붙은
+                        다크 LNB + 배경 투명 GNB. 출처는 <strong class="font-semibold text-label-normal">디자인 가이드가 아니라</strong>
+                        워크스페이스 화면 파일(node 1-299)이다.
+                    </p>
+                    <p class="mt-2 text-label-1 text-label-alternative">
+                        아래 GNB·LNB 와 <strong class="font-semibold text-label-normal">역할이 겹친다.</strong>
+                        화면 단위로 하나만 고른다 — 섞으면 헤더가 두 겹이 된다.
+                    </p>
+                    <p class="mt-3 text-label-1 text-label-alternative">
+                        전체 화면을 차지해서 여기에 끼워 넣으면 레이아웃이 깨진다. 실물은
+                        <a href="{{ route('contents') }}" class="font-semibold text-primary underline">/contents</a> 에서 본다.
+                    </p>
+                </x-card>
+
+                <x-card>
                     <h3 class="mb-3 text-headline-2 font-semibold text-label-normal">GNB · 글로벌 헤더</h3>
                     <div class="overflow-hidden rounded-md border border-line-solid-neutral">
                         <x-gnb title="전자결재" user="김기안" :hasAlarm="true" class="!static" />
