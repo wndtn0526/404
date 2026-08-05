@@ -78,6 +78,30 @@
     ];
 
     /*
+     * 아티클 탭 — Figma node 1104-59078. 1200 폭에 4열 그리드, 우측 사이드 없음.
+     * 원본 실측: 카드 282x307 · 간격 24 · 썸네일 282x144(카드 상단) · 내부 패딩 20
+     *            제목 top 164 · 본문 top 195 · 출처 top 267
+     * ⚠️ 썸네일은 원본이 스톡 사진이다. 토큰 색 면으로 대신했다.
+     */
+    $articleGrid = [
+        ['title' => '스플릿 뷰를 활용한 비교 탐색 UI',
+            'desc' => '정보들이 나열된 리스트를 스캔하고 관심있는 한 가지 콘텐츠를 선택해 깊이 있는 소비를 할 수...',
+            'source' => 'Medium · Jay Yoon', 'tone' => 'bg-warm-gray-300'],
+        ['title' => 'Control Free Illustrations',
+            'desc' => 'Control is a stylish illustration library with 18 characters with 3 different action scenes.',
+            'source' => 'Craftwork Design', 'tone' => 'bg-deep-blue-800'],
+        ['title' => 'M1 아이패드 프로 벤치마크 결과',
+            'desc' => '최초로 맥 PC와 동일한 칩셋을 사용한 아이패드 프로의 벤치마크 성능이 공개됐다.',
+            'source' => '브런치 · Sarah Kim', 'tone' => 'bg-mono-black'],
+        ['title' => '앞자리가 달라지는 연봉 협상 전략',
+            'desc' => '연봉 협상 전략을 공유합니다.',
+            'source' => '브런치 · Sarah Kim', 'tone' => 'bg-warm-gray-800'],
+        ['title' => '스플릿 뷰를 활용한 비교 탐색 UI',
+            'desc' => '정보들이 나열된 리스트를 스캔하고 관심있는 한 가지 콘텐츠를 선택해 깊이 있는 소비를 할 수...',
+            'source' => 'Medium · Jay Yoon', 'tone' => 'bg-cool-gray-800'],
+    ];
+
+    /*
      * 그룹 탭 — Figma node 1104-58981. 가입한 그룹 3개 + 추천 3개(피드 탭과 같은 목록).
      * ⚠️ 원본 썸네일은 Nike·Framer·Apple 로고와 사진이다. 이니셜 타일로 뒀다.
      */
@@ -533,6 +557,43 @@
             </div>
 
             @include('partials.profile-aside')
+        </div>
+
+        {{-- ═══ 아티클 패널 ═══ Figma node 1104-59078
+             1200 폭 4열 그리드. 이 탭만 우측 사이드가 없다.
+
+             원본 실측 — 카드 282x307 · 간격 24 · 썸네일 282x144(카드 상단, 위쪽만 라운드)
+                         내부 패딩 20 · 제목 top 164 · 본문 top 195 · 출처 top 267
+                         제목 15px Bold · lh 23 · -0.6px  → DS body-2 와 정확히 일치
+                         본문 13px · lh 20 · -0.2px       → DS label-2 와 정확히 일치
+                         출처 13px Medium · Warm gray/500
+
+             카드 높이가 307 로 고정이고 출처가 하단에 붙으므로, 본문은 3줄까지만 두고
+             나머지는 잘라낸다(원본도 말줄임으로 끊어 놓았다).
+
+             ⚠️ 썸네일은 원본이 스톡 사진이다. 토큰 색 면으로 대신했다. --}}
+        <div x-show="tab === 'article'" x-cloak
+             class="mx-auto w-full min-w-0 max-w-[1200px] pt-10">
+            <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                @foreach ($articleGrid as $item)
+                    <li class="min-w-0">
+                        <a href="#" class="flex h-full min-w-0 flex-col overflow-hidden rounded-lg bg-background-normal transition-opacity hover:opacity-70 xl:h-[307px]">
+                            {{-- 썸네일 282x144 --}}
+                            <span class="h-36 w-full shrink-0 {{ $item['tone'] }}" aria-hidden="true"></span>
+
+                            <span class="flex min-w-0 flex-1 flex-col p-5">
+                                <span class="text-body-2 font-bold leading-[23px] text-mono-black">{{ $item['title'] }}</span>
+                                <span class="line-clamp-3 pt-2 text-label-2 leading-5 text-mono-black">{{ $item['desc'] }}</span>
+
+                                <span class="mt-auto flex items-center gap-2 pt-4">
+                                    <span class="size-5 shrink-0 rounded-full bg-warm-gray-200" aria-hidden="true"></span>
+                                    <span class="truncate text-label-2 font-medium leading-5 text-warm-gray-500">{{ $item['source'] }}</span>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
         </div>
 
         </div>{{-- /x-data tab --}}
