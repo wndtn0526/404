@@ -1,5 +1,5 @@
 @props([
-    'variant' => 'primary', // primary | secondary | subtle | outline | ghost | danger
+    'variant' => 'primary', // primary | secondary | subtle | outline | ghost | danger | danger-soft
     'size' => 'md', // sm(h-10) | md(h-12) | lg(h-14)
     'href' => null, // 지정 시 <a> 로 렌더
     'type' => 'button', // <button> 일 때 type
@@ -29,6 +29,11 @@
         // 반려를 primary 버튼으로 내보내면 승인과 구분이 안 돼서 사고가 난다.
         'danger' =>
             'bg-status-negative text-white hover:bg-accent-fg-red active:bg-accent-fg-red disabled:bg-interaction-disable disabled:text-label-disable',
+        // danger-soft: 되돌릴 수 없지만 그 화면의 주 액션은 아닌 것(예: '이력 삭제' — 저장 옆에
+        // 같이 놓인다). 꽉 찬 danger 로 두면 저장보다 눈에 세게 들어온다.
+        // GPRO_PORTFOLIO node 1002-274589 실측: 면 Secondary/red 100 · 글자 Primary/red 900.
+        'danger-soft' =>
+            'bg-red-100 text-status-negative hover:bg-red-300 active:bg-red-300 disabled:bg-interaction-disable disabled:text-label-disable',
     ];
 
     $sizes = [

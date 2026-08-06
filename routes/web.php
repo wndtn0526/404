@@ -49,6 +49,10 @@ Route::view('/organization', 'organization')->name('organization');
 // 조직 관리 — 좌측 조직도 트리 + 우측 조직 상세. Figma node 1002-274184.
 Route::view('/orgs', 'orgs')->name('orgs');
 
+// 변경 이력 수정 — 조직 관리 > 변경 이력 탭의 '변경 이력 추가' 가 오는 곳.
+// 입력할 값이 많아서 팝업이 아니라 페이지다. Figma node 1002-274589.
+Route::view('/orgs/history', 'orgs-history-edit')->name('orgs.history');
+
 // 과정 상세 — 표에서 행을 누르면 온다. 필드 구조는 컨텐츠 상세와 같다.
 // 정적이라 과정 하나만 보여준다. 모델이 붙으면 /courses/{id} 로 바꾼다.
 Route::view('/courses/detail', 'courses-detail')->name('courses.detail');

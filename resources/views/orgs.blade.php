@@ -303,7 +303,8 @@
                     {{-- 조직 정보 변경 이력 --}}
                     <div class="{{ $histTitle }}">
                         <h3 class="{{ $sectionTitle }}">조직 정보 변경 이력</h3>
-                        <x-button variant="outline" size="sm" icon="plus">변경 이력 추가</x-button>
+                        {{-- 입력할 값이 많아서 팝업이 아니라 페이지로 보낸다(node 1002-274589) --}}
+                        <x-button variant="outline" size="sm" icon="plus" href="{{ url('/orgs/history') }}">변경 이력 추가</x-button>
                     </div>
 
                     <div class="pt-5">

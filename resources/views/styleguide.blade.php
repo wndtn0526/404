@@ -288,10 +288,13 @@
                         <x-button variant="outline">outline</x-button>
                         <x-button variant="ghost">ghost</x-button>
                         <x-button variant="danger">danger</x-button>
+                        <x-button variant="danger-soft">danger-soft</x-button>
                     </div>
                     <p class="mt-4 text-label-1 text-label-alternative">
                         <code class="text-label-2">danger</code> 는 원본에 없고 전자결재에서 추가했다.
                         반려·삭제를 primary 로 내보내면 승인과 구분이 안 된다.
+                        <code class="text-label-2">danger-soft</code> 는 되돌릴 수 없지만 그 화면의 주 액션은
+                        아닌 것에 쓴다 — '이력 삭제' 처럼 저장 옆에 같이 놓이는 자리다.
                     </p>
                 </x-card>
 
