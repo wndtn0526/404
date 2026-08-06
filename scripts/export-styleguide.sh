@@ -25,6 +25,7 @@ PAGES=(
     "courses:courses.html"
     "courses/new:courses-new.html"
     "courses/detail:courses-detail.html"
+    "organization:organization.html"
     "public-space:public-space.html"
     "public-space-empty:public-space-empty.html"
     "profile-settings:profile-settings.html"

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ko" class="h-full">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>화상조직도 · 전자결재</title>
+
+        <link rel="preload" as="style" href="./build/assets/app-R3KStGd8.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-R3KStGd8.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+    <meta name="robots" content="noindex">
+</head>
+    <body class="min-h-full">
+        <div class="flex min-h-screen bg-mono-global-bg">
+    
+    
+    <aside class="relative flex w-60 shrink-0 flex-col bg-workspace-bg max-lg:hidden"
+                      x-data="{ open: false }"
+           @lnb-toggle.window="open = ! open"
+           :class="open && 'max-lg:!flex max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-40'">
+
+        
+        <div class="absolute inset-y-0 left-[54px] w-px bg-white/5" aria-hidden="true"></div>
+
+        
+        <div class="absolute left-3 top-5 flex w-[30px] flex-col gap-5">
+                            
+                <a href="./public-space.html"
+                                      class="flex size-[30px] items-center justify-center rounded-md transition-all bg-workspace-neutral-40 hover:bg-workspace-white/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                    aria-label="퍼블릭 스페이스" >
+                                            
+                        <svg width="1em" height="1em" aria-hidden="true" class="size-[18px] text-mono-black" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.92236 9.67041C9.82594 9.74072 9.74106 9.8256 9.67076 9.92201C9.58432 10.0405 9.53138 10.1724 9.51817 10.2053L9.51568 10.2114L7.6491 14.6625C7.59882 14.7822 7.54041 14.9214 7.50189 15.042C7.47025 15.1412 7.37504 15.4399 7.48335 15.7753C7.59693 16.1269 7.87258 16.4026 8.22423 16.5162C8.55959 16.6245 8.85833 16.5293 8.95748 16.4976C9.07814 16.4591 9.21728 16.4007 9.33704 16.3504L13.7881 14.4838L13.7942 14.4813C13.8271 14.4681 13.959 14.4152 14.0775 14.3288C14.1739 14.2585 14.2588 14.1736 14.3291 14.0772C14.4155 13.9586 14.4685 13.8268 14.4817 13.7939L14.4842 13.7877L16.3507 9.33674C16.401 9.21698 16.4594 9.07783 16.4979 8.95718C16.5296 8.85802 16.6248 8.55928 16.5165 8.22393C16.4029 7.87228 16.1272 7.59663 15.7756 7.48305C15.4402 7.37474 15.1415 7.46995 15.0423 7.50159C14.9217 7.5401 14.7826 7.59851 14.6628 7.64879L10.2118 9.51534L10.2057 9.51783C10.1727 9.53104 10.0409 9.58398 9.92236 9.67041ZM13 12.0002C13 12.5525 12.5522 13.0002 12 13.0002C11.4477 13.0002 11 12.5525 11 12.0002C11 11.4479 11.4477 11.0002 12 11.0002C12.5522 11.0002 13 11.4479 13 12.0002Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 2.09961C6.53248 2.09961 2.1001 6.53199 2.1001 11.9996C2.1001 17.4672 6.53248 21.8996 12.0001 21.8996C17.4677 21.8996 21.9001 17.4672 21.9001 11.9996C21.9001 6.53199 17.4677 2.09961 12.0001 2.09961ZM3.9001 11.9996C3.9001 7.5261 7.52659 3.89961 12.0001 3.89961C16.4736 3.89961 20.1001 7.5261 20.1001 11.9996C20.1001 16.4731 16.4736 20.0996 12.0001 20.0996C7.52659 20.0996 3.9001 16.4731 3.9001 11.9996Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                    </a>
+                            
+                <a href="./workspace.html"
+                    aria-current="page"                    class="flex size-[30px] items-center justify-center rounded-md transition-all bg-workspace-tile-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                    aria-label="청담원 워크스페이스 (현재 위치)" >
+                                            
+                        <svg aria-hidden="true" class="h-[13.333px] w-4" preserveAspectRatio="none" overflow="visible" style="display: block;" width="16" height="13.3333" viewBox="0 0 16 13.3333" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="_&#235;&#160;&#136;&#236;&#157;&#180;&#236;&#150;&#180;_1" clip-path="url(#clip0_0_161)">
+<path id="Vector" d="M4.51833 6.25833L8.83167 1.945C8.69833 1.77 8.55333 1.6 8.39333 1.44C7.43333 0.48 6.175 0 4.91667 0C3.65833 0 2.4 0.48 1.44 1.44C-0.48 3.36 -0.48 6.47333 1.44 8.39333C2.04167 8.995 2.76167 9.40667 3.525 9.63167C3.27333 8.45333 3.60167 7.175 4.51833 6.25833Z" fill="#F7F7F8"/>
+<path id="Vector_2" d="M15.6417 2.07167C15.4483 1.665 15.175 1.28833 14.825 0.961667C13.365 -0.396666 11.0683 -0.291666 9.65833 1.11833L8.83166 1.945C8.85166 1.97 8.87333 1.995 8.89166 2.02167C10.2967 3.945 10.13 6.65667 8.39333 8.39333C7.43333 9.35333 6.175 9.83333 4.91666 9.83333C4.465 9.83333 4.015 9.77167 3.57666 9.64833C3.55833 9.64333 3.54166 9.63667 3.52333 9.63167C3.66666 10.3017 3.99666 10.94 4.51666 11.4617L5.87333 12.8183C6.56 13.505 7.675 13.505 8.36333 12.8183L9.72 11.4617L14.9217 6.26C16.055 5.12667 16.295 3.44 15.64 2.07333L15.6417 2.07167Z" fill="#F7F7F8"/>
+<path id="Vector_3" d="M4.91666 9.83333C6.17499 9.83333 7.43332 9.35333 8.39332 8.39333C10.13 6.65667 10.295 3.945 8.89166 2.02167C8.87332 1.995 8.85166 1.97167 8.83166 1.945L4.51832 6.25833C3.60332 7.17333 3.27332 8.45167 3.52499 9.63167C3.54332 9.63667 3.55999 9.64333 3.57832 9.64833C4.01499 9.77167 4.46666 9.83333 4.91832 9.83333H4.91666Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_0_161">
+<rect width="16" height="13.3333" fill="white"/>
+</clipPath>
+</defs>
+</svg>                                    </a>
+                    </div>
+
+        
+
+        
+        <div class="flex min-h-0 flex-1 flex-col pl-[67px] pr-3">
+            
+                            <div class="pt-4">
+                                            <p class="truncate text-body-2 font-bold leading-[21px] text-white">청담원</p>
+                                                                <p class="truncate pt-[2px] text-caption-2 leading-[14px] text-workspace-cool-50">cdw.workspace.io</p>
+                                    </div>
+            
+            
+            <nav class="flex flex-col gap-4 pt-[17px]" aria-label="주요 메뉴">
+                                    
+                    <a href="./workspace.html"
+                                              class="flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                                                    <svg width="1em" height="1em" aria-hidden="true" class="size-6 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.3616 2.27647C12.1248 2.21318 11.8755 2.21318 11.6387 2.27647C11.3579 2.3515 11.1251 2.5333 11.0025 2.62905L10.9675 2.65625L4.13427 7.88153C3.74746 8.17676 3.42128 8.42572 3.17853 8.75002C2.96523 9.03498 2.80621 9.35676 2.70942 9.69929C2.59927 10.0891 2.59965 10.4995 2.60009 10.9861L2.60015 17.335C2.60014 17.8648 2.60012 18.316 2.63039 18.6865C2.66218 19.0756 2.73182 19.4542 2.91623 19.8161C3.19426 20.3618 3.6379 20.8055 4.18357 21.0835C4.5455 21.2679 4.9241 21.3375 5.31326 21.3693C5.68367 21.3996 6.13483 21.3996 6.66467 21.3996H11.9898C11.9933 21.3996 11.9969 21.3996 12.0004 21.3996C12.0039 21.3996 12.0075 21.3996 12.011 21.3996H17.3355C17.8653 21.3996 18.3166 21.3996 18.687 21.3693C19.0761 21.3375 19.4547 21.2679 19.8167 21.0835C20.3623 20.8055 20.806 20.3618 21.084 19.8161C21.2684 19.4542 21.338 19.0756 21.3698 18.6865C21.4001 18.316 21.4001 17.8649 21.4001 17.335L21.4001 10.9861C21.4006 10.4994 21.401 10.0891 21.2908 9.69929C21.194 9.35676 21.035 9.03498 20.8217 8.75002C20.5789 8.42572 20.2528 8.17677 19.866 7.88153L13.0328 2.65625L12.9977 2.62905C12.8751 2.5333 12.6423 2.3515 12.3616 2.27647ZM12.9004 19.5994H17.7001C18.5147 19.5994 18.7085 19.5883 18.84 19.5456C19.1749 19.4368 19.4374 19.1742 19.5463 18.8393C19.589 18.7078 19.6001 18.514 19.6001 17.6994V10.883C19.6001 10.4628 19.5965 10.3673 19.5816 10.2869C19.5445 10.0871 19.4528 9.90143 19.3166 9.75057C19.2618 9.68986 19.1881 9.62903 18.8542 9.37376L12.0001 4.1324L5.146 9.37376C4.81217 9.62903 4.73848 9.68986 4.68367 9.75057C4.54748 9.90143 4.45574 10.0871 4.41864 10.2869C4.4037 10.3673 4.40015 10.4628 4.40015 10.883V17.6994C4.40015 18.514 4.41126 18.7078 4.45399 18.8393C4.5628 19.1742 4.82535 19.4368 5.16023 19.5456C5.29175 19.5883 5.48559 19.5994 6.30014 19.5994H11.1004V13.9996C11.1004 13.5026 11.5033 13.0996 12.0004 13.0996C12.4975 13.0996 12.9004 13.5026 12.9004 13.9996V19.5994Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                                <span class="truncate pt-[2px] text-label-1 font-medium leading-5">홈</span>
+                    </a>
+                                    
+                    <a href="./contents.html"
+                                              class="flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                                                    <svg width="1em" height="1em" aria-hidden="true" class="size-6 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11096 4.10016C7.58631 4.09965 7.14412 4.09921 6.72868 4.22538C6.36388 4.33617 6.0245 4.51781 5.72997 4.7599C5.39457 5.03558 5.14966 5.40376 4.85908 5.8406L2.25731 9.74365C2.08884 9.99605 1.94655 10.2092 1.84317 10.4461C1.75211 10.6547 1.68593 10.8733 1.64599 11.0973C1.60065 11.3518 1.6008 11.6081 1.60097 11.9115L1.601 15.8356C1.60098 16.3655 1.60097 16.8167 1.63123 17.1871C1.66303 17.5763 1.73266 17.9549 1.91708 18.3168C2.19511 18.8625 2.63875 19.3061 3.18442 19.5841C3.54636 19.7686 3.92495 19.8382 4.31411 19.87C4.68454 19.9003 5.13572 19.9002 5.66559 19.9002H18.3364C18.8663 19.9002 19.3174 19.9003 19.6879 19.87C20.077 19.8382 20.4556 19.7686 20.8176 19.5841C21.3632 19.3061 21.8069 18.8625 22.0849 18.3168C22.2693 17.9549 22.339 17.5763 22.3708 17.1871C22.401 16.8167 22.401 16.3655 22.401 15.8357L22.401 11.9115C22.4012 11.6081 22.4013 11.3517 22.356 11.0973C22.3161 10.8733 22.2499 10.6547 22.1588 10.4461C22.0554 10.2092 21.9131 9.99605 21.7447 9.74364L19.1429 5.84061C18.8523 5.40376 18.6074 5.03559 18.272 4.7599C17.9775 4.51781 17.6381 4.33617 17.2733 4.22538C16.8579 4.09921 16.4157 4.09965 15.891 4.10016H8.11096ZM7.35658 5.92133C7.44241 5.90424 7.54581 5.90015 7.99958 5.90015H16.0024C16.4562 5.90015 16.5596 5.90424 16.6454 5.92133C16.859 5.96387 17.0552 6.06886 17.2091 6.223C17.2709 6.28494 17.3317 6.3687 17.5834 6.74628L19.8194 10.1006H16.2503C15.02 10.1006 14.2522 11.1041 13.9215 11.8504C13.5943 12.5887 12.8561 13.1008 12.0003 13.1008C11.1446 13.1008 10.4063 12.5887 10.079 11.8504C9.7483 11.1041 8.98049 10.1006 7.75026 10.1006H4.18261L6.41865 6.74628C6.67034 6.3687 6.7311 6.28494 6.79293 6.223C6.9468 6.06886 7.14297 5.96387 7.35658 5.92133ZM3.401 11.9006V16.2001C3.401 17.0147 3.4121 17.2085 3.45484 17.3401C3.56365 17.6749 3.8262 17.9375 4.16108 18.0463C4.2926 18.089 4.48644 18.1001 5.301 18.1001H18.701C19.5156 18.1001 19.7094 18.089 19.8409 18.0463C20.1758 17.9375 20.4384 17.6749 20.5472 17.3401C20.5899 17.2085 20.601 17.0147 20.601 16.2001V11.9006H16.2503C15.9229 11.9006 15.6793 12.3266 15.5671 12.5797C14.962 13.9452 13.5938 14.9008 12.0003 14.9008C10.4069 14.9008 9.0386 13.9452 8.43342 12.5797C8.32124 12.3266 8.07766 11.9006 7.75026 11.9006H3.401Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                                <span class="truncate pt-[2px] text-label-1 font-medium leading-5">컨텐츠 관리</span>
+                    </a>
+                                    
+                    <a href="./courses.html"
+                                              class="flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                                                    <svg width="1em" height="1em" aria-hidden="true" class="size-6 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.5975 2.69511C11.8508 2.56843 12.1491 2.56843 12.4025 2.69511L22.0007 7.49424C22.2053 7.5965 22.4102 7.69893 22.5702 7.79803C22.7262 7.89464 22.9934 8.07666 23.1468 8.40016C23.2477 8.61281 23.2921 8.84454 23.2799 9.07397V15C23.2799 15.4971 22.877 15.9 22.3799 15.9C21.8829 15.9 21.48 15.4971 21.48 15V10.7663L19.4 11.8063L19.4 16.391C19.4007 16.991 19.4013 17.4962 19.2414 17.9595C19.1013 18.3659 18.8725 18.736 18.5718 19.0431C18.2288 19.3933 17.7768 19.6187 17.2398 19.8864L13.7478 21.6324C13.3079 21.8528 12.937 22.0387 12.5347 22.1142C12.1813 22.1805 11.8186 22.1805 11.4652 22.1142C11.063 22.0387 10.6921 21.8528 10.2522 21.6324L6.76026 19.8865C6.22322 19.6187 5.77114 19.3933 5.42819 19.0431C5.12741 18.736 4.89866 18.3659 4.7585 17.9595C4.59869 17.4962 4.59925 16.991 4.59992 16.3909L4.6 11.8063L1.99923 10.5059C1.79462 10.4037 1.58969 10.3013 1.42971 10.2022C1.27374 10.1056 1.00652 9.92354 0.85309 9.60003C0.673014 9.22035 0.673014 8.77985 0.85309 8.40016C1.00652 8.07666 1.27374 7.89464 1.42971 7.79803C1.58969 7.69893 1.7946 7.59651 1.99921 7.49426L11.5975 2.69511ZM12.4025 15.3051L17.6 12.7063V16.2723C17.6 17.0555 17.5882 17.2324 17.5398 17.3726C17.4867 17.5267 17.3999 17.6671 17.2858 17.7836C17.182 17.8896 17.029 17.9792 16.3285 18.3295L13.0286 19.9795C12.4572 20.2652 12.3251 20.3221 12.2028 20.3451C12.0688 20.3702 11.9312 20.3702 11.7971 20.3451C11.6749 20.3221 11.5428 20.2652 10.9714 19.9795L7.6714 18.3295C6.97092 17.9792 6.81795 17.8896 6.71414 17.7836C6.60005 17.6671 6.51328 17.5267 6.46012 17.3726C6.41174 17.2324 6.4 17.0555 6.4 16.2723V12.7063L11.5975 15.3051C11.8508 15.4318 12.1491 15.4318 12.4025 15.3051ZM3.01245 9.0001L12 13.4939L20.9875 9.0001L12 4.50633L3.01245 9.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                                <span class="truncate pt-[2px] text-label-1 font-medium leading-5">과정 관리</span>
+                    </a>
+                                    
+                    <a href="./organization.html"
+                        aria-current="page"                        class="flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors bg-workspace-cool-25/28 text-workspace-white">
+                                                    <svg width="1em" height="1em" aria-hidden="true" class="size-6 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.10013 10.9997C6.10013 10.5027 6.50307 10.0997 7.00012 10.0997H11.0001C11.4972 10.0997 11.9001 10.5027 11.9001 10.9997C11.9001 11.4968 11.4972 11.8997 11.0001 11.8997H7.00012C6.50307 11.8997 6.10013 11.4968 6.10013 10.9997Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M6.10013 6.99971C6.10013 6.50265 6.50307 6.09971 7.00012 6.09971H11.0001C11.4972 6.09971 11.9001 6.50265 11.9001 6.99971C11.9001 7.49677 11.4972 7.89971 11.0001 7.89971H7.00012C6.50307 7.89971 6.10013 7.49677 6.10013 6.99971Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.86682 2.09961C5.47535 2.09959 5.1288 2.09958 4.84167 2.12304C4.53589 2.14802 4.21903 2.20403 3.91058 2.3612C3.45899 2.59129 3.09184 2.95845 2.86175 3.41004C2.70458 3.71849 2.64857 4.03534 2.62359 4.34113C2.60013 4.62827 2.60014 4.97474 2.60016 5.36623L2.60016 21.8996H8.98662C8.99111 21.8997 8.99561 21.8997 9.00012 21.8997C9.00463 21.8997 9.00913 21.8997 9.01362 21.8996H14.4789L14.5001 21.8999L14.5213 21.8996H21.4001V13.3663C21.4001 12.9748 21.4001 12.6283 21.3767 12.3411C21.3517 12.0353 21.2957 11.7185 21.1385 11.41C20.9084 10.9584 20.5413 10.5913 20.0897 10.3612C19.7812 10.204 19.4644 10.148 19.1586 10.123C18.8714 10.0996 18.525 10.0996 18.1335 10.0996L15.4001 10.0996L15.4001 5.36628C15.4001 4.97481 15.4001 4.62826 15.3767 4.34113C15.3517 4.03534 15.2957 3.71849 15.1385 3.41004C14.9084 2.95845 14.5413 2.59129 14.0897 2.3612C13.7812 2.20403 13.4644 2.14802 13.1586 2.12304C12.8715 2.09958 12.525 2.09959 12.1336 2.09961H5.86682ZM9.90012 20.0996H13.6002V5.09956C13.6002 4.47113 13.5891 4.37035 13.5708 4.31415C13.5114 4.13149 13.3682 3.98828 13.1856 3.92892C13.1294 3.91066 13.0286 3.89956 12.4002 3.89956H5.60019C4.97175 3.89956 4.87098 3.91066 4.81478 3.92892C4.63212 3.98828 4.48891 4.13149 4.42956 4.31415C4.41129 4.37035 4.40019 4.47113 4.40019 5.09956V20.0996H8.10012V16.9997C8.10012 16.5027 8.50306 16.0997 9.00012 16.0997C9.49717 16.0997 9.90012 16.5027 9.90012 16.9997V20.0996ZM19.6001 20.0996H15.4001V11.8996H18.4001C19.0286 11.8996 19.1293 11.9107 19.1856 11.9289C19.3682 11.9883 19.5114 12.1315 19.5708 12.3141C19.589 12.3704 19.6001 12.4711 19.6001 13.0996V20.0996Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                                <span class="truncate pt-[2px] text-label-1 font-medium leading-5">화상조직도</span>
+                    </a>
+                            </nav>
+
+            
+                            <nav class="mt-auto flex flex-col gap-4 pb-[17px]" aria-label="보조 메뉴">
+                                            
+                        <a href="#"
+                                                      class="flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                                                            <svg width="1em" height="1em" aria-hidden="true" class="size-6 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.04981 12C8.04981 9.81848 9.81827 8.05 11.9998 8.05C14.1813 8.05 15.9498 9.81848 15.9498 12C15.9498 14.1815 14.1813 15.95 11.9998 15.95C9.81827 15.95 8.04981 14.1815 8.04981 12ZM11.9998 9.95C10.8676 9.95 9.9498 10.8678 9.9498 12C9.9498 13.1322 10.8676 14.05 11.9998 14.05C13.132 14.05 14.0498 13.1322 14.0498 12C14.0498 10.8678 13.132 9.95 11.9998 9.95Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10.131 1.97079C10.7376 1.85842 11.3623 1.7998 11.9998 1.7998C12.6373 1.7998 13.262 1.85841 13.8686 1.97079C14.91 2.16373 15.3502 3.11319 15.4926 3.70446C15.589 4.10473 15.8415 4.46312 16.2246 4.68433C16.6075 4.90536 17.0437 4.94495 17.4382 4.82865C18.0215 4.65674 19.0614 4.56445 19.7491 5.36716C20.559 6.31261 21.1993 7.40878 21.6222 8.60855C21.9736 9.60576 21.3725 10.4599 20.9322 10.8783C20.6338 11.1619 20.4496 11.5597 20.4496 12.0022C20.4496 12.4444 20.6335 12.842 20.9317 13.1256C21.3718 13.5442 21.9725 14.3986 21.6206 15.3956C21.1964 16.5973 20.554 17.695 19.7415 18.6412C19.055 19.4408 18.0185 19.3502 17.4362 19.1795C17.0422 19.064 16.607 19.1039 16.2249 19.3245C15.8429 19.545 15.5908 19.9019 15.4938 20.3007C15.3503 20.8905 14.9095 21.8357 13.8712 22.0283C13.2639 22.141 12.6383 22.1998 11.9998 22.1998C11.3615 22.1998 10.7361 22.1411 10.1289 22.0284C9.09019 21.8358 8.6495 20.89 8.50612 20.3001C8.40915 19.9012 8.15701 19.5441 7.77488 19.3235C7.39269 19.1028 6.95733 19.063 6.5633 19.1786C5.98085 19.3494 4.94396 19.4403 4.25729 18.6403C3.44572 17.6949 2.80385 16.5983 2.37982 15.3978C2.02769 14.4009 2.62808 13.5464 3.06804 13.1277C3.36599 12.8442 3.54977 12.4467 3.54977 12.0046C3.54977 11.5621 3.36555 11.1641 3.06695 10.8805C2.6266 10.4623 2.02538 9.60831 2.37653 8.61109C2.79913 7.41098 3.43938 6.31446 4.24923 5.36869C4.93698 4.56551 5.97745 4.658 6.56082 4.83006C6.95546 4.94645 7.39177 4.90689 7.77468 4.68582C8.15801 4.4645 8.41057 4.10587 8.50684 3.70537C8.64903 3.11389 9.08917 2.16382 10.131 1.97079ZM10.4987 3.83504C10.4943 3.83949 10.4882 3.84629 10.4804 3.85628C10.4386 3.91001 10.3876 4.01039 10.3542 4.14947C10.1412 5.03543 9.57763 5.83881 8.72468 6.33126C7.87267 6.82317 6.89634 6.90993 6.02333 6.65245C5.88635 6.61205 5.77408 6.60604 5.70657 6.61545C5.69371 6.61725 5.68461 6.61918 5.67851 6.62077C5.02986 7.38223 4.51685 8.26159 4.17596 9.22152C4.17763 9.2275 4.18047 9.23613 4.18521 9.2478C4.21075 9.31067 4.27201 9.40465 4.37546 9.50291C5.03599 10.1303 5.44976 11.0199 5.44976 12.0046C5.44976 12.9881 5.03699 13.8768 4.37787 14.5041C4.27451 14.6024 4.21335 14.6965 4.18787 14.7594C4.18314 14.771 4.18032 14.7797 4.17865 14.7856C4.5207 15.7459 5.03504 16.6253 5.6851 17.3866C5.69117 17.3881 5.70023 17.3901 5.71303 17.3919C5.78019 17.4013 5.89196 17.3954 6.02857 17.3554C6.90029 17.0997 7.87452 17.1871 8.72488 17.678C9.57511 18.1689 10.1378 18.9688 10.3524 19.8514C10.386 19.9899 10.437 20.0897 10.4787 20.1431C10.4865 20.1531 10.4925 20.1598 10.4969 20.1642C10.9836 20.2532 11.4859 20.2998 11.9998 20.2998C12.5139 20.2998 13.0162 20.2532 13.5031 20.1642C13.5075 20.1597 13.5135 20.153 13.5213 20.1431C13.563 20.0897 13.614 19.99 13.6476 19.8515C13.8623 18.9692 14.425 18.1697 15.2749 17.679C16.1251 17.1882 17.099 17.1007 17.9706 17.3562C18.1071 17.3962 18.2188 17.402 18.286 17.3926C18.2988 17.3908 18.3078 17.3889 18.3139 17.3873C18.9646 16.6254 19.4794 15.7451 19.8216 14.7839C19.8199 14.7779 19.8171 14.7692 19.8124 14.7576C19.7869 14.6947 19.7257 14.6007 19.6223 14.5023C18.9627 13.875 18.5496 12.986 18.5496 12.0022C18.5496 11.0177 18.9632 10.1283 19.6235 9.50092C19.7269 9.40263 19.7881 9.30862 19.8137 9.24574C19.8184 9.23408 19.8212 9.22544 19.8229 9.21946C19.4818 8.2598 18.9687 7.38071 18.32 6.61951C18.3139 6.61792 18.3048 6.61599 18.292 6.6142C18.2245 6.60479 18.1123 6.61078 17.9754 6.65113C17.1025 6.90841 16.1264 6.82157 15.2746 6.32978C14.4221 5.83756 13.8586 5.0347 13.6454 4.14925C13.6119 4.01024 13.561 3.90995 13.5191 3.85626C13.5114 3.84628 13.5053 3.83949 13.5009 3.83504C13.0147 3.74629 12.5131 3.6998 11.9998 3.6998C11.4865 3.6998 10.9849 3.74629 10.4987 3.83504ZM19.8252 9.2087L19.8249 9.21084L19.8252 9.2087ZM19.8239 14.7946L19.8236 14.7925L19.8239 14.7946ZM4.17639 14.7964L4.17663 14.7943L4.17639 14.7964ZM4.17369 9.21077L4.17393 9.21292L4.17369 9.21077Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                                        <span class="truncate pt-[2px] text-label-1 font-medium leading-5">설정</span>
+                        </a>
+                                    </nav>
+                    </div>
+    </aside>
+
+    
+    <div class="flex min-w-0 flex-1 flex-col">
+        
+        <header class="flex h-14 shrink-0 items-center justify-between px-5 lg:px-6">
+            
+            <button type="button"
+                    class="flex size-6 items-center justify-center rounded-md bg-warm-gray-200 text-label-normal transition-colors hover:bg-warm-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                    aria-label="사이드바 접기"
+                    @click="$dispatch('lnb-toggle')">
+                <svg width="1em" height="1em" aria-hidden="true" class="size-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.1363 3.36297C16.4878 3.71444 16.4878 4.28429 16.1363 4.63576L8.77271 11.9994L16.1363 19.363C16.4878 19.7144 16.4878 20.2843 16.1363 20.6358C15.7848 20.9872 15.215 20.9872 14.8635 20.6358L6.86352 12.6358C6.51205 12.2843 6.51205 11.7144 6.86352 11.363L14.8635 3.36297C15.215 3.0115 15.7848 3.0115 16.1363 3.36297Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </button>
+
+            
+            <div class="flex items-center gap-8">
+                <button type="button" class="inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40" aria-label="검색">
+                    <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.9997 2.1001C5.63667 2.1001 2.09973 5.63705 2.09973 10.0001C2.09973 14.3631 5.63667 17.9001 9.9997 17.9001C11.857 17.9001 13.5646 17.2592 14.9134 16.1864L19.8634 21.1365C20.2149 21.4879 20.7847 21.4879 21.1362 21.1365C21.4877 20.785 21.4877 20.2151 21.1362 19.8637L16.1861 14.9136C17.2588 13.5648 17.8997 11.8573 17.8997 10.0001C17.8997 5.63705 14.3627 2.1001 9.9997 2.1001ZM3.89972 10.0001C3.89972 6.63116 6.63078 3.9001 9.9997 3.9001C13.3686 3.9001 16.0997 6.63116 16.0997 10.0001C16.0997 13.369 13.3686 16.1001 9.9997 16.1001C6.63078 16.1001 3.89972 13.369 3.89972 10.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                </button>
+
+                <button type="button" class="inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 relative" aria-label="알림">
+                    <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C9.77471 2.1001 7.94532 2.88789 6.68783 4.37443C5.4477 5.84044 4.84996 7.8832 4.84996 10.2501L4.84997 11.0001C4.84997 13.4652 4.16674 14.9249 3.19362 15.8682C2.81208 16.2381 2.77247 16.7499 2.90886 17.1264C3.04756 17.5094 3.42766 17.9001 3.99952 17.9001H20.0003C20.5722 17.9001 20.9523 17.5094 21.091 17.1264C21.2274 16.7499 21.1878 16.2381 20.8063 15.8682C19.8331 14.9249 19.1499 13.4652 19.1499 11.0001L19.1499 10.2501C19.1499 7.8832 18.5522 5.84044 17.312 4.37443C16.0546 2.88789 14.2252 2.1001 11.9999 2.1001ZM6.64996 10.2501C6.64996 8.16522 7.17722 6.58298 8.06208 5.53693C8.92958 4.51142 10.2252 3.9001 11.9999 3.9001C13.7747 3.9001 15.0703 4.51142 15.9378 5.53693C16.8227 6.58297 17.3499 8.16522 17.3499 10.2501L17.3499 11.0001C17.3499 13.1628 17.8181 14.8273 18.6686 16.1001H5.33125C6.18182 14.8273 6.64996 13.1628 6.64996 11.0001L6.64996 10.2501Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M9.99995 20.0999C9.5029 20.0999 9.09995 20.5029 9.09995 20.9999C9.09995 21.497 9.5029 21.8999 9.99995 21.8999H13.9999C14.497 21.8999 14.8999 21.497 14.8999 20.9999C14.8999 20.5029 14.497 20.0999 13.9999 20.0999H9.99995Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                            <span class="absolute right-0 top-0 size-[6px] rounded-full bg-status-negative" aria-hidden="true"></span>
+                        <span class="sr-only">읽지 않은 알림 있음</span>
+                                    </button>
+
+                <button type="button" class="inline-flex size-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40" aria-label="앱 전환">
+                    <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18.5999 3.6001C17.6058 3.6001 16.7999 4.40599 16.7999 5.4001C16.7999 6.39421 17.6058 7.2001 18.5999 7.2001C19.5941 7.2001 20.3999 6.39421 20.3999 5.4001C20.3999 4.40599 19.5941 3.6001 18.5999 3.6001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M16.7999 12.0001C16.7999 11.006 17.6058 10.2001 18.5999 10.2001C19.5941 10.2001 20.3999 11.006 20.3999 12.0001C20.3999 12.9942 19.5941 13.8001 18.5999 13.8001C17.6058 13.8001 16.7999 12.9942 16.7999 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M5.39997 16.8001C4.40586 16.8001 3.59998 17.606 3.59998 18.6001C3.59998 19.5942 4.40586 20.4001 5.39997 20.4001C6.39408 20.4001 7.19996 19.5942 7.19996 18.6001C7.19996 17.606 6.39408 16.8001 5.39997 16.8001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M10.1999 18.6001C10.1999 17.606 11.0058 16.8001 11.9999 16.8001C12.994 16.8001 13.7999 17.606 13.7999 18.6001C13.7999 19.5942 12.994 20.4001 11.9999 20.4001C11.0058 20.4001 10.1999 19.5942 10.1999 18.6001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M16.7999 18.6001C16.7999 17.606 17.6058 16.8001 18.5999 16.8001C19.5941 16.8001 20.3999 17.606 20.3999 18.6001C20.3999 19.5942 19.5941 20.4001 18.5999 20.4001C17.6058 20.4001 16.7999 19.5942 16.7999 18.6001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M11.9999 10.2001C11.0058 10.2001 10.1999 11.006 10.1999 12.0001C10.1999 12.9942 11.0058 13.8001 11.9999 13.8001C12.994 13.8001 13.7999 12.9942 13.7999 12.0001C13.7999 11.006 12.994 10.2001 11.9999 10.2001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M3.59998 12.0001C3.59998 11.006 4.40586 10.2001 5.39997 10.2001C6.39408 10.2001 7.19996 11.006 7.19996 12.0001C7.19996 12.9942 6.39408 13.8001 5.39997 13.8001C4.40586 13.8001 3.59998 12.9942 3.59998 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M10.1999 5.4001C10.1999 4.40599 11.0058 3.6001 11.9999 3.6001C12.994 3.6001 13.7999 4.40599 13.7999 5.4001C13.7999 6.39421 12.994 7.2001 11.9999 7.2001C11.0058 7.2001 10.1999 6.39421 10.1999 5.4001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M5.39997 3.6001C4.40586 3.6001 3.59998 4.40599 3.59998 5.4001C3.59998 6.39421 4.40586 7.2001 5.39997 7.2001C6.39408 7.2001 7.19996 6.39421 7.19996 5.4001C7.19996 4.40599 6.39408 3.6001 5.39997 3.6001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                </button>
+
+                
+                <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-8 w-8 rounded-full bg-deep-blue-800 shrink-0">
+            <span class="text-caption-1 font-semibold text-white select-none">김</span>
+    </span>
+            </div>
+        </header>
+
+        
+        <div class="px-5 lg:px-20">
+                            <div><nav aria-label="현재 위치">
+        <ol class="flex flex-wrap items-center gap-1.5">
+                            
+                <li class="flex items-center gap-1.5">
+                                            <a href="./workspace.html"
+                           class="text-label-1 text-label-alternative transition-colors hover:text-label-normal">홈</a>
+                    
+                                            <svg width="1em" height="1em" aria-hidden="true" class="h-3.5 w-3.5 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.86337 3.36272C7.51189 3.7142 7.51189 4.28405 7.86337 4.63552L15.227 11.9991L7.86337 19.3627C7.51189 19.7142 7.51189 20.284 7.86337 20.6355C8.21484 20.987 8.78469 20.987 9.13616 20.6355L17.1362 12.6355C17.4876 12.284 17.4876 11.7142 17.1362 11.3627L9.13616 3.36272C8.78469 3.01125 8.21484 3.01125 7.86337 3.36272Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                    </li>
+                            
+                <li class="flex items-center gap-1.5">
+                                            <span class="text-label-1 text-label-normal  font-semibold "
+                               aria-current="page" >화상조직도</span>
+                    
+                                    </li>
+                    </ol>
+    </nav></div>
+            
+            
+                            <div class="flex flex-wrap items-center justify-between gap-6 pt-[30px]">
+                                            <div class="flex flex-wrap items-center gap-8"><h1 class="text-title-2 font-bold text-mono-black">화상조직도</h1></div>
+                    
+                                    </div>
+                    </div>
+
+        
+        
+        <main class="min-h-0 min-w-0 flex-1 px-5 pb-20 pt-8 lg:px-20">
+            <div class="flex min-w-0 flex-col gap-6 xl:flex-row xl:items-start">
+
+            
+            <div class="min-w-0 flex-1" x-data="{ scroll(px) { this.$refs.canvas.scrollBy({ left: px, behavior: 'smooth' }) } }">
+                
+                <div x-ref="canvas" class="min-w-0 overflow-x-auto py-10">
+                    <div class="mx-auto flex w-[280px] flex-col items-center">
+
+                        
+                        <div class="w-[280px] rounded-lg bg-background-normal">
+    <div class="flex min-w-0 items-center gap-2.5 p-5">
+        
+                    <span class="flex size-[42px] shrink-0 items-center justify-center rounded-md bg-workspace-tile-teal"
+                  aria-hidden="true">
+                <svg aria-hidden="true" class="h-5 w-6" preserveAspectRatio="none" overflow="visible" style="display: block;" width="16" height="13.3333" viewBox="0 0 16 13.3333" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="_&#235;&#160;&#136;&#236;&#157;&#180;&#236;&#150;&#180;_1" clip-path="url(#clip0_0_161)">
+<path id="Vector" d="M4.51833 6.25833L8.83167 1.945C8.69833 1.77 8.55333 1.6 8.39333 1.44C7.43333 0.48 6.175 0 4.91667 0C3.65833 0 2.4 0.48 1.44 1.44C-0.48 3.36 -0.48 6.47333 1.44 8.39333C2.04167 8.995 2.76167 9.40667 3.525 9.63167C3.27333 8.45333 3.60167 7.175 4.51833 6.25833Z" fill="#F7F7F8"/>
+<path id="Vector_2" d="M15.6417 2.07167C15.4483 1.665 15.175 1.28833 14.825 0.961667C13.365 -0.396666 11.0683 -0.291666 9.65833 1.11833L8.83166 1.945C8.85166 1.97 8.87333 1.995 8.89166 2.02167C10.2967 3.945 10.13 6.65667 8.39333 8.39333C7.43333 9.35333 6.175 9.83333 4.91666 9.83333C4.465 9.83333 4.015 9.77167 3.57666 9.64833C3.55833 9.64333 3.54166 9.63667 3.52333 9.63167C3.66666 10.3017 3.99666 10.94 4.51666 11.4617L5.87333 12.8183C6.56 13.505 7.675 13.505 8.36333 12.8183L9.72 11.4617L14.9217 6.26C16.055 5.12667 16.295 3.44 15.64 2.07333L15.6417 2.07167Z" fill="#F7F7F8"/>
+<path id="Vector_3" d="M4.91666 9.83333C6.17499 9.83333 7.43332 9.35333 8.39332 8.39333C10.13 6.65667 10.295 3.945 8.89166 2.02167C8.87332 1.995 8.85166 1.97167 8.83166 1.945L4.51832 6.25833C3.60332 7.17333 3.27332 8.45167 3.52499 9.63167C3.54332 9.63667 3.55999 9.64333 3.57832 9.64833C4.01499 9.77167 4.46666 9.83333 4.91832 9.83333H4.91666Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_0_161">
+<rect width="16" height="13.3333" fill="white"/>
+</clipPath>
+</defs>
+</svg>            </span>
+        
+        <div class="min-w-0 flex-1">
+            <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">청담원</p>
+            <p class="truncate pt-px text-caption-1 leading-[18px] text-warm-gray-600">
+                전체 <span class="tabular-nums">6</span>명
+            </p>
+        </div>
+
+        <button type="button"
+                class="inline-flex size-6 shrink-0 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                aria-label="청담원 더보기">
+            <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.7497 18.75C13.7497 17.7835 12.9662 17 11.9997 17C11.0332 17 10.2497 17.7835 10.2497 18.75C10.2497 19.7165 11.0332 20.5 11.9997 20.5C12.9662 20.5 13.7497 19.7165 13.7497 18.75Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M11.9997 10.25C12.9662 10.25 13.7497 11.0335 13.7497 12C13.7497 12.9665 12.9662 13.75 11.9997 13.75C11.0332 13.75 10.2497 12.9665 10.2497 12C10.2497 11.0335 11.0332 10.25 11.9997 10.25Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M11.9997 3.5C12.9662 3.5 13.7497 4.2835 13.7497 5.25C13.7497 6.2165 12.9662 7 11.9997 7C11.0332 7 10.2497 6.2165 10.2497 5.25C10.2497 4.2835 11.0332 3.5 11.9997 3.5Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>        </button>
+    </div>
+</div>
+
+
+
+                        
+                        <div x-data="{ open: true }" class="flex w-full flex-col items-center">
+                            
+                            <button type="button" @click="open = ! open"
+                                    class="-mt-[15px] flex size-[30px] items-center justify-center rounded-full border border-line-solid-normal bg-background-normal text-label-normal transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                                    x-bind:aria-expanded="open"
+                                    aria-label="하위 조직 접기/펴기">
+                                
+                                <svg width="1em" height="1em" aria-hidden="true" x-bind:class="open || 'rotate-180'" class="size-3.5 transition-transform" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.3633 16.1365C3.71478 16.488 4.28463 16.488 4.6361 16.1365L11.9997 8.77289L19.3633 16.1365C19.7148 16.488 20.2846 16.488 20.6361 16.1365C20.9876 15.785 20.9876 15.2152 20.6361 14.8637L12.6361 6.8637C12.2846 6.51223 11.7148 6.51223 11.3633 6.8637L3.3633 14.8637C3.01183 15.2152 3.01183 15.785 3.3633 16.1365Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            </button>
+
+                            
+                            <div class="flex w-full flex-col items-center" x-show="open" x-cloak>
+                                                                    <div class="mx-auto h-[38px] w-0 border-l border-dashed border-warm-gray-300" aria-hidden="true"></div>
+                                    <button type="button"
+                                            class="flex size-6 items-center justify-center rounded-lg bg-mono-800 text-white transition-colors hover:bg-mono-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                                            aria-label="조직 추가">
+                                        <svg width="1em" height="1em" aria-hidden="true" class="size-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                    </button>
+                                    <div class="mx-auto h-[38px] w-0 border-l border-dashed border-warm-gray-300" aria-hidden="true"></div>
+
+                                    <div class="flex w-full flex-col items-center">
+                                        <div class="w-[280px] rounded-lg bg-background-normal">
+    <div class="flex min-w-0 items-center gap-2.5 p-5">
+        
+                    <span class="flex size-[42px] shrink-0 items-center justify-center rounded-md bg-deep-blue-800 text-body-2 font-bold text-white"
+                  aria-hidden="true">개</span>
+        
+        <div class="min-w-0 flex-1">
+            <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">개발팀</p>
+            <p class="truncate pt-px text-caption-1 leading-[18px] text-warm-gray-600">
+                전체 <span class="tabular-nums">3</span>명
+            </p>
+        </div>
+
+        <button type="button"
+                class="inline-flex size-6 shrink-0 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                aria-label="개발팀 더보기">
+            <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.7497 18.75C13.7497 17.7835 12.9662 17 11.9997 17C11.0332 17 10.2497 17.7835 10.2497 18.75C10.2497 19.7165 11.0332 20.5 11.9997 20.5C12.9662 20.5 13.7497 19.7165 13.7497 18.75Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M11.9997 10.25C12.9662 10.25 13.7497 11.0335 13.7497 12C13.7497 12.9665 12.9662 13.75 11.9997 13.75C11.0332 13.75 10.2497 12.9665 10.2497 12C10.2497 11.0335 11.0332 10.25 11.9997 10.25Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M11.9997 3.5C12.9662 3.5 13.7497 4.2835 13.7497 5.25C13.7497 6.2165 12.9662 7 11.9997 7C11.0332 7 10.2497 6.2165 10.2497 5.25C10.2497 4.2835 11.0332 3.5 11.9997 3.5Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>        </button>
+    </div>
+</div>
+
+
+    <div class="mt-2 w-[280px] overflow-hidden rounded-lg bg-background-normal pb-2.5">
+        <p class="px-5 pt-5 text-caption-1 font-bold leading-[18px] text-warm-gray-600">조직장</p>
+
+                    <div class="flex h-[62px] min-w-0 items-center gap-3 px-5">
+                <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
+            <span class="text-body-2 font-semibold text-white select-none">김</span>
+    </span>
+                <div class="min-w-0 flex-1">
+                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">김기안</p>
+                    <p class="truncate text-caption-1 leading-[18px] text-warm-gray-600">개발팀장</p>
+                </div>
+            </div>
+        
+        <div class="mx-5 mt-2 h-px bg-warm-gray-100" aria-hidden="true"></div>
+
+        <p class="px-5 pt-5 text-caption-1 font-bold leading-[18px] text-warm-gray-600">멤버 (2)</p>
+
+                    <div class="flex h-[62px] min-w-0 items-center gap-3 px-5">
+                <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
+            <span class="text-body-2 font-semibold text-white select-none">이</span>
+    </span>
+                <div class="min-w-0 flex-1">
+                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">이대리</p>
+                    <p class="truncate text-caption-1 leading-[18px] text-warm-gray-600">프론트엔드 개발</p>
+                </div>
+            </div>
+                    <div class="flex h-[62px] min-w-0 items-center gap-3 px-5">
+                <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
+            <span class="text-body-2 font-semibold text-white select-none">박</span>
+    </span>
+                <div class="min-w-0 flex-1">
+                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">박사원</p>
+                    <p class="truncate text-caption-1 leading-[18px] text-warm-gray-600">백엔드 개발</p>
+                </div>
+            </div>
+        
+        <button type="button" class="flex h-[62px] min-w-0 items-center gap-3 px-5 group w-full text-left focus:outline-none focus-visible:bg-fill-alternative">
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-warm-gray-100 text-label-normal transition-colors group-hover:bg-warm-gray-200"><svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg></span>
+            <span class="truncate pl-0.5 text-label-1 leading-5 text-warm-gray-500 transition-colors group-hover:text-label-normal">멤버 추가</span>
+        </button>
+    </div>
+                                    </div>
+                                                                    <div class="mx-auto h-[38px] w-0 border-l border-dashed border-warm-gray-300" aria-hidden="true"></div>
+                                    <button type="button"
+                                            class="flex size-6 items-center justify-center rounded-lg bg-mono-800 text-white transition-colors hover:bg-mono-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                                            aria-label="조직 추가">
+                                        <svg width="1em" height="1em" aria-hidden="true" class="size-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                    </button>
+                                    <div class="mx-auto h-[38px] w-0 border-l border-dashed border-warm-gray-300" aria-hidden="true"></div>
+
+                                    <div class="flex w-full flex-col items-center">
+                                        <div class="w-[280px] rounded-lg bg-background-normal">
+    <div class="flex min-w-0 items-center gap-2.5 p-5">
+        
+                    <span class="flex size-[42px] shrink-0 items-center justify-center rounded-md bg-warm-gray-800 text-body-2 font-bold text-white"
+                  aria-hidden="true">운</span>
+        
+        <div class="min-w-0 flex-1">
+            <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">운영팀</p>
+            <p class="truncate pt-px text-caption-1 leading-[18px] text-warm-gray-600">
+                전체 <span class="tabular-nums">3</span>명
+            </p>
+        </div>
+
+        <button type="button"
+                class="inline-flex size-6 shrink-0 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                aria-label="운영팀 더보기">
+            <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.7497 18.75C13.7497 17.7835 12.9662 17 11.9997 17C11.0332 17 10.2497 17.7835 10.2497 18.75C10.2497 19.7165 11.0332 20.5 11.9997 20.5C12.9662 20.5 13.7497 19.7165 13.7497 18.75Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M11.9997 10.25C12.9662 10.25 13.7497 11.0335 13.7497 12C13.7497 12.9665 12.9662 13.75 11.9997 13.75C11.0332 13.75 10.2497 12.9665 10.2497 12C10.2497 11.0335 11.0332 10.25 11.9997 10.25Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M11.9997 3.5C12.9662 3.5 13.7497 4.2835 13.7497 5.25C13.7497 6.2165 12.9662 7 11.9997 7C11.0332 7 10.2497 6.2165 10.2497 5.25C10.2497 4.2835 11.0332 3.5 11.9997 3.5Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>        </button>
+    </div>
+</div>
+
+
+    <div class="mt-2 w-[280px] overflow-hidden rounded-lg bg-background-normal pb-2.5">
+        <p class="px-5 pt-5 text-caption-1 font-bold leading-[18px] text-warm-gray-600">조직장</p>
+
+                    <button type="button" class="flex h-[62px] min-w-0 items-center gap-3 px-5 group w-full text-left focus:outline-none focus-visible:bg-fill-alternative">
+                <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-warm-gray-100 text-label-normal transition-colors group-hover:bg-warm-gray-200"><svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg></span>
+                <span class="truncate pl-0.5 text-label-1 leading-5 text-warm-gray-500 transition-colors group-hover:text-label-normal">조직장 추가</span>
+            </button>
+        
+        <div class="mx-5 mt-2 h-px bg-warm-gray-100" aria-hidden="true"></div>
+
+        <p class="px-5 pt-5 text-caption-1 font-bold leading-[18px] text-warm-gray-600">멤버 (2)</p>
+
+                    <div class="flex h-[62px] min-w-0 items-center gap-3 px-5">
+                <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
+            <span class="text-body-2 font-semibold text-white select-none">최</span>
+    </span>
+                <div class="min-w-0 flex-1">
+                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">최주임</p>
+                    <p class="truncate text-caption-1 leading-[18px] text-warm-gray-600">수강 운영</p>
+                </div>
+            </div>
+                    <div class="flex h-[62px] min-w-0 items-center gap-3 px-5">
+                <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
+            <span class="text-body-2 font-semibold text-white select-none">정</span>
+    </span>
+                <div class="min-w-0 flex-1">
+                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">정과장</p>
+                    <p class="truncate text-caption-1 leading-[18px] text-warm-gray-600">정산 · 리포트</p>
+                </div>
+            </div>
+        
+        <button type="button" class="flex h-[62px] min-w-0 items-center gap-3 px-5 group w-full text-left focus:outline-none focus-visible:bg-fill-alternative">
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-warm-gray-100 text-label-normal transition-colors group-hover:bg-warm-gray-200"><svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg></span>
+            <span class="truncate pl-0.5 text-label-1 leading-5 text-warm-gray-500 transition-colors group-hover:text-label-normal">멤버 추가</span>
+        </button>
+    </div>
+                                    </div>
+                                
+                                
+                                <div class="mx-auto h-[38px] w-0 border-l border-dashed border-warm-gray-300" aria-hidden="true"></div>
+                                <button type="button"
+                                        class="flex size-6 items-center justify-center rounded-lg bg-mono-800 text-white transition-colors hover:bg-mono-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                                        aria-label="조직 추가">
+                                    <svg width="1em" height="1em" aria-hidden="true" class="size-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="mt-3 flex items-center gap-2">
+                    <button type="button" @click="scroll(-320)"
+                            class="flex size-7 items-center justify-center rounded-md border border-line-solid-normal bg-background-normal text-label-normal transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                            aria-label="캔버스를 왼쪽으로 이동">
+                        <svg width="1em" height="1em" aria-hidden="true" class="size-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.1363 3.36297C16.4878 3.71444 16.4878 4.28429 16.1363 4.63576L8.77271 11.9994L16.1363 19.363C16.4878 19.7144 16.4878 20.2843 16.1363 20.6358C15.7848 20.9872 15.215 20.9872 14.8635 20.6358L6.86352 12.6358C6.51205 12.2843 6.51205 11.7144 6.86352 11.363L14.8635 3.36297C15.215 3.0115 15.7848 3.0115 16.1363 3.36297Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </button>
+                    <button type="button" @click="scroll(320)"
+                            class="flex size-7 items-center justify-center rounded-md border border-line-solid-normal bg-background-normal text-label-normal transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                            aria-label="캔버스를 오른쪽으로 이동">
+                        <svg width="1em" height="1em" aria-hidden="true" class="size-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.86337 3.36272C7.51189 3.7142 7.51189 4.28405 7.86337 4.63552L15.227 11.9991L7.86337 19.3627C7.51189 19.7142 7.51189 20.284 7.86337 20.6355C8.21484 20.987 8.78469 20.987 9.13616 20.6355L17.1362 12.6355C17.4876 12.284 17.4876 11.7142 17.1362 11.3627L9.13616 3.36272C8.78469 3.01125 8.21484 3.01125 7.86337 3.36272Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </button>
+                </div>
+            </div>
+
+            
+            <aside class="w-full min-w-0 shrink-0 rounded-lg bg-background-normal pb-5 xl:w-96">
+                <div class="flex min-w-0 items-center gap-3 px-[30px] pt-[30px]">
+                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">멤버 목록</h2>
+                    <p class="text-label-1 leading-5 text-warm-gray-600">
+                        총 <span class="tabular-nums">6</span>명
+                    </p>
+                    <button type="button"
+                            class="ml-auto inline-flex size-6 shrink-0 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                            aria-label="멤버 목록 더보기">
+                        <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.24969 13.75C6.21618 13.75 6.99968 12.9665 6.99968 12C6.99968 11.0335 6.21618 10.25 5.24969 10.25C4.28319 10.25 3.49969 11.0335 3.49969 12C3.49969 12.9665 4.28319 13.75 5.24969 13.75Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M13.7497 12C13.7497 12.9665 12.9662 13.75 11.9997 13.75C11.0332 13.75 10.2497 12.9665 10.2497 12C10.2497 11.0335 11.0332 10.25 11.9997 10.25C12.9662 10.25 13.7497 11.0335 13.7497 12Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M20.4996 12C20.4996 12.9665 19.7161 13.75 18.7496 13.75C17.7832 13.75 16.9997 12.9665 16.9997 12C16.9997 11.0335 17.7832 10.25 18.7496 10.25C19.7161 10.25 20.4996 11.0335 20.4996 12Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </button>
+                </div>
+
+                
+                <div class="px-[30px] pt-5">
+                    <div class="flex flex-col gap-1.5"  >
+    
+        <div class="relative"
+         >
+                    <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[11px] text-label-assistive">
+                <svg width="1em" height="1em" aria-hidden="true" class="w-5 h-5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.9997 2.1001C5.63667 2.1001 2.09973 5.63705 2.09973 10.0001C2.09973 14.3631 5.63667 17.9001 9.9997 17.9001C11.857 17.9001 13.5646 17.2592 14.9134 16.1864L19.8634 21.1365C20.2149 21.4879 20.7847 21.4879 21.1362 21.1365C21.4877 20.785 21.4877 20.2151 21.1362 19.8637L16.1861 14.9136C17.2588 13.5648 17.8997 11.8573 17.8997 10.0001C17.8997 5.63705 14.3627 2.1001 9.9997 2.1001ZM3.89972 10.0001C3.89972 6.63116 6.63078 3.9001 9.9997 3.9001C13.3686 3.9001 16.0997 6.63116 16.0997 10.0001C16.0997 13.369 13.3686 16.1001 9.9997 16.1001C6.63078 16.1001 3.89972 13.369 3.89972 10.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </span>
+        
+        <input
+            id="member_search"
+            type="text"
+                         name="member_search"                                                                          class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-10 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-10 pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="멤버 이름이나 조직 검색"         />
+
+            </div>
+    
+    </div>
+                </div>
+
+                <div class="pt-2.5">
+                                            <div class="flex h-[62px] min-w-0 items-center gap-3 px-[30px]">
+                            <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
+            <span class="text-body-2 font-semibold text-white select-none">김</span>
+    </span>
+                            <div class="min-w-0 flex-1">
+                                <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">김기안</p>
+                                <p class="truncate text-caption-1 leading-[18px] text-warm-gray-600">개발팀장</p>
+                            </div>
+                        </div>
+                                            <div class="flex h-[62px] min-w-0 items-center gap-3 px-[30px]">
+                            <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
+            <span class="text-body-2 font-semibold text-white select-none">이</span>
+    </span>
+                            <div class="min-w-0 flex-1">
+                                <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">이대리</p>
+                                <p class="truncate text-caption-1 leading-[18px] text-warm-gray-600">프론트엔드 개발</p>
+                            </div>
+                        </div>
+                                            <div class="flex h-[62px] min-w-0 items-center gap-3 px-[30px]">
+                            <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
+            <span class="text-body-2 font-semibold text-white select-none">박</span>
+    </span>
+                            <div class="min-w-0 flex-1">
+                                <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">박사원</p>
+                                <p class="truncate text-caption-1 leading-[18px] text-warm-gray-600">백엔드 개발</p>
+                            </div>
+                        </div>
+                                            <div class="flex h-[62px] min-w-0 items-center gap-3 px-[30px]">
+                            <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
+            <span class="text-body-2 font-semibold text-white select-none">최</span>
+    </span>
+                            <div class="min-w-0 flex-1">
+                                <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">최주임</p>
+                                <p class="truncate text-caption-1 leading-[18px] text-warm-gray-600">수강 운영</p>
+                            </div>
+                        </div>
+                                            <div class="flex h-[62px] min-w-0 items-center gap-3 px-[30px]">
+                            <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
+            <span class="text-body-2 font-semibold text-white select-none">정</span>
+    </span>
+                            <div class="min-w-0 flex-1">
+                                <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">정과장</p>
+                                <p class="truncate text-caption-1 leading-[18px] text-warm-gray-600">정산 · 리포트</p>
+                            </div>
+                        </div>
+                                            <div class="flex h-[62px] min-w-0 items-center gap-3 px-[30px]">
+                            <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
+            <span class="text-body-2 font-semibold text-white select-none">신</span>
+    </span>
+                            <div class="min-w-0 flex-1">
+                                <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">신고수</p>
+                                <p class="truncate text-caption-1 leading-[18px] text-warm-gray-600">프로덕트 디자이너</p>
+                            </div>
+                        </div>
+                    
+                    <button type="button" class="group flex h-[62px] w-full min-w-0 items-center gap-3 px-[30px] text-left focus:outline-none focus-visible:bg-fill-alternative">
+                        <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-warm-gray-100 text-label-normal transition-colors group-hover:bg-warm-gray-200">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                        </span>
+                        <span class="truncate pl-0.5 text-label-1 leading-5 text-warm-gray-500 transition-colors group-hover:text-label-normal">
+                            멤버 추가
+                        </span>
+                    </button>
+                </div>
+            </aside>
+        </div>
+        </main>
+    </div>
+</div>
+
+        
+        
+        <!-- Livewire Scripts -->
+
+    </body>
+</html>
