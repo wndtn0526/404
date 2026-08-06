@@ -79,8 +79,12 @@
 
                     {{-- ── 프로필 ── --}}
                     <div class="flex min-w-0 items-start gap-3">
+                        {{-- ⚠️ flex 가 필요하다. 버튼 기본값(inline-block)이면 안의 썸네일이
+                             인라인 레벨이라 줄상자 여백이 붙어 버튼이 64 보다 커진다.
+                             그러면 아래 inset-0 이 그 커진 상자의 가운데를 잡아 카메라가
+                             원 중심에서 3px 쯤 내려간다. --}}
                         <button type="button"
-                                class="group relative shrink-0 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                                class="group relative flex shrink-0 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                                 aria-label="프로필 사진 변경">
                             {{-- 카메라 — 원본은 아바타 가운데에 흰 카메라 18 만 얹는다.
                                  fallback="none" 이라 이니셜을 그리지 않는다. 흰 글자와 흰 글리프가
