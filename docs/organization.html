@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>화상조직도 · 전자결재</title>
 
-        <link rel="preload" as="style" href="./build/assets/app-Wy3GomV8.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-Wy3GomV8.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="preload" as="style" href="./build/assets/app-CR6ID-cd.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-CR6ID-cd.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
     <meta name="robots" content="noindex">
 </head>
@@ -193,7 +193,8 @@
             
             <div class="min-w-0 flex-1" x-data="{ scroll(px) { this.$refs.canvas.scrollBy({ left: px, behavior: 'smooth' }) } }">
                 
-                <div x-ref="canvas" class="min-w-0 overflow-x-auto py-10">
+                
+                <div x-ref="canvas" class="min-w-0 overflow-x-auto pb-[170px] pt-10">
                     <div class="mx-auto flex w-[280px] flex-col items-center">
 
                         
@@ -247,10 +248,40 @@
 
                             <div class="flex w-full flex-col items-center" x-show="open" x-cloak>
                                 <div class="mx-auto h-[38px] w-0 border-l border-dashed border-warm-gray-300" aria-hidden="true"></div>
-                                <button type="button" class="flex size-6 items-center justify-center rounded-lg bg-mono-800 text-white transition-colors hover:bg-mono-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40" aria-label="조직 추가">
-                                    <svg width="1em" height="1em" aria-hidden="true" class="size-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <div class="relative" x-data="{ open: false }"
+     @click.outside="open = false"
+     @keydown.escape.window="open = false">
+
+    <button type="button" @click="open = ! open"
+            class="flex size-6 items-center justify-center rounded-lg bg-mono-800 text-white transition-colors hover:bg-mono-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+            x-bind:aria-expanded="open"
+            aria-haspopup="true"
+            aria-label="조직 추가">
+        <svg width="1em" height="1em" aria-hidden="true" class="size-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                </button>
+</svg>    </button>
+
+    
+    <div x-show="open" x-cloak role="menu"
+         class="absolute left-full top-full z-30 w-[282px] rounded-lg bg-background-normal px-[5px] py-2 shadow-elevation-lg">
+                    <button type="button" role="menuitem"
+                    class="flex h-[49px] w-full min-w-0 items-center gap-2 rounded-lg px-[15px] text-left transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:bg-fill-alternative">
+                <span class="flex size-6 shrink-0 items-center justify-center rounded-lg bg-warm-gray-100" aria-hidden="true">
+                    <svg width="1em" height="1em" aria-hidden="true" class="size-2.5 text-label-normal" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                </span>
+                <span class="truncate text-body-2 font-bold leading-[23px] text-label-normal">법인 추가</span>
+            </button>
+                    <button type="button" role="menuitem"
+                    class="flex h-[49px] w-full min-w-0 items-center gap-2 rounded-lg px-[15px] text-left transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:bg-fill-alternative">
+                <span class="flex size-6 shrink-0 items-center justify-center rounded-lg bg-warm-gray-100" aria-hidden="true">
+                    <svg width="1em" height="1em" aria-hidden="true" class="size-2.5 text-label-normal" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                </span>
+                <span class="truncate text-body-2 font-bold leading-[23px] text-label-normal">조직 추가</span>
+            </button>
+            </div>
+</div>
                                 <div class="mx-auto h-[38px] w-0 border-l border-dashed border-warm-gray-300" aria-hidden="true"></div>
 
                                 
@@ -288,10 +319,40 @@
 
                                 
                                 <div class="mx-auto h-[38px] w-0 border-l border-dashed border-warm-gray-300" aria-hidden="true"></div>
-                                <button type="button" class="flex size-6 items-center justify-center rounded-lg bg-mono-800 text-white transition-colors hover:bg-mono-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40" aria-label="조직 추가">
-                                    <svg width="1em" height="1em" aria-hidden="true" class="size-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <div class="relative" x-data="{ open: false }"
+     @click.outside="open = false"
+     @keydown.escape.window="open = false">
+
+    <button type="button" @click="open = ! open"
+            class="flex size-6 items-center justify-center rounded-lg bg-mono-800 text-white transition-colors hover:bg-mono-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+            x-bind:aria-expanded="open"
+            aria-haspopup="true"
+            aria-label="조직 추가">
+        <svg width="1em" height="1em" aria-hidden="true" class="size-3.5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                </button>
+</svg>    </button>
+
+    
+    <div x-show="open" x-cloak role="menu"
+         class="absolute left-full top-full z-30 w-[282px] rounded-lg bg-background-normal px-[5px] py-2 shadow-elevation-lg">
+                    <button type="button" role="menuitem"
+                    class="flex h-[49px] w-full min-w-0 items-center gap-2 rounded-lg px-[15px] text-left transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:bg-fill-alternative">
+                <span class="flex size-6 shrink-0 items-center justify-center rounded-lg bg-warm-gray-100" aria-hidden="true">
+                    <svg width="1em" height="1em" aria-hidden="true" class="size-2.5 text-label-normal" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                </span>
+                <span class="truncate text-body-2 font-bold leading-[23px] text-label-normal">법인 추가</span>
+            </button>
+                    <button type="button" role="menuitem"
+                    class="flex h-[49px] w-full min-w-0 items-center gap-2 rounded-lg px-[15px] text-left transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:bg-fill-alternative">
+                <span class="flex size-6 shrink-0 items-center justify-center rounded-lg bg-warm-gray-100" aria-hidden="true">
+                    <svg width="1em" height="1em" aria-hidden="true" class="size-2.5 text-label-normal" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                </span>
+                <span class="truncate text-body-2 font-bold leading-[23px] text-label-normal">조직 추가</span>
+            </button>
+            </div>
+</div>
                             </div>
                         </div>
                     </div>

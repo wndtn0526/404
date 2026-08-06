@@ -25,7 +25,10 @@
         원본에 없다. 지금은 원본대로 세로 한 줄이다.
      ⚠️ 좌하단 28px 버튼 두 개는 원본에 좌·우 화살표만 있고 동작이 적혀 있지 않다. 캔버스가
         넘칠 때 좌우로 밀는 버튼으로 뒀다. 세로 한 줄인 지금은 넘치지 않아 움직이지 않는다.
-     ⚠️ 조직 추가 · 조직장 추가 · 멤버 추가 · 더보기는 아직 동작하지 않는다.
+     + 를 누르면 '법인 추가 / 조직 추가' 메뉴가 버튼 오른쪽 아래에서 열린다
+     (Figma node 1002-279241 · partials/org-add-menu).
+
+     ⚠️ 메뉴 항목과 조직장 추가 · 멤버 추가 · 더보기는 아직 동작하지 않는다.
         상태를 바꾸는 요청은 POST + CSRF 로 붙인다.
      ⚠️ 사람·조직 데이터는 뷰에 박아둔 예시다. 인사 정보를 실제로 붙일 때는
         개인정보(주민번호 등)를 이 화면에 두지 않는다. --}}
@@ -47,7 +50,6 @@
 
     // 점선 연결선 — 원본은 SVG 점선이라 border-dashed 로 대신했다.
     $connector = 'mx-auto h-[38px] w-0 border-l border-dashed border-warm-gray-300';
-    $plusBtn = 'flex size-6 items-center justify-center rounded-lg bg-mono-800 text-white transition-colors hover:bg-mono-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40';
     $navBtn = 'flex size-7 items-center justify-center rounded-md border border-line-solid-normal bg-background-normal text-label-normal transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40';
 @endphp
 
@@ -78,7 +80,9 @@
             <div class="min-w-0 flex-1" x-data="{ scroll(px) { this.$refs.canvas.scrollBy({ left: px, behavior: 'smooth' }) } }">
                 {{-- 캔버스에 배경을 깔지 않는다. 원본 캔버스가 곧 페이지 배경(Mono/Global BG)이고
                      셸의 페이지 배경이 이미 같은 색이다. 카드만 흰 면으로 떠 있다. --}}
-                <div x-ref="canvas" class="min-w-0 overflow-x-auto py-10">
+                {{-- pb 를 넉넉히 둔다. overflow-x-auto 는 overflow-y 도 auto 로 계산되므로,
+                     마지막 + 의 메뉴(114)가 이 여백 안에 들어와야 잘리지 않는다. --}}
+                <div x-ref="canvas" class="min-w-0 overflow-x-auto pb-[170px] pt-10">
                     <div class="mx-auto flex w-[280px] flex-col items-center">
 
                         {{-- 회사 — 이름 카드만 --}}
@@ -96,9 +100,7 @@
 
                             <div class="flex w-full flex-col items-center" x-show="open" x-cloak>
                                 <div class="{{ $connector }}" aria-hidden="true"></div>
-                                <button type="button" class="{{ $plusBtn }}" aria-label="조직 추가">
-                                    <x-icon-plus class="size-3.5" />
-                                </button>
+                                @include('partials.org-add-menu')
                                 <div class="{{ $connector }}" aria-hidden="true"></div>
 
                                 {{-- 조직 — 조직장·멤버 카드만(원본에 이름 헤더가 없다) --}}
@@ -106,9 +108,7 @@
 
                                 {{-- 아래로 조직을 더 붙일 수 있다 --}}
                                 <div class="{{ $connector }}" aria-hidden="true"></div>
-                                <button type="button" class="{{ $plusBtn }}" aria-label="조직 추가">
-                                    <x-icon-plus class="size-3.5" />
-                                </button>
+                                @include('partials.org-add-menu')
                             </div>
                         </div>
                     </div>
