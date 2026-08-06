@@ -32,7 +32,7 @@ return [
         // href 한 곳만 보면 /contents 에서 꺼져 버린다.
         ['mark' => 'cdw-mark', 'href' => '/workspace', 'label' => '청담원 워크스페이스',
             'match' => ['workspace', 'workspace/*', 'contents', 'contents/*',
-                'courses', 'courses/*', 'organization', 'organization/*',
+                'courses', 'courses/*', 'organization', 'organization/*', 'orgs', 'orgs/*',
                 'settings', 'settings/*']],
     ],
 
@@ -62,6 +62,8 @@ return [
             'match' => ['courses', 'courses/*']],
         ['label' => '화상조직도', 'href' => '/organization', 'icon' => 'company',
             'match' => ['organization', 'organization/*']],
+        ['label' => '조직 관리', 'href' => '/orgs', 'icon' => 'persons',
+            'match' => ['orgs', 'orgs/*']],
     ],
 
     // 설정 화면은 아직 없다. href 를 경로로 적으면 정적 배포에서 치환 대상이 없어

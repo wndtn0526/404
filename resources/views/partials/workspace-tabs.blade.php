@@ -2,13 +2,14 @@
      활성은 검정 채움 + 닫기 버튼, 비활성은 Warm gray/200 면에 Warm gray/500 글자.
      DS <x-tabs> 는 밑줄형이라 형태가 다르다. 원본이 알약형이어서 여기서 조립했다.
 
-     컨텐츠 관리와 과정 관리가 같은 탭 줄을 쓴다. 두 화면에서 되풀이하지 않으려고 뺐다.
+     컨텐츠 관리 · 과정 관리 · 조직 관리가 같은 탭 줄을 쓴다. 화면마다 되풀이하지 않으려고 뺐다.
 
-     $active = 'contents' | 'courses' --}}
+     $active = 'contents' | 'courses' | 'orgs' --}}
 @php
     $tabs = [
         'contents' => ['label' => '컨텐츠 관리', 'href' => url('/contents')],
         'courses' => ['label' => '과정 관리', 'href' => url('/courses')],
+        'orgs' => ['label' => '조직 관리', 'href' => url('/orgs')],
     ];
 @endphp
 

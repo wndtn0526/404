@@ -46,6 +46,9 @@ Route::view('/courses/new', 'courses-create')->name('courses.create');
 // 화상조직도 — 회사 아래로 조직을 잇고 조직장·멤버를 담는다. Figma node 1002-279525.
 Route::view('/organization', 'organization')->name('organization');
 
+// 조직 관리 — 좌측 조직도 트리 + 우측 조직 상세. Figma node 1002-274184.
+Route::view('/orgs', 'orgs')->name('orgs');
+
 // 과정 상세 — 표에서 행을 누르면 온다. 필드 구조는 컨텐츠 상세와 같다.
 // 정적이라 과정 하나만 보여준다. 모델이 붙으면 /courses/{id} 로 바꾼다.
 Route::view('/courses/detail', 'courses-detail')->name('courses.detail');
