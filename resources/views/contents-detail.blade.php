@@ -11,10 +11,10 @@
        라벨 14 Medium Warm gray/500 · 값 14 Medium 검정 (둘 다 DS label-1)
        마지막 행 → 구분선 40 → 다음 섹션 제목 40 → 카드 아래 30
 
-     ⚠️ 2절 소그룹 '영상' 은 섹션 제목('2. 영상 정보')과 말이 겹친다. 1절처럼 '일반' 으로
-        바꾸거나 절을 셋으로 나누는 방법이 있다 — 지금은 요청받은 두 이름만 고쳐 뒀다.
-     ⚠️ 과정 상세(courses-detail)는 아직 '2. 기록 > 날짜 기록 관련' 이다. 두 상세 화면을
-        같은 말로 맞추려면 거기도 같이 바꿔야 한다.
+     절은 셋이다 — 1. 컨텐츠 정보 · 2. 영상 정보 · 3. 등록 정보. 소그룹 이름이 절 제목과
+     겹치지 않게(예: '2. 영상 정보 > 영상') 절을 나누고 소그룹은 원본처럼 '일반' 으로 뒀다.
+     과정 상세(courses-detail)도 같은 모양이다 — 1. 과정 정보 · 2. 구성 정보 · 3. 등록 정보.
+
      ⚠️ 원본에는 '주민번호 표시' 토글이 있다. 컨텐츠에는 대응이 없고, 주민번호는 이 시스템에
         두지 않는 것이 기본이라 옮기지 않았다.
      ⚠️ 원본 탭 우측은 내보내기·더보기 아이콘이다. 상세 화면에서 실제로 필요한 건 수정이라
@@ -146,7 +146,7 @@
                 {{-- ── 2. 영상 정보 ── --}}
                 <h2 class="pt-10 text-heading-2 font-bold leading-[30px] text-mono-black">2. 영상 정보</h2>
 
-                <p class="{{ $groupLabel }} pt-8">영상</p>
+                <p class="{{ $groupLabel }} pt-8">일반</p>
                 <dl class="{{ $fieldGrid }} pt-4">
                     <x-detail-field label="영상 파일">
                         {{-- 내려받기는 권한 확인 후 스트리밍한다. 공개 디스크에 두지 않는다. --}}
@@ -157,7 +157,12 @@
                     <x-detail-field label="파일 크기" :value="$content['size']" />
                 </dl>
 
-                <p class="{{ $groupLabel }} pt-8">등록 정보</p>
+                <div class="mt-10 h-px bg-warm-gray-100" aria-hidden="true"></div>
+
+                {{-- ── 3. 등록 정보 ── --}}
+                <h2 class="pt-10 text-heading-2 font-bold leading-[30px] text-mono-black">3. 등록 정보</h2>
+
+                <p class="{{ $groupLabel }} pt-8">일반</p>
                 <dl class="{{ $fieldGrid }} pt-4">
                     <x-detail-field label="등록자" :value="$content['writer']" />
                     <x-detail-field label="등록일" :value="$content['at']" />

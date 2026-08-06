@@ -4,6 +4,9 @@
        라벨 14 Medium Warm gray/500 · 값 14 Medium 검정 (둘 다 DS label-1)
        라벨 94 · 라벨↔값 16 · 두 열 사이 24 · 행 피치 36
 
+     절은 셋이다 — 1. 과정 정보 · 2. 구성 정보 · 3. 등록 정보. 컨텐츠 상세와 같은 모양이고
+     소그룹은 원본처럼 '일반' 으로 둔다(절 제목과 말이 겹치지 않게).
+
      탭은 상세 정보 / 컨텐츠 구성 두 개다. 컨텐츠 구성은 이 과정에 묶인 컨텐츠를 차시 순서로
      보여준다 — 컨텐츠 상세의 '과정 편성' 탭과 서로 반대 방향이다.
 
@@ -119,8 +122,13 @@
                     <x-detail-field label="태그명" :value="$course['tags']" />
                 </dl>
 
-                {{-- 차시·총 재생시간은 묶인 컨텐츠에서 계산한다. 손으로 적어 두면 어긋난다. --}}
-                <p class="{{ $groupLabel }} pt-8">구성</p>
+                <div class="mt-10 h-px bg-warm-gray-100" aria-hidden="true"></div>
+
+                {{-- ── 2. 구성 정보 ── 컨텐츠 상세의 '2. 영상 정보' 자리다.
+                     차시·총 재생시간은 묶인 컨텐츠에서 계산한다. 손으로 적어 두면 어긋난다. --}}
+                <h2 class="pt-10 text-heading-2 font-bold leading-[30px] text-mono-black">2. 구성 정보</h2>
+
+                <p class="{{ $groupLabel }} pt-8">일반</p>
                 <dl class="{{ $fieldGrid }} pt-4">
                     <x-detail-field label="차시" :value="count($lessons).'차시'" />
                     <x-detail-field label="총 재생시간" :value="$runtime($totalSec)" />
@@ -128,9 +136,10 @@
 
                 <div class="mt-10 h-px bg-warm-gray-100" aria-hidden="true"></div>
 
-                <h2 class="pt-10 text-heading-2 font-bold leading-[30px] text-mono-black">2. 기록</h2>
+                {{-- ── 3. 등록 정보 ── --}}
+                <h2 class="pt-10 text-heading-2 font-bold leading-[30px] text-mono-black">3. 등록 정보</h2>
 
-                <p class="{{ $groupLabel }} pt-8">날짜 기록 관련</p>
+                <p class="{{ $groupLabel }} pt-8">일반</p>
                 <dl class="{{ $fieldGrid }} pt-4">
                     <x-detail-field label="등록자" :value="$course['writer']" />
                     <x-detail-field label="등록일" :value="$course['at']" />
