@@ -50,10 +50,16 @@ return [
     */
     // 컨텐츠 관리는 하위 화면(/contents/new 등)에서도 켜져 있어야 한다.
     // href 한 곳만 보면 등록 화면에서 메뉴가 꺼진다.
+    //
+    // 과정 관리는 화면이 아직 없다. href 를 경로로 적으면 정적 배포에서 치환 대상이 없어
+    // 절대 URL 검사가 빌드를 세운다. 화면이 생기면 '/courses' 로 바꾸고
+    // match 를 붙인 뒤 export-styleguide.sh 의 PAGES 에도 추가한다.
+    // 컨텐츠 관리 화면 상단의 '과정 관리' 알약 탭도 같이 이어 준다(지금은 둘 다 # 이다).
     'items' => [
         ['label' => '홈', 'href' => '/workspace', 'icon' => 'home'],
         ['label' => '컨텐츠 관리', 'href' => '/contents', 'icon' => 'inbox',
             'match' => ['contents', 'contents/*']],
+        ['label' => '과정 관리', 'href' => '#', 'icon' => 'graduation'],
     ],
 
     // 설정 화면은 아직 없다. href 를 경로로 적으면 정적 배포에서 치환 대상이 없어
