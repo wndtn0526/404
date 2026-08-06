@@ -117,8 +117,12 @@
 
                 {{-- ── 반응 — 좋아요·댓글 좌측, 공유 우측 ── --}}
                 <div class="flex items-center gap-2 pt-[30px] lg:pt-9">
-                    <button type="button" class="{{ $cardIcon }}" aria-label="좋아요">
-                        <x-icon-heart class="size-6 text-status-negative" />
+                    {{-- 이미 누른 상태 — 채운 하트는 DS 에 없어서 만든 확장 아이콘이다.
+                         색은 원본 하트를 픽셀로 재서 red-800(Secondary/red 800)으로 확인했다.
+                         status-negative 는 red-900 이라 색도 다르고, '좋아요'를 오류 상태로
+                         부르는 셈이 되므로 쓰지 않는다. --}}
+                    <button type="button" class="{{ $cardIcon }}" aria-label="좋아요 취소" aria-pressed="true">
+                        <x-ext-heart-filled class="size-6 text-red-800" />
                     </button>
                     <span class="text-label-2 font-bold leading-5 text-mono-black tabular-nums lg:text-body-2 lg:leading-[21px]">
                         {{ $post['likes'] }}

@@ -312,8 +312,10 @@
 
                         {{-- 반응 — 원본 좋아요·댓글 좌측, 공유 우측 --}}
                         <div class="flex items-center gap-2 pt-[36px]">
-                            <button type="button" class="{{ $cardIcon }}" aria-label="좋아요">
-                                <x-icon-heart class="size-6 text-status-negative" />
+                            {{-- 이미 누른 상태 — 채운 하트는 DS 에 없어서 만든 확장 아이콘.
+                                 색은 원본을 픽셀로 재서 red-800. 게시글 상세와 같은 처리다. --}}
+                            <button type="button" class="{{ $cardIcon }}" aria-label="좋아요 취소" aria-pressed="true">
+                                <x-ext-heart-filled class="size-6 text-red-800" />
                             </button>
                             <span class="text-body-2 font-bold leading-[21px] text-mono-black tabular-nums">{{ $post['likes'] }}</span>
                             <button type="button" class="{{ $cardIcon }} ml-2.5" aria-label="댓글">

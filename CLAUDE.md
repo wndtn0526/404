@@ -78,6 +78,9 @@ Cool gray 는 원본 변수라 원시 계층에 남겨 두지만 **의미 계층
 - Tailwind 기본 팔레트(`slate-500`, `gray-50` …)도 쓰지 않는다. 지우진 않았지만 DS 밖이다.
 - 칩·버튼·배지를 손으로 만들지 않는다. `resources/views/components/` 에 이미 있다.
 - 아이콘은 DS 세트 219종. `<x-icon-{이름} class="h-5 w-5" />` — 청담원과 이름이 같다.
+  DS 에 없는 글리프는 `resources/svg/ext` 에 넣고 `<x-ext-{이름} />` 으로 쓴다.
+  세트를 나눈 이유는 `config/blade-icons.php` 에 있다 — `svg/icons` 는 219종이라는
+  개수가 테스트로 고정돼 있다. **먼저 DS 219종을 찾아보고, 없을 때만 만든다.**
 - **새 컴포넌트를 만들면 `/styleguide` 에도 추가한다.** 그래야 깨진 걸 눈으로 본다.
 - ⚠️ Tailwind 는 파일 내용을 문자열로 훑는다. `bg-{$token}` 처럼 런타임에 클래스명을
   조립하면 CSS 가 생성되지 않는다. 배열엔 완성된 클래스명(`'bg-primary'`)을 담는다.
@@ -119,6 +122,8 @@ Figma 를 봐도 나오지 않는다. 새로 만들 때 여기 있는지 먼저 
 - `segmented` — 뷰 전환. **`tabs` 와 역할이 겹친다.** 새 화면에선 `tabs` 를 먼저 검토한다.
 - `chip-removable` — 삭제 가능한 칩. **`chip` 의 변형이다.** 통합 대상.
 - `confirm` `prompt` — Dialog 의 용도별 사전 조립. 원본은 `modal`(Dialog).
+- `ext-heart-filled` (아이콘) — 채운 하트. DS `heart` 는 외곽선뿐이라 '이미 좋아요를
+  누른' 상태를 표현할 수 없다. DS `heart.svg` 의 바깥 윤곽만 남겨 실루엣을 그대로 썼다.
 
 **전자결재 고유** (원본에 없음)
 

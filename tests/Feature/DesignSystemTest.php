@@ -31,6 +31,28 @@ class DesignSystemTest extends TestCase
     }
 
     /**
+     * DS 에 없어서 만든 확장 아이콘(resources/svg/ext)도 스타일가이드에 다 나와야 한다.
+     *
+     * DS 세트와 섞이지 않게 파일 위치·prefix 를 나눠 뒀다. 목록에 안 뜨면 다음 사람이
+     * 같은 글리프를 또 만든다 — DS 219종을 먼저 뒤져 보라는 규칙이 그때 무력해진다.
+     */
+    public function test_styleguide_lists_the_extension_icons(): void
+    {
+        $names = array_map(
+            fn ($p) => pathinfo($p, PATHINFO_FILENAME),
+            glob(resource_path('svg/ext/*.svg'))
+        );
+
+        $this->assertNotEmpty($names, '확장 아이콘이 하나도 없다 — 세트를 지웠다면 이 테스트도 지울 것.');
+
+        $page = $this->get('/styleguide')->assertOk()->assertSee('확장 아이콘 '.count($names).'종');
+
+        foreach ($names as $name) {
+            $page->assertSee($name);
+        }
+    }
+
+    /**
      * 폰트는 Pretendard 하나만 쓴다.
      *
      * --font-mono 를 덮어두지 않으면 Tailwind preflight 가 code·kbd·samp·pre 에

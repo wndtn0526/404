@@ -110,6 +110,13 @@
         ->sort()
         ->values();
 
+    // 확장 아이콘 — DS 세트에 없어서 우리가 채운 글리프(resources/svg/ext).
+    // 세트를 나눈 이유는 config/blade-icons.php 에 적어 뒀다.
+    $extIconNames = collect(glob(resource_path('svg/ext/*.svg')))
+        ->map(fn ($p) => pathinfo($p, PATHINFO_FILENAME))
+        ->sort()
+        ->values();
+
     $docs = [
         ['no' => 'EA-2026-0142', 'title' => '노트북 4대 구매 요청', 'writer' => '김기안', 'status' => '결재 대기', 'tone' => 'orange', 'at' => '2026-07-31'],
         ['no' => 'EA-2026-0141', 'title' => '7월 방문간호 차량 유지비 정산', 'writer' => '이대리', 'status' => '진행 중', 'tone' => 'blue', 'at' => '2026-07-30'],
@@ -730,6 +737,27 @@
                         </div>
                     @endforeach
                 </div>
+
+                {{-- 확장 아이콘 — DS 밖이라 세트를 나눠 두고 여기서도 따로 보여준다.
+                     DS 에 같은 글리프가 들어오면 이 목록에서 빠져야 한다. --}}
+                @if ($extIconNames->isNotEmpty())
+                    <div class="mt-4">
+                        <h3 class="text-heading-2 font-bold text-label-normal">확장 아이콘 {{ $extIconNames->count() }}종</h3>
+                        <p class="mt-1 text-body-2 text-label-alternative">
+                            DS {{ $iconNames->count() }}종에 없어서 채운 글리프.
+                            <code class="text-label-2">&lt;x-ext-{이름} class="h-5 w-5" /&gt;</code>
+                            — Figma 에서 온 값이 아니다. DS 에 들어오면 그때 옮긴다.
+                        </p>
+                        <div class="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-8">
+                            @foreach ($extIconNames as $name)
+                                <div class="flex flex-col items-center gap-1.5 rounded-md border border-dashed border-line-solid-alternative bg-background-normal px-2 py-3 text-label-neutral transition-colors hover:border-primary hover:text-primary">
+                                    <x-dynamic-component :component="'ext-' . $name" class="h-6 w-6" />
+                                    <code class="w-full truncate text-center text-caption-2 text-label-assistive" title="{{ $name }}">{{ $name }}</code>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
             </section>
 
             <footer class="border-t border-line-solid-normal pb-10 pt-6 text-label-1 text-label-assistive">

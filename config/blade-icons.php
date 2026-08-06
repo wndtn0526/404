@@ -51,6 +51,31 @@ return [
             ],
         ],
 
+        /*
+        | 확장 아이콘 — DS 219종에 없어서 우리가 채운 글리프.
+        | 세트를 나눈 이유는 brand 와 같다: resources/svg/icons 는 219종이라는
+        | 개수 자체가 테스트로 고정돼 있다. 여기 있는 것은 Figma 에서 온 값이 아니므로
+        | DS 에 해당 글리프가 들어오면 그때 default 세트로 옮긴다.
+        | 사용: <x-ext-heart-filled class="size-6 text-red-800" />
+        |
+        | heart-filled — DS heart.svg 는 외곽선(evenodd 안쪽 구멍) 글리프뿐이다.
+        |   좋아요를 '이미 누른' 상태를 표현할 수 없어서, 같은 heart.svg 의 바깥
+        |   윤곽만 남겨 채운 하트를 만들었다. 실루엣이 DS 하트와 완전히 같다.
+        */
+        'ext' => [
+            'paths' => [
+                'resources/svg/ext',
+            ],
+            'prefix' => 'ext',
+            'fallback' => '',
+            'class' => '',
+            'attributes' => [
+                'width' => '1em',
+                'height' => '1em',
+                'aria-hidden' => 'true',
+            ],
+        ],
+
     ],
 
     /*
