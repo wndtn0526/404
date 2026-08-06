@@ -22,6 +22,7 @@ PAGES=(
     "contents:contents.html"
     "public-space:public-space.html"
     "public-space-empty:public-space-empty.html"
+    "profile-settings:profile-settings.html"
     "post:post.html"
     "workspace:workspace.html"
 )

@@ -16,6 +16,9 @@ Route::view('/styleguide', 'styleguide')->name('styleguide');
 Route::view('/public-space', 'public-space')->name('public-space');
 Route::view('/workspace', 'workspace')->name('workspace');
 
+// 프로필 설정 — Figma node 1104-58578. 퍼블릭 스페이스의 '프로필 설정' 버튼이 오는 곳.
+Route::view('/profile-settings', 'profile-settings')->name('profile-settings');
+
 // 포스팅 없는 경우 — Figma node 1104-59420. 같은 뷰에 빈 피드를 넘겨서 그 상태를 보여준다.
 // 도메인이 붙으면 이 라우트는 지운다. 그때는 실제로 글이 없으면 저절로 이 화면이 된다.
 Route::view('/public-space-empty', 'public-space', ['feed' => [], 'tab' => 'posting'])

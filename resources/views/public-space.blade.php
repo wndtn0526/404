@@ -276,7 +276,7 @@
                 />
 
                 <div class="absolute bottom-2.5 right-0 flex items-center gap-2">
-                    <x-button variant="outline" size="sm">프로필 설정</x-button>
+                    <x-button variant="outline" size="sm" href="{{ url('/profile-settings') }}">프로필 설정</x-button>
                     <button type="button" class="{{ $cardIcon }}" aria-label="더보기">
                         <x-icon-more-horizontal class="size-6" />
                     </button>
