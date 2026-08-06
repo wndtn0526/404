@@ -13,8 +13,9 @@
        비활성 글자 Warm gray/400
 
      ⚠️ 원본에는 LNB 가 없다. GNB 좌측이 '펼치기' 화살표라 LNB 를 접은 상태로 보인다.
-        우리 셸은 데스크톱에서 LNB 를 항상 띄운다. 화면마다 크롬이 갈리는 것보다 낫다고 보고
-        셸을 그대로 썼다. 원본 GNB 에는 앱 전환 아이콘이 없고 아이콘 사이가 24 다(셸은 32).
+        LNB 접기·펼치기는 나중에 셸에 넣기로 했다 — 그때 이 화면은 접힌 상태가 기본이 된다.
+        지금은 셸 기본(항상 펼침)을 그대로 쓴다.
+        원본 GNB 에는 앱 전환 아이콘이 없고 아이콘 사이가 24 다(셸은 32).
      ⚠️ 원본 입력 박스는 높이 46 · 반경 6 · 배경 Warm gray/050 · 본문 16 · 라벨 12 Medium 이다.
         DS 인풋(Figma 1002:518593)은 높이 40 · 반경 4 · 흰 배경 · 본문 14 · 라벨 16 이다.
         폼 컨트롤은 DS 가 정본이라 DS 값을 썼다 — GPRO 쪽 '채운 인풋' 스타일은 들여오지 않았다.
@@ -81,15 +82,12 @@
                         <button type="button"
                                 class="group relative shrink-0 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                                 aria-label="프로필 사진 변경">
-                            <x-thumbnail :name="$profile['name']" size="xl" shape="circle" />
-                            {{-- 카메라 — 원본은 아바타 가운데에 흰 카메라 18 만 얹는다(스크림 없음).
-                                 원본은 사진이라 흰 글리프가 읽히지만 우리는 이니셜(흰 글자)이라
-                                 그대로 얹으면 겹쳐서 안 보인다. 카메라 뒤에만 작은 원형 면을 뒀다.
-                                 실제 사진이 붙으면 이 면을 지운다. --}}
+                            {{-- 카메라 — 원본은 아바타 가운데에 흰 카메라 18 만 얹는다.
+                                 fallback="none" 이라 이니셜을 그리지 않는다. 흰 글자와 흰 글리프가
+                                 겹쳐서 둘 다 안 읽히기 때문이다. 사진이 붙으면 src 를 넘긴다. --}}
+                            <x-thumbnail size="xl" shape="circle" fallback="none" class="transition-opacity group-hover:opacity-80" />
                             <span class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-                                <span class="flex size-7 items-center justify-center rounded-full bg-mono-black/45 transition-colors group-hover:bg-mono-black/60">
-                                    <x-icon-camera class="size-[18px] text-white" />
-                                </span>
+                                <x-icon-camera class="size-[18px] text-white" />
                             </span>
                         </button>
 

@@ -2,16 +2,20 @@
      이미지가 있으면 이미지를, 없으면 이름 첫 글자를 색 배경 위에 보여준다.
 
      props:
-       src    : 이미지 경로 (없으면 이니셜 폴백)
-       name   : 이니셜·alt 에 쓰는 이름
-       size   : xs(24) | sm(32) | md(40) | lg(48) | xl(64) | 2xl(120)
-       shape  : circle(프로필 · 기본) | square(썸네일 · 4px)
+       src      : 이미지 경로 (없으면 이니셜 폴백)
+       name     : 이니셜·alt 에 쓰는 이름
+       size     : xs(24) | sm(32) | md(40) | lg(48) | xl(64) | 2xl(120)
+       shape    : circle(프로필 · 기본) | square(썸네일 · 4px)
+       fallback : auto(기본 · 이름 있으면 이니셜, 없으면 사람 아이콘) | none(면만)
+                  none 은 위에 다른 걸 얹는 자리다 — 사진 올리기 버튼처럼.
+                  이니셜(흰 글자)과 얹은 글리프가 겹쳐서 둘 다 안 읽히는 것을 막는다.
      원본 실측: Profile 은 원형, Thumbnail 은 4px 사각. 폴백 배경은 deep blue 800. --}}
 @props([
     'src' => null,
     'name' => null,
     'size' => 'md',
     'shape' => 'circle',
+    'fallback' => 'auto',
 ])
 
 @php
@@ -41,6 +45,8 @@
 ]) }}>
     @if (filled($src))
         <img src="{{ $src }}" alt="{{ $name ?? '' }}" class="h-full w-full object-cover" />
+    @elseif ($fallback === 'none')
+        {{-- 면만 그린다. 부르는 쪽이 위에 무언가를 얹는다. --}}
     @elseif ($initial)
         <span class="{{ $sz['text'] }} font-semibold text-white select-none">{{ $initial }}</span>
     @else

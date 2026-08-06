@@ -723,9 +723,19 @@
                         <x-thumbnail name="정이사" size="xl" />
                         <x-thumbnail name="사각" size="lg" shape="square" />
                         <x-thumbnail size="lg" />
+
+                        {{-- fallback=none — 면만 그리고 위에 얹는다(사진 올리기 자리) --}}
+                        <span class="relative inline-flex">
+                            <x-thumbnail size="lg" fallback="none" />
+                            <span class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+                                <x-icon-camera class="size-[18px] text-white" />
+                            </span>
+                        </span>
                     </div>
                     <p class="mt-3 text-label-1 text-label-alternative">
                         Profile 은 원형, Thumbnail 은 4px 사각. 이미지가 없으면 이름 첫 글자, 이름도 없으면 아이콘.
+                        <code class="text-label-2">fallback="none"</code> 은 둘 다 그리지 않는다 —
+                        위에 글리프를 얹는 자리(마지막)에 쓴다. 이니셜과 겹쳐서 둘 다 안 읽히는 것을 막는다.
                     </p>
                 </x-card>
             </section>
