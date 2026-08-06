@@ -271,9 +271,103 @@
                     </x-table>
                 </div>
 
-                {{-- ── 변경 이력 · 주소 변경 ── 아직 값이 없다 --}}
-                <div x-show="tab === 'history'" x-cloak class="px-[30px] pt-10">
-                    <x-empty-state :lines="['변경 이력이 없습니다.', '조직 정보를 바꾸면 여기에 쌓입니다.']" class="py-16" />
+                {{-- ── 변경 이력 ── Figma node 1002-274395
+                     표 두 개다. 섹션 제목은 좌우 30 안쪽인데 표는 패널 폭 전체로 흘린다(원본 그대로).
+
+                     원본 실측 — 섹션 제목 18 Bold lh27 (DS headline-2) · 제목 아래 20
+                       표 행 56 (DS x-table 행과 같다) · 첫 열은 체크박스
+                       조직 정보 변경 이력  84 | 160 | 160 | 200 | 200 | 292
+                       조직 업무 변경 이력  84 | 160 | 852
+                       섹션 사이 내부 폭 구분선(1036) · 버튼 30 (엑셀로 저장 93 · 변경 이력 추가 106)
+
+                     ⚠️ 체크박스 열이 원본 84 인데 DS x-table 은 48(w-12 px-5)로 고정이다.
+                     ⚠️ 버튼이 원본 30 인데 DS 버튼 sm 은 40 이라 한 단계 크다.
+                     ⚠️ 원본은 두 표가 각각 2행인데 같은 값을 되풀이한 자리표시자다. 여기서는
+                        조직 정보는 1행(만들어진 기록 하나)으로, 조직 업무는 언어별 2행으로 뒀다 —
+                        상세 정보의 조직 유효 기간(2021.08.01 -)·주요 업무와 어긋나지 않게.
+                     ⚠️ 엑셀로 저장 · 변경 이력 추가는 아직 동작하지 않는다. 내려받기가 붙으면
+                        권한 확인 후 스트리밍한다. --}}
+                <div x-show="tab === 'history'" x-cloak class="pt-10">
+                    @php
+                        $histTitle = 'flex min-w-0 flex-wrap items-center justify-between gap-3 px-[30px]';
+                        // 상위 조직이 없는 루트라 그 칸은 하이픈으로 나간다.
+                        $infoHistory = [
+                            ['from' => '2021.08.01', 'to' => null, 'name' => '청담원', 'parent' => null, 'note' => '내용 없음'],
+                        ];
+                        $missionHistory = [
+                            ['lang' => '한국어', 'text' => '요양보호 · 방문간호 교육 컨텐츠를 만들고 운영합니다.'],
+                            ['lang' => 'English', 'text' => 'We build and run care-worker education content.'],
+                        ];
+                    @endphp
+
+                    {{-- 조직 정보 변경 이력 --}}
+                    <div class="{{ $histTitle }}">
+                        <h3 class="{{ $sectionTitle }}">조직 정보 변경 이력</h3>
+                        <x-button variant="outline" size="sm" icon="plus">변경 이력 추가</x-button>
+                    </div>
+
+                    <div class="pt-5">
+                        <x-table selectable min-width="900px" class="rounded-none border-x-0">
+                            <x-table.head
+                                selectable
+                                :all-ids="collect($infoHistory)->pluck('from')->all()"
+                                :columns="[
+                                    ['label' => '조직 시작일', 'width' => '160px'],
+                                    ['label' => '조직 종료일', 'width' => '160px'],
+                                    ['label' => '조직 이름', 'width' => '200px'],
+                                    ['label' => '상위 조직 이름', 'width' => '200px'],
+                                    ['label' => '비고'],
+                                ]"
+                            />
+                            <tbody>
+                                @foreach ($infoHistory as $row)
+                                    <x-table.row selectable :value="$row['from']">
+                                        <x-table.cell tone="muted" nowrap>
+                                            <span class="tabular-nums">{{ $row['from'] }}</span>
+                                        </x-table.cell>
+                                        <x-table.cell tone="muted" nowrap>
+                                            <span class="tabular-nums">{{ $row['to'] ?? '-' }}</span>
+                                        </x-table.cell>
+                                        <x-table.cell tone="strong" nowrap>{{ $row['name'] }}</x-table.cell>
+                                        <x-table.cell tone="muted" nowrap>{{ $row['parent'] ?? '-' }}</x-table.cell>
+                                        <x-table.cell tone="muted">{{ $row['note'] }}</x-table.cell>
+                                    </x-table.row>
+                                @endforeach
+                            </tbody>
+                        </x-table>
+                    </div>
+
+                    <div class="mx-[30px] mt-10 h-px bg-warm-gray-100" aria-hidden="true"></div>
+
+                    {{-- 조직 업무 변경 이력 --}}
+                    <div class="{{ $histTitle }} pt-10">
+                        <h3 class="{{ $sectionTitle }}">조직 업무 변경 이력</h3>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <x-button variant="outline" size="sm" icon="download">엑셀로 저장</x-button>
+                            <x-button variant="outline" size="sm" icon="plus">변경 이력 추가</x-button>
+                        </div>
+                    </div>
+
+                    <div class="pt-5">
+                        <x-table selectable min-width="720px" class="rounded-none border-x-0">
+                            <x-table.head
+                                selectable
+                                :all-ids="collect($missionHistory)->pluck('lang')->all()"
+                                :columns="[
+                                    ['label' => '언어', 'width' => '160px'],
+                                    ['label' => '주요 업무'],
+                                ]"
+                            />
+                            <tbody>
+                                @foreach ($missionHistory as $row)
+                                    <x-table.row selectable :value="$row['lang']">
+                                        <x-table.cell tone="muted" nowrap>{{ $row['lang'] }}</x-table.cell>
+                                        <x-table.cell tone="strong">{{ $row['text'] }}</x-table.cell>
+                                    </x-table.row>
+                                @endforeach
+                            </tbody>
+                        </x-table>
+                    </div>
                 </div>
 
                 <div x-show="tab === 'address'" x-cloak class="px-[30px] pt-10">
