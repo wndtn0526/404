@@ -60,23 +60,7 @@
         <x-slot:title>
             <h1 class="text-title-2 font-bold text-mono-black">컨텐츠 관리</h1>
 
-            {{-- 워크스페이스 탭 — 원본 Box34. 활성은 검정 채움 + 닫기, 비활성은 Warm gray/200.
-                 DS <x-tabs> 는 밑줄형이라 형태가 다르다. 원본이 알약형이어서 여기서 조립했다. --}}
-            <div class="flex items-start gap-4">
-                <span class="inline-flex items-center justify-center gap-1 rounded-lg bg-mono-black pb-[5px] pl-3 pr-2.5 pt-1.5">
-                    <span class="text-body-2 font-bold leading-[23px] text-white">컨텐츠 관리</span>
-                    <button type="button"
-                            class="inline-flex shrink-0 items-center pb-px text-white transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-                            aria-label="컨텐츠 관리 탭 닫기">
-                        <x-icon-close class="size-[18px]" />
-                    </button>
-                </span>
-
-                <a href="#"
-                   class="inline-flex items-center justify-center rounded-lg bg-warm-gray-200 px-3 pb-[5px] pt-1.5 text-body-2 font-bold leading-[23px] text-warm-gray-500 transition-colors hover:text-label-normal">
-                    과정 관리
-                </a>
-            </div>
+            @include('partials.workspace-tabs', ['active' => 'contents'])
         </x-slot:title>
 
         <x-slot:actions>

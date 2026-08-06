@@ -34,3 +34,7 @@ Route::view('/contents', 'contents')->name('contents');
 // 컨텐츠 추가 — 레이아웃은 Figma node 1002-269747, 필드는 컨텐츠 관리 표의 컬럼.
 // 아직 정적이다. 저장이 붙으면 POST 라우트와 컨트롤러를 따로 만든다.
 Route::view('/contents/new', 'contents-create')->name('contents.create');
+
+// 과정 관리 — 컨텐츠를 묶어 만든 '과정'. Figma 에 디자인이 없어 컨텐츠 관리와 같은 뼈대로 짰다.
+Route::view('/courses', 'courses')->name('courses');
+Route::view('/courses/new', 'courses-create')->name('courses.create');
