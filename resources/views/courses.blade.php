@@ -26,9 +26,11 @@
     };
 
     $rows = [
+        // ⚠️ 이 행은 과정 상세(courses-detail)와 같은 과정이다. 차시 3 · 4437초(73분 57초)는
+        //    거기 묶인 컨텐츠 세 개(1450 + 1905 + 1082)의 합이다. 한쪽만 고치면 어긋난다.
         ['id' => 'CO-2104', 'major' => '요양보호', 'minor' => '직무향상',
             'title' => '요양보호사 직무향상 과정 (2021)', 'archive' => '법정의무교육',
-            'lessons' => 3, 'sec' => 4530, 'writer' => '김기안',
+            'lessons' => 3, 'sec' => 4437, 'writer' => '김기안',
             'state' => '공개', 'tone' => 'green', 'at' => '2021.07.31'],
         ['id' => 'CO-2103', 'major' => '치매전문', 'minor' => '의사소통',
             'title' => '치매전문교육 심화 과정', 'archive' => '전문교육',
@@ -112,13 +114,22 @@
             />
             <tbody>
                 @foreach ($rows as $row)
-                    <x-table.row selectable :value="$row['id']">
+                    {{-- 행 전체가 상세로 가는 링크다. <tr> 을 <a> 로 감쌀 수 없어서 과정명 셀의
+                         링크를 행 전체로 늘렸다(after:inset-0). 자바스크립트 없이 동작하고
+                         키보드·스크린리더에도 진짜 <a> 로 잡힌다. 체크박스는 x-table.row 안에서
+                         z-10 이라 이 면 위에 남는다. --}}
+                    <x-table.row selectable :value="$row['id']" class="relative">
                         <x-table.cell tone="muted" nowrap>
                             <span class="text-label-2 tabular-nums">{{ $row['id'] }}</span>
                         </x-table.cell>
                         <x-table.cell tone="muted" nowrap>{{ $row['major'] }}</x-table.cell>
                         <x-table.cell tone="muted" nowrap>{{ $row['minor'] }}</x-table.cell>
-                        <x-table.cell tone="strong">{{ $row['title'] }}</x-table.cell>
+                        <x-table.cell tone="strong">
+                            <a href="{{ url('/courses/detail') }}"
+                               class="after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                {{ $row['title'] }}
+                            </a>
+                        </x-table.cell>
                         <x-table.cell tone="muted" nowrap>{{ $row['archive'] }}</x-table.cell>
                         <x-table.cell align="right" tone="muted" nowrap>
                             <span class="tabular-nums">{{ $row['lessons'] }}차시</span>

@@ -42,3 +42,7 @@ Route::view('/contents/detail', 'contents-detail')->name('contents.detail');
 // 과정 관리 — 컨텐츠를 묶어 만든 '과정'. Figma 에 디자인이 없어 컨텐츠 관리와 같은 뼈대로 짰다.
 Route::view('/courses', 'courses')->name('courses');
 Route::view('/courses/new', 'courses-create')->name('courses.create');
+
+// 과정 상세 — 표에서 행을 누르면 온다. 필드 구조는 컨텐츠 상세와 같다.
+// 정적이라 과정 하나만 보여준다. 모델이 붙으면 /courses/{id} 로 바꾼다.
+Route::view('/courses/detail', 'courses-detail')->name('courses.detail');
