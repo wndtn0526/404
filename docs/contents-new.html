@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>컨텐츠 추가 · 전자결재</title>
 
-        <link rel="preload" as="style" href="./build/assets/app-CR9Kf50I.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-CR9Kf50I.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="preload" as="style" href="./build/assets/app-bFSAoMQz.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-bFSAoMQz.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
     <meta name="robots" content="noindex">
 </head>
@@ -198,6 +198,62 @@
 
                 
                 <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-[30px]">
+                    
+                    <div x-data="dsFileDropzone({ multiple: false })"
+     class="flex flex-col gap-3 sm:col-span-2">
+
+            
+        <label for="video" class="text-label-1 font-medium text-label-neutral">영상 파일</label>
+    
+    
+    <input x-ref="input" id="video" type="file" class="sr-only"
+            name="video"                       accept="video/mp4,video/quicktime,video/x-m4v,.mp4,.mov,.m4v" @change="onSelect($event)">
+
+    
+    <div @dragover.prevent="drag = true"
+         @dragleave.prevent="drag = false"
+         @drop.prevent="onDrop($event)"
+         @click="$refs.input.click()"
+         @keydown.enter.prevent="$refs.input.click()"
+         @keydown.space.prevent="$refs.input.click()"
+         role="button"
+         tabindex="0"
+         aria-label="영상 파일을 끌어다 놓거나 클릭해 업로드"
+         class="flex cursor-pointer flex-col items-center justify-center rounded-md px-6 py-9 text-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+         :class="drag
+             ? 'bg-primary-soft ring-2 ring-primary'
+             : ' bg-background-alternative hover:bg-fill-normal'">
+        <p class="text-body-2 font-semibold text-label-normal">영상 파일을 끌어다 놓거나 클릭해 업로드</p>
+                    <p class="mt-1.5 text-label-1 text-label-alternative">MP4 · MOV — 한 편만 올린다</p>
+                <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2  pointer-events-none mt-4" tabindex="-1"
+>
+    
+    영상 선택
+
+    </button>
+    </div>
+
+    
+    <template x-for="(f, i) in files" :key="f.key">
+        <div class="flex items-center gap-3 rounded-md border border-line-solid-neutral bg-background-normal p-3">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-status-negative/10 text-caption-1 font-bold text-status-negative" x-text="f.ext"></span>
+            <div class="min-w-0 flex-1">
+                <p class="truncate text-body-2 font-medium text-label-normal" x-text="f.name"></p>
+                <p class="mt-0.5 text-label-2 text-label-alternative" x-text="f.size"></p>
+            </div>
+            <button type="button" @click="remove(i)" class="shrink-0 text-label-alternative transition-colors hover:text-label-normal" aria-label="첨부 삭제">
+                <svg width="1em" height="1em" aria-hidden="true" class="h-[22px] w-[22px]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.63631 8.36409C9.28484 8.01262 8.715 8.01262 8.36352 8.36409C8.01205 8.71556 8.01205 9.28541 8.36352 9.63688L10.7271 12.0005L8.36352 14.3641C8.01205 14.7156 8.01205 15.2854 8.36352 15.6369C8.715 15.9884 9.28484 15.9884 9.63631 15.6369L11.9999 13.2733L14.3635 15.6369C14.715 15.9884 15.2848 15.9884 15.6363 15.6369C15.9878 15.2854 15.9878 14.7156 15.6363 14.3641L13.2727 12.0005L15.6363 9.63688C15.9878 9.28541 15.9878 8.71556 15.6363 8.36409C15.2848 8.01262 14.715 8.01262 14.3635 8.36409L11.9999 10.7277L9.63631 8.36409Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C6.53231 2.1001 2.09995 6.53248 2.09995 12.0001C2.09995 17.4677 6.53231 21.9001 11.9999 21.9001C17.4675 21.9001 21.8999 17.4677 21.8999 12.0001C21.8999 6.53248 17.4675 2.1001 11.9999 2.1001ZM3.89994 12.0001C3.89994 7.52659 7.52642 3.9001 11.9999 3.9001C16.4734 3.9001 20.0999 7.52659 20.0999 12.0001C20.0999 16.4736 16.4734 20.1001 11.9999 20.1001C7.52642 20.1001 3.89994 16.4736 3.89994 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </button>
+        </div>
+    </template>
+
+    </div>
+
+
                     <div class="flex flex-col gap-1.5"  >
             <label for="title" class="text-label-1 font-medium text-label-neutral">
             제목
@@ -740,7 +796,7 @@
                 <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-[30px]">
                     
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a73ec2f121ed" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a73f3a2e4936" class="text-label-1 font-medium text-label-neutral">
             컨텐츠ID
                     </label>
     
@@ -748,7 +804,7 @@
          >
         
         <input
-            id="input-6a73ec2f121ed"
+            id="input-6a73f3a2e4936"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="저장하면 자동 발급" disabled="disabled"         />
 
@@ -756,7 +812,7 @@
     
     </div>
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a73ec2f122ee" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a73f3a2e4a39" class="text-label-1 font-medium text-label-neutral">
             등록자
                     </label>
     
@@ -764,7 +820,7 @@
          >
         
         <input
-            id="input-6a73ec2f122ee"
+            id="input-6a73f3a2e4a39"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="김기안" disabled="disabled"         />
 
@@ -773,7 +829,7 @@
     </div>
 
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a73ec2f123e6" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a73f3a2e4b8a" class="text-label-1 font-medium text-label-neutral">
             등록일
                     </label>
     
@@ -781,7 +837,7 @@
          >
         
         <input
-            id="input-6a73ec2f123e6"
+            id="input-6a73f3a2e4b8a"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="저장하면 자동 기록" disabled="disabled"         />
 
@@ -992,6 +1048,48 @@
         </main>
     </div>
 </div>
+
+        
+        <script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('dsFileDropzone', ({ multiple = false } = {}) => ({
+            files: [],
+            drag: false,
+            _seq: 0,
+            human(b) {
+                if (b == null) return '';
+                const u = ['B', 'KB', 'MB', 'GB'];
+                let n = b, i = 0;
+                while (n >= 1024 && i < u.length - 1) { n /= 1024; i++; }
+                return (i === 0 ? n : n.toFixed(1)) + u[i];
+            },
+            pick(list) {
+                const arr = Array.from(list || []);
+                if (!arr.length) return;
+                const mapped = arr.map((f) => ({
+                    key: ++this._seq + ':' + f.name,
+                    name: f.name,
+                    ext: ((f.name.split('.').pop() || '').toUpperCase().slice(0, 4)) || 'FILE',
+                    size: this.human(f.size),
+                }));
+                this.files = multiple ? [...this.files, ...mapped] : mapped.slice(-1);
+            },
+            onSelect(e) { this.pick(e.target.files); },
+            onDrop(e) {
+                this.drag = false;
+                const inp = this.$refs.input;
+                if (inp && e.dataTransfer?.files.length) {
+                    try { inp.files = e.dataTransfer.files; } catch (_) {}
+                }
+                this.pick(e.dataTransfer?.files ?? null);
+            },
+            remove(i) {
+                this.files.splice(i, 1);
+                if (!this.files.length && this.$refs.input) this.$refs.input.value = '';
+            },
+        }));
+    });
+</script>
 
         <!-- Livewire Scripts -->
 

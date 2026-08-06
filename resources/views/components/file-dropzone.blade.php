@@ -2,6 +2,8 @@
      · 박스로 끌어다 놓거나 클릭해 파일 선택 → 하단에 DS file-item 칩으로 표시(삭제 가능)
      · 드롭 시 input.files 에 반영되어 폼 제출에 포함됨
      props:
+       label    : 필드 라벨. x-input · x-dropdown 과 같은 모양으로 위에 붙는다.
+                  클릭하면 파일 선택창이 열린다(input 과 for 로 묶여 있다).
        name     : input name (multiple 시 자동으로 name[] 처리)
        accept   : 허용 MIME/확장자 (기본 이미지·PDF)
        multiple : 다중 첨부 허용
@@ -10,6 +12,7 @@
        action   : 버튼 라벨
        error    : 에러(negative) 메시지 --}}
 @props([
+    'label' => null,
     'name' => null,
     'accept' => 'image/*,application/pdf',
     'multiple' => false,
@@ -19,13 +22,21 @@
     'error' => null,
 ])
 
-@php $hasError = filled($error); @endphp
+@php
+    $hasError = filled($error);
+    $id = $attributes->get('id') ?? $name ?? 'dropzone-' . uniqid();
+@endphp
 
 <div x-data="dsFileDropzone({ multiple: {{ $multiple ? 'true' : 'false' }} })"
      {{ $attributes->class('flex flex-col gap-3') }}>
 
+    @if ($label)
+        {{-- 라벨 모양은 x-input·x-dropdown 의 sm/md 와 같게 맞춘다 --}}
+        <label for="{{ $id }}" class="text-label-1 font-medium text-label-neutral">{{ $label }}</label>
+    @endif
+
     {{-- hidden file input — 드롭존 클릭 div 바깥에 배치해 click 이벤트 재귀 방지 --}}
-    <input x-ref="input" type="file" class="sr-only"
+    <input x-ref="input" id="{{ $id }}" type="file" class="sr-only"
            @if ($name) name="{{ $multiple ? $name . '[]' : $name }}" @endif
            @if ($multiple) multiple @endif
            accept="{{ $accept }}" @change="onSelect($event)">

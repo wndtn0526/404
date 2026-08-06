@@ -84,6 +84,23 @@
                      붙으면 나머지는 안 채워도 되는 것처럼 읽힌다.
                      실제 검증 규칙은 저장이 붙을 때 FormRequest·서비스에 둔다. --}}
                 <div class="{{ $grid }} pt-[30px]">
+                    {{-- 영상 파일 — 이 화면이 등록하는 실체다. 두 열을 다 쓴다.
+                         원본(node 1002-269747)에는 업로드 칸이 없다. DS 드롭존도 원본 밖 확장이다.
+                         ⚠️ 아래 '영상 분·초' 는 원래 이 파일에서 읽어야 하는 값이다. 원본 폼의
+                            '~를 선택하면 자동 입력' 칸들과 같은 성격이라, 업로드 처리가 붙으면
+                            disabled 자동 입력으로 바꾸는 게 맞다. 지금은 손입력으로 뒀다.
+                         ⚠️ 업로드 엔드포인트가 없다. 파일을 골라도 화면에 칩만 뜬다. 실제로는
+                            공개 디스크에 두지 않고 권한 확인 후 스트리밍한다(CLAUDE.md). --}}
+                    <x-file-dropzone
+                        class="sm:col-span-2"
+                        label="영상 파일"
+                        name="video"
+                        accept="video/mp4,video/quicktime,video/x-m4v,.mp4,.mov,.m4v"
+                        title="영상 파일을 끌어다 놓거나 클릭해 업로드"
+                        hint="MP4 · MOV — 한 편만 올린다"
+                        action="영상 선택"
+                    />
+
                     <x-input label="제목" name="title" size="sm" placeholder="컨텐츠 제목 입력" />
                     <x-dropdown label="상태" name="state" size="sm" :options="$states" selected="검수중" />
 

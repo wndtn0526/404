@@ -491,7 +491,9 @@
                 <x-card>
                     <p class="mb-4 text-label-1 font-semibold text-label-alternative">첨부파일</p>
                     <div class="flex flex-col gap-3">
-                        <x-file-dropzone name="sg_files" />
+                        {{-- label 은 x-input·x-dropdown 과 같은 모양으로 위에 붙는다.
+                             누르면 파일 선택창이 열린다(input 과 for 로 묶여 있다). --}}
+                        <x-file-dropzone label="첨부 서류" name="sg_files" />
                         <x-file-item name="견적서_3사비교.pdf" size="482 KB" />
                     </div>
                     <p class="mt-4 text-label-1 text-label-alternative">
