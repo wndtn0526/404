@@ -134,7 +134,8 @@
                         </button>
                     </div>
 
-                    <button type="button" class="{{ $iconBtn }}" aria-label="조직 추가">
+                    <button type="button" class="{{ $iconBtn }}" aria-label="조직 추가"
+                            @click="$dispatch('open-modal', 'org-add')">
                         <x-icon-plus class="size-5" />
                     </button>
                 </div>
@@ -173,6 +174,7 @@
 
                                 {{-- 원본은 행에 올렸을 때 보인다 --}}
                                 <button type="button"
+                                        @click="$dispatch('open-modal', 'org-add')"
                                         class="shrink-0 text-label-2 font-medium leading-5 text-mono-black opacity-0 transition-opacity focus:outline-none group-hover:opacity-100 focus-visible:opacity-100">
                                     + 조직 추가
                                 </button>
@@ -279,5 +281,91 @@
                 </div>
             </div>
         </div>
+
+        {{-- ═══ 새 조직 추가 모달 ═══ Figma node 1002-273618
+             (접힌 상태 1002-273620 · 펼친 상태 1002-273633)
+
+             툴바의 + 와 트리 각 행의 '+ 조직 추가' 가 이 모달을 연다.
+
+             원본 실측 — 폭 720 · 반경 6 · 패딩 30 · 제목 20 Bold lh30 -1 (DS heading-2 와 일치)
+               섹션 제목 16 Bold lh24 -0.6 (DS body-1 과 정확히 일치) · 제목 아래 24
+               필드 315x54 · 열 사이 30 (315+30+315 = 660 = 내부 폭) · 행 피치 78
+               기본 정보 뒤 내부 폭 구분선(660) → 30 → 상세 정보 제목 + 접기 화살표
+               모달 폭 구분선(720) → 25 → 버튼 120x36 (사이 16 · 우측 정렬) → 30
+
+             ⚠️ 상세 정보는 접히는 절이다. 원본 기본 상태가 접힘이라 그대로 뒀다.
+             ⚠️ 원본 제목 앞 📄 이모지는 빼기로 한 규칙대로 넣지 않았다.
+             ⚠️ 상위 조직 · 조직 계층은 원본이 disabled 다(면 Warm gray/100 · 글자 Warm gray/600).
+                트리에서 고른 자리로 정해지는 값이라 손입력이 아니다.
+             ⚠️ 생성일은 원본이 날짜 드롭다운이다. DS 에는 x-datepicker 가 있지만 높이가 40 이라
+                32 짜리 필드 줄과 어긋난다. 지금은 드롭다운으로 뒀다 — 날짜 선택이 실제로 필요해지면
+                x-datepicker 로 바꾸고 그 줄만 높이를 맞춘다.
+             ⚠️ 원본 버튼은 '닫기 / 추가' 다(법인·팀 모달은 '취소 / 추가').
+             ⚠️ 저장 엔드포인트가 없다. '추가'는 모달만 닫는다. --}}
+        <x-modal name="org-add" title="새 조직 추가" max-width="max-w-[720px]" scroll close-button>
+            @php
+                // 필드 두 열 — 원본 열 사이 30 · 행 피치 78(칸 54 + 24)
+                $modalGrid = 'grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2';
+            @endphp
+
+            <div x-data="{ detail: false }">
+                <h3 class="text-body-1 font-bold leading-6 text-mono-black">기본 정보 (필수)</h3>
+
+                <div class="{{ $modalGrid }} pt-6">
+                    <x-input label="조직 이름 (한글)" name="org_name_ko" size="sm" placeholder="조직 이름 입력" />
+                    <x-dropdown label="생성일" name="org_created_at" size="sm"
+                                :options="[now()->format('Y.m.d') => now()->format('Y.m.d')]"
+                                :selected="now()->format('Y.m.d')" />
+                </div>
+
+                <div class="mt-[30px] h-px bg-warm-gray-100" aria-hidden="true"></div>
+
+                {{-- 상세 정보 — 접었다 펼친다. 원본 기본 상태는 접힘이다. --}}
+                <button type="button" @click="detail = ! detail"
+                        class="mt-[30px] flex min-w-0 items-center gap-2 text-left focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4"
+                        x-bind:aria-expanded="detail">
+                    <span class="text-body-1 font-bold leading-6 text-mono-black">상세 정보 (선택)</span>
+                    <x-icon-chevron-down class="size-3.5 shrink-0 transition-transform" x-bind:class="detail && '!rotate-180'" />
+                </button>
+
+                <div x-show="detail" x-cloak class="{{ $modalGrid }} pt-6">
+                    <x-dropdown label="법인 이름" name="org_corp" size="sm"
+                                :options="['청담원' => '청담원']" selected="청담원" />
+                    {{-- 트리에서 고른 자리로 정해진다 --}}
+                    <x-input label="상위 조직" size="sm" value="청담원" disabled />
+
+                    <x-input label="조직 이름 (영어)" name="org_name_en" size="sm" placeholder="조직 영어 이름 입력" />
+                    <x-input label="조직 순차" name="org_order" type="number" size="sm" value="0" min="0" />
+
+                    <x-dropdown label="국가" name="org_country" size="sm"
+                                :options="['대한민국' => '대한민국']" selected="대한민국" />
+                    <x-dropdown label="근무지" name="org_place" size="sm"
+                                :options="['서울특별시 강남구' => '서울특별시 강남구']" selected="서울특별시 강남구" />
+
+                    <x-dropdown label="조직 종류" name="org_kind" size="sm"
+                                :options="['정규 조직' => '정규 조직', '임시 조직' => '임시 조직']"
+                                placeholder="조직 종류 선택" />
+                    <x-dropdown label="조직 유형" name="org_type" size="sm"
+                                :options="['본부' => '본부', '실' => '실', '팀' => '팀', '스쿼드' => '스쿼드']"
+                                placeholder="조직 유형 선택" />
+
+                    <x-dropdown label="조직도 표시" name="org_visible" size="sm"
+                                :options="['표시' => '표시', '미표시' => '미표시']" selected="표시" />
+                    {{-- 상위 조직이 정해지면 따라 정해진다 --}}
+                    <x-input label="조직 계층" size="sm" value="02" disabled />
+
+                    <x-input label="그룹 메일" name="org_mail" size="sm" placeholder="그룹 메일 입력" />
+                    <x-input label="비고" name="org_note" size="sm" placeholder="내용 입력" />
+                </div>
+            </div>
+
+            <x-slot:footer>
+                {{-- DS 모달 푸터는 gap-3 좌측 정렬이다. 원본은 우측 정렬 · 사이 16 이라 감싼다. --}}
+                <div class="flex w-full flex-wrap items-center justify-end gap-4">
+                    <x-button variant="outline" size="sm" class="w-[120px]" @click="open = false">닫기</x-button>
+                    <x-button variant="primary" size="sm" class="w-[120px]" @click="open = false">추가</x-button>
+                </div>
+            </x-slot:footer>
+        </x-modal>
     </x-workspace-shell>
 </x-layout>
