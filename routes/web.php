@@ -16,5 +16,9 @@ Route::view('/styleguide', 'styleguide')->name('styleguide');
 Route::view('/public-space', 'public-space')->name('public-space');
 Route::view('/workspace', 'workspace')->name('workspace');
 
+// 게시글 상세 — 퍼블릭 스페이스 피드 카드를 펼친 화면. Figma 는 모바일 노드(1104-59293)만 있다.
+// 아직 정적이라 글 하나를 그대로 보여준다. 도메인이 붙으면 /post/{id} 로 바꾼다.
+Route::view('/post', 'post')->name('post');
+
 // 컨텐츠 관리 — Figma 워크스페이스 화면(node 1-299) 그대로.
 Route::view('/contents', 'contents')->name('contents');

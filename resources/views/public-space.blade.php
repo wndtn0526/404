@@ -348,11 +348,11 @@
                             </div>
                         @endforeach
 
-                        {{-- 전체 댓글 --}}
-                        <button type="button" class="flex items-center gap-1.5 pt-[30px] text-body-2 leading-[23px] text-warm-gray-600 transition-colors hover:text-label-normal">
+                        {{-- 전체 댓글 — 게시글 상세로 간다(Figma node 1104-59293) --}}
+                        <a href="{{ url('/post') }}" class="flex items-center gap-1.5 pt-[30px] text-body-2 leading-[23px] text-warm-gray-600 transition-colors hover:text-label-normal">
                             <x-icon-arrow-turn-down-right class="size-[18px] shrink-0" />
                             <span>댓글 {{ $post['total'] }}개 모두 보기</span>
-                        </button>
+                        </a>
 
                         {{-- 댓글 입력 — 원본 h48 · 완전 라운드 · BG Warm gray/050 --}}
                         <div class="mt-[23px] flex items-center gap-2.5">
