@@ -127,7 +127,11 @@
             />
             <tbody>
                 @foreach ($rows as $row)
-                    <x-table.row selectable :value="$row['id']">
+                    {{-- 행 전체가 상세로 가는 링크다. <tr> 을 <a> 로 감쌀 수 없어서 제목 셀의
+                         링크를 행 전체로 늘렸다(after:inset-0). 자바스크립트 없이 동작하고
+                         키보드·스크린리더에도 제대로 잡히는 진짜 <a> 다.
+                         체크박스는 x-table.row 안에서 z-10 이라 이 면 위에 남는다. --}}
+                    <x-table.row selectable :value="$row['id']" class="relative">
                         {{-- ID 는 데이터다. <code> 로 감싸면 Tailwind preflight 가 code 태그에
                              모노스페이스를 물려서 Pretendard 가 아니게 된다. --}}
                         <x-table.cell tone="muted" nowrap>
@@ -136,7 +140,12 @@
                         <x-table.cell tone="muted" nowrap>{{ $row['major'] }}</x-table.cell>
                         <x-table.cell tone="muted" nowrap>{{ $row['minor'] }}</x-table.cell>
                         <x-table.cell tone="muted" nowrap>{{ $row['sub'] }}</x-table.cell>
-                        <x-table.cell tone="strong">{{ $row['title'] }}</x-table.cell>
+                        <x-table.cell tone="strong">
+                            <a href="{{ url('/contents/detail') }}"
+                               class="after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                {{ $row['title'] }}
+                            </a>
+                        </x-table.cell>
                         <x-table.cell tone="muted" nowrap>{{ $row['writer'] }}</x-table.cell>
                         <x-table.cell tone="muted">{{ $row['tags'] }}</x-table.cell>
                         <x-table.cell tone="muted" nowrap>{{ $row['archive'] }}</x-table.cell>

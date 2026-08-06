@@ -21,6 +21,7 @@ PAGES=(
     "styleguide:index.html"
     "contents:contents.html"
     "contents/new:contents-new.html"
+    "contents/detail:contents-detail.html"
     "courses:courses.html"
     "courses/new:courses-new.html"
     "public-space:public-space.html"

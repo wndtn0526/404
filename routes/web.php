@@ -35,6 +35,10 @@ Route::view('/contents', 'contents')->name('contents');
 // 아직 정적이다. 저장이 붙으면 POST 라우트와 컨트롤러를 따로 만든다.
 Route::view('/contents/new', 'contents-create')->name('contents.create');
 
+// 컨텐츠 상세 — 표에서 행을 누르면 온다. 필드 구조는 Figma node 1002-275959 참고.
+// 정적이라 컨텐츠 하나만 보여준다. 모델이 붙으면 /contents/{id} 로 바꾼다.
+Route::view('/contents/detail', 'contents-detail')->name('contents.detail');
+
 // 과정 관리 — 컨텐츠를 묶어 만든 '과정'. Figma 에 디자인이 없어 컨텐츠 관리와 같은 뼈대로 짰다.
 Route::view('/courses', 'courses')->name('courses');
 Route::view('/courses/new', 'courses-create')->name('courses.create');

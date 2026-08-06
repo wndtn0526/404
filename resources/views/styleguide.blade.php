@@ -581,6 +581,20 @@
                     </x-card>
                 </div>
 
+                {{-- 상세 정보 칸 — DS 가이드에는 없다. GPRO_PORTFOLIO node 1002-275959 실측.
+                     <dl> 안에서 쓴다. 값이 비면 하이픈으로 나간다. --}}
+                <x-card>
+                    <p class="mb-3 text-label-1 font-semibold text-label-alternative">상세 정보 칸</p>
+                    <dl class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                        <x-detail-field label="컨텐츠ID" value="C-1042" />
+                        <x-detail-field label="상태">
+                            <x-badge color="green" size="sm">공개</x-badge>
+                        </x-detail-field>
+                        <x-detail-field label="등록자" value="김기안" />
+                        <x-detail-field label="비어 있는 값" />
+                    </dl>
+                </x-card>
+
                 {{-- 비어 있는 상태 — DS 가이드에는 없다. GPRO_PORTFOLIO node 1104-59420 실측.
                      위쪽 여백은 놓이는 자리마다 달라서 컴포넌트가 갖지 않는다 — 여기선 py-10. --}}
                 <x-card>
