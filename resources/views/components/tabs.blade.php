@@ -34,6 +34,11 @@
     $activeLine = $lines[$accent] ?? $lines['strong'];
     // scrollable: tablist 폭 = 모바일 콘텐츠 폭(w-max·스크롤) → md↑ 풀폭 트랙
     $tablistWidth = $scrollable ? ' w-max md:w-full' : '';
+
+    // block(균등 분할)에서는 옵션 사이 간격을 0 으로 둔다. 간격이 남으면 활성 밑줄이
+    // 자기 칸을 다 덮지 못하고 가운데에 빈 구간이 생겨 '균등 분할'과 어긋난다.
+    // 기본(간격 24)은 그대로다 — 폭만큼만 차지하는 일반 탭은 사이가 벌어져야 읽힌다.
+    $gap = $block ? 'gap-0' : 'gap-6';
 @endphp
 
 @if ($scrollable)
@@ -45,7 +50,7 @@
      {{ $attributes->whereStartsWith('x-model') }}
      role="tablist"
      {{-- 회색 트랙은 컨테이너 border-b. overflow-x-auto 금지(overflow-y 강제 auto로 밑줄이 잘림) → 스크롤은 scrollable 래퍼가 담당 --}}
-     {{ $attributes->whereDoesntStartWith('x-model')->class('relative flex items-center gap-6 border-b border-line-normal-alternative' . $tablistWidth) }}>
+     {{ $attributes->whereDoesntStartWith('x-model')->class('relative flex items-center border-b border-line-normal-alternative ' . $gap . $tablistWidth) }}>
     @if ($name)
         <input type="hidden" name="{{ $name }}" :value="value">
     @endif

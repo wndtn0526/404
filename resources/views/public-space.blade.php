@@ -190,12 +190,14 @@
                     <x-thumbnail :name="$profile['name']" size="xl" shape="circle" />
                 </div>
 
-                {{-- 팔로워·팔로잉 — 원본 12px Medium --}}
-                <div class="flex min-w-0 flex-wrap items-baseline gap-4 pt-[30px]">
-                    <p class="text-caption-1 font-medium text-mono-black">
+                {{-- 팔로워·팔로잉 — 13px Regular · lh20, 숫자만 Bold. 사이 간격 12.
+                     ⚠️ Figma 레이어 이름이 'SD Gothic Neo/Medium/12' 인데 실제 적용된 스타일은
+                        13/lh20 Regular 이다(node 1104-59365 에서 확인). 레이어 이름이 낡았다. --}}
+                <div class="flex min-w-0 flex-wrap items-baseline gap-3 pt-[30px]">
+                    <p class="text-label-2 leading-5 text-mono-black">
                         팔로워 <strong class="font-bold tabular-nums">{{ $profile['followers'] }}</strong>
                     </p>
-                    <p class="text-caption-1 font-medium text-mono-black">
+                    <p class="text-label-2 leading-5 text-mono-black">
                         팔로잉 <strong class="font-bold tabular-nums">{{ $profile['following'] }}</strong>
                     </p>
                 </div>
@@ -208,8 +210,13 @@
                 </div>
 
                 {{-- 모바일 탭 — 피드 · 커리어 (PC 는 4개다).
-                     원본이 화면 폭을 2등분하므로 DS x-tabs 의 block 을 쓴다. --}}
-                <div class="mt-8 min-w-0">
+                     원본이 화면 폭을 2등분하므로 DS x-tabs 의 block 을 쓴다.
+                     원본 실측(node 1104-59365) — 소개 아래 40 · 탭 높이 42 · 글자 15 Bold
+                        피드 0~188 / 커리어 188~375 · 활성 밑줄 2px 검정 · 하단 구분선 1px 화면 전체
+                     -mx-5 로 셸 본문 여백을 되돌려 구분선을 화면 끝까지 보낸다.
+                     ⚠️ 비활성 글자는 원본이 Warm gray/500 인데 DS 탭은 label-assistive
+                        (Warm gray/400)다. DS 컴포넌트 값이라 원본에 맞추지 않았다. --}}
+                <div class="-mx-5 mt-10 min-w-0">
                     <x-tabs
                         name="profile_tab_mobile"
                         x-model="tab"
@@ -416,35 +423,46 @@
             </aside>
         </div>
 
-        {{-- ═══ 커리어 패널 ═══ Figma node 1104-58476 (커리어 활성 상태)
-             좌 687: 기본 정보 · 경력과 학력 · 업무와 스킬 · 추가 서류
-             우 486: 소개 · 관심사 · 오늘의 아티클 추천
+        {{-- ═══ 커리어 패널 ═══
+             PC   Figma node 1104-58476 — 좌 687 카드 4장 + 우 486 사이드
+             모바일 Figma node 1104-59365 "Mobile iOS" — 카드가 없다. 흰 면이 화면 전체를
+                  채우고 섹션 사이만 8px 띠로 벌어진다.
 
-             원본 실측 — 카드 반경 6 · 내부 좌우 패딩 30 · 섹션 제목 20px Bold · lh 30 · -1px
-                         (DS heading-2 와 정확히 일치) · 제목 영역 높이 56
-                         기본 정보 행 높이 48 (pt 13 · pb 12) · 라벨 폭 113 · 라벨/값 15px Bold
-                         (DS body-2 와 정확히 일치) · 라벨색 Warm gray/500 --}}
+             ⚠️ 그 8px 띠 색이 Mono/Global BG(페이지 배경)와 정확히 같다. 그래서 띠를 그리지
+                않고 섹션을 좌우로 흘린 뒤(-mx-5) 간격만 8 로 뒀다 — 배경이 그대로 보인다.
+
+             PC  실측 — 카드 반경 6 · 좌우 패딩 30 · 섹션 제목 20 Bold lh30 (DS heading-2)
+                        기본 정보 행 48 (pt13 pb12) · 라벨 폭 113 · 라벨·값 15 Bold
+                        라벨색 Warm gray/500
+             모바일 실측 — 좌우 20 · 섹션 위 여백 30 · 제목 행 30 (15 Bold lh23)
+                        기본 정보 첫 행 +18 · 행 간격 35 (줄 20 + 15) · 라벨 폭 100
+                        라벨 13 Regular 검정 · 값 13 Bold 검정
+                        섹션 아래 여백 30 · 섹션 사이 8
+
+             ⚠️ 라벨이 PC 는 Warm gray/500 Bold, 모바일은 검정 Regular 다. 원본이 그렇다.
+             ⚠️ 모바일 원본의 기본 정보 네 번째 행은 '직무 · 프로덕트 디자이너' 인데
+                PC 원본은 '국적 · 대한민국' 이다. 한쪽으로 맞춰야 해서 먼저 붙인 PC 를 뒀다.
+             ⚠️ 추가 서류는 PC 가 종류를 제목 아래 + 다운로드 버튼, 모바일은 종류를 우측
+                끝에 두고 버튼이 없다. 구조가 달라 두 벌을 렌더하고 하나만 보인다. --}}
         <div x-show="tab === 'career'"
-             class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
+             class="mx-auto w-full min-w-0 max-w-[1200px] lg:flex lg:items-start lg:gap-6 lg:pt-10">
 
             {{-- ── 좌: 687 ── --}}
-            <div class="flex w-full min-w-0 flex-col gap-6 lg:max-w-[690px] lg:shrink-0">
+            <div class="flex w-full min-w-0 flex-col gap-2 lg:max-w-[690px] lg:shrink-0 lg:gap-6">
 
                 {{-- 기본 정보 --}}
-                <section class="min-w-0 rounded-lg bg-background-normal">
-                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
-                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">기본 정보</h2>
-                        <button type="button" class="{{ $cardIcon }} shrink-0" aria-label="더보기">
-                            <x-icon-more-horizontal class="size-6" />
-                        </button>
-                    </div>
-                    <dl class="pb-[17px]">
+                <section class="-mx-5 min-w-0 bg-background-normal pt-[30px] lg:mx-0 lg:rounded-lg lg:pt-0">
+                    @include('partials.career-section-head', ['heading' => '기본 정보'])
+
+                    {{-- 모바일은 행마다 여백 없이 목록 간격 15 로 벌린다(줄 20 + 15 = 35).
+                         PC 는 행마다 pt13/pb12 라 lg:block 으로 gap 을 죽인다. --}}
+                    <dl class="flex flex-col gap-[15px] pb-[30px] pt-[18px] lg:block lg:pb-[17px] lg:pt-0">
                         @foreach ($career['basics'] as $row)
-                            <div class="flex items-start px-5 lg:px-[30px]">
-                                <dt class="w-[113px] shrink-0 pb-3 pr-2.5 pt-[13px] text-body-2 font-bold leading-[23px] text-warm-gray-500">
+                            <div class="flex items-start px-5 lg:px-[30px] lg:pb-3 lg:pt-[13px]">
+                                <dt class="w-[100px] shrink-0 pr-2.5 text-label-2 leading-5 text-mono-black lg:w-[113px] lg:text-body-2 lg:font-bold lg:leading-[23px] lg:text-warm-gray-500">
                                     {{ $row['label'] }}
                                 </dt>
-                                <dd class="min-w-0 pb-3 pt-[13px] text-body-2 font-bold leading-[23px] text-mono-black">
+                                <dd class="min-w-0 text-label-2 font-bold leading-5 text-mono-black lg:text-body-2 lg:leading-[23px]">
                                     {{ $row['value'] }}
                                 </dd>
                             </div>
@@ -453,23 +471,18 @@
                 </section>
 
                 {{-- 경력과 학력 — 경력 목록 뒤에 구분선을 두고 학력이 온다 --}}
-                <section class="min-w-0 rounded-lg bg-background-normal pb-[30px]">
-                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
-                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">경력과 학력</h2>
-                        <button type="button" class="{{ $cardIcon }} shrink-0" aria-label="더보기">
-                            <x-icon-more-horizontal class="size-6" />
-                        </button>
-                    </div>
+                <section class="-mx-5 min-w-0 bg-background-normal pb-[30px] pt-[30px] lg:mx-0 lg:rounded-lg lg:pt-0">
+                    @include('partials.career-section-head', ['heading' => '경력과 학력'])
 
-                    <ul class="flex flex-col gap-5 px-5 pt-3 lg:px-[30px]">
+                    <ul class="flex flex-col gap-5 px-5 pt-5 lg:px-[30px] lg:pt-3">
                         @foreach ($career['jobs'] as $job)
                             @include('partials.career-entry', ['entry' => $job])
                         @endforeach
                     </ul>
 
-                    <div class="mx-5 mt-[26px] h-px bg-warm-gray-100 lg:mx-[30px]" aria-hidden="true"></div>
+                    <div class="mx-5 mt-[30px] h-px bg-warm-gray-100 lg:mx-[30px] lg:mt-[26px]" aria-hidden="true"></div>
 
-                    <ul class="flex flex-col gap-5 px-5 pt-[26px] lg:px-[30px]">
+                    <ul class="flex flex-col gap-5 px-5 pt-[30px] lg:px-[30px] lg:pt-[26px]">
                         @foreach ($career['schools'] as $school)
                             @include('partials.career-entry', ['entry' => $school])
                         @endforeach
@@ -477,41 +490,45 @@
                 </section>
 
                 {{-- 업무와 스킬 --}}
-                <section class="min-w-0 rounded-lg bg-background-normal pb-[30px]">
-                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
-                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">업무와 스킬</h2>
-                        <button type="button" class="{{ $cardIcon }} shrink-0" aria-label="더보기">
-                            <x-icon-more-horizontal class="size-6" />
-                        </button>
-                    </div>
+                <section class="-mx-5 min-w-0 bg-background-normal pb-[30px] pt-[30px] lg:mx-0 lg:rounded-lg lg:pt-0">
+                    @include('partials.career-section-head', ['heading' => '업무와 스킬'])
 
-                    <div class="flex flex-col gap-[26px] px-5 pt-3 lg:px-[30px]">
+                    <div class="flex flex-col gap-5 px-5 pt-5 lg:gap-[26px] lg:px-[30px] lg:pt-3">
                         @foreach ($career['skills'] as $skill)
                             <div class="min-w-0">
-                                <h3 class="text-body-2 font-bold leading-[23px] text-mono-black">{{ $skill['title'] }}</h3>
-                                <p class="pt-2 text-body-2 leading-[23px] text-mono-black">{{ $skill['desc'] }}</p>
+                                <h3 class="text-label-2 font-bold leading-5 text-mono-black lg:text-body-2 lg:leading-[23px]">
+                                    {{ $skill['title'] }}
+                                </h3>
+                                <p class="pt-2 text-label-2 leading-5 text-mono-black lg:text-body-2 lg:leading-[23px]">
+                                    {{ $skill['desc'] }}
+                                </p>
                             </div>
                         @endforeach
                     </div>
                 </section>
 
-                {{-- 추가 서류 --}}
-                <section class="min-w-0 rounded-lg bg-background-normal pb-[30px]">
-                    <div class="flex items-center justify-between px-5 pb-2 pt-[17px] lg:px-[30px]">
-                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">추가 서류</h2>
-                        <button type="button" class="{{ $cardIcon }} shrink-0" aria-label="더보기">
-                            <x-icon-more-horizontal class="size-6" />
-                        </button>
-                    </div>
+                {{-- 추가 서류 — 모바일은 한 줄(제목 좌 · 종류 우), PC 는 두 줄 + 다운로드 버튼 --}}
+                <section class="-mx-5 min-w-0 bg-background-normal pb-[30px] pt-[30px] lg:mx-0 lg:rounded-lg lg:pt-0">
+                    @include('partials.career-section-head', ['heading' => '추가 서류'])
 
-                    <ul class="flex flex-col gap-4 px-5 pt-3 lg:px-[30px]">
+                    <ul class="flex flex-col gap-2.5 px-5 pt-5 lg:gap-4 lg:px-[30px] lg:pt-3">
                         @foreach ($career['files'] as $file)
-                            <li class="flex min-w-0 items-center gap-4">
+                            <li class="flex min-h-[30px] min-w-0 items-center gap-4">
                                 <div class="min-w-0 flex-1">
-                                    <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">{{ $file['title'] }}</p>
-                                    <p class="truncate pt-[3px] text-label-2 leading-5 text-warm-gray-500">{{ $file['kind'] }}</p>
+                                    <p class="truncate text-label-2 font-bold leading-5 text-mono-black lg:text-body-2 lg:leading-[23px]">
+                                        {{ $file['title'] }}
+                                    </p>
+                                    <p class="truncate pt-[3px] text-label-2 leading-5 text-warm-gray-500 max-lg:hidden">
+                                        {{ $file['kind'] }}
+                                    </p>
                                 </div>
-                                <x-button variant="primary" size="sm" class="shrink-0">다운로드</x-button>
+
+                                {{-- 모바일: 종류를 우측 끝에. 원본 12 Regular Warm gray/400 --}}
+                                <span class="shrink-0 text-caption-1 leading-[18px] text-warm-gray-400 lg:hidden">
+                                    {{ $file['kind'] }}
+                                </span>
+
+                                <x-button variant="primary" size="sm" class="shrink-0 max-lg:hidden">다운로드</x-button>
                             </li>
                         @endforeach
                     </ul>

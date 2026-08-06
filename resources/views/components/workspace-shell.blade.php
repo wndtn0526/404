@@ -243,16 +243,20 @@
                 <div>{{ $breadcrumb }}</div>
             @endif
 
-            {{-- 원본: 브레드크럼 top 56(높이 20) · 타이틀 top 106 → 사이 30 --}}
-            <div class="flex flex-wrap items-center justify-between gap-6 pt-[30px]">
-                @if (isset($title))
-                    <div class="flex flex-wrap items-center gap-8">{{ $title }}</div>
-                @endif
+            {{-- 원본: 브레드크럼 top 56(높이 20) · 타이틀 top 106 → 사이 30
+                 ⚠️ 슬롯이 둘 다 없으면 이 줄 자체를 내지 않는다. 빈 채로 두면 pt-30 만
+                    남아서 본문이 30px 아래로 밀린다(퍼블릭 스페이스·게시글 상세가 그랬다). --}}
+            @if (isset($title) || isset($actions))
+                <div class="flex flex-wrap items-center justify-between gap-6 pt-[30px]">
+                    @if (isset($title))
+                        <div class="flex flex-wrap items-center gap-8">{{ $title }}</div>
+                    @endif
 
-                @if (isset($actions))
-                    <div class="flex items-center gap-2">{{ $actions }}</div>
-                @endif
-            </div>
+                    @if (isset($actions))
+                        <div class="flex items-center gap-2">{{ $actions }}</div>
+                    @endif
+                </div>
+            @endif
         </div>
 
         {{-- ── 본문 ── --}}
