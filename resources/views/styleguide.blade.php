@@ -579,6 +579,17 @@
                     </x-card>
                 </div>
 
+                {{-- 비어 있는 상태 — DS 가이드에는 없다. GPRO_PORTFOLIO node 1104-59420 실측.
+                     위쪽 여백은 놓이는 자리마다 달라서 컴포넌트가 갖지 않는다 — 여기선 py-10. --}}
+                <x-card>
+                    <p class="mb-3 text-label-1 font-semibold text-label-alternative">비어 있는 상태</p>
+                    <x-empty-state
+                        :lines="['아직 게시물이 없네요!', '첫 포스트 만들어보세요.']"
+                        action="글쓰기"
+                        class="py-10"
+                    />
+                </x-card>
+
                 <x-card>
                     <p class="mb-3 text-label-1 font-semibold text-label-alternative">모달</p>
                     <div x-data>

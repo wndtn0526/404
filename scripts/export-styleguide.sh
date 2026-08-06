@@ -21,6 +21,7 @@ PAGES=(
     "styleguide:index.html"
     "contents:contents.html"
     "public-space:public-space.html"
+    "public-space-empty:public-space-empty.html"
     "post:post.html"
     "workspace:workspace.html"
 )

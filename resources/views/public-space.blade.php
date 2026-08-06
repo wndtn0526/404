@@ -24,7 +24,15 @@
         'bio' => '스타트업에서 일하고 있는 7년 차 프로덕트 디자이너입니다:)',
     ];
 
-    $feed = [
+    /*
+     * 라우트가 넘겨준 값이 있으면 그걸 쓴다.
+     *   feed = []          → '포스팅 없는 경우'(node 1104-59420). /public-space-empty 가 넘긴다.
+     *   tab  = 'posting'   → 처음 열릴 때 활성 탭
+     * ?? 로 받으므로 아무것도 넘기지 않는 /public-space 는 아래 기본값이 그대로 간다.
+     */
+    $tab = $tab ?? 'career';
+
+    $feed = $feed ?? [
         [
             'author' => '신고수', 'role' => '프로덕트 디자이너', 'when' => '하루 전',
             'title' => '스냅챗이 플랫폼으로 변화한다.',
@@ -124,7 +132,9 @@
             ['label' => '이름', 'value' => '신고수'],
             ['label' => '이메일', 'value' => 'Gosu@gmail.com'],
             ['label' => '연락처', 'value' => '010 3366 9393'],
-            ['label' => '국적', 'value' => '대한민국'],
+            // 모바일 원본(node 1104-59365)이 '직무' 다. PC 원본(1104-58476)은 '국적 · 대한민국'
+            // 인데 직무로 통일했다. 값은 프로필 잡타이틀을 그대로 쓴다 — 두 곳이 갈리지 않게.
+            ['label' => '직무', 'value' => $profile['job']],
             ['label' => '총 경력', 'value' => '7년'],
         ],
         'jobs' => [
@@ -165,9 +175,11 @@
         :scale="config('workspace.lnb_scale')"
     >
         {{-- 탭 전환 — x-tabs 는 x-modelable="value" 라 x-model 로 부모 상태에 묶인다.
-             기본값은 커리어(연결된 PC 노드가 커리어 활성 상태다).
-             ⚠️ 모바일 노드(1104-59162)는 피드가 활성이다. 한쪽으로 맞춰야 해서 커리어로 뒀다. --}}
-        <div x-data="{ tab: 'career' }" class="min-w-0">
+             기본값은 커리어(연결된 PC 노드가 커리어 활성 상태다). 라우트가 tab 을 넘기면 그걸 쓴다.
+             ⚠️ 모바일 노드(1104-59162)는 피드가 활성이다. 한쪽으로 맞춰야 해서 커리어로 뒀다.
+             ⚠️ PC 는 탭 이름이 '포스팅', 모바일은 '피드' 지만 같은 패널이다. 값은 posting 하나로
+                쓴다 — 예전엔 값도 갈라 놔서 패널 조건을 두 번 써야 했다. --}}
+        <div x-data="{ tab: @js($tab) }" class="min-w-0">
 
         {{-- ═══ 프로필 헤더 + 탭 ═══
              Figma GPRO_PORTFOLIO node 1104-58466 → 화면은 그 안의 1104-58476 "퍼블릭".
@@ -220,8 +232,8 @@
                     <x-tabs
                         name="profile_tab_mobile"
                         x-model="tab"
-                        :options="['feed' => '피드', 'career' => '커리어']"
-                        selected="career"
+                        :options="['posting' => '피드', 'career' => '커리어']"
+                        :selected="$tab"
                         block
                         accent="strong"
                     />
@@ -258,7 +270,7 @@
                     name="profile_tab"
                     x-model="tab"
                     :options="['posting' => '포스팅', 'career' => '커리어', 'group' => '그룹', 'article' => '아티클']"
-                    selected="career"
+                    :selected="$tab"
                     accent="strong"
                     class="pr-[176px]"
                 />
@@ -276,13 +288,26 @@
         {{-- ═══ 포스팅 / 피드 패널 ═══
              모바일에서는 블록으로 둔다. flex 행의 아이템이 되면 min-content 가 밀려 올라와
              카드가 뷰포트를 넘어간다. 블록 자식은 컨테이너 폭을 넘지 못한다. --}}
-        {{-- 피드는 PC 의 '포스팅' 과 모바일의 '피드' 두 값을 받는다. --}}
-        <div x-show="tab === 'posting' || tab === 'feed'" x-cloak
+        <div x-show="tab === 'posting'" x-cloak
              class="mx-auto w-full min-w-0 max-w-[1200px] pt-10 lg:flex lg:items-start lg:gap-6">
 
             {{-- ═══ 좌: 피드 690 ═══ --}}
             {{-- 모바일에서는 화면 폭을 그대로 쓴다. shrink-0 을 걸면 690 이 강제돼 오버플로가 난다. --}}
             <div class="flex w-full min-w-0 flex-col gap-6 lg:max-w-[690px] lg:shrink-0">
+
+                @if ($feed === [])
+                    {{-- 포스팅 없는 경우 — Figma node 1104-59420.
+                         ⚠️ 원본은 이 상태에서 글쓰기 박스도 내지 않는다. 탭 구분선 아래가 전부 비어 있고
+                            가운데 문구와 버튼만 있다. 그래서 위 글쓰기 박스까지 이 분기 안에 넣었다.
+                         위쪽 여백 159 는 원본 실측이다(탭 구분선 → 문구). 원본 프레임이 812 라
+                         화면 높이에 맞춘 값이 아니고 고정 위치다 — 그대로 옮겼다.
+                         이 패널은 pt-10 을 이미 갖고 있어 159 - 40 = 119 를 더한다. --}}
+                    <x-empty-state
+                        :lines="['아직 게시물이 없네요!', '첫 포스트 만들어보세요.']"
+                        action="글쓰기"
+                        class="pt-[119px]"
+                    />
+                @else
 
                 {{-- 글쓰기 — 원본 h80 · 반경 6 · 프로필 48 · 플레이스홀더 Warm gray/400 --}}
                 <div class="flex h-20 min-w-0 items-center gap-2.5 rounded-lg bg-background-normal px-5 lg:px-[30px]">
@@ -377,6 +402,7 @@
                         </div>
                     </article>
                 @endforeach
+                @endif
             </div>
 
             {{-- ═══ 우: 추천 486 ═══ --}}

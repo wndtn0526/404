@@ -122,6 +122,8 @@ Figma 를 봐도 나오지 않는다. 새로 만들 때 여기 있는지 먼저 
 - `segmented` — 뷰 전환. **`tabs` 와 역할이 겹친다.** 새 화면에선 `tabs` 를 먼저 검토한다.
 - `chip-removable` — 삭제 가능한 칩. **`chip` 의 변형이다.** 통합 대상.
 - `confirm` `prompt` — Dialog 의 용도별 사전 조립. 원본은 `modal`(Dialog).
+- `empty-state` — 목록이 비었을 때의 문구 + 액션. DS 가이드에는 없고 GPRO_PORTFOLIO
+  node 1104-59420 실측이다. 위쪽 여백은 놓이는 자리마다 달라 컴포넌트가 갖지 않는다.
 - `ext-heart-filled` (아이콘) — 채운 하트. DS `heart` 는 외곽선뿐이라 '이미 좋아요를
   누른' 상태를 표현할 수 없다. DS `heart.svg` 의 바깥 윤곽만 남겨 실루엣을 그대로 썼다.
 
