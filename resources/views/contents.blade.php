@@ -80,13 +80,22 @@
         </x-slot:title>
 
         <x-slot:actions>
-            {{-- 기준일 — 원본 우측 정렬. 라벨 Bold · 날짜 Regular · 14px --}}
-            <button type="button"
-                    class="inline-flex items-center gap-2 text-label-1 text-mono-black transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
-                <span class="font-bold">기준일</span>
-                <span>2021.08.01</span>
-                <x-icon-caret-down class="size-3.5 shrink-0" />
-            </button>
+            {{-- 셸의 actions 슬롯은 gap-2(8) 라 텍스트 버튼과 채운 버튼이 붙어 보인다.
+                 여기서 한 번 더 감싸 간격을 20 으로 벌린다. --}}
+            <div class="flex flex-wrap items-center gap-5">
+                {{-- 기준일 — 원본 우측 정렬. 라벨 Bold · 날짜 Regular · 14px --}}
+                <button type="button"
+                        class="inline-flex items-center gap-2 text-label-1 text-mono-black transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
+                    <span class="font-bold">기준일</span>
+                    <span>2021.08.01</span>
+                    <x-icon-caret-down class="size-3.5 shrink-0" />
+                </button>
+
+                {{-- 컨텐츠 추가 — 원본(node 1-299)에 없다. 목록만 있고 만드는 길이 없어서 넣었다.
+                     ⚠️ 아직 등록 화면도 저장 엔드포인트도 없다. 눌러도 아무 일이 없다.
+                        붙일 땐 <a href> 로 등록 화면에 보내거나 x-modal 을 띄운다. --}}
+                <x-button variant="primary" size="sm" icon="plus">컨텐츠 추가</x-button>
+            </div>
         </x-slot:actions>
 
         {{-- ═══ 컨텐츠 목록 ═══ --}}
