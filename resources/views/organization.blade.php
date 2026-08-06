@@ -166,5 +166,87 @@
                 </div>
             </aside>
         </div>
+
+        {{-- ═══ 추가 모달 ═══
+             + 메뉴의 두 항목이 여는 모달이다. 캔버스 밖에 한 벌만 둔다 — 캔버스는
+             overflow-x-auto 라 안에 두면 잘릴 여지가 있고, + 버튼이 두 개라 중복된다.
+
+             원본 실측 (node 1002-279310 법인 · 1002-279322 팀) — 둘 다 폭 544 · 반경 6 · 패딩 30
+               제목 20 Bold lh30 -1 (DS heading-2 와 정확히 일치) · 제목 아래 안내문 12
+               안내문 14 Regular lh20 -0.2 Warm gray/500 두 줄 (DS label-1 과 정확히 일치)
+               안내문 아래 30 · 필드 484x54 · 피치 78 (칸 사이 24)
+               모달 폭 전체 구분선 → 25 → 버튼 120x36 (사이 16 · 우측 정렬) → 30
+
+             ⚠️ 원본 제목 앞에 🏢 이모지가 있다. 이모지는 쓰지 않기로 해서 뺐다.
+             ⚠️ DS 모달 제목은 heading-1(22)이라 원본 20 보다 한 단계 크다. 패딩도 28(원본 30)이다.
+             ⚠️ 필드 라벨이 원본은 12 Medium, DS 인풋 sm 은 14 다 — 컨텐츠·과정 추가 폼과 같은 차이다.
+             ⚠️ '조직 추가' 메뉴를 눌렀는데 모달 제목이 '팀 입력' 이다. 원본이 그렇다
+                (조직 유형 기본값이 '팀' 이라서로 보인다).
+             ⚠️ 사업자 번호·법인 번호는 법인 식별번호다. 개인정보(주민번호)가 아니다 —
+                그래도 실제로 붙일 때는 평문 로그를 남기지 않는다.
+             ⚠️ 저장 엔드포인트가 없다. '추가'는 모달만 닫는다. --}}
+        @php
+            $addNotes = [
+                '이 조직 추가는 필수 정보만 입력하는 간소화 버전입니다.',
+                '법인의 기타 상세 정보는 추가 후 설정을 통해 입력할 수 있습니다.',
+            ];
+        @endphp
+
+        {{-- 법인 추가 --}}
+        <x-modal name="corp-add" title="법인 정보 입력" max-width="max-w-[544px]" scroll close-button>
+            @foreach ($addNotes as $note)
+                <p class="flex min-w-0 text-label-1 leading-5 text-warm-gray-500">
+                    <span class="shrink-0 pr-1" aria-hidden="true">·</span>
+                    <span class="min-w-0">{{ $note }}</span>
+                </p>
+            @endforeach
+
+            <div class="flex min-w-0 flex-col gap-6 pt-[30px]">
+                <x-input label="회사 이름 (한글)" name="corp_name_ko" size="sm" placeholder="회사 이름 입력" />
+                <x-input label="법인 이름" name="corp_name" size="sm" placeholder="법인 이름 입력" />
+                <x-input label="사업자 번호" name="corp_biz_no" size="sm" placeholder="사업자 번호 입력" />
+                <x-input label="법인 번호" name="corp_reg_no" size="sm" placeholder="법인 번호 입력" />
+            </div>
+
+            <x-slot:footer>
+                {{-- DS 모달 푸터는 gap-3 좌측 정렬이다. 원본은 우측 정렬 · 사이 16 이라 감싼다. --}}
+                <div class="flex w-full flex-wrap items-center justify-end gap-4">
+                    <x-button variant="outline" size="sm" class="w-[120px]" @click="open = false">취소</x-button>
+                    <x-button variant="primary" size="sm" class="w-[120px]" @click="open = false">추가</x-button>
+                </div>
+            </x-slot:footer>
+        </x-modal>
+
+        {{-- 조직(팀) 추가 --}}
+        <x-modal name="team-add" title="팀 입력" max-width="max-w-[544px]" scroll close-button>
+            @foreach ($addNotes as $note)
+                <p class="flex min-w-0 text-label-1 leading-5 text-warm-gray-500">
+                    <span class="shrink-0 pr-1" aria-hidden="true">·</span>
+                    <span class="min-w-0">{{ $note }}</span>
+                </p>
+            @endforeach
+
+            <div class="flex min-w-0 flex-col gap-6 pt-[30px]">
+                <x-input label="조직 이름" name="org_name" size="sm" placeholder="조직 이름 입력" />
+
+                {{-- 상위 조직 — 지금은 회사 하나뿐이다. 조직이 늘면 목록도 늘어난다. --}}
+                <x-dropdown label="상위 조직" name="org_parent" size="sm"
+                            :options="[$company['name'] => $company['name']]"
+                            :selected="$company['name']" />
+
+                {{-- 조직 유형 — 같은 Figma 페이지의 '법인 · 실 · 팀 · 스쿼드' 4차 구조를 따랐다.
+                     원본 모달은 기본값이 '팀' 이다. --}}
+                <x-dropdown label="조직 유형" name="org_type" size="sm"
+                            :options="['법인' => '법인', '실' => '실', '팀' => '팀', '스쿼드' => '스쿼드']"
+                            selected="팀" />
+            </div>
+
+            <x-slot:footer>
+                <div class="flex w-full flex-wrap items-center justify-end gap-4">
+                    <x-button variant="outline" size="sm" class="w-[120px]" @click="open = false">취소</x-button>
+                    <x-button variant="primary" size="sm" class="w-[120px]" @click="open = false">추가</x-button>
+                </div>
+            </x-slot:footer>
+        </x-modal>
     </x-workspace-shell>
 </x-layout>
