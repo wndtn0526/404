@@ -25,10 +25,13 @@
         원본에 없다. 지금은 원본대로 세로 한 줄이다.
      ⚠️ 좌하단 28px 버튼 두 개는 원본에 좌·우 화살표만 있고 동작이 적혀 있지 않다. 캔버스가
         넘칠 때 좌우로 밀는 버튼으로 뒀다. 세로 한 줄인 지금은 넘치지 않아 움직이지 않는다.
-     + 를 누르면 '법인 추가 / 조직 추가' 메뉴가 버튼 오른쪽 아래에서 열린다
-     (Figma node 1002-279241 · partials/org-add-menu).
+     누르면 열리는 것들:
+       +   '법인 추가 / 조직 추가' 메뉴 (node 1002-279241 · partials/org-add-menu)
+           → 각 항목이 아래 두 모달을 연다 (node 1002-279310 · 1002-279322)
+       ··· 멤버 목록 패널의 보기 설정 메뉴 (node 1002-279153 · partials/org-view-menu)
+           → 조직도 모두 펼치기·접기(F · ⇧F)와 멤버 목록 토글이 실제로 동작한다
 
-     ⚠️ 메뉴 항목과 조직장 추가 · 멤버 추가 · 더보기는 아직 동작하지 않는다.
+     ⚠️ 조직장 추가 · 멤버 추가, 그리고 모달의 '추가' 는 아직 저장하지 않는다.
         상태를 바꾸는 요청은 POST + CSRF 로 붙인다.
      ⚠️ 사람·조직 데이터는 뷰에 박아둔 예시다. 인사 정보를 실제로 붙일 때는
         개인정보(주민번호 등)를 이 화면에 두지 않는다. --}}
@@ -74,7 +77,13 @@
 
         {{-- items-stretch: 원본 우측 패널은 높이 976 로 화면을 거의 다 채운다. 내용만큼만
              높으면 캔버스 옆에서 짧아 보인다. 두 열을 같은 높이로 늘려서 맞춘다. --}}
-        <div class="flex min-w-0 flex-col gap-6 xl:flex-row xl:items-stretch">
+        {{-- 상태를 이 한 곳에 둔다 — 접기 원과 '···' 메뉴가 같은 값을 만진다.
+             expanded    조직도 펼침 · membersOpen 멤버 목록 펼침
+             단축키 F / ⇧F 는 메뉴의 배지에 적힌 그대로다. 입력 칸에 포커스가 있을 때는
+             글자를 치는 중이므로 먹지 않게 막는다. --}}
+        <div class="flex min-w-0 flex-col gap-6 xl:flex-row xl:items-stretch"
+             x-data="{ expanded: true, membersOpen: true }"
+             @keydown.window="if (($event.key === 'f' || $event.key === 'F') && ! $event.target.closest?.('input, textarea, select')) expanded = ! $event.shiftKey">
 
             {{-- ═══ 캔버스 ═══ 회사 → 조직 --}}
             <div class="min-w-0 flex-1" x-data="{ scroll(px) { this.$refs.canvas.scrollBy({ left: px, behavior: 'smooth' }) } }">
@@ -88,17 +97,17 @@
                         {{-- 회사 — 이름 카드만 --}}
                         @include('partials.org-node', ['org' => $company, 'body' => false])
 
-                        <div x-data="{ open: true }" class="flex w-full flex-col items-center">
+                        <div class="flex w-full flex-col items-center">
                             {{-- 접기 원 30 — 원본은 헤더 카드 아래 테두리에 걸쳐 있다 --}}
-                            <button type="button" @click="open = ! open"
+                            <button type="button" @click="expanded = ! expanded"
                                     class="-mt-[15px] flex size-[30px] items-center justify-center rounded-full border border-line-solid-normal bg-background-normal text-label-normal transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                                    x-bind:aria-expanded="open"
+                                    x-bind:aria-expanded="expanded"
                                     aria-label="하위 조직 접기/펴기">
                                 {{-- 접히면 화살표가 아래로 돈다. Alpine 이 안 붙어도 펴진 모양으로 남는다. --}}
-                                <x-icon-chevron-up class="size-3.5 transition-transform" x-bind:class="open || 'rotate-180'" />
+                                <x-icon-chevron-up class="size-3.5 transition-transform" x-bind:class="expanded || 'rotate-180'" />
                             </button>
 
-                            <div class="flex w-full flex-col items-center" x-show="open" x-cloak>
+                            <div class="flex w-full flex-col items-center" x-show="expanded" x-cloak>
                                 <div class="{{ $connector }}" aria-hidden="true"></div>
                                 @include('partials.org-add-menu')
                                 <div class="{{ $connector }}" aria-hidden="true"></div>
@@ -132,19 +141,17 @@
                     <p class="text-label-1 leading-5 text-warm-gray-600">
                         총 <span class="tabular-nums">{{ count($members) }}</span>명
                     </p>
-                    <button type="button"
-                            class="ml-auto inline-flex size-6 shrink-0 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                            aria-label="멤버 목록 더보기">
-                        <x-icon-more-horizontal class="size-6" />
-                    </button>
+                    <div class="ml-auto">
+                        @include('partials.org-view-menu')
+                    </div>
                 </div>
 
-                {{-- 검색 — 원본 324x40. 정적 화면이라 실제 조회는 없다. --}}
-                <div class="px-[30px] pt-5">
+                {{-- 검색 + 목록 — '···' 메뉴의 '멤버 목록' 토글로 접힌다. --}}
+                <div x-show="membersOpen" x-cloak class="px-[30px] pt-5">
                     <x-input name="member_search" size="md" icon="search" placeholder="멤버 이름이나 조직 검색" />
                 </div>
 
-                <div class="pt-2.5">
+                <div x-show="membersOpen" x-cloak class="pt-2.5">
                     @foreach ($members as $member)
                         <div class="flex h-[62px] min-w-0 items-center gap-3 px-[30px]">
                             <x-thumbnail :name="$member['name']" size="md" shape="circle" />

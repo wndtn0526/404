@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>화상조직도 · 전자결재</title>
 
-        <link rel="preload" as="style" href="./build/assets/app-CL6B1frU.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-CL6B1frU.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="preload" as="style" href="./build/assets/app-BuOS2oSu.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-BuOS2oSu.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
     <meta name="robots" content="noindex">
 </head>
@@ -188,7 +188,9 @@
         
         
         <main class="min-h-0 min-w-0 flex-1 px-5 pb-20 pt-8 lg:px-20">
-            <div class="flex min-w-0 flex-col gap-6 xl:flex-row xl:items-stretch">
+            <div class="flex min-w-0 flex-col gap-6 xl:flex-row xl:items-stretch"
+             x-data="{ expanded: true, membersOpen: true }"
+             @keydown.window="if (($event.key === 'f' || $event.key === 'F') && ! $event.target.closest?.('input, textarea, select')) expanded = ! $event.shiftKey">
 
             
             <div class="min-w-0 flex-1" x-data="{ scroll(px) { this.$refs.canvas.scrollBy({ left: px, behavior: 'smooth' }) } }">
@@ -235,18 +237,18 @@
     </div>
 
 
-                        <div x-data="{ open: true }" class="flex w-full flex-col items-center">
+                        <div class="flex w-full flex-col items-center">
                             
-                            <button type="button" @click="open = ! open"
+                            <button type="button" @click="expanded = ! expanded"
                                     class="-mt-[15px] flex size-[30px] items-center justify-center rounded-full border border-line-solid-normal bg-background-normal text-label-normal transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                                    x-bind:aria-expanded="open"
+                                    x-bind:aria-expanded="expanded"
                                     aria-label="하위 조직 접기/펴기">
                                 
-                                <svg width="1em" height="1em" aria-hidden="true" x-bind:class="open || 'rotate-180'" class="size-3.5 transition-transform" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="1em" height="1em" aria-hidden="true" x-bind:class="expanded || 'rotate-180'" class="size-3.5 transition-transform" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M3.3633 16.1365C3.71478 16.488 4.28463 16.488 4.6361 16.1365L11.9997 8.77289L19.3633 16.1365C19.7148 16.488 20.2846 16.488 20.6361 16.1365C20.9876 15.785 20.9876 15.2152 20.6361 14.8637L12.6361 6.8637C12.2846 6.51223 11.7148 6.51223 11.3633 6.8637L3.3633 14.8637C3.01183 15.2152 3.01183 15.785 3.3633 16.1365Z" fill="currentColor" fill-opacity="0.88"/>
 </svg>                            </button>
 
-                            <div class="flex w-full flex-col items-center" x-show="open" x-cloak>
+                            <div class="flex w-full flex-col items-center" x-show="expanded" x-cloak>
                                 <div class="mx-auto h-[38px] w-0 border-l border-dashed border-warm-gray-300" aria-hidden="true"></div>
                                 <div class="relative" x-data="{ open: false }"
      @click.outside="open = false"
@@ -382,18 +384,86 @@
                     <p class="text-label-1 leading-5 text-warm-gray-600">
                         총 <span class="tabular-nums">1</span>명
                     </p>
-                    <button type="button"
-                            class="ml-auto inline-flex size-6 shrink-0 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                            aria-label="멤버 목록 더보기">
-                        <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <div class="ml-auto">
+                        <div class="relative" x-data="{ open: false }"
+     @click.outside="open = false"
+     @keydown.escape.window="open = false">
+
+    <button type="button" @click="open = ! open"
+            class="inline-flex size-6 shrink-0 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+            x-bind:aria-expanded="open"
+            aria-haspopup="true"
+            aria-label="보기 설정">
+        <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M5.24969 13.75C6.21618 13.75 6.99968 12.9665 6.99968 12C6.99968 11.0335 6.21618 10.25 5.24969 10.25C4.28319 10.25 3.49969 11.0335 3.49969 12C3.49969 12.9665 4.28319 13.75 5.24969 13.75Z" fill="currentColor" fill-opacity="0.88"/>
 <path d="M13.7497 12C13.7497 12.9665 12.9662 13.75 11.9997 13.75C11.0332 13.75 10.2497 12.9665 10.2497 12C10.2497 11.0335 11.0332 10.25 11.9997 10.25C12.9662 10.25 13.7497 11.0335 13.7497 12Z" fill="currentColor" fill-opacity="0.88"/>
 <path d="M20.4996 12C20.4996 12.9665 19.7161 13.75 18.7496 13.75C17.7832 13.75 16.9997 12.9665 16.9997 12C16.9997 11.0335 17.7832 10.25 18.7496 10.25C19.7161 10.25 20.4996 11.0335 20.4996 12Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                    </button>
+</svg>    </button>
+
+    
+    <div x-show="open" x-cloak role="menu"
+         class="absolute right-0 top-full z-30 w-96 rounded-lg bg-background-normal p-[30px] shadow-elevation-lg">
+
+        <p class="text-caption-1 font-bold leading-[18px] text-warm-gray-500">보기 설정</p>
+
+        <div class="mt-[18px] flex flex-col gap-6">
+            <button type="button" role="menuitem" class="flex w-full min-w-0 items-center justify-between gap-4 text-left focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4"
+                    @click="expanded = true; open = false">
+                <span class="truncate text-body-2 font-bold leading-[23px] text-mono-black">조직도 모두 펼치기</span>
+                <span class="flex h-6 items-center justify-center gap-0.5 rounded-md border-b-[1.5px] border-warm-gray-300 bg-warm-gray-100 px-1.5 text-label-1 font-medium leading-5 text-warm-gray-400" aria-hidden="true">F</span>
+            </button>
+
+            <button type="button" role="menuitem" class="flex w-full min-w-0 items-center justify-between gap-4 text-left focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4"
+                    @click="expanded = false; open = false">
+                <span class="truncate text-body-2 font-bold leading-[23px] text-mono-black">조직도 모두 접기</span>
+                <span class="flex h-6 items-center justify-center gap-0.5 rounded-md border-b-[1.5px] border-warm-gray-300 bg-warm-gray-100 px-1.5 text-label-1 font-medium leading-5 text-warm-gray-400" aria-hidden="true">
+                    <svg width="1em" height="1em" aria-hidden="true" class="size-3" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.6365 2.86346C12.2851 2.51199 11.7152 2.51199 11.3637 2.86346L4.36376 9.86345C4.01229 10.2149 4.01229 10.7848 4.36376 11.1362C4.71523 11.4877 5.28508 11.4877 5.63655 11.1362L11.1001 5.67265V20.4999C11.1001 20.9969 11.5031 21.3999 12.0001 21.3999C12.4972 21.3999 12.9001 20.9969 12.9001 20.4999V5.67265L18.3637 11.1362C18.7152 11.4877 19.285 11.4877 19.6365 11.1362C19.988 10.7848 19.988 10.2149 19.6365 9.86345L12.6365 2.86346Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>F
+                </span>
+            </button>
+
+            
+            <div class="flex w-full min-w-0 items-center justify-between gap-4">
+                <span class="truncate text-body-2 font-bold leading-[23px] text-mono-black">멤버 목록</span>
+                <label for="switch-6a7438cc7baa9"  x-data  class="inline-flex items-center gap-3 select-none cursor-pointer shrink-0">
+    <input
+        type="checkbox"
+        id="switch-6a7438cc7baa9"
+                value="1"
+                        x-model="membersOpen"
+        class="peer sr-only"
+    />
+
+    <span class="relative inline-flex shrink-0 items-center rounded-full bg-fill-strong transition-colors duration-200
+                 peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40
+                 peer-disabled:opacity-[0.43] h-6 w-10 p-[3px] peer-checked:[&amp;&gt;span]:translate-x-4">
+        <span class="pointer-events-none inline-block rounded-full bg-white transition-transform duration-200 size-[18px]"></span>
+    </span>
+
+    </label>
+            </div>
+        </div>
+
+        <div class="mt-5 h-px bg-warm-gray-100" aria-hidden="true"></div>
+
+        <p class="text-caption-1 font-bold leading-[18px] text-warm-gray-500 mt-[18px]">기타 설정</p>
+
+        <div class="mt-[18px] flex flex-col gap-6">
+            <button type="button" role="menuitem" class="flex w-full min-w-0 items-center justify-between gap-4 text-left focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                <span class="truncate text-body-2 font-bold leading-[23px] text-mono-black">화상 조직도 튜토리얼</span>
+            </button>
+            <button type="button" role="menuitem" class="flex w-full min-w-0 items-center justify-between gap-4 text-left focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                <span class="truncate text-body-2 font-bold leading-[23px] text-mono-black">단축키 보기</span>
+            </button>
+        </div>
+    </div>
+</div>
+                    </div>
                 </div>
 
                 
-                <div class="px-[30px] pt-5">
+                <div x-show="membersOpen" x-cloak class="px-[30px] pt-5">
                     <div class="flex flex-col gap-1.5"  >
     
         <div class="relative"
@@ -413,7 +483,7 @@
     </div>
                 </div>
 
-                <div class="pt-2.5">
+                <div x-show="membersOpen" x-cloak class="pt-2.5">
                                             <div class="flex h-[62px] min-w-0 items-center gap-3 px-[30px]">
                             <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800">
             <span class="text-body-2 font-semibold text-white select-none">김</span>
