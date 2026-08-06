@@ -20,6 +20,7 @@ SRC="http://127.0.0.1:${PORT}"
 PAGES=(
     "styleguide:index.html"
     "contents:contents.html"
+    "contents/new:contents-new.html"
     "public-space:public-space.html"
     "public-space-empty:public-space-empty.html"
     "profile-settings:profile-settings.html"

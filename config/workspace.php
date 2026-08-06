@@ -48,9 +48,12 @@ return [
     /*
     | 워크스페이스 안쪽 메뉴.
     */
+    // 컨텐츠 관리는 하위 화면(/contents/new 등)에서도 켜져 있어야 한다.
+    // href 한 곳만 보면 등록 화면에서 메뉴가 꺼진다.
     'items' => [
         ['label' => '홈', 'href' => '/workspace', 'icon' => 'home'],
-        ['label' => '컨텐츠 관리', 'href' => '/contents', 'icon' => 'inbox'],
+        ['label' => '컨텐츠 관리', 'href' => '/contents', 'icon' => 'inbox',
+            'match' => ['contents', 'contents/*']],
     ],
 
     // 설정 화면은 아직 없다. href 를 경로로 적으면 정적 배포에서 치환 대상이 없어

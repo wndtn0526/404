@@ -30,3 +30,7 @@ Route::view('/post', 'post')->name('post');
 
 // 컨텐츠 관리 — Figma 워크스페이스 화면(node 1-299) 그대로.
 Route::view('/contents', 'contents')->name('contents');
+
+// 컨텐츠 추가 — 레이아웃은 Figma node 1002-269747, 필드는 컨텐츠 관리 표의 컬럼.
+// 아직 정적이다. 저장이 붙으면 POST 라우트와 컨트롤러를 따로 만든다.
+Route::view('/contents/new', 'contents-create')->name('contents.create');

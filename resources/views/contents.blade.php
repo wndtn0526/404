@@ -92,9 +92,8 @@
                 </button>
 
                 {{-- 컨텐츠 추가 — 원본(node 1-299)에 없다. 목록만 있고 만드는 길이 없어서 넣었다.
-                     ⚠️ 아직 등록 화면도 저장 엔드포인트도 없다. 눌러도 아무 일이 없다.
-                        붙일 땐 <a href> 로 등록 화면에 보내거나 x-modal 을 띄운다. --}}
-                <x-button variant="primary" size="sm" icon="plus">컨텐츠 추가</x-button>
+                     등록 화면은 /contents/new (레이아웃은 Figma node 1002-269747). --}}
+                <x-button variant="primary" size="sm" icon="plus" href="{{ url('/contents/new') }}">컨텐츠 추가</x-button>
             </div>
         </x-slot:actions>
 
