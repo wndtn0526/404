@@ -124,7 +124,15 @@
                     <x-input label="컨텐츠ID" size="sm" value="저장하면 자동 발급" disabled />
                     <x-input label="등록자" size="sm" value="김기안" disabled />
 
-                    <x-input label="등록일" size="sm" value="저장하면 자동 기록" disabled />
+                    {{-- 등록일은 오늘 날짜를 그대로 박는다. 저장하면 이 날짜로 찍히므로
+                         '자동 기록' 이라고 적어 두는 것보다 실제 값을 보여주는 게 낫다.
+                         표기는 표와 같은 Y.m.d (2021.07.31).
+                         ⚠️ 앱 타임존(Asia/Seoul)을 따른다. config/app.php 가 UTC 를 하드코딩하고
+                            있어서 .env 값이 무시되던 걸 같이 고쳤다 — UTC 로는 KST 00~09시에
+                            하루 전 날짜가 찍힌다.
+                         ⚠️ 정적 배포(docs/)는 뽑는 순간의 날짜가 박혀 그대로 굳는다. 실제 서버에
+                            붙으면 요청마다 계산된다. --}}
+                    <x-input label="등록일" size="sm" :value="now()->format('Y.m.d')" disabled />
                     <x-dropdown label="제작연도" name="year" size="sm" :options="$years" placeholder="제작연도 선택" />
 
                     {{-- 영상 길이 — 표에서 '00분 / 00초' 로 보여준다. 값이 없으면 하이픈이다. --}}

@@ -63,9 +63,14 @@ return [
     | will be used by the PHP date and date-time functions. The timezone
     | is set to "UTC" by default as it is suitable for most use cases.
     |
+    | ⚠️ 'UTC' 가 하드코딩돼 있어서 .env 의 APP_TIMEZONE=Asia/Seoul 이 무시되고 있었다.
+    |    UTC 는 KST 보다 9시간 느리다 — KST 00~09시 사이에는 날짜가 하루 전으로 찍힌다.
+    |    등록일·결재 기한 같은 날짜가 하루씩 틀어지므로 env 를 읽게 되돌렸다.
+    |    (라라벨 기본값도 env('APP_TIMEZONE', 'UTC') 다.)
+    |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
