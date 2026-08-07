@@ -27,16 +27,67 @@
         있는 상태를 보여주므로 두 화면의 조직 목록이 다르다. 맞출지는 정하면 된다.
      ⚠️ 검색·기준일·뷰 전환·정보 변경·조직 추가는 아직 동작하지 않는다. --}}
 @php
-    // 좌측 트리 — depth 로 들여쓴다. kind: open(펼침) · closed(접힘) · leaf(자식 없음)
-    $tree = [
-        ['name' => '청담원', 'depth' => 0, 'kind' => 'open', 'current' => true],
-        ['name' => '개발팀', 'depth' => 1, 'kind' => 'leaf'],
-        ['name' => '운영팀', 'depth' => 1, 'kind' => 'leaf'],
-        ['name' => '콘텐츠팀', 'depth' => 1, 'kind' => 'leaf'],
+    /*
+     * 좌측 조직도 트리 — Figma node 1002-274329 (안쪽 목록 1002-274353).
+     * 중첩으로 적고 아래에서 평탄화한다. 연결선을 그리려면 각 행이 '조상 중 뒤에 형제가
+     * 남은 단계' 를 알아야 하는데, 평평한 배열로는 그 정보가 안 나온다.
+     *
+     * ⚠️ 하위 팀(프론트엔드팀·백엔드팀·수강 운영팀)은 트리 모양을 보이려고 넣은 예시다.
+     */
+    $orgTree = [
+        ['name' => '청담원', 'current' => true, 'children' => [
+            ['name' => '개발팀', 'children' => [
+                ['name' => '프론트엔드팀'],
+                ['name' => '백엔드팀'],
+            ]],
+            ['name' => '운영팀', 'children' => [
+                ['name' => '수강 운영팀'],
+            ]],
+            ['name' => '콘텐츠팀'],
+        ]],
     ];
 
-    // 트리 들여쓰기 — Tailwind 는 문자열로 훑으므로 완성된 클래스명을 담는다.
-    $indent = [0 => 'pl-[30px]', 1 => 'pl-[56px]', 2 => 'pl-[78px]'];
+    // 처음에 접혀 있는 노드. Alpine 이 이 배열을 그대로 받아 토글한다.
+    $closedOrgs = ['운영팀'];
+
+    /*
+     * 평탄화 — 행마다 아래를 담는다.
+     *   lines : 조상 단계별로 세로선을 그릴지 (그 조상 뒤에 형제가 남았는가)
+     *   last  : 형제 중 마지막인가 (세로선을 행 중간까지만 그린다)
+     *   path  : 조상 이름들 — 조상이 접히면 이 행을 숨긴다
+     * 접힌 노드의 자식도 전부 그린다. 감추는 건 Alpine 이 한다(서버가 다시 그리지 않는다).
+     */
+    $flattenTree = function (array $nodes, array $lines = [], array $path = []) use (&$flattenTree) {
+        $rows = [];
+        $nodes = array_values($nodes);
+        $lastIndex = count($nodes) - 1;
+
+        foreach ($nodes as $i => $node) {
+            $isLast = $i === $lastIndex;
+            $hasChildren = ! empty($node['children']);
+
+            $rows[] = [
+                'name' => $node['name'],
+                'depth' => count($lines),
+                'lines' => $lines,
+                'last' => $isLast,
+                'children' => $hasChildren,
+                'path' => $path,
+                'current' => (bool) ($node['current'] ?? false),
+            ];
+
+            if ($hasChildren) {
+                $rows = array_merge(
+                    $rows,
+                    $flattenTree($node['children'], [...$lines, ! $isLast], [...$path, $node['name']])
+                );
+            }
+        }
+
+        return $rows;
+    };
+
+    $treeRows = $flattenTree($orgTree);
 
     // 선택된 조직(청담원)의 상세. 값은 예시다.
     $org = [
@@ -142,40 +193,96 @@
 
                 <div class="mt-5 h-px bg-warm-gray-100" aria-hidden="true"></div>
 
-                {{-- 트리 — 행 40 · 선택 행 Warm gray/100 · 오른쪽에 '+ 조직 추가'(호버) --}}
-                <ul class="pt-4">
-                    @foreach ($tree as $node)
-                        @php $isCurrent = (bool) ($node['current'] ?? false); @endphp
-                        <li>
+                {{-- 트리 — Figma node 1002-274353 실측
+                     행 40 · 선택 행 Warm gray/100 · 이름 14 (자식 있으면 Bold · 잎이면 Medium)
+                     단계 칸 26 · 세로선 x+6 · 잎 엘보 가로선 8 (행 중간)
+                     마지막 자식은 세로선을 행 중간까지만 그린다
+                     토글 13x13 반경 1 — 펼침: 테두리 Warm gray/400 + 마이너스
+                                        접힘: 면 Warm gray/700 + 흰 플러스
+                     '+ 조직 추가' 는 행에 올렸을 때 우측에 보인다
+
+                     ⚠️ 접기는 Alpine 이 감추는 방식이다(서버가 다시 그리지 않는다). x-show 대신
+                        :class 로 감춘다 — x-show 는 Alpine 이 그리기를 프레임에 미뤄서
+                        헤드리스 확인이 안 된다.
+                     ⚠️ 행을 눌러도 우측 상세는 청담원 그대로다. 다른 조직의 데이터가 없다. --}}
+                <ul class="pt-4"
+                    x-data="{
+                        closed: @js($closedOrgs),
+                        toggle(name) {
+                            this.closed = this.closed.includes(name)
+                                ? this.closed.filter(n => n !== name)
+                                : [...this.closed, name];
+                        },
+                        isOpen(name) { return ! this.closed.includes(name); },
+                        isHidden(path) { return path.some(p => this.closed.includes(p)); },
+                    }">
+                    @foreach ($treeRows as $row)
+                        <li @if ($row['path']) :class="{ 'hidden': isHidden(@js($row['path'])) }" @endif>
                             <div @class([
-                                'group flex h-10 min-w-0 items-center gap-2 pr-[30px] transition-colors',
-                                $indent[$node['depth']] ?? $indent[2],
-                                'bg-warm-gray-100' => $isCurrent,
-                                'hover:bg-fill-alternative' => ! $isCurrent,
+                                'group flex h-10 min-w-0 items-center pl-[30px] pr-[30px] transition-colors',
+                                'bg-warm-gray-100' => $row['current'],
+                                'hover:bg-fill-alternative' => ! $row['current'],
                             ])>
-                                @if ($node['kind'] === 'leaf')
-                                    {{-- 자식 없는 조직 — 원본은 얇은 연결선이다. 짧은 가로선으로 뒀다. --}}
-                                    <span class="h-px w-2 shrink-0 bg-warm-gray-300" aria-hidden="true"></span>
-                                @else
-                                    <button type="button"
-                                            class="relative flex size-[13px] shrink-0 items-center justify-center rounded-xs border border-warm-gray-400 text-warm-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                                            aria-label="{{ $node['name'] }} 하위 조직 접기/펴기">
-                                        <span class="absolute h-px w-[7px] bg-current" aria-hidden="true"></span>
-                                        @if ($node['kind'] === 'closed')
-                                            <span class="absolute h-[7px] w-px bg-current" aria-hidden="true"></span>
+                                {{-- 조상 단계 — 뒤에 형제가 남은 단계만 세로선이 계속 내려간다 --}}
+                                @foreach ($row['lines'] as $hasLine)
+                                    <span class="relative h-10 w-[26px] shrink-0" aria-hidden="true">
+                                        @if ($hasLine)
+                                            <span class="absolute left-[6px] top-0 h-full w-px bg-warm-gray-400"></span>
                                         @endif
-                                    </button>
+                                    </span>
+                                @endforeach
+
+                                {{-- 자기 단계 — 토글(자식 있음) 또는 엘보(잎) --}}
+                                @if ($row['children'])
+                                    <span class="relative h-10 w-[21px] shrink-0">
+                                        @if ($row['depth'] > 0)
+                                            {{-- 토글을 비켜 위/아래로 나뉜다(원본 그대로) --}}
+                                            <span class="absolute left-[6px] top-0 h-[14px] w-px bg-warm-gray-400" aria-hidden="true"></span>
+                                            @unless ($row['last'])
+                                                <span class="absolute left-[6px] top-[27px] h-[13px] w-px bg-warm-gray-400" aria-hidden="true"></span>
+                                            @endunless
+                                        @endif
+
+                                        <button type="button"
+                                                @click="toggle(@js($row['name']))"
+                                                x-bind:aria-expanded="isOpen(@js($row['name']))"
+                                                aria-label="{{ $row['name'] }} 하위 조직 접기/펴기"
+                                                class="absolute left-0 top-[14px] flex size-[13px] items-center justify-center rounded-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                                                x-bind:class="isOpen(@js($row['name']))
+                                                    ? 'border border-warm-gray-400 text-warm-gray-400'
+                                                    : 'bg-warm-gray-700 text-white'">
+                                            <span class="absolute h-px w-[7px] bg-current" aria-hidden="true"></span>
+                                            <span class="absolute h-[7px] w-px bg-current" aria-hidden="true"
+                                                  x-bind:class="isOpen(@js($row['name'])) && 'hidden'"></span>
+                                        </button>
+                                    </span>
+                                @else
+                                    {{-- 원본 잎 단계는 칸이 17 이라 이름이 4 왼쪽에 선다. 원본엔 한 그룹에
+                                         토글과 잎이 섞인 경우가 없어서 드러나지 않는 차이다. 여기선 섞이므로
+                                         토글 칸과 같은 21 로 맞춰 이름 왼끝을 나란히 둔다. --}}
+                                    <span class="relative h-10 w-[21px] shrink-0" aria-hidden="true">
+                                        <span @class([
+                                            'absolute left-[6px] top-0 w-px bg-warm-gray-400',
+                                            'h-[21px]' => $row['last'],
+                                            'h-full' => ! $row['last'],
+                                        ])></span>
+                                        <span class="absolute left-[7px] top-[20px] h-px w-2 bg-warm-gray-400"></span>
+                                    </span>
                                 @endif
 
-                                <a href="#" class="min-w-0 flex-1 truncate text-label-1 font-bold leading-5 text-mono-black focus:outline-none focus-visible:underline"
-                                   @if ($isCurrent) aria-current="true" @endif>
-                                    {{ $node['name'] }}
+                                <a href="#" @class([
+                                        'min-w-0 flex-1 truncate pl-2 text-label-1 leading-5 text-mono-black focus:outline-none focus-visible:underline',
+                                        'font-bold' => $row['children'],
+                                        'font-medium' => ! $row['children'],
+                                    ])
+                                   @if ($row['current']) aria-current="true" @endif>
+                                    {{ $row['name'] }}
                                 </a>
 
                                 {{-- 원본은 행에 올렸을 때 보인다 --}}
                                 <button type="button"
                                         @click="$dispatch('open-modal', 'org-add')"
-                                        class="shrink-0 text-label-2 font-medium leading-5 text-mono-black opacity-0 transition-opacity focus:outline-none group-hover:opacity-100 focus-visible:opacity-100">
+                                        class="shrink-0 pl-2 text-label-2 font-medium leading-5 text-mono-black opacity-0 transition-opacity focus:outline-none group-hover:opacity-100 focus-visible:opacity-100">
                                     + 조직 추가
                                 </button>
                             </div>
