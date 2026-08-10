@@ -538,6 +538,20 @@
                         @endforeach
                     </tbody>
                 </x-table>
+
+                {{-- 빈 표 — 헤더는 남기고 표 안에서 알린다. 화면 전체가 비는 자리에는
+                     아래 '빈 상태' 의 x-empty-state 를 쓴다. --}}
+                <x-table min-width="820px">
+                    <x-table.head :columns="[
+                        ['label' => '문서번호', 'width' => '150px'],
+                        ['label' => '제목'],
+                        ['label' => '기안자', 'width' => '100px'],
+                        ['label' => '기안일', 'align' => 'right', 'width' => '110px'],
+                    ]" />
+                    <tbody>
+                        <x-table.empty :colspan="4">아직 기안한 문서가 없습니다.</x-table.empty>
+                    </tbody>
+                </x-table>
             </section>
 
             {{-- ═══ 내비 ═══ --}}

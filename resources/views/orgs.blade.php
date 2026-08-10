@@ -17,8 +17,9 @@
         팀과 멤버·인사…). 셸은 우리 것을 그대로 쓰고 조직 관리만 메뉴에 더했다.
      ⚠️ 원본 상단 알약 탭이 7개다. 우리는 컨텐츠 관리·과정 관리·조직 관리 세 개를 쓰는
         partials/workspace-tabs 에 더했다.
-     ⚠️ 원본 우측 탭은 조직 기본 · 변경 이력 · 주소 변경 · 조직장 관리 네 개다. 값이 있는 건
-        조직 기본과 조직장 관리뿐이라 나머지 둘은 비어 있는 상태로 뒀다.
+     ⚠️ 원본 우측 탭은 조직 기본 · 변경 이력 · 주소 변경 · 조직장 관리 네 개다. 조직 기본만
+        필드 화면이고, 나머지 셋은 전부 '제목 + 버튼 둘 + 표' 로 같은 모양이다
+        (변경 이력 1002-274395 · 주소 변경 1002-274806 · 조직장 관리 1002-275173).
      ⚠️ 트리 연결선은 원본이 얇은 사각형 여러 개로 그려져 있다. 들여쓰기 + 짧은 가로선으로
         비슷하게만 맞췄다.
      ⚠️ 구성원은 요청대로 한 명(김기안)만 뒀다. 연락처는 눈에 보이는 더미 번호다 —
@@ -118,7 +119,54 @@
         'phone' => '010 1234 5678',
     ];
 
+    /*
+     * 변경 이력 세 갈래 — 조직 정보 / 조직 업무는 '변경 이력' 탭, 주소는 '주소 변경' 탭,
+     * 조직장은 '조직장 관리' 탭에 들어간다. 셋 다 같은 모양(제목 + 버튼 + 표)이다.
+     *
+     * ⚠️ 원본은 세 표 모두 같은 값을 2~3행 되풀이한 자리표시자다. 여기서는 조직 기본·상세와
+     *    어긋나지 않게 실제 값 한 행씩만 뒀다.
+     * 빈 배열로 두면 원본의 '아직 변경 이력이 없습니다.' 상태가 그대로 나온다
+     * (node 1002-274623 · 1002-275001 · 1002-275368).
+     */
+    // 조직 정보 변경 이력 — 상위 조직이 없는 루트라 그 칸은 하이픈으로 나간다.
+    $infoHistory = [
+        ['from' => '2021.08.01', 'to' => null, 'name' => '청담원', 'parent' => null, 'note' => '내용 없음'],
+    ];
+
+    $missionHistory = [
+        ['lang' => '한국어', 'text' => '요양보호 · 방문간호 교육 컨텐츠를 만들고 운영합니다.'],
+        ['lang' => 'English', 'text' => 'We build and run care-worker education content.'],
+    ];
+
+    // 주소 변경 이력 — Figma node 1002-274806
+    $addressHistory = [
+        [
+            'country' => '대한민국',
+            'zip' => '06015',
+            'address' => '서울특별시 강남구 청담동',
+            'address_en' => null,
+            'address_detail_en' => null,
+            'from' => '2021.08.01',
+            'to' => null,
+        ],
+    ];
+
+    // 조직장 변경 이력 — Figma node 1002-275173. 구성원은 요청대로 한 명만.
+    $leaderHistory = [
+        [
+            'name' => '김기안',
+            'from' => '2021.08.01',
+            'to' => null,
+            'kind' => '대표',
+            'employee_no' => '20210001',
+            'title' => '대표',
+            'note' => null,
+        ],
+    ];
+
     $sectionTitle = 'text-headline-2 font-bold leading-[27px] text-mono-black';
+    // 섹션 제목 줄 — 제목은 좌우 30 안쪽, 표는 패널 폭 전체로 흘린다(원본 그대로)
+    $histTitle = 'flex min-w-0 flex-wrap items-center justify-between gap-3 px-[30px]';
     $fieldGrid = 'grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2';
     $iconBtn = 'flex size-8 shrink-0 items-center justify-center rounded-md border border-line-solid-normal bg-background-normal text-label-normal transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40';
 @endphp
@@ -351,31 +399,67 @@
                     </dl>
                 </div>
 
-                {{-- ── 조직장 관리 ── 구성원 한 명 --}}
-                <div x-show="tab === 'leader'" x-cloak class="px-[30px] pt-10">
-                    <x-table min-width="620px">
-                        <x-table.head :columns="[
-                            ['label' => '이름', 'width' => '160px'],
-                            ['label' => '직책', 'width' => '140px'],
-                            ['label' => '구분', 'width' => '120px'],
-                            ['label' => '시작일'],
-                        ]" />
-                        <tbody>
-                            <x-table.row>
-                                <x-table.cell tone="strong" nowrap>
-                                    <span class="flex min-w-0 items-center gap-1.5">
-                                        <x-thumbnail :name="$leader['name']" size="xs" shape="circle" class="size-[18px]" />
-                                        <span class="truncate">{{ $leader['name'] }}</span>
-                                    </span>
-                                </x-table.cell>
-                                <x-table.cell tone="muted" nowrap>{{ $leader['title'] }}</x-table.cell>
-                                <x-table.cell tone="muted" nowrap>{{ $leader['kind'] }}</x-table.cell>
-                                <x-table.cell tone="muted" nowrap>
-                                    <span class="tabular-nums">{{ $leader['since'] }}</span>
-                                </x-table.cell>
-                            </x-table.row>
-                        </tbody>
-                    </x-table>
+                {{-- ── 조직장 관리 ── Figma node 1002-275173
+                     '조직장 목록' 이 아니라 조직장 변경 이력이다. 변경 이력 탭과 같은 모양이다.
+
+                     원본 실측 — 섹션 제목 18 Bold lh27 (DS headline-2) · 제목 아래 20
+                       표 행 56 · 84 | 160 | 110 | 110 | 120 | 110 | 160 | 242 = 1096
+                       이름 칸만 프로필 셀 — 아바타 32 + 간격 10 + 이름 13 Bold
+
+                     ⚠️ 체크박스 열이 원본 84 인데 DS x-table 은 48(w-12 px-5)로 고정이다.
+                     ⚠️ 종료일·비고는 아직 값이 없다. 빈 값은 하이픈으로 나간다. --}}
+                <div x-show="tab === 'leader'" x-cloak class="pt-10">
+                    <div class="{{ $histTitle }}">
+                        <h3 class="{{ $sectionTitle }}">조직장 변경 이력</h3>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <x-button variant="outline" size="sm" icon="download">엑셀로 저장</x-button>
+                            <x-button variant="outline" size="sm" icon="plus">변경 이력 추가</x-button>
+                        </div>
+                    </div>
+
+                    <div class="pt-5">
+                        <x-table selectable min-width="1060px" class="rounded-none border-x-0">
+                            <x-table.head
+                                selectable
+                                :all-ids="collect($leaderHistory)->pluck('employee_no')->all()"
+                                :columns="[
+                                    ['label' => '이름', 'width' => '160px'],
+                                    ['label' => '시작일', 'width' => '110px'],
+                                    ['label' => '종료일', 'width' => '110px'],
+                                    ['label' => '구분', 'width' => '120px'],
+                                    ['label' => '사번', 'width' => '110px'],
+                                    ['label' => '직책', 'width' => '160px'],
+                                    ['label' => '비고'],
+                                ]"
+                            />
+                            <tbody>
+                                @forelse ($leaderHistory as $row)
+                                    <x-table.row selectable :value="$row['employee_no']">
+                                        <x-table.cell tone="strong" nowrap>
+                                            <span class="flex min-w-0 items-center gap-2.5">
+                                                <x-thumbnail :name="$row['name']" size="sm" shape="circle" />
+                                                <span class="truncate">{{ $row['name'] }}</span>
+                                            </span>
+                                        </x-table.cell>
+                                        <x-table.cell tone="muted" nowrap>
+                                            <span class="tabular-nums">{{ $row['from'] }}</span>
+                                        </x-table.cell>
+                                        <x-table.cell tone="muted" nowrap>
+                                            <span class="tabular-nums">{{ $row['to'] ?? '-' }}</span>
+                                        </x-table.cell>
+                                        <x-table.cell tone="muted" nowrap>{{ $row['kind'] }}</x-table.cell>
+                                        <x-table.cell tone="muted" nowrap>
+                                            <span class="tabular-nums">{{ $row['employee_no'] }}</span>
+                                        </x-table.cell>
+                                        <x-table.cell tone="muted" nowrap>{{ $row['title'] }}</x-table.cell>
+                                        <x-table.cell tone="muted">{{ $row['note'] ?? '-' }}</x-table.cell>
+                                    </x-table.row>
+                                @empty
+                                    <x-table.empty :colspan="8" />
+                                @endforelse
+                            </tbody>
+                        </x-table>
+                    </div>
                 </div>
 
                 {{-- ── 변경 이력 ── Figma node 1002-274395
@@ -395,18 +479,6 @@
                      ⚠️ 엑셀로 저장 · 변경 이력 추가는 아직 동작하지 않는다. 내려받기가 붙으면
                         권한 확인 후 스트리밍한다. --}}
                 <div x-show="tab === 'history'" x-cloak class="pt-10">
-                    @php
-                        $histTitle = 'flex min-w-0 flex-wrap items-center justify-between gap-3 px-[30px]';
-                        // 상위 조직이 없는 루트라 그 칸은 하이픈으로 나간다.
-                        $infoHistory = [
-                            ['from' => '2021.08.01', 'to' => null, 'name' => '청담원', 'parent' => null, 'note' => '내용 없음'],
-                        ];
-                        $missionHistory = [
-                            ['lang' => '한국어', 'text' => '요양보호 · 방문간호 교육 컨텐츠를 만들고 운영합니다.'],
-                            ['lang' => 'English', 'text' => 'We build and run care-worker education content.'],
-                        ];
-                    @endphp
-
                     {{-- 조직 정보 변경 이력 --}}
                     <div class="{{ $histTitle }}">
                         <h3 class="{{ $sectionTitle }}">조직 정보 변경 이력</h3>
@@ -428,7 +500,7 @@
                                 ]"
                             />
                             <tbody>
-                                @foreach ($infoHistory as $row)
+                                @forelse ($infoHistory as $row)
                                     <x-table.row selectable :value="$row['from']">
                                         <x-table.cell tone="muted" nowrap>
                                             <span class="tabular-nums">{{ $row['from'] }}</span>
@@ -440,7 +512,9 @@
                                         <x-table.cell tone="muted" nowrap>{{ $row['parent'] ?? '-' }}</x-table.cell>
                                         <x-table.cell tone="muted">{{ $row['note'] }}</x-table.cell>
                                     </x-table.row>
-                                @endforeach
+                                @empty
+                                    <x-table.empty :colspan="6" />
+                                @endforelse
                             </tbody>
                         </x-table>
                     </div>
@@ -467,19 +541,73 @@
                                 ]"
                             />
                             <tbody>
-                                @foreach ($missionHistory as $row)
+                                @forelse ($missionHistory as $row)
                                     <x-table.row selectable :value="$row['lang']">
                                         <x-table.cell tone="muted" nowrap>{{ $row['lang'] }}</x-table.cell>
                                         <x-table.cell tone="strong">{{ $row['text'] }}</x-table.cell>
                                     </x-table.row>
-                                @endforeach
+                                @empty
+                                    <x-table.empty :colspan="3" />
+                                @endforelse
                             </tbody>
                         </x-table>
                     </div>
                 </div>
 
-                <div x-show="tab === 'address'" x-cloak class="px-[30px] pt-10">
-                    <x-empty-state :lines="['주소 변경 이력이 없습니다.', '조직 주소를 바꾸면 여기에 쌓입니다.']" class="py-16" />
+                {{-- ── 주소 변경 ── Figma node 1002-274806
+                     원본 실측 — 표 84 | 120 | 100 | 252 | 160 | 160 | 110 | 110 = 1096
+                       상세 주소가 252 로 가장 넓다. 영문 주소·영문 상세 주소는 따로 두 칸이다 —
+                       원본 주석대로 내용이 길어질 수 있어 줄을 나눠 뒀다.
+
+                     ⚠️ 체크박스 열이 원본 84 인데 DS x-table 은 48(w-12 px-5)로 고정이다.
+                     ⚠️ 영문 주소는 아직 값이 없다. 빈 값은 하이픈으로 나간다. --}}
+                <div x-show="tab === 'address'" x-cloak class="pt-10">
+                    <div class="{{ $histTitle }}">
+                        <h3 class="{{ $sectionTitle }}">주소 변경 이력</h3>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <x-button variant="outline" size="sm" icon="download">엑셀로 저장</x-button>
+                            <x-button variant="outline" size="sm" icon="plus">변경 이력 추가</x-button>
+                        </div>
+                    </div>
+
+                    <div class="pt-5">
+                        <x-table selectable min-width="1060px" class="rounded-none border-x-0">
+                            <x-table.head
+                                selectable
+                                :all-ids="collect($addressHistory)->pluck('from')->all()"
+                                :columns="[
+                                    ['label' => '국가', 'width' => '120px'],
+                                    ['label' => '우편 번호', 'width' => '100px'],
+                                    ['label' => '상세 주소', 'width' => '252px'],
+                                    ['label' => '영문 주소', 'width' => '160px'],
+                                    ['label' => '영문 상세 주소', 'width' => '160px'],
+                                    ['label' => '시작일', 'width' => '110px'],
+                                    ['label' => '종료일'],
+                                ]"
+                            />
+                            <tbody>
+                                @forelse ($addressHistory as $row)
+                                    <x-table.row selectable :value="$row['from']">
+                                        <x-table.cell tone="muted" nowrap>{{ $row['country'] }}</x-table.cell>
+                                        <x-table.cell tone="muted" nowrap>
+                                            <span class="tabular-nums">{{ $row['zip'] }}</span>
+                                        </x-table.cell>
+                                        <x-table.cell tone="strong">{{ $row['address'] }}</x-table.cell>
+                                        <x-table.cell tone="muted">{{ $row['address_en'] ?? '-' }}</x-table.cell>
+                                        <x-table.cell tone="muted">{{ $row['address_detail_en'] ?? '-' }}</x-table.cell>
+                                        <x-table.cell tone="muted" nowrap>
+                                            <span class="tabular-nums">{{ $row['from'] }}</span>
+                                        </x-table.cell>
+                                        <x-table.cell tone="muted" nowrap>
+                                            <span class="tabular-nums">{{ $row['to'] ?? '-' }}</span>
+                                        </x-table.cell>
+                                    </x-table.row>
+                                @empty
+                                    <x-table.empty :colspan="8" />
+                                @endforelse
+                            </tbody>
+                        </x-table>
+                    </div>
                 </div>
             </div>
         </div>
