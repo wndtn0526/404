@@ -64,8 +64,12 @@ return [
             'match' => ['organization', 'organization/*']],
         ['label' => '조직 관리', 'href' => '/orgs', 'icon' => 'persons',
             'match' => ['orgs', 'orgs/*']],
+        // ⚠️ 재무는 match 를 'finance' 하나로 둔다. 'finance/*' 까지 넣으면 예산 계정 관리에
+        //    있을 때 두 항목이 같이 켜진다.
         ['label' => '재무', 'href' => '/finance', 'icon' => 'coins',
-            'match' => ['finance', 'finance/*']],
+            'match' => ['finance']],
+        ['label' => '예산 계정 관리', 'href' => '/finance/budget', 'icon' => 'list-category',
+            'match' => ['finance/budget', 'finance/budget/*']],
     ],
 
     // 설정 화면은 아직 없다. href 를 경로로 적으면 정적 배포에서 치환 대상이 없어
