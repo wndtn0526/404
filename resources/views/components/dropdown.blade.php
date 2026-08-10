@@ -4,10 +4,6 @@
     'hint' => null,
     'error' => null,
     'placeholder' => '선택하세요',
-    // prefix: 값 앞에 붙는 고정 라벨(예: '기간 2021.01.01 - 2021.09.30').
-    // 필터 줄처럼 라벨을 칸 위가 아니라 칸 안에 두는 화면에서 쓴다.
-    // GPRO_PORTFOLIO node 1002-88730(지출 현황 대시보드) 필터가 이 모양이다.
-    'prefix' => null,
     'options' => [],            // [value => label] 연관배열
     'selected' => null,
     'required' => false,
@@ -142,9 +138,6 @@
             @if ($hasLive) :class="({{ $liveState }}) === 'error' ? '{{ $errBorderCls }}' : '{{ $okBorderCls }}'" @endif
             {{ $attributes->whereDoesntStartWith('x-model')->class($trigger) }}
         >
-            @if ($prefix)
-                <span class="shrink-0 {{ $sz['text'] }} font-medium text-label-alternative">{{ $prefix }}</span>
-            @endif
             <span class="truncate {{ $sz['text'] }} {{ $serverDisplayColor }}" :class="hasValue ? 'text-label-normal' : 'text-label-assistive'" x-text="display">{{ $serverDisplay }}</span>
             <x-icon-caret-down class="{{ $sz['icon'] }} shrink-0 text-label-alternative transition-transform duration-200" ::class="open && 'rotate-180'" />
         </button>

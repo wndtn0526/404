@@ -1,8 +1,7 @@
 {{-- 지출 현황 대시보드 — Figma GPRO_PORTFOLIO (sJC6AduTG0I4cTttQJFAes · node 1002-88730)
-     재무 영역의 첫 화면. 필터 줄 + 차트 넉 장 + 정산 대기 표 둘.
+     재무 영역의 첫 화면. 필터 + 차트 넉 장 + 정산 대기 표 둘.
 
      원본 실측(1920) — 본문 1520 (좌 320 · 우 80)
-       필터 줄 1520x80 · 안쪽 30 · 컨트롤 32 (기간 296 · 법인 296) · 초기화 우측
        차트 카드 748x373 · 가로 사이 24 · 세로 사이 16 (748+24+748 = 1520)
        표 카드 748x726 · 열 180 | 150 | 150 | 150 | 118 = 748 · 행 56 · 10행
        카드 제목 20 Bold lh30 (DS heading-2) · 카드 안쪽 30
@@ -125,36 +124,27 @@
             <h1 class="min-w-0 truncate text-title-2 font-bold leading-[39px] text-mono-black">지출 현황 대시보드</h1>
         </x-slot:title>
 
-        {{-- ═══ 필터 줄 ═══ 원본 1520x80 · 안쪽 30 · 컨트롤 32 --}}
-        <div class="mt-8 flex min-w-0 flex-wrap items-center gap-4 rounded-lg bg-background-normal px-[30px] py-6">
-            <span class="flex shrink-0 items-center gap-2 pr-2 text-label-1 font-medium leading-5 text-mono-black">
-                <x-icon-filter class="size-6" />
-                필터
-            </span>
+        {{-- ═══ 필터 ═══
+             원본(1002-88730)은 1520x80 흰 카드 안에 '기간 296 · 법인 296 · 초기화' 를 넣는데,
+             컨텐츠 관리·과정 관리가 이미 DS x-filter-bar 를 쓰고 있다. 화면마다 필터 생김새가
+             갈리면 같은 일을 하는 자리가 달라 보여서 공용 쪽으로 맞췄다.
+             카드도 같이 없앴다 — x-filter-bar 는 툴바라 카드 안에 넣을 물건이 아니다.
 
-            {{-- 원본은 296 고정이고 남는 자리는 그냥 비워 둔다. 늘리면 값이 칸 한가운데로
-                 멀어져서 라벨과 떨어져 보인다. --}}
-            <div class="w-[296px] max-w-full shrink-0">
-                <x-dropdown prefix="기간" name="period" size="sm"
-                            :options="['2021.01.01 - 2021.09.30' => '2021.01.01 - 2021.09.30']"
-                            selected="2021.01.01 - 2021.09.30" />
-            </div>
-
-            <div class="w-[296px] max-w-full shrink-0">
-                <x-dropdown prefix="법인" name="corp" size="sm"
-                            :options="['법인 전체' => '법인 전체', '청담원' => '청담원']"
-                            selected="법인 전체" />
-            </div>
-
-            <button type="button"
-                    class="inline-flex shrink-0 items-center gap-1.5 text-label-1 font-medium leading-5 text-mono-black transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
-                <x-icon-refresh class="size-6" />
-                초기화
-            </button>
-        </div>
+             ⚠️ 검색창은 붙이지 않았다. 원본 필터에 검색이 없고, 아래에 표가 둘이라 무엇을
+                검색하는지가 모호해진다. 컨텐츠 관리는 표가 하나여서 붙어 있는 것이다.
+             ⚠️ 「총 N건」도 뺐다. 표마다 제목 옆에 이미 있다.
+             ⚠️ 정적 화면이라 실제 재조회는 없다. 감싸는 GET form 이 없어 submit() 이 그냥 지나간다. --}}
+        <x-filter-bar
+            :active="['period', 'corp']"
+            :columns="[
+                ['key' => 'period', 'label' => '기간', 'type' => 'date'],
+                ['key' => 'corp', 'label' => '법인', 'type' => 'select', 'options' => ['청담원']],
+            ]"
+            class="mt-8 pb-3"
+        />
 
         {{-- ═══ 차트 ═══ 원본 748x373 · 가로 24 · 세로 16 --}}
-        <div class="mt-4 grid min-w-0 grid-cols-1 gap-x-6 gap-y-4 xl:grid-cols-2">
+        <div class="grid min-w-0 grid-cols-1 gap-x-6 gap-y-4 xl:grid-cols-2">
 
             {{-- 거래처 · 개인 비용 추이 --}}
             <section class="{{ $card }}">

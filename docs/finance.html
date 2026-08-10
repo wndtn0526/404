@@ -205,275 +205,458 @@
         
         
         <main class="min-h-0 min-w-0 flex-1 px-5 pb-20 pt-8 lg:px-20">
-            <div class="mt-8 flex min-w-0 flex-wrap items-center gap-4 rounded-lg bg-background-normal px-[30px] py-6">
-            <span class="flex shrink-0 items-center gap-2 pr-2 text-label-1 font-medium leading-5 text-mono-black">
-                <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.9064 3.09815H18.0933C18.6411 3.09813 19.1124 3.09811 19.4794 3.13092C19.8302 3.16228 20.2922 3.23469 20.6588 3.54188C21.1185 3.92715 21.3693 4.5069 21.3354 5.10577C21.3083 5.58327 21.0447 5.96957 20.8274 6.24675C20.6 6.53672 20.2773 6.8802 19.9022 7.27946L14.8999 12.6046V18.9534L14.9001 18.9687C14.9012 19.0366 14.9049 19.2512 14.8343 19.456C14.7763 19.6241 14.6816 19.7773 14.5572 19.9044C14.4056 20.0591 14.212 20.1518 14.1507 20.1811L14.137 20.1878L11.0768 21.7179C10.9805 21.7661 10.8604 21.8262 10.7515 21.8687C10.6361 21.9138 10.4056 21.9933 10.1245 21.9518C9.79795 21.9036 9.50571 21.7229 9.31653 21.4525C9.15366 21.2196 9.12169 20.9779 9.11039 20.8545C9.09974 20.7381 9.09981 20.6038 9.09987 20.4961L9.09988 12.6046L4.09745 7.2794C3.72239 6.88016 3.39972 6.5367 3.17235 6.24675C2.955 5.96957 2.69146 5.58327 2.66437 5.10577C2.6304 4.5069 2.88121 3.92715 3.34096 3.54188C3.70753 3.23469 4.16953 3.16228 4.52036 3.13092C4.88735 3.09811 5.35866 3.09813 5.9064 3.09815ZM4.48843 5.06661L10.6558 11.6319C10.8126 11.7988 10.8999 12.0192 10.8999 12.2481V19.7939L13.0999 18.6939V12.2481C13.0999 12.0192 13.1871 11.7988 13.3439 11.6319L19.5113 5.06662C19.5713 5.00276 19.526 4.89815 19.4384 4.89815H4.56131C4.4737 4.89815 4.42844 5.00276 4.48843 5.06661Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                필터
-            </span>
+            <div class="flex flex-col gap-2.5 lg:flex-row lg:items-center lg:justify-between lg:gap-3 mt-8 pb-3"
+     x-data="{
+        columns: JSON.parse('[{\u0022key\u0022:\u0022period\u0022,\u0022label\u0022:\u0022기간\u0022,\u0022type\u0022:\u0022date\u0022},{\u0022key\u0022:\u0022corp\u0022,\u0022label\u0022:\u0022법인\u0022,\u0022type\u0022:\u0022select\u0022,\u0022options\u0022:[\u0022청담원\u0022]}]'),
+        active: JSON.parse('[\u0022period\u0022,\u0022corp\u0022]'),
+        values: {},
+        keyword: '',
+        addOpen: false,
+        editKey: null,
+        popLeft: 0,
+        regionProv: '',          // region 타입: 현재 열람 중인 시·도
+        query: '',
+        presets: ['최근 1개월', '3개월', '6개월', '올해'],
+        _initial: [],
+        init() {
+            this.columns.forEach(c => this.reset(c.key));
+            // URL 파라미터로부터 초기값 복원
+            Object.entries(this._initial).forEach(([k, v]) => { if (Array.isArray(v) && v.length && this.values[k] !== undefined) this.values[k] = v; });
+        },
+        col(k) { return this.columns.find(c => c.key === k) },
+        isActive(k) { return this.active.includes(k) },
+        toggleColumn(k) { this.isActive(k) ? this.remove(k) : (this.active.push(k), this.reset(k)) },
+        remove(k) { this.active = this.active.filter(x => x !== k); if (this.editKey === k) this.editKey = null },
+        reset(k) {
+            const t = this.col(k).type;
+            this.values[k] = (t === 'select' || t === 'search' || t === 'region') ? []
+                : t === 'date' ? { preset: '', from: '', to: '' }
+                : { min: '', max: '' };
+        },
+        // 초기화 후 그대로 두면 화면(펼쳐진 칩)만 비워질 뿐 실제 목록(서버 GET 필터)은 그대로라
+        // 초기값 반영 후 다음 tick(히든 인풋 갱신 완료)에 감싸는 form을 제출해 목록을 다시 불러온다.
+        resetAll() {
+            this.active = JSON.parse('[\u0022period\u0022,\u0022corp\u0022]'); this.columns.forEach(c => this.reset(c.key)); this.editKey = null; this.addOpen = false;
+            this.$nextTick(() => this.$el.closest('form')?.submit());
+        },
+        openEdit(k, el) {
+            this.editKey = this.editKey === k ? null : k;
+            this.query = '';
+            this.addOpen = false;
+            // 팝오버를 뷰포트 안으로 clamp — 가운데 pill이 좌/우로 넘치지 않게 pill 기준 left 오프셋 계산
+            if (this.editKey === k && el) {
+                const type = this.col(k).type;
+                if (type === 'region') this.regionProv = Object.keys(this.col(k).regions)[0];
+                const margin = 8;
+                const r = el.getBoundingClientRect();
+                const w = Math.min(type === 'date' ? 400 : type === 'region' ? 320 : 264, window.innerWidth - margin * 2);
+                const desired = Math.max(margin, Math.min(r.left, window.innerWidth - w - margin));
+                this.popLeft = desired - r.left;
+            }
+        },
+        toggleOption(k, opt) { const a = this.values[k], i = a.indexOf(opt); i > -1 ? a.splice(i, 1) : a.push(opt) },
+        summary(k) {
+            const c = this.col(k), v = this.values[k];
+            if (c.type === 'select' || c.type === 'search') return !v.length ? '전체' : (v.length === 1 ? v[0] : v[0] + ' 외 ' + (v.length - 1));
+            if (c.type === 'region') { const last = s => s.split(' ').pop(); return !v.length ? '전체' : (v.length === 1 ? last(v[0]) : last(v[0]) + ' 외 ' + (v.length - 1)); }
+            if (c.type === 'date') return v.preset ? v.preset : (v.from && v.to ? v.from + '~' + v.to : '전체');
+            return (v.min || v.max) ? (Number(v.min || 0).toLocaleString() + '~' + (v.max ? Number(v.max).toLocaleString() : '')) : '전체';
+        },
+     }" x-init="init()">
+    <div class="flex flex-wrap items-center gap-2">
+        
+        
+        
+        <template x-for="k in active" :key="k">
+            <div class="relative" @click.outside="editKey === k && (editKey = null)">
+                    <button type="button" @click="openEdit(k, $event.currentTarget)"
+                            class="inline-flex h-7 items-center gap-1 rounded-lg border px-2.5 text-label-2 transition-colors"
+                            :class="editKey === k ? 'border-primary/[0.43] bg-primary/5' : 'border-line-solid-normal hover:bg-fill-alternative'">
+                        <span :class="editKey === k ? 'text-primary' : 'text-label-alternative'" x-text="col(k).label"></span>
+                        <span x-show="summary(k) !== '전체'" class="font-semibold" :class="editKey === k ? 'text-primary' : 'text-label-strong'" x-text="summary(k)"></span>
+                        <svg width="1em" height="1em" aria-hidden="true" :class="editKey === k ? 'text-primary rotate-180' : 'text-label-alternative'" class="h-3.5 w-3.5 shrink-0 transition-transform duration-200" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </button>
+
+                
+                <div x-show="editKey === k" x-cloak
+                     x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
+                     class="absolute top-full z-30 mt-1.5 max-w-[calc(100vw_-_2rem)] overflow-hidden rounded-lg border border-line-solid-neutral bg-background-normal shadow-elevation-lg"
+                     :class="col(k).type === 'date' ? 'w-[400px]' : col(k).type === 'region' ? 'w-[320px]' : 'w-[264px]'"
+                     :style="{ left: popLeft + 'px' }">
+                    
+                    <template x-if="col(k).type === 'select' || col(k).type === 'search'">
+                        <div>
+                            <div x-show="col(k).type === 'search'" class="border-b border-line-solid-neutral p-2.5">
+                                <div class="relative">
+                                    <svg width="1em" height="1em" aria-hidden="true" class="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.9997 2.1001C5.63667 2.1001 2.09973 5.63705 2.09973 10.0001C2.09973 14.3631 5.63667 17.9001 9.9997 17.9001C11.857 17.9001 13.5646 17.2592 14.9134 16.1864L19.8634 21.1365C20.2149 21.4879 20.7847 21.4879 21.1362 21.1365C21.4877 20.785 21.4877 20.2151 21.1362 19.8637L16.1861 14.9136C17.2588 13.5648 17.8997 11.8573 17.8997 10.0001C17.8997 5.63705 14.3627 2.1001 9.9997 2.1001ZM3.89972 10.0001C3.89972 6.63116 6.63078 3.9001 9.9997 3.9001C13.3686 3.9001 16.0997 6.63116 16.0997 10.0001C16.0997 13.369 13.3686 16.1001 9.9997 16.1001C6.63078 16.1001 3.89972 13.369 3.89972 10.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                    <input type="text" x-model="query" placeholder="검색"
+                                           class="h-9 w-full rounded-lg border border-line-solid-normal bg-background-normal pl-8 pr-3 text-label-1 text-label-normal placeholder:text-label-assistive focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
+                                </div>
+                            </div>
+                            <div class="max-h-[200px] overflow-y-auto py-1">
+                                <template x-for="opt in col(k).options.filter(o => !query || o.includes(query))" :key="opt">
+                                    <button type="button" @click="toggleOption(k, opt)"
+                                            class="flex w-full items-center gap-2.5 px-3 py-2.5 text-left text-label-1 transition-colors"
+                                            :class="values[k].includes(opt) ? 'bg-primary-surface font-medium text-primary' : 'text-label-normal hover:bg-fill-alternative'">
+                                        <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-[1.5px] transition-colors"
+                                              :class="values[k].includes(opt) ? 'border-primary bg-primary text-white' : 'border-line-normal-strong'">
+                                            <svg width="1em" height="1em" aria-hidden="true" x-show="values[k].includes(opt)" class="h-[90%] w-[90%] [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                        </span>
+                                        <span x-text="opt"></span>
+                                    </button>
+                                </template>
+                                <p x-show="!col(k).options.filter(o => !query || o.includes(query)).length" class="px-3 py-4 text-center text-label-1 text-label-assistive">검색 결과가 없어요</p>
+                            </div>
+                        </div>
+                    </template>
+
+                    
+                    <template x-if="col(k).type === 'region'">
+                        <div class="flex h-[280px]">
+                            
+                            <div class="w-[104px] shrink-0 overflow-y-auto border-r border-line-solid-neutral bg-background-alternative py-1">
+                                <template x-for="prov in Object.keys(col(k).regions)" :key="prov">
+                                    <button type="button" @click="regionProv = prov"
+                                            class="flex w-full items-center justify-between gap-1 px-3 py-2.5 text-left text-label-1 transition-colors"
+                                            :class="regionProv === prov ? 'bg-background-normal font-semibold text-primary' : 'text-label-neutral hover:bg-fill-alternative'">
+                                        <span x-text="prov"></span>
+                                        <span x-show="values[k].some(s => s.startsWith(prov + ' ') || s === prov)"
+                                              class="h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>
+                                    </button>
+                                </template>
+                            </div>
+                            
+                            <div class="min-w-0 flex-1 overflow-y-auto py-1">
+                                
+                                <template x-if="!col(k).regions[regionProv].length">
+                                    <button type="button" @click="toggleOption(k, regionProv)"
+                                            class="flex w-full items-center gap-2.5 px-3 py-2.5 text-left text-label-1 transition-colors"
+                                            :class="values[k].includes(regionProv) ? 'bg-primary-surface font-medium text-primary' : 'text-label-normal hover:bg-fill-alternative'">
+                                        <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-[1.5px] transition-colors"
+                                              :class="values[k].includes(regionProv) ? 'border-primary bg-primary text-white' : 'border-line-normal-strong'">
+                                            <svg width="1em" height="1em" aria-hidden="true" x-show="values[k].includes(regionProv)" class="h-[90%] w-[90%] [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                        </span>
+                                        <span x-text="regionProv + ' 전체'"></span>
+                                    </button>
+                                </template>
+                                <template x-for="gu in col(k).regions[regionProv]" :key="regionProv + gu">
+                                    <button type="button" @click="toggleOption(k, regionProv + ' ' + gu)"
+                                            class="flex w-full items-center gap-2.5 px-3 py-2.5 text-left text-label-1 transition-colors"
+                                            :class="values[k].includes(regionProv + ' ' + gu) ? 'bg-primary-surface font-medium text-primary' : 'text-label-normal hover:bg-fill-alternative'">
+                                        <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-[1.5px] transition-colors"
+                                              :class="values[k].includes(regionProv + ' ' + gu) ? 'border-primary bg-primary text-white' : 'border-line-normal-strong'">
+                                            <svg width="1em" height="1em" aria-hidden="true" x-show="values[k].includes(regionProv + ' ' + gu)" class="h-[90%] w-[90%] [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                        </span>
+                                        <span x-text="gu"></span>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    
+                    <template x-if="col(k).type === 'date'">
+                        <div class="flex flex-col gap-2.5 p-3"
+                             x-effect="if ((values[k].from || values[k].to) && values[k].preset) values[k].preset = ''">
+                            <div class="flex flex-wrap gap-1.5">
+                                <template x-for="p in presets" :key="p">
+                                    <button type="button" @click="values[k].preset = (values[k].preset === p ? '' : p); values[k].from = ''; values[k].to = ''"
+                                            class="rounded-lg border px-2.5 py-1.5 text-caption-1 font-medium transition-colors"
+                                            :class="values[k].preset === p ? 'border-primary/[0.43] bg-primary/5 text-primary' : 'border-line-normal-neutral text-label-alternative hover:bg-fill-alternative'"
+                                            x-text="p"></button>
+                                </template>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <div class="min-w-0 flex-1"><div class="flex flex-col gap-1.5"
+     x-data="dsDatepicker({ initial: '', placeholder: '시작일', minYear: null, maxYear: null })"
+     x-modelable="value"
+     x-model="values[k].from"
+     @keydown.escape.stop="open = false">
+    
+    <div class="relative" @click.outside="open = false; panel = null">
+        <button type="button" id="date-6a79270235521" x-ref="trigger" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog"
+                class="flex w-full items-center h-9 gap-1.5 rounded-md pl-3 pr-2.5 border bg-background-normal text-left transition-colors duration-150 focus:outline-none focus-visible:ring-2 border-line-solid-normal focus-visible:border-primary focus-visible:ring-primary/30">
+            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.39998 1.7501C9.39998 1.25304 8.99703 0.850098 8.49998 0.850098C8.00292 0.850098 7.59998 1.25304 7.59998 1.7501V2.84988H6.9148C6.38495 2.84986 5.93375 2.84985 5.56333 2.88012C5.17417 2.91191 4.79558 2.98155 4.43364 3.16596C3.88798 3.44399 3.44433 3.88764 3.1663 4.43331C2.98189 4.79524 2.91226 5.17383 2.88046 5.563C2.8502 5.93341 2.85021 6.38456 2.85022 6.91439V17.0853C2.85021 17.6151 2.8502 18.0664 2.88046 18.4368C2.91226 18.8259 2.98189 19.2045 3.1663 19.5665C3.44433 20.1121 3.88798 20.5558 4.43364 20.8338C4.79558 21.0182 5.17417 21.0878 5.56333 21.1196C5.93374 21.1499 6.38488 21.1499 6.91471 21.1499H17.0856C17.6154 21.1499 18.0666 21.1499 18.437 21.1196C18.8262 21.0878 19.2048 21.0182 19.5667 20.8338C20.1124 20.5558 20.556 20.1121 20.8341 19.5665C21.0185 19.2045 21.0881 18.8259 21.1199 18.4368C21.1502 18.0664 21.1502 17.6152 21.1502 17.0854V6.91447C21.1502 6.38465 21.1502 5.9334 21.1199 5.563C21.0881 5.17383 21.0185 4.79524 20.8341 4.43331C20.556 3.88764 20.1124 3.44399 19.5667 3.16596C19.2048 2.98155 18.8262 2.91191 18.437 2.88012C18.0666 2.84985 17.6155 2.84986 17.0856 2.84988H16.4V1.75012C16.4 1.25307 15.997 0.850122 15.5 0.850122C15.0029 0.850122 14.6 1.25307 14.6 1.75012V2.84988H9.39998V1.7501ZM14.6 5.75012V4.64987H9.39998V5.7501C9.39998 6.24715 8.99703 6.6501 8.49998 6.6501C8.00292 6.6501 7.59998 6.24715 7.59998 5.7501V4.64987H6.55023C5.73567 4.64987 5.54184 4.66098 5.41032 4.70371C5.07543 4.81252 4.81288 5.07507 4.70407 5.40996C4.66134 5.54148 4.65024 5.73531 4.65024 6.54987V8.59985H19.3502V6.54987C19.3502 5.73531 19.3391 5.54148 19.2963 5.40996C19.1875 5.07507 18.925 4.81252 18.5901 4.70371C18.4586 4.66098 18.2647 4.64987 17.4502 4.64987H16.4V5.75012C16.4 6.24718 15.997 6.65012 15.5 6.65012C15.0029 6.65012 14.6 6.24718 14.6 5.75012ZM19.3502 10.3999H4.65024V17.4499C4.65024 18.2644 4.66134 18.4583 4.70407 18.5898C4.81288 18.9247 5.07543 19.1872 5.41032 19.296C5.54184 19.3388 5.73567 19.3499 6.55023 19.3499H17.4502C18.2647 19.3499 18.4586 19.3388 18.5901 19.296C18.925 19.1872 19.1875 18.9247 19.2963 18.5898C19.3391 18.4583 19.3502 18.2644 19.3502 17.4499V10.3999Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            <span class="flex-1 truncate text-label-1 text-label-assistive" :class="value ? 'text-label-normal' : 'text-label-assistive'" x-text="display">시작일</span>
+            <svg width="1em" height="1em" aria-hidden="true" :class="open && 'rotate-180'" class="h-4 w-4 shrink-0 text-label-alternative transition-transform duration-200" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>        </button>
+
+        <input type="hidden"  :value="value">
+
+        
+        <div x-show="open" x-cloak :style="anchorStyle()"
+             x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+             role="dialog" aria-label="날짜 선택"
+             class="rounded-md border border-line-solid-neutral bg-background-normal p-4 shadow-elevation-lg">
+            
+            <div class="flex items-center justify-between gap-2">
+                <div class="relative flex items-center gap-0.5">
+                    <button type="button" @click="togglePanel('year')"
+                            class="rounded-md px-1.5 py-1 text-body-1 font-bold text-label-strong transition-colors hover:bg-fill-alternative">
+                        <span x-text="`${year}년`"></span>
+                    </button>
+                    <button type="button" @click="togglePanel('month')"
+                            class="flex items-center gap-1 rounded-md px-1.5 py-1 text-body-1 font-bold text-label-strong transition-colors hover:bg-fill-alternative">
+                        <span x-text="`${month + 1}월`"></span>
+                        <svg width="1em" height="1em" aria-hidden="true" :class="panel === 'month' && 'rotate-180'" class="h-4 w-4 text-label-alternative transition-transform duration-200" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </button>
+
+                    
+                    <div x-show="panel === 'year'" x-cloak
+                         class="absolute left-0 top-full z-10 mt-1.5 w-28 overflow-hidden rounded-md border border-line-solid-neutral bg-background-normal shadow-elevation-lg">
+                        <div x-ref="yearList" class="max-h-56 overflow-y-auto overscroll-contain py-1">
+                            <template x-for="y in years" :key="y">
+                                <button type="button" @click="setYear(y)" :data-sel="y === year ? '1' : '0'"
+                                        class="block w-full px-3 py-1.5 text-left text-body-2 transition-colors"
+                                        :class="y === year ? 'bg-primary-surface font-semibold text-primary' : 'text-label-normal hover:bg-fill-alternative'"
+                                        x-text="`${y}년`"></button>
+                            </template>
+                        </div>
+                    </div>
+
+                    
+                    <div x-show="panel === 'month'" x-cloak
+                         class="absolute left-0 top-full z-10 mt-1.5 w-40 rounded-md border border-line-solid-neutral bg-background-normal p-2 shadow-elevation-lg">
+                        <div class="grid grid-cols-3 gap-1">
+                            <template x-for="m in 12" :key="m">
+                                <button type="button" @click="setMonth(m - 1)"
+                                        class="rounded-md py-1.5 text-body-2 transition-colors"
+                                        :class="(m - 1) === month ? 'bg-primary font-semibold text-white' : 'text-label-normal hover:bg-fill-alternative'"
+                                        x-text="`${m}월`"></button>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-0.5">
+                    <button type="button" @click="prevMonth()" aria-label="이전 달" class="rounded-md p-1.5 text-label-alternative transition-colors hover:bg-fill-alternative hover:text-label-normal"><svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.1363 3.36297C16.4878 3.71444 16.4878 4.28429 16.1363 4.63576L8.77271 11.9994L16.1363 19.363C16.4878 19.7144 16.4878 20.2843 16.1363 20.6358C15.7848 20.9872 15.215 20.9872 14.8635 20.6358L6.86352 12.6358C6.51205 12.2843 6.51205 11.7144 6.86352 11.363L14.8635 3.36297C15.215 3.0115 15.7848 3.0115 16.1363 3.36297Z" fill="currentColor" fill-opacity="0.88"/>
+</svg></button>
+                    <button type="button" @click="goToday()" class="rounded-md px-2 py-1 text-label-2 font-semibold text-label-neutral transition-colors hover:bg-fill-alternative">오늘</button>
+                    <button type="button" @click="nextMonth()" aria-label="다음 달" class="rounded-md p-1.5 text-label-alternative transition-colors hover:bg-fill-alternative hover:text-label-normal"><svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.86337 3.36272C7.51189 3.7142 7.51189 4.28405 7.86337 4.63552L15.227 11.9991L7.86337 19.3627C7.51189 19.7142 7.51189 20.284 7.86337 20.6355C8.21484 20.987 8.78469 20.987 9.13616 20.6355L17.1362 12.6355C17.4876 12.284 17.4876 11.7142 17.1362 11.3627L9.13616 3.36272C8.78469 3.01125 8.21484 3.01125 7.86337 3.36272Z" fill="currentColor" fill-opacity="0.88"/>
+</svg></button>
+                </div>
+            </div>
 
             
-            <div class="w-[296px] max-w-full shrink-0">
-                <div class="flex flex-col gap-1.5"
-          x-data="{
-        open: false,
-        highlighted: -1,
-        value: '2021.01.01 - 2021.09.30',
-        options: JSON.parse('[{\u0022value\u0022:\u00222021.01.01 - 2021.09.30\u0022,\u0022label\u0022:\u00222021.01.01 - 2021.09.30\u0022}]'),
-        placeholder: '선택하세요',
-        anchor: { top: 0, left: 0, width: 0, maxH: 256, up: false },
-        _onScroll: null,
-        get selectedOption() { return this.options.find(o => String(o.value) === String(this.value)) || null },
-        get display() { return this.selectedOption ? this.selectedOption.label : this.placeholder },
-        get hasValue() { return this.value !== '' && this.value !== null },
-        position() {
-            const t = this.$refs.trigger.getBoundingClientRect();
-            const gap = 6;
-            const below = window.innerHeight - t.bottom - gap;
-            const above = t.top - gap;
-            const want = Math.min(256, this.options.length * 44 + 8);
-            const up = below < want && above > below;
-            this.anchor.up = up;
-            this.anchor.left = Math.round(t.left);
-            this.anchor.width = Math.round(t.width);
-            this.anchor.top = Math.round(up ? t.top - gap : t.bottom + gap);
-            this.anchor.maxH = Math.max(140, Math.min(256, Math.round(up ? above : below)));
-        },
-        anchorStyle() {
-            const b = `position:fixed;left:${this.anchor.left}px;width:${this.anchor.width}px;z-index:60;`;
-            return this.anchor.up
-                ? b + `bottom:${Math.round(window.innerHeight - this.anchor.top)}px;`
-                : b + `top:${this.anchor.top}px;`;
-        },
-        openMenu() {
-            this.open = true;
-            const i = this.options.findIndex(o => String(o.value) === String(this.value));
-            this.highlighted = i < 0 ? 0 : i;
-            this.$nextTick(() => this.position());
-            this._onScroll = () => { if (this.open) this.position() };
-            window.addEventListener('scroll', this._onScroll, true);
-            window.addEventListener('resize', this._onScroll);
-        },
-        close() {
-            this.open = false;
-            if (this._onScroll) {
-                window.removeEventListener('scroll', this._onScroll, true);
-                window.removeEventListener('resize', this._onScroll);
-                this._onScroll = null;
-            }
-        },
-        toggle() { this.open ? this.close() : this.openMenu() },
-        move(d) {
-            if (!this.open) { this.openMenu(); return }
-            const n = this.options.length;
-            if (n) this.highlighted = (this.highlighted + d + n) % n;
-        },
-        choose(v) { this.value = String(v); this.close(); this.$refs.trigger.focus();  },
-        chooseHighlighted() {
-            if (this.open && this.options[this.highlighted]) this.choose(this.options[this.highlighted].value);
-            else this.openMenu();
-        },
-     }"
-     x-modelable="value"
-     
-     @keydown.escape.stop="open && (open = false)">
-
-    
-    <div class="relative" @click.outside="close()">
-        <button
-            type="button"
-            id="period"
-            x-ref="trigger"
-            @click="toggle()"
-            @keydown.arrow-down.prevent="move(1)"
-            @keydown.arrow-up.prevent="move(-1)"
-            @keydown.enter.prevent="chooseHighlighted()"
-            @keydown.space.prevent="chooseHighlighted()"
-            @keydown.home.prevent="open && (highlighted = 0)"
-            @keydown.end.prevent="open && (highlighted = options.length - 1)"
-            :aria-expanded="open"
-            aria-haspopup="listbox"
-                        class="flex w-full items-center justify-between text-left border bg-background-normal h-8 gap-1.5 rounded-md px-2.5 transition-colors duration-150 focus:outline-none focus-visible:ring-2 border-line-normal-neutral focus-visible:border-primary focus-visible:ring-primary/30"
-        >
-                            <span class="shrink-0 text-label-2 font-medium text-label-alternative">기간</span>
-                        <span class="truncate text-label-2 text-label-normal" :class="hasValue ? 'text-label-normal' : 'text-label-assistive'" x-text="display">2021.01.01 - 2021.09.30</span>
-            <svg width="1em" height="1em" aria-hidden="true" :class="open && 'rotate-180'" class="w-4 h-4 shrink-0 text-label-alternative transition-transform duration-200" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>        </button>
-
-        <input type="hidden"  name="period"  :value="value">
-
-        
-        <div
-            x-show="open"
-            x-cloak
-            :style="anchorStyle()"
-            x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="overflow-hidden rounded-md border border-line-solid-neutral bg-background-normal shadow-elevation-lg"
-        >
-            <ul role="listbox" :style="`max-height:${anchor.maxH}px`" class="overflow-y-auto overscroll-contain py-1 focus:outline-none">
-                <template x-for="(o, i) in options" :key="o.value">
-                    <li
-                        role="option"
-                        :aria-selected="String(o.value) === String(value)"
-                        @click="choose(o.value)"
-                        @mouseenter="highlighted = i"
-                        class="flex cursor-pointer select-none items-center gap-2 px-3 py-1.5"
-                        :class="highlighted === i ? 'bg-fill-alternative' : ''"
-                    >
-                        <span
-                            class="flex-1 truncate text-label-2"
-                            :class="String(o.value) === String(value) ? 'font-medium text-primary' : 'text-label-normal'"
-                            x-text="o.label"
-                        ></span>
-                        <svg width="1em" height="1em" aria-hidden="true" x-show="String(o.value) === String(value)" class="w-4 h-4 shrink-0 text-primary" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                    </li>
+            <div class="mt-2.5 grid grid-cols-7">
+                <template x-for="(w, i) in weekdays" :key="w">
+                    <span class="flex h-9 items-center justify-center text-caption-1 font-semibold"
+                          :class="i === 0 ? 'text-status-negative/80' : (i === 6 ? 'text-accent-fg-blue/80' : 'text-label-assistive')"
+                          x-text="w"></span>
                 </template>
-            </ul>
+            </div>
+
+            
+            <div class="grid grid-cols-7 gap-y-1">
+                <template x-for="(c, i) in grid" :key="i">
+                    <div class="flex justify-center">
+                        <template x-if="c">
+                            <button type="button" @click="select(c)"
+                                    class="flex h-10 w-10 items-center justify-center rounded-full text-body-2 transition-colors"
+                                    :class="dayClass(c, i)"
+                                    x-text="c"></button>
+                        </template>
+                        <template x-if="!c"><span class="h-10 w-10"></span></template>
+                    </div>
+                </template>
+            </div>
         </div>
     </div>
 
     </div>
-            </div>
 
-            <div class="w-[296px] max-w-full shrink-0">
-                <div class="flex flex-col gap-1.5"
-          x-data="{
-        open: false,
-        highlighted: -1,
-        value: '법인 전체',
-        options: JSON.parse('[{\u0022value\u0022:\u0022법인 전체\u0022,\u0022label\u0022:\u0022법인 전체\u0022},{\u0022value\u0022:\u0022청담원\u0022,\u0022label\u0022:\u0022청담원\u0022}]'),
-        placeholder: '선택하세요',
-        anchor: { top: 0, left: 0, width: 0, maxH: 256, up: false },
-        _onScroll: null,
-        get selectedOption() { return this.options.find(o => String(o.value) === String(this.value)) || null },
-        get display() { return this.selectedOption ? this.selectedOption.label : this.placeholder },
-        get hasValue() { return this.value !== '' && this.value !== null },
-        position() {
-            const t = this.$refs.trigger.getBoundingClientRect();
-            const gap = 6;
-            const below = window.innerHeight - t.bottom - gap;
-            const above = t.top - gap;
-            const want = Math.min(256, this.options.length * 44 + 8);
-            const up = below < want && above > below;
-            this.anchor.up = up;
-            this.anchor.left = Math.round(t.left);
-            this.anchor.width = Math.round(t.width);
-            this.anchor.top = Math.round(up ? t.top - gap : t.bottom + gap);
-            this.anchor.maxH = Math.max(140, Math.min(256, Math.round(up ? above : below)));
-        },
-        anchorStyle() {
-            const b = `position:fixed;left:${this.anchor.left}px;width:${this.anchor.width}px;z-index:60;`;
-            return this.anchor.up
-                ? b + `bottom:${Math.round(window.innerHeight - this.anchor.top)}px;`
-                : b + `top:${this.anchor.top}px;`;
-        },
-        openMenu() {
-            this.open = true;
-            const i = this.options.findIndex(o => String(o.value) === String(this.value));
-            this.highlighted = i < 0 ? 0 : i;
-            this.$nextTick(() => this.position());
-            this._onScroll = () => { if (this.open) this.position() };
-            window.addEventListener('scroll', this._onScroll, true);
-            window.addEventListener('resize', this._onScroll);
-        },
-        close() {
-            this.open = false;
-            if (this._onScroll) {
-                window.removeEventListener('scroll', this._onScroll, true);
-                window.removeEventListener('resize', this._onScroll);
-                this._onScroll = null;
-            }
-        },
-        toggle() { this.open ? this.close() : this.openMenu() },
-        move(d) {
-            if (!this.open) { this.openMenu(); return }
-            const n = this.options.length;
-            if (n) this.highlighted = (this.highlighted + d + n) % n;
-        },
-        choose(v) { this.value = String(v); this.close(); this.$refs.trigger.focus();  },
-        chooseHighlighted() {
-            if (this.open && this.options[this.highlighted]) this.choose(this.options[this.highlighted].value);
-            else this.openMenu();
-        },
-     }"
+</div>
+                                <span class="shrink-0 text-label-assistive">~</span>
+                                <div class="min-w-0 flex-1"><div class="flex flex-col gap-1.5"
+     x-data="dsDatepicker({ initial: '', placeholder: '종료일', minYear: null, maxYear: null })"
      x-modelable="value"
-     
-     @keydown.escape.stop="open && (open = false)">
-
+     x-model="values[k].to"
+     @keydown.escape.stop="open = false">
     
-    <div class="relative" @click.outside="close()">
-        <button
-            type="button"
-            id="corp"
-            x-ref="trigger"
-            @click="toggle()"
-            @keydown.arrow-down.prevent="move(1)"
-            @keydown.arrow-up.prevent="move(-1)"
-            @keydown.enter.prevent="chooseHighlighted()"
-            @keydown.space.prevent="chooseHighlighted()"
-            @keydown.home.prevent="open && (highlighted = 0)"
-            @keydown.end.prevent="open && (highlighted = options.length - 1)"
-            :aria-expanded="open"
-            aria-haspopup="listbox"
-                        class="flex w-full items-center justify-between text-left border bg-background-normal h-8 gap-1.5 rounded-md px-2.5 transition-colors duration-150 focus:outline-none focus-visible:ring-2 border-line-normal-neutral focus-visible:border-primary focus-visible:ring-primary/30"
-        >
-                            <span class="shrink-0 text-label-2 font-medium text-label-alternative">법인</span>
-                        <span class="truncate text-label-2 text-label-normal" :class="hasValue ? 'text-label-normal' : 'text-label-assistive'" x-text="display">법인 전체</span>
-            <svg width="1em" height="1em" aria-hidden="true" :class="open && 'rotate-180'" class="w-4 h-4 shrink-0 text-label-alternative transition-transform duration-200" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="relative" @click.outside="open = false; panel = null">
+        <button type="button" id="date-6a79270235726" x-ref="trigger" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog"
+                class="flex w-full items-center h-9 gap-1.5 rounded-md pl-3 pr-2.5 border bg-background-normal text-left transition-colors duration-150 focus:outline-none focus-visible:ring-2 border-line-solid-normal focus-visible:border-primary focus-visible:ring-primary/30">
+            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.39998 1.7501C9.39998 1.25304 8.99703 0.850098 8.49998 0.850098C8.00292 0.850098 7.59998 1.25304 7.59998 1.7501V2.84988H6.9148C6.38495 2.84986 5.93375 2.84985 5.56333 2.88012C5.17417 2.91191 4.79558 2.98155 4.43364 3.16596C3.88798 3.44399 3.44433 3.88764 3.1663 4.43331C2.98189 4.79524 2.91226 5.17383 2.88046 5.563C2.8502 5.93341 2.85021 6.38456 2.85022 6.91439V17.0853C2.85021 17.6151 2.8502 18.0664 2.88046 18.4368C2.91226 18.8259 2.98189 19.2045 3.1663 19.5665C3.44433 20.1121 3.88798 20.5558 4.43364 20.8338C4.79558 21.0182 5.17417 21.0878 5.56333 21.1196C5.93374 21.1499 6.38488 21.1499 6.91471 21.1499H17.0856C17.6154 21.1499 18.0666 21.1499 18.437 21.1196C18.8262 21.0878 19.2048 21.0182 19.5667 20.8338C20.1124 20.5558 20.556 20.1121 20.8341 19.5665C21.0185 19.2045 21.0881 18.8259 21.1199 18.4368C21.1502 18.0664 21.1502 17.6152 21.1502 17.0854V6.91447C21.1502 6.38465 21.1502 5.9334 21.1199 5.563C21.0881 5.17383 21.0185 4.79524 20.8341 4.43331C20.556 3.88764 20.1124 3.44399 19.5667 3.16596C19.2048 2.98155 18.8262 2.91191 18.437 2.88012C18.0666 2.84985 17.6155 2.84986 17.0856 2.84988H16.4V1.75012C16.4 1.25307 15.997 0.850122 15.5 0.850122C15.0029 0.850122 14.6 1.25307 14.6 1.75012V2.84988H9.39998V1.7501ZM14.6 5.75012V4.64987H9.39998V5.7501C9.39998 6.24715 8.99703 6.6501 8.49998 6.6501C8.00292 6.6501 7.59998 6.24715 7.59998 5.7501V4.64987H6.55023C5.73567 4.64987 5.54184 4.66098 5.41032 4.70371C5.07543 4.81252 4.81288 5.07507 4.70407 5.40996C4.66134 5.54148 4.65024 5.73531 4.65024 6.54987V8.59985H19.3502V6.54987C19.3502 5.73531 19.3391 5.54148 19.2963 5.40996C19.1875 5.07507 18.925 4.81252 18.5901 4.70371C18.4586 4.66098 18.2647 4.64987 17.4502 4.64987H16.4V5.75012C16.4 6.24718 15.997 6.65012 15.5 6.65012C15.0029 6.65012 14.6 6.24718 14.6 5.75012ZM19.3502 10.3999H4.65024V17.4499C4.65024 18.2644 4.66134 18.4583 4.70407 18.5898C4.81288 18.9247 5.07543 19.1872 5.41032 19.296C5.54184 19.3388 5.73567 19.3499 6.55023 19.3499H17.4502C18.2647 19.3499 18.4586 19.3388 18.5901 19.296C18.925 19.1872 19.1875 18.9247 19.2963 18.5898C19.3391 18.4583 19.3502 18.2644 19.3502 17.4499V10.3999Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            <span class="flex-1 truncate text-label-1 text-label-assistive" :class="value ? 'text-label-normal' : 'text-label-assistive'" x-text="display">종료일</span>
+            <svg width="1em" height="1em" aria-hidden="true" :class="open && 'rotate-180'" class="h-4 w-4 shrink-0 text-label-alternative transition-transform duration-200" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
 </svg>        </button>
 
-        <input type="hidden"  name="corp"  :value="value">
+        <input type="hidden"  :value="value">
 
         
-        <div
-            x-show="open"
-            x-cloak
-            :style="anchorStyle()"
-            x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="overflow-hidden rounded-md border border-line-solid-neutral bg-background-normal shadow-elevation-lg"
-        >
-            <ul role="listbox" :style="`max-height:${anchor.maxH}px`" class="overflow-y-auto overscroll-contain py-1 focus:outline-none">
-                <template x-for="(o, i) in options" :key="o.value">
-                    <li
-                        role="option"
-                        :aria-selected="String(o.value) === String(value)"
-                        @click="choose(o.value)"
-                        @mouseenter="highlighted = i"
-                        class="flex cursor-pointer select-none items-center gap-2 px-3 py-1.5"
-                        :class="highlighted === i ? 'bg-fill-alternative' : ''"
-                    >
-                        <span
-                            class="flex-1 truncate text-label-2"
-                            :class="String(o.value) === String(value) ? 'font-medium text-primary' : 'text-label-normal'"
-                            x-text="o.label"
-                        ></span>
-                        <svg width="1em" height="1em" aria-hidden="true" x-show="String(o.value) === String(value)" class="w-4 h-4 shrink-0 text-primary" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                    </li>
+        <div x-show="open" x-cloak :style="anchorStyle()"
+             x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+             role="dialog" aria-label="날짜 선택"
+             class="rounded-md border border-line-solid-neutral bg-background-normal p-4 shadow-elevation-lg">
+            
+            <div class="flex items-center justify-between gap-2">
+                <div class="relative flex items-center gap-0.5">
+                    <button type="button" @click="togglePanel('year')"
+                            class="rounded-md px-1.5 py-1 text-body-1 font-bold text-label-strong transition-colors hover:bg-fill-alternative">
+                        <span x-text="`${year}년`"></span>
+                    </button>
+                    <button type="button" @click="togglePanel('month')"
+                            class="flex items-center gap-1 rounded-md px-1.5 py-1 text-body-1 font-bold text-label-strong transition-colors hover:bg-fill-alternative">
+                        <span x-text="`${month + 1}월`"></span>
+                        <svg width="1em" height="1em" aria-hidden="true" :class="panel === 'month' && 'rotate-180'" class="h-4 w-4 text-label-alternative transition-transform duration-200" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </button>
+
+                    
+                    <div x-show="panel === 'year'" x-cloak
+                         class="absolute left-0 top-full z-10 mt-1.5 w-28 overflow-hidden rounded-md border border-line-solid-neutral bg-background-normal shadow-elevation-lg">
+                        <div x-ref="yearList" class="max-h-56 overflow-y-auto overscroll-contain py-1">
+                            <template x-for="y in years" :key="y">
+                                <button type="button" @click="setYear(y)" :data-sel="y === year ? '1' : '0'"
+                                        class="block w-full px-3 py-1.5 text-left text-body-2 transition-colors"
+                                        :class="y === year ? 'bg-primary-surface font-semibold text-primary' : 'text-label-normal hover:bg-fill-alternative'"
+                                        x-text="`${y}년`"></button>
+                            </template>
+                        </div>
+                    </div>
+
+                    
+                    <div x-show="panel === 'month'" x-cloak
+                         class="absolute left-0 top-full z-10 mt-1.5 w-40 rounded-md border border-line-solid-neutral bg-background-normal p-2 shadow-elevation-lg">
+                        <div class="grid grid-cols-3 gap-1">
+                            <template x-for="m in 12" :key="m">
+                                <button type="button" @click="setMonth(m - 1)"
+                                        class="rounded-md py-1.5 text-body-2 transition-colors"
+                                        :class="(m - 1) === month ? 'bg-primary font-semibold text-white' : 'text-label-normal hover:bg-fill-alternative'"
+                                        x-text="`${m}월`"></button>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-0.5">
+                    <button type="button" @click="prevMonth()" aria-label="이전 달" class="rounded-md p-1.5 text-label-alternative transition-colors hover:bg-fill-alternative hover:text-label-normal"><svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.1363 3.36297C16.4878 3.71444 16.4878 4.28429 16.1363 4.63576L8.77271 11.9994L16.1363 19.363C16.4878 19.7144 16.4878 20.2843 16.1363 20.6358C15.7848 20.9872 15.215 20.9872 14.8635 20.6358L6.86352 12.6358C6.51205 12.2843 6.51205 11.7144 6.86352 11.363L14.8635 3.36297C15.215 3.0115 15.7848 3.0115 16.1363 3.36297Z" fill="currentColor" fill-opacity="0.88"/>
+</svg></button>
+                    <button type="button" @click="goToday()" class="rounded-md px-2 py-1 text-label-2 font-semibold text-label-neutral transition-colors hover:bg-fill-alternative">오늘</button>
+                    <button type="button" @click="nextMonth()" aria-label="다음 달" class="rounded-md p-1.5 text-label-alternative transition-colors hover:bg-fill-alternative hover:text-label-normal"><svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.86337 3.36272C7.51189 3.7142 7.51189 4.28405 7.86337 4.63552L15.227 11.9991L7.86337 19.3627C7.51189 19.7142 7.51189 20.284 7.86337 20.6355C8.21484 20.987 8.78469 20.987 9.13616 20.6355L17.1362 12.6355C17.4876 12.284 17.4876 11.7142 17.1362 11.3627L9.13616 3.36272C8.78469 3.01125 8.21484 3.01125 7.86337 3.36272Z" fill="currentColor" fill-opacity="0.88"/>
+</svg></button>
+                </div>
+            </div>
+
+            
+            <div class="mt-2.5 grid grid-cols-7">
+                <template x-for="(w, i) in weekdays" :key="w">
+                    <span class="flex h-9 items-center justify-center text-caption-1 font-semibold"
+                          :class="i === 0 ? 'text-status-negative/80' : (i === 6 ? 'text-accent-fg-blue/80' : 'text-label-assistive')"
+                          x-text="w"></span>
                 </template>
-            </ul>
+            </div>
+
+            
+            <div class="grid grid-cols-7 gap-y-1">
+                <template x-for="(c, i) in grid" :key="i">
+                    <div class="flex justify-center">
+                        <template x-if="c">
+                            <button type="button" @click="select(c)"
+                                    class="flex h-10 w-10 items-center justify-center rounded-full text-body-2 transition-colors"
+                                    :class="dayClass(c, i)"
+                                    x-text="c"></button>
+                        </template>
+                        <template x-if="!c"><span class="h-10 w-10"></span></template>
+                    </div>
+                </template>
+            </div>
         </div>
     </div>
 
     </div>
-            </div>
 
-            <button type="button"
-                    class="inline-flex shrink-0 items-center gap-1.5 text-label-1 font-medium leading-5 text-mono-black transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
-                <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2.60034 11.9981C2.60034 6.80667 6.80885 2.59814 12.0003 2.59814C13.8175 2.59814 15.5149 3.11436 16.953 4.00739L17.9024 3.05799C18.1598 2.80059 18.5469 2.72359 18.8832 2.8629C19.2195 3.0022 19.4388 3.33037 19.4388 3.69439V6.87637C19.4388 7.11506 19.3439 7.34398 19.1751 7.51276C19.0064 7.68155 18.7775 7.77637 18.5388 7.77637H15.3568C14.9928 7.77637 14.6646 7.55709 14.5253 7.22078C14.386 6.88448 14.463 6.49737 14.7204 6.23997L15.6373 5.32304C14.5571 4.73309 13.3181 4.39814 12.0003 4.39814C7.80296 4.39814 4.40033 7.80078 4.40033 11.9981C4.40034 12.5077 4.45035 13.0046 4.54545 13.4846C4.64206 13.9722 4.32512 14.4457 3.83755 14.5423C3.34997 14.639 2.8764 14.322 2.77979 13.8344C2.66197 13.2398 2.60034 12.6257 2.60034 11.9981Z" fill="currentColor" fill-opacity="0.88"/>
-<path d="M20.1632 9.45727C20.6508 9.36069 21.1244 9.67766 21.2209 10.1652C21.3387 10.7597 21.4003 11.3736 21.4003 12.001C21.4003 17.1925 17.1918 21.401 12.0003 21.401C10.1837 21.401 8.48672 20.8851 7.04893 19.9926L6.0958 20.9457C5.8384 21.2031 5.45129 21.2801 5.11499 21.1408C4.77868 21.0015 4.55941 20.6733 4.55941 20.3093L4.55941 17.1273C4.55941 16.8886 4.65423 16.6597 4.82301 16.4909C4.99179 16.3222 5.22071 16.2273 5.4594 16.2273H8.64137C9.00538 16.2273 9.33356 16.4466 9.47286 16.7829C9.61216 17.1192 9.53516 17.5063 9.27776 17.7637L8.36463 18.6769C9.44457 19.2664 10.683 19.601 12.0003 19.601C16.1977 19.601 19.6003 16.1984 19.6003 12.001C19.6003 11.4917 19.5503 10.9949 19.4553 10.515C19.3587 10.0274 19.6756 9.55386 20.1632 9.45727Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                초기화
+</div>
+                            </div>
+                        </div>
+                    </template>
+
+                    
+                    <template x-if="col(k).type === 'amount'">
+                        <div class="flex items-center gap-1.5 p-3">
+                            <div class="relative min-w-0 flex-1">
+                                <input type="number" x-model="values[k].min" placeholder="최소"
+                                       class="h-9 w-full rounded-lg border border-line-solid-normal bg-background-normal pl-2.5 pr-6 text-label-1 text-label-normal placeholder:text-label-assistive focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
+                                <span class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-caption-1 text-label-assistive">원</span>
+                            </div>
+                            <span class="shrink-0 text-label-assistive">~</span>
+                            <div class="relative min-w-0 flex-1">
+                                <input type="number" x-model="values[k].max" placeholder="최대"
+                                       class="h-9 w-full rounded-lg border border-line-solid-normal bg-background-normal pl-2.5 pr-6 text-label-1 text-label-normal placeholder:text-label-assistive focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
+                                <span class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-caption-1 text-label-assistive">원</span>
+                            </div>
+                        </div>
+                    </template>
+
+                    
+                    <div class="flex items-center justify-between border-t border-line-solid-neutral px-3 py-2.5">
+                        <button type="button" @click="reset(k)" class="text-label-1 font-medium text-label-neutral transition-colors hover:text-label-normal">초기화</button>
+                        <button type="button" @click="editKey = null; $nextTick(() => $el.closest('form')?.submit())" class="rounded-lg bg-primary px-3.5 py-1.5 text-label-1 font-medium text-white transition-colors hover:bg-primary-strong">적용</button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        
+                <div class="relative" @click.outside="addOpen = false">
+            <button type="button" @click="addOpen = ! addOpen"
+                    class="inline-flex h-7 items-center gap-1 rounded-lg border border-line-solid-normal px-2.5 text-label-2 font-medium text-label-alternative transition-colors hover:bg-fill-alternative"
+                    :class="addOpen && 'bg-fill-alternative'">
+                <svg width="1em" height="1em" aria-hidden="true" class="h-3 w-3" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>필터 추가
             </button>
+            <div x-show="addOpen" x-cloak
+                 x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
+                 class="absolute left-0 top-full z-30 mt-1.5 w-[180px] overflow-hidden rounded-lg border border-line-solid-neutral bg-background-normal py-1 shadow-elevation-lg">
+                <p class="px-3 pb-1 pt-2 text-caption-1 font-medium text-label-assistive">필터 항목</p>
+                <template x-for="c in columns" :key="c.key">
+                    <button type="button" @click="toggleColumn(c.key)"
+                            class="flex w-full items-center gap-2.5 px-3 py-2.5 text-left text-label-1 transition-colors"
+                            :class="isActive(c.key) ? 'font-medium text-primary' : 'text-label-normal hover:bg-fill-alternative'">
+                        <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-[1.5px] transition-colors"
+                              :class="isActive(c.key) ? 'border-primary bg-primary text-white' : 'border-line-normal-strong'">
+                            <svg width="1em" height="1em" aria-hidden="true" x-show="isActive(c.key)" class="h-[90%] w-[90%] [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                        </span>
+                        <span x-text="c.label"></span>
+                    </button>
+                </template>
+            </div>
         </div>
+        
+        
+                <button type="button" @click="resetAll()"
+                class="px-1.5 py-1 text-caption-1 font-medium text-label-neutral transition-colors hover:text-label-normal">초기화</button>
+            </div>
+
+    
+    <template x-for="k in active" :key="'hid-'+k">
+                <input type="hidden"
+               :name="[&#039;select&#039;,&#039;search&#039;,&#039;region&#039;].includes(col(k)?.type) && values[k] && values[k].length ? k : ''"
+               :value="[&#039;select&#039;,&#039;search&#039;,&#039;region&#039;].includes(col(k)?.type) && values[k] ? values[k].join(',') : ''">
+    </template>
+
+    </div>
 
         
-        <div class="mt-4 grid min-w-0 grid-cols-1 gap-x-6 gap-y-4 xl:grid-cols-2">
+        <div class="grid min-w-0 grid-cols-1 gap-x-6 gap-y-4 xl:grid-cols-2">
 
             
             <section class="min-w-0 rounded-lg bg-background-normal p-[30px]">
@@ -1530,7 +1713,134 @@
 </div>
 
         
-        
+        <script>
+    function dsDatepicker({ initial, placeholder, minYear, maxYear }) {
+        const parse = (s) => {
+            if (!s) return null;
+            const p = s.split('-').map(Number);
+            if (p.length < 3 || p.some(isNaN)) return null;
+            return { y: p[0], m: p[1] - 1, d: p[2] };
+        };
+        const init = parse(initial);
+        const thisYear = new Date().getFullYear();
+        const base = init
+            ? new Date(init.y, init.m, 1)
+            : (() => { const t = new Date(); return new Date(t.getFullYear(), t.getMonth(), 1); })();
+        return {
+            open: false,
+            panel: null,            // null | 'year' | 'month'
+            value: initial || '',
+            view: base,
+            placeholder,
+            minYear: minYear || (thisYear - 100),
+            maxYear: maxYear || (thisYear + 10),
+            weekdays: ['일', '월', '화', '수', '목', '금', '토'],
+            anchor: { top: 0, left: 0, width: 340, up: false },
+            _onScroll: null,
+            init() {
+                this.$watch('open', (v) => {
+                    if (v) {
+                        // x-model 등 외부에서 들어온 value의 달로 뷰 이동 (프리필 반영)
+                        if (this.value) { const [yy, mm] = this.value.split('-').map(Number); this.view = new Date(yy, mm - 1, 1); }
+                        this.$nextTick(() => this.position());
+                        this._onScroll = () => { if (this.open) this.position() };
+                        window.addEventListener('scroll', this._onScroll, true);
+                        window.addEventListener('resize', this._onScroll);
+                    } else if (this._onScroll) {
+                        window.removeEventListener('scroll', this._onScroll, true);
+                        window.removeEventListener('resize', this._onScroll);
+                        this._onScroll = null;
+                    }
+                });
+            },
+            position() {
+                const el = this.$refs.trigger;
+                if (!el) return;
+                const t = el.getBoundingClientRect();
+                const gap = 6, h = 380;
+                const below = window.innerHeight - t.bottom - gap;
+                const above = t.top - gap;
+                const up = below < h && above > below;
+                const w = Math.min(340, window.innerWidth - 16);
+                let left = Math.round(t.left);
+                if (left + w > window.innerWidth - 8) left = Math.round(window.innerWidth - 8 - w);
+                if (left < 8) left = 8;
+                this.anchor = { up, left, width: w, top: Math.round(up ? t.top - gap : t.bottom + gap) };
+            },
+            anchorStyle() {
+                const b = `position:fixed;left:${this.anchor.left}px;width:${this.anchor.width}px;z-index:60;`;
+                return this.anchor.up
+                    ? b + `bottom:${Math.round(window.innerHeight - this.anchor.top)}px;`
+                    : b + `top:${this.anchor.top}px;`;
+            },
+            get year() { return this.view.getFullYear() },
+            get month() { return this.view.getMonth() },
+            get years() {
+                const arr = [];
+                for (let y = this.maxYear; y >= this.minYear; y--) arr.push(y);
+                return arr;
+            },
+            get display() {
+                if (!this.value) return this.placeholder;
+                const [y, m, d] = this.value.split('-').map(Number);
+                return `${y}년 ${m}월 ${d}일`;
+            },
+            get grid() {
+                const startDay = new Date(this.year, this.month, 1).getDay();
+                const days = new Date(this.year, this.month + 1, 0).getDate();
+                const cells = [];
+                for (let i = 0; i < startDay; i++) cells.push(null);
+                for (let d = 1; d <= days; d++) cells.push(d);
+                while (cells.length % 7 !== 0) cells.push(null);
+                return cells;
+            },
+            isSelected(d) {
+                if (!d || !this.value) return false;
+                const [y, m, da] = this.value.split('-').map(Number);
+                return y === this.year && (m - 1) === this.month && da === d;
+            },
+            isToday(d) {
+                if (!d) return false;
+                const t = new Date();
+                return t.getFullYear() === this.year && t.getMonth() === this.month && t.getDate() === d;
+            },
+            // 셀 스타일: 선택=채움 원 / 오늘=primary 링 / 주말=색 / 평일=기본
+            dayClass(c, i) {
+                if (this.isSelected(c)) return 'bg-primary font-bold text-white';
+                if (this.isToday(c)) return 'font-bold text-primary ring-1 ring-inset ring-primary/40 hover:bg-primary-surface';
+                const col = i % 7;
+                const tone = col === 0 ? 'text-status-negative' : (col === 6 ? 'text-accent-fg-blue' : 'text-label-normal');
+                return `${tone} hover:bg-fill-alternative`;
+            },
+            goToday() { const t = new Date(); this.view = new Date(t.getFullYear(), t.getMonth(), 1); this.panel = null; },
+            toggle() { this.open = !this.open; if (!this.open) this.panel = null; },
+            togglePanel(p) {
+                this.panel = this.panel === p ? null : p;
+                if (this.panel === 'year') {
+                    this.$nextTick(() => {
+                        const el = this.$refs.yearList && this.$refs.yearList.querySelector('[data-sel="1"]');
+                        if (el) el.scrollIntoView({ block: 'center' });
+                    });
+                }
+            },
+            prevMonth() { this.view = new Date(this.year, this.month - 1, 1); this.panel = null; },
+            nextMonth() { this.view = new Date(this.year, this.month + 1, 1); this.panel = null; },
+            prevYear() { this.view = new Date(this.year - 1, this.month, 1); this.panel = null; },
+            nextYear() { this.view = new Date(this.year + 1, this.month, 1); this.panel = null; },
+            setYear(y) { this.view = new Date(y, this.month, 1); this.panel = null; },
+            setMonth(m) { this.view = new Date(this.year, m, 1); this.panel = null; },
+            select(d) {
+                if (!d) return;
+                const mm = String(this.month + 1).padStart(2, '0');
+                const dd = String(d).padStart(2, '0');
+                this.value = `${this.year}-${mm}-${dd}`;
+                this.open = false;
+                this.panel = null;
+            },
+        };
+    }
+</script>
+
         <!-- Livewire Scripts -->
 
     </body>
