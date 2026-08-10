@@ -255,6 +255,20 @@
                  counts: JSON.parse('{\u0022교육 훈련비\u0022:3,\u0022교통비\u0022:2,\u0022기타 수수료\u0022:1,\u0022마케팅비\u0022:2,\u0022복리 후생비\u0022:2,\u0022비품 · 소프트웨어\u0022:1,\u0022소모품비\u0022:1,\u0022식대\u0022:1,\u0022조직관리비\u0022:1,\u0022퀵 · 택배 등\u0022:2}'),
                  pick(g) { this.group = this.group === g ? null : g; },
                  total() { return this.group === null ? 16 : (this.counts[this.group] ?? 0); },
+
+                 // 비용 내역 행을 누르면 뜨는 상세 팝업 (주소 변경·조직장 관리와 같은 방식)
+                 row: null,
+                 draft: {},
+                 mode: 'view',
+                 openDetail(r) {
+                     this.row = r;
+                     this.draft = { ...r };
+                     this.mode = 'view';
+                     this.$dispatch('open-modal', 'account-detail');
+                 },
+                 revert() { this.draft = { ...this.row }; this.mode = 'view'; },
+                 get dirty() { return JSON.stringify(this.draft) !== JSON.stringify(this.row); },
+                 v(key) { return this.row?.[key] || '-'; },
              }">
 
             
@@ -511,21 +525,24 @@
                         </tr>
 </thead>
                         <tbody>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교육 훈련비&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교육 훈련비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >교육 훈련비</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->IT 전산 장비 (PC 등)</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022교육 훈련비\u0022,\u0022name\u0022:\u0022IT 전산 장비 (PC 등)\u0022,\u0022name_en\u0022:\u0022IT computing equipment\u0022,\u0022code\u0022:\u002221001\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022IT 전산 장비 (PC 등)\u0022,\u0022guide_en\u0022:\u0022IT computing equipment\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            IT 전산 장비 (PC 등)
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >IT computing equipment</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">21001</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -542,21 +559,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >IT computing equipment</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교육 훈련비&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교육 훈련비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >교육 훈련비</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->외부 교육 수강료</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022교육 훈련비\u0022,\u0022name\u0022:\u0022외부 교육 수강료\u0022,\u0022name_en\u0022:\u0022External training fees\u0022,\u0022code\u0022:\u002221002\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022외부 교육 수강료\u0022,\u0022guide_en\u0022:\u0022External training fees\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            외부 교육 수강료
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >External training fees</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">21002</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -573,21 +593,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >External training fees</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교육 훈련비&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교육 훈련비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >교육 훈련비</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->자격 시험 응시료</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022교육 훈련비\u0022,\u0022name\u0022:\u0022자격 시험 응시료\u0022,\u0022name_en\u0022:\u0022Certification exam fees\u0022,\u0022code\u0022:\u002221003\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022자격 시험 응시료\u0022,\u0022guide_en\u0022:\u0022Certification exam fees\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            자격 시험 응시료
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Certification exam fees</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">21003</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -604,21 +627,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Certification exam fees</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교통비&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교통비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >교통비</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->거래처 접대비</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022교통비\u0022,\u0022name\u0022:\u0022거래처 접대비\u0022,\u0022name_en\u0022:\u0022Client entertainment\u0022,\u0022code\u0022:\u002213003\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022거래처 접대비\u0022,\u0022guide_en\u0022:\u0022Client entertainment\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            거래처 접대비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Client entertainment</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">13003</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -635,21 +661,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Client entertainment</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교통비&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교통비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >교통비</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->출장 교통비</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022교통비\u0022,\u0022name\u0022:\u0022출장 교통비\u0022,\u0022name_en\u0022:\u0022Business trip transportation\u0022,\u0022code\u0022:\u002213004\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022출장 교통비\u0022,\u0022guide_en\u0022:\u0022Business trip transportation\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            출장 교통비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Business trip transportation</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">13004</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -666,21 +695,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Business trip transportation</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;기타 수수료&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;기타 수수료&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >기타 수수료</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->기타 지급 수수료</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022기타 수수료\u0022,\u0022name\u0022:\u0022기타 지급 수수료\u0022,\u0022name_en\u0022:\u0022Other payment fees\u0022,\u0022code\u0022:\u002221001\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022기타 지급 수수료\u0022,\u0022guide_en\u0022:\u0022Other payment fees\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            기타 지급 수수료
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Other payment fees</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">21001</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -697,21 +729,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Other payment fees</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;마케팅비&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;마케팅비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >마케팅비</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->도서구매 및 인쇄물</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022마케팅비\u0022,\u0022name\u0022:\u0022도서구매 및 인쇄물\u0022,\u0022name_en\u0022:\u0022Book purchase and printing\u0022,\u0022code\u0022:\u002213003\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022도서구매 및 인쇄물\u0022,\u0022guide_en\u0022:\u0022Book purchase and printing\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            도서구매 및 인쇄물
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Book purchase and printing</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">13003</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -728,21 +763,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Book purchase and printing</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;마케팅비&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;마케팅비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >마케팅비</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->온라인 광고비</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022마케팅비\u0022,\u0022name\u0022:\u0022온라인 광고비\u0022,\u0022name_en\u0022:\u0022Online advertising\u0022,\u0022code\u0022:\u002213005\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022온라인 광고비\u0022,\u0022guide_en\u0022:\u0022Online advertising\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            온라인 광고비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Online advertising</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">13005</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -759,21 +797,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Online advertising</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;복리 후생비&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;복리 후생비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >복리 후생비</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->미팅비</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022복리 후생비\u0022,\u0022name\u0022:\u0022미팅비\u0022,\u0022name_en\u0022:\u0022Meeting expenses\u0022,\u0022code\u0022:\u002221001\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022미팅비\u0022,\u0022guide_en\u0022:\u0022Meeting expenses\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            미팅비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Meeting expenses</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">21001</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -790,21 +831,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Meeting expenses</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;복리 후생비&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;복리 후생비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >복리 후생비</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->경조사비</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022복리 후생비\u0022,\u0022name\u0022:\u0022경조사비\u0022,\u0022name_en\u0022:\u0022Congratulations and condolences\u0022,\u0022code\u0022:\u002221004\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022경조사비\u0022,\u0022guide_en\u0022:\u0022Congratulations and condolences\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            경조사비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Congratulations and condolences</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">21004</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -821,21 +865,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Congratulations and condolences</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;비품 · 소프트웨어&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;비품 · 소프트웨어&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >비품 · 소프트웨어</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->소프트웨어 (기간 사용)</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022비품 · 소프트웨어\u0022,\u0022name\u0022:\u0022소프트웨어 (기간 사용)\u0022,\u0022name_en\u0022:\u0022Software subscription\u0022,\u0022code\u0022:\u002213003\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022소프트웨어 (기간 사용)\u0022,\u0022guide_en\u0022:\u0022Software subscription\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            소프트웨어 (기간 사용)
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Software subscription</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">13003</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -852,21 +899,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Software subscription</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;소모품비&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;소모품비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >소모품비</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->소모품비</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022소모품비\u0022,\u0022name\u0022:\u0022소모품비\u0022,\u0022name_en\u0022:\u0022Consumables\u0022,\u0022code\u0022:\u002221001\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022소모품비\u0022,\u0022guide_en\u0022:\u0022Consumables\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            소모품비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Consumables</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">21001</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -883,21 +933,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Consumables</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;식대&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;식대&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >식대</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->식대</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022식대\u0022,\u0022name\u0022:\u0022식대\u0022,\u0022name_en\u0022:\u0022Meal expenses\u0022,\u0022code\u0022:\u002213003\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022식대\u0022,\u0022guide_en\u0022:\u0022Meal expenses\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            식대
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Meal expenses</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">13003</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -914,21 +967,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Meal expenses</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;조직관리비&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;조직관리비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >조직관리비</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->조직 관리비</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022조직관리비\u0022,\u0022name\u0022:\u0022조직 관리비\u0022,\u0022name_en\u0022:\u0022Organization management\u0022,\u0022code\u0022:\u002221001\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022조직 관리비\u0022,\u0022guide_en\u0022:\u0022Organization management\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            조직 관리비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Organization management</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">21001</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -945,21 +1001,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Organization management</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;퀵 · 택배 등&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;퀵 · 택배 등&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >퀵 · 택배 등</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->통신비</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022퀵 · 택배 등\u0022,\u0022name\u0022:\u0022통신비\u0022,\u0022name_en\u0022:\u0022Communication expenses\u0022,\u0022code\u0022:\u002213003\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022통신비\u0022,\u0022guide_en\u0022:\u0022Communication expenses\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            통신비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Communication expenses</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">13003</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -976,21 +1035,24 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Communication expenses</td>
 </tr>
-                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;퀵 · 택배 등&quot; }"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;퀵 · 택배 등&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >퀵 · 택배 등</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->퀵 · 택배 요금</td>
+><button type="button" @click="openDetail(JSON.parse('{\u0022group\u0022:\u0022퀵 · 택배 등\u0022,\u0022name\u0022:\u0022퀵 · 택배 요금\u0022,\u0022name_en\u0022:\u0022Courier and delivery\u0022,\u0022code\u0022:\u002213006\u0022,\u0022limit\u0022:\u0022한도 없음\u0022,\u0022setting\u0022:\u0022내용 없음\u0022,\u0022target\u0022:\u0022내용 없음\u0022,\u0022guide\u0022:\u0022퀵 · 택배 요금\u0022,\u0022guide_en\u0022:\u0022Courier and delivery\u0022}'))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            퀵 · 택배 요금
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Courier and delivery</td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">13006</span></td>
-                                    
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한도 없음</td>
@@ -1089,9 +1151,529 @@
 </nav>
                 </div>
             </section>
-        </div>
+
+            
+            <div x-data="{ open: false }"
+     x-on:open-modal.window="$event.detail === 'account-detail' && (open = true)"
+     x-on:keydown.escape.window="open = false"
+     x-effect="document.documentElement.style.overflow = open ? 'hidden' : ''"
+     x-show="open" x-cloak
+     class="fixed inset-0 z-50 flex items-center justify-center p-5">
+    
+    <div x-show="open" x-cloak
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+         @click="open = false"
+         class="absolute inset-0 bg-inverse-background/50"></div>
+
+    
+    <div x-show="open" x-cloak
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2 scale-[0.98]" x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0 scale-100" x-transition:leave-end="opacity-0 translate-y-2 scale-[0.98]"
+         role="dialog" aria-modal="true"                       class="relative flex max-h-full w-full max-w-[720px] flex-col overflow-hidden rounded-md bg-background-normal shadow-elevation-xl"
+         >
+                    <button type="button" @click="open = false"
+                    class="absolute right-6 top-6 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background-normal text-label-alternative transition-colors hover:bg-fill-alternative hover:text-label-normal"
+                    aria-label="닫기">
+                <svg width="1em" height="1em" aria-hidden="true" class="h-5 w-5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.86352 4.86321C5.21499 4.51174 5.78484 4.51174 6.13631 4.86321L11.9999 10.7268L17.8635 4.86321C18.2149 4.51174 18.7848 4.51174 19.1363 4.86321C19.4877 5.21468 19.4877 5.78453 19.1363 6.13601L13.2727 11.9996L19.1363 17.8632C19.4877 18.2147 19.4877 18.7845 19.1363 19.136C18.7848 19.4875 18.2149 19.4875 17.8635 19.136L11.9999 13.2724L6.13631 19.136C5.78484 19.4875 5.21499 19.4875 4.86352 19.136C4.51205 18.7845 4.51205 18.2147 4.86352 17.8632L10.7271 11.9996L4.86352 6.13601C4.51205 5.78453 4.51205 5.21468 4.86352 4.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </button>
+        
+                    
+            
+            
+            <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-7 pt-7 pb-6">
+                <h2 class="pr-10 text-heading-2 font-bold leading-[30px] text-mono-black"
+                    x-text="mode === 'view' ? '상세 정보' : '상세 정보 수정'"></h2>
+
+                
+                <div x-bind:class="{ 'hidden': mode !== 'view' }">
+                    <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-[30px]">기본 정보</h3>
+                    <dl class="grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2 pt-6">
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">비용 분류</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('group')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">계정 이름</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('name')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">계정 이름 (영어)</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('name_en')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">계정 코드</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span class="tabular-nums" x-text="v('code')"></span>
+            </dd>
+</div>
+                    </dl>
+
+                    <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-10">기타 정보</h3>
+                    <dl class="grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2 pt-6">
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">1인 한도</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('limit')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">설정</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('setting')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">대상 인원</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('target')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">사용자 가이드</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('guide')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">사용자 가이드 (영어)</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('guide_en')"></span>
+            </dd>
+</div>
+                    </dl>
+                </div>
+
+                
+                <div x-bind:class="{ 'hidden': mode !== 'edit' }">
+                    <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-[30px]">기본 정보</h3>
+                    <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
+                        <div class="flex flex-col gap-1.5"
+          x-data="{
+        open: false,
+        highlighted: -1,
+        value: '',
+        options: JSON.parse('[{\u0022value\u0022:\u0022교육 훈련비\u0022,\u0022label\u0022:\u0022교육 훈련비\u0022},{\u0022value\u0022:\u0022교통비\u0022,\u0022label\u0022:\u0022교통비\u0022},{\u0022value\u0022:\u0022기타 수수료\u0022,\u0022label\u0022:\u0022기타 수수료\u0022},{\u0022value\u0022:\u0022마케팅비\u0022,\u0022label\u0022:\u0022마케팅비\u0022},{\u0022value\u0022:\u0022복리 후생비\u0022,\u0022label\u0022:\u0022복리 후생비\u0022},{\u0022value\u0022:\u0022비품 · 소프트웨어\u0022,\u0022label\u0022:\u0022비품 · 소프트웨어\u0022},{\u0022value\u0022:\u0022소모품비\u0022,\u0022label\u0022:\u0022소모품비\u0022},{\u0022value\u0022:\u0022식대\u0022,\u0022label\u0022:\u0022식대\u0022},{\u0022value\u0022:\u0022조직관리비\u0022,\u0022label\u0022:\u0022조직관리비\u0022},{\u0022value\u0022:\u0022퀵 · 택배 등\u0022,\u0022label\u0022:\u0022퀵 · 택배 등\u0022},{\u0022value\u0022:\u0022회사 공용 카드 정산\u0022,\u0022label\u0022:\u0022회사 공용 카드 정산\u0022},{\u0022value\u0022:\u0022회사 개인 카드 정산\u0022,\u0022label\u0022:\u0022회사 개인 카드 정산\u0022}]'),
+        placeholder: '선택하세요',
+        anchor: { top: 0, left: 0, width: 0, maxH: 256, up: false },
+        _onScroll: null,
+        get selectedOption() { return this.options.find(o => String(o.value) === String(this.value)) || null },
+        get display() { return this.selectedOption ? this.selectedOption.label : this.placeholder },
+        get hasValue() { return this.value !== '' && this.value !== null },
+        position() {
+            const t = this.$refs.trigger.getBoundingClientRect();
+            const gap = 6;
+            const below = window.innerHeight - t.bottom - gap;
+            const above = t.top - gap;
+            const want = Math.min(256, this.options.length * 44 + 8);
+            const up = below < want && above > below;
+            this.anchor.up = up;
+            this.anchor.left = Math.round(t.left);
+            this.anchor.width = Math.round(t.width);
+            this.anchor.top = Math.round(up ? t.top - gap : t.bottom + gap);
+            this.anchor.maxH = Math.max(140, Math.min(256, Math.round(up ? above : below)));
+        },
+        anchorStyle() {
+            const b = `position:fixed;left:${this.anchor.left}px;width:${this.anchor.width}px;z-index:60;`;
+            return this.anchor.up
+                ? b + `bottom:${Math.round(window.innerHeight - this.anchor.top)}px;`
+                : b + `top:${this.anchor.top}px;`;
+        },
+        openMenu() {
+            this.open = true;
+            const i = this.options.findIndex(o => String(o.value) === String(this.value));
+            this.highlighted = i < 0 ? 0 : i;
+            this.$nextTick(() => this.position());
+            this._onScroll = () => { if (this.open) this.position() };
+            window.addEventListener('scroll', this._onScroll, true);
+            window.addEventListener('resize', this._onScroll);
+        },
+        close() {
+            this.open = false;
+            if (this._onScroll) {
+                window.removeEventListener('scroll', this._onScroll, true);
+                window.removeEventListener('resize', this._onScroll);
+                this._onScroll = null;
+            }
+        },
+        toggle() { this.open ? this.close() : this.openMenu() },
+        move(d) {
+            if (!this.open) { this.openMenu(); return }
+            const n = this.options.length;
+            if (n) this.highlighted = (this.highlighted + d + n) % n;
+        },
+        choose(v) { this.value = String(v); this.close(); this.$refs.trigger.focus();  },
+        chooseHighlighted() {
+            if (this.open && this.options[this.highlighted]) this.choose(this.options[this.highlighted].value);
+            else this.openMenu();
+        },
+     }"
+     x-modelable="value"
+     x-model="draft.group"
+     @keydown.escape.stop="open && (open = false)">
+
+            <label for="dropdown-6a793ee841cca" class="text-label-1 font-medium text-label-neutral">
+            비용 분류
+                    </label>
+    
+    <div class="relative" @click.outside="close()">
+        <button
+            type="button"
+            id="dropdown-6a793ee841cca"
+            x-ref="trigger"
+            @click="toggle()"
+            @keydown.arrow-down.prevent="move(1)"
+            @keydown.arrow-up.prevent="move(-1)"
+            @keydown.enter.prevent="chooseHighlighted()"
+            @keydown.space.prevent="chooseHighlighted()"
+            @keydown.home.prevent="open && (highlighted = 0)"
+            @keydown.end.prevent="open && (highlighted = options.length - 1)"
+            :aria-expanded="open"
+            aria-haspopup="listbox"
+                        class="flex w-full items-center justify-between text-left border bg-background-normal h-8 gap-1.5 rounded-md px-2.5 transition-colors duration-150 focus:outline-none focus-visible:ring-2 border-line-normal-neutral focus-visible:border-primary focus-visible:ring-primary/30"
+        >
+            <span class="truncate text-label-2 text-label-assistive" :class="hasValue ? 'text-label-normal' : 'text-label-assistive'" x-text="display">선택하세요</span>
+            <svg width="1em" height="1em" aria-hidden="true" :class="open && 'rotate-180'" class="w-4 h-4 shrink-0 text-label-alternative transition-transform duration-200" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>        </button>
+
+        <input type="hidden"  :value="value">
 
         
+        <div
+            x-show="open"
+            x-cloak
+            :style="anchorStyle()"
+            x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="overflow-hidden rounded-md border border-line-solid-neutral bg-background-normal shadow-elevation-lg"
+        >
+            <ul role="listbox" :style="`max-height:${anchor.maxH}px`" class="overflow-y-auto overscroll-contain py-1 focus:outline-none">
+                <template x-for="(o, i) in options" :key="o.value">
+                    <li
+                        role="option"
+                        :aria-selected="String(o.value) === String(value)"
+                        @click="choose(o.value)"
+                        @mouseenter="highlighted = i"
+                        class="flex cursor-pointer select-none items-center gap-2 px-3 py-1.5"
+                        :class="highlighted === i ? 'bg-fill-alternative' : ''"
+                    >
+                        <span
+                            class="flex-1 truncate text-label-2"
+                            :class="String(o.value) === String(value) ? 'font-medium text-primary' : 'text-label-normal'"
+                            x-text="o.label"
+                        ></span>
+                        <svg width="1em" height="1em" aria-hidden="true" x-show="String(o.value) === String(value)" class="w-4 h-4 shrink-0 text-primary" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a793ee841db8" class="text-label-1 font-medium text-label-neutral">
+            계정 이름
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a793ee841db8"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.name"         />
+
+            </div>
+    
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a793ee841dda" class="text-label-1 font-medium text-label-neutral">
+            계정 이름 (영어)
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a793ee841dda"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.name_en"         />
+
+            </div>
+    
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a793ee841def" class="text-label-1 font-medium text-label-neutral">
+            계정 코드
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a793ee841def"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.code"         />
+
+            </div>
+    
+    </div>
+                    </div>
+
+                    <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-10">기타 정보</h3>
+                    <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
+                        <div class="flex flex-col gap-1.5"
+          x-data="{
+        open: false,
+        highlighted: -1,
+        value: '',
+        options: JSON.parse('[{\u0022value\u0022:\u0022한도 없음\u0022,\u0022label\u0022:\u0022한도 없음\u0022},{\u0022value\u0022:\u0022월 한도\u0022,\u0022label\u0022:\u0022월 한도\u0022},{\u0022value\u0022:\u0022건별 한도\u0022,\u0022label\u0022:\u0022건별 한도\u0022}]'),
+        placeholder: '선택하세요',
+        anchor: { top: 0, left: 0, width: 0, maxH: 256, up: false },
+        _onScroll: null,
+        get selectedOption() { return this.options.find(o => String(o.value) === String(this.value)) || null },
+        get display() { return this.selectedOption ? this.selectedOption.label : this.placeholder },
+        get hasValue() { return this.value !== '' && this.value !== null },
+        position() {
+            const t = this.$refs.trigger.getBoundingClientRect();
+            const gap = 6;
+            const below = window.innerHeight - t.bottom - gap;
+            const above = t.top - gap;
+            const want = Math.min(256, this.options.length * 44 + 8);
+            const up = below < want && above > below;
+            this.anchor.up = up;
+            this.anchor.left = Math.round(t.left);
+            this.anchor.width = Math.round(t.width);
+            this.anchor.top = Math.round(up ? t.top - gap : t.bottom + gap);
+            this.anchor.maxH = Math.max(140, Math.min(256, Math.round(up ? above : below)));
+        },
+        anchorStyle() {
+            const b = `position:fixed;left:${this.anchor.left}px;width:${this.anchor.width}px;z-index:60;`;
+            return this.anchor.up
+                ? b + `bottom:${Math.round(window.innerHeight - this.anchor.top)}px;`
+                : b + `top:${this.anchor.top}px;`;
+        },
+        openMenu() {
+            this.open = true;
+            const i = this.options.findIndex(o => String(o.value) === String(this.value));
+            this.highlighted = i < 0 ? 0 : i;
+            this.$nextTick(() => this.position());
+            this._onScroll = () => { if (this.open) this.position() };
+            window.addEventListener('scroll', this._onScroll, true);
+            window.addEventListener('resize', this._onScroll);
+        },
+        close() {
+            this.open = false;
+            if (this._onScroll) {
+                window.removeEventListener('scroll', this._onScroll, true);
+                window.removeEventListener('resize', this._onScroll);
+                this._onScroll = null;
+            }
+        },
+        toggle() { this.open ? this.close() : this.openMenu() },
+        move(d) {
+            if (!this.open) { this.openMenu(); return }
+            const n = this.options.length;
+            if (n) this.highlighted = (this.highlighted + d + n) % n;
+        },
+        choose(v) { this.value = String(v); this.close(); this.$refs.trigger.focus();  },
+        chooseHighlighted() {
+            if (this.open && this.options[this.highlighted]) this.choose(this.options[this.highlighted].value);
+            else this.openMenu();
+        },
+     }"
+     x-modelable="value"
+     x-model="draft.limit"
+     @keydown.escape.stop="open && (open = false)">
+
+            <label for="dropdown-6a793ee841e06" class="text-label-1 font-medium text-label-neutral">
+            1인 한도
+                    </label>
+    
+    <div class="relative" @click.outside="close()">
+        <button
+            type="button"
+            id="dropdown-6a793ee841e06"
+            x-ref="trigger"
+            @click="toggle()"
+            @keydown.arrow-down.prevent="move(1)"
+            @keydown.arrow-up.prevent="move(-1)"
+            @keydown.enter.prevent="chooseHighlighted()"
+            @keydown.space.prevent="chooseHighlighted()"
+            @keydown.home.prevent="open && (highlighted = 0)"
+            @keydown.end.prevent="open && (highlighted = options.length - 1)"
+            :aria-expanded="open"
+            aria-haspopup="listbox"
+                        class="flex w-full items-center justify-between text-left border bg-background-normal h-8 gap-1.5 rounded-md px-2.5 transition-colors duration-150 focus:outline-none focus-visible:ring-2 border-line-normal-neutral focus-visible:border-primary focus-visible:ring-primary/30"
+        >
+            <span class="truncate text-label-2 text-label-assistive" :class="hasValue ? 'text-label-normal' : 'text-label-assistive'" x-text="display">선택하세요</span>
+            <svg width="1em" height="1em" aria-hidden="true" :class="open && 'rotate-180'" class="w-4 h-4 shrink-0 text-label-alternative transition-transform duration-200" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>        </button>
+
+        <input type="hidden"  :value="value">
+
+        
+        <div
+            x-show="open"
+            x-cloak
+            :style="anchorStyle()"
+            x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="overflow-hidden rounded-md border border-line-solid-neutral bg-background-normal shadow-elevation-lg"
+        >
+            <ul role="listbox" :style="`max-height:${anchor.maxH}px`" class="overflow-y-auto overscroll-contain py-1 focus:outline-none">
+                <template x-for="(o, i) in options" :key="o.value">
+                    <li
+                        role="option"
+                        :aria-selected="String(o.value) === String(value)"
+                        @click="choose(o.value)"
+                        @mouseenter="highlighted = i"
+                        class="flex cursor-pointer select-none items-center gap-2 px-3 py-1.5"
+                        :class="highlighted === i ? 'bg-fill-alternative' : ''"
+                    >
+                        <span
+                            class="flex-1 truncate text-label-2"
+                            :class="String(o.value) === String(value) ? 'font-medium text-primary' : 'text-label-normal'"
+                            x-text="o.label"
+                        ></span>
+                        <svg width="1em" height="1em" aria-hidden="true" x-show="String(o.value) === String(value)" class="w-4 h-4 shrink-0 text-primary" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a793ee841e73" class="text-label-1 font-medium text-label-neutral">
+            설정
+                    </label>
+    
+        <div class="relative"
+         >
+                    <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[11px] text-label-assistive">
+                <svg width="1em" height="1em" aria-hidden="true" class="w-5 h-5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.9997 2.1001C5.63667 2.1001 2.09973 5.63705 2.09973 10.0001C2.09973 14.3631 5.63667 17.9001 9.9997 17.9001C11.857 17.9001 13.5646 17.2592 14.9134 16.1864L19.8634 21.1365C20.2149 21.4879 20.7847 21.4879 21.1362 21.1365C21.4877 20.785 21.4877 20.2151 21.1362 19.8637L16.1861 14.9136C17.2588 13.5648 17.8997 11.8573 17.8997 10.0001C17.8997 5.63705 14.3627 2.1001 9.9997 2.1001ZM3.89972 10.0001C3.89972 6.63116 6.63078 3.9001 9.9997 3.9001C13.3686 3.9001 16.0997 6.63116 16.0997 10.0001C16.0997 13.369 13.3686 16.1001 9.9997 16.1001C6.63078 16.1001 3.89972 13.369 3.89972 10.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </span>
+        
+        <input
+            id="input-6a793ee841e73"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-10 pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="설정 찾기" x-model="draft.setting"         />
+
+            </div>
+    
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a793ee842087" class="text-label-1 font-medium text-label-neutral">
+            대상 인원
+                    </label>
+    
+        <div class="relative"
+         >
+                    <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[11px] text-label-assistive">
+                <svg width="1em" height="1em" aria-hidden="true" class="w-5 h-5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.9997 2.1001C5.63667 2.1001 2.09973 5.63705 2.09973 10.0001C2.09973 14.3631 5.63667 17.9001 9.9997 17.9001C11.857 17.9001 13.5646 17.2592 14.9134 16.1864L19.8634 21.1365C20.2149 21.4879 20.7847 21.4879 21.1362 21.1365C21.4877 20.785 21.4877 20.2151 21.1362 19.8637L16.1861 14.9136C17.2588 13.5648 17.8997 11.8573 17.8997 10.0001C17.8997 5.63705 14.3627 2.1001 9.9997 2.1001ZM3.89972 10.0001C3.89972 6.63116 6.63078 3.9001 9.9997 3.9001C13.3686 3.9001 16.0997 6.63116 16.0997 10.0001C16.0997 13.369 13.3686 16.1001 9.9997 16.1001C6.63078 16.1001 3.89972 13.369 3.89972 10.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </span>
+        
+        <input
+            id="input-6a793ee842087"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-10 pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="멤버 찾기" x-model="draft.target"         />
+
+            </div>
+    
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a793ee842150" class="text-label-1 font-medium text-label-neutral">
+            사용자 가이드
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a793ee842150"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="사용자 가이드 입력" x-model="draft.guide"         />
+
+            </div>
+    
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a793ee84216c" class="text-label-1 font-medium text-label-neutral">
+            사용자 가이드 (영어)
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a793ee84216c"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="영어 사용자 가이드 입력" x-model="draft.guide_en"         />
+
+            </div>
+    
+    </div>
+                    </div>
+                </div>
+            </div>
+
+            
+                            <div class="shrink-0 flex items-center gap-3 border-t border-line-solid-alternative px-7 py-4">
+                    <div class="ml-auto flex flex-wrap items-center gap-4" x-bind:class="{ 'hidden': mode !== 'view' }">
+                        <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2  w-[120px]" @click="mode = 'edit'"
+>
+    
+    정보 수정
+
+    </button>
+                        <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-primary text-white hover:bg-primary-strong active:bg-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-10 px-4 text-body-2  w-[120px]" @click="open = false"
+>
+    
+    확인
+
+    </button>
+                    </div>
+                    <div class="ml-auto flex flex-wrap items-center gap-4" x-bind:class="{ 'hidden': mode !== 'edit' }">
+                        <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2  w-[120px]" @click="revert()"
+>
+    
+    취소
+
+    </button>
+                        <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-primary text-white hover:bg-primary-strong active:bg-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-10 px-4 text-body-2  w-[120px]" x-bind:disabled="! dirty"
+>
+    
+    저장
+
+    </button>
+                    </div>
+                </div>
+                        </div>
+</div>
+        </div>
+
         
         
         <div x-data="{ open: false }"

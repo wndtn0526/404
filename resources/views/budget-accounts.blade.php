@@ -24,6 +24,7 @@
      ⚠️ '+ 추가' · '+ 내역 추가' 는 모달을 열기만 한다. 저장 엔드포인트가 없다 —
         붙일 때는 POST + CSRF 로 보낸다.
 
+     오른쪽 비용 내역의 행을 누르면 상세 팝업이 뜬다(보기 → 정보 수정).
      왼쪽 비용 분류를 누르면 오른쪽이 그 분류 것만 남는다. 같은 행을 다시 누르면 전체로
      돌아간다. 고른 분류를 오른쪽 제목 옆에 칩으로도 보여 줬다가 뺐다 — 왼쪽에서 이미
      행이 칠해져 있어 같은 말을 두 번 하는 셈이었다.
@@ -71,10 +72,28 @@
         ['group' => '퀵 · 택배 등', 'name' => '퀵 · 택배 요금', 'name_en' => 'Courier and delivery', 'code' => '13006'],
     ];
 
+    /*
+     * 한도·설정·대상 인원·사용자 가이드는 원본이 모든 행에 같은 값을 넣어 뒀다.
+     * 표에 박아 두면 상세 팝업과 어긋날 수 있어서 행 데이터로 옮긴다.
+     * 사용자 가이드는 계정 이름과 같은 값이 들어간다(원본 그대로).
+     */
+    $rows = array_map(fn (array $r) => $r + [
+        'limit' => '한도 없음',
+        'setting' => '내용 없음',
+        'target' => '내용 없음',
+        'guide' => $r['name'],
+        'guide_en' => $r['name_en'],
+    ], $rows);
+
     // 분류별 건수 — Alpine 이 고른 분류의 「총 N건」에 쓴다.
     $countsByGroup = collect($rows)->countBy('group')->all();
 
     $cardTitle = 'text-heading-2 font-bold leading-[30px] text-mono-black';
+    // 모달 안 절 제목 16 Bold lh24 -0.6 · 보기 필드 격자(라벨 94 + 값) · 수정 필드 격자
+    $modalSection = 'text-body-1 font-bold leading-6 text-mono-black';
+    $fieldGrid = 'grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2';
+    // 필드 칸 315x54 · 열 사이 30 · 행 피치 78 — 조직 추가 모달과 같은 격자다.
+    $modalGrid = 'grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2';
 @endphp
 
 <x-layout title="예산 계정 관리">
@@ -111,6 +130,20 @@
                  counts: @js($countsByGroup),
                  pick(g) { this.group = this.group === g ? null : g; },
                  total() { return this.group === null ? {{ count($rows) }} : (this.counts[this.group] ?? 0); },
+
+                 // 비용 내역 행을 누르면 뜨는 상세 팝업 (주소 변경·조직장 관리와 같은 방식)
+                 row: null,
+                 draft: {},
+                 mode: 'view',
+                 openDetail(r) {
+                     this.row = r;
+                     this.draft = { ...r };
+                     this.mode = 'view';
+                     this.$dispatch('open-modal', 'account-detail');
+                 },
+                 revert() { this.draft = { ...this.row }; this.mode = 'view'; },
+                 get dirty() { return JSON.stringify(this.draft) !== JSON.stringify(this.row); },
+                 v(key) { return this.row?.[key] || '-'; },
              }">
 
             {{-- ═══ 좌: 비용 분류 400 ═══ --}}
@@ -190,19 +223,24 @@
                                 @php
                                     $notPicked = "{ 'hidden': group !== null && group !== ".json_encode($row['group'], JSON_UNESCAPED_UNICODE).' }';
                                 @endphp
-                                <x-table.row :x-bind:class="$notPicked">
+                                {{-- 행 전체가 상세 팝업을 연다(계정 이름 칸 버튼을 after:inset-0 로 늘린다) --}}
+                                <x-table.row class="relative" :x-bind:class="$notPicked">
                                     <x-table.cell tone="muted" nowrap>{{ $row['group'] }}</x-table.cell>
-                                    <x-table.cell tone="strong">{{ $row['name'] }}</x-table.cell>
+                                    <x-table.cell tone="strong">
+                                        <button type="button" @click="openDetail(@js($row))"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            {{ $row['name'] }}
+                                        </button>
+                                    </x-table.cell>
                                     <x-table.cell tone="muted">{{ $row['name_en'] }}</x-table.cell>
                                     <x-table.cell tone="muted" nowrap>
                                         <span class="tabular-nums">{{ $row['code'] }}</span>
                                     </x-table.cell>
-                                    {{-- 한도·설명·대상 인원은 아직 값이 없다(원본도 전부 같은 문구다) --}}
-                                    <x-table.cell tone="muted" nowrap>한도 없음</x-table.cell>
-                                    <x-table.cell tone="muted" nowrap>내용 없음</x-table.cell>
-                                    <x-table.cell tone="muted" nowrap>내용 없음</x-table.cell>
-                                    <x-table.cell tone="muted">{{ $row['name'] }}</x-table.cell>
-                                    <x-table.cell tone="muted">{{ $row['name_en'] }}</x-table.cell>
+                                    <x-table.cell tone="muted" nowrap>{{ $row['limit'] }}</x-table.cell>
+                                    <x-table.cell tone="muted" nowrap>{{ $row['setting'] }}</x-table.cell>
+                                    <x-table.cell tone="muted" nowrap>{{ $row['target'] }}</x-table.cell>
+                                    <x-table.cell tone="muted">{{ $row['guide'] }}</x-table.cell>
+                                    <x-table.cell tone="muted">{{ $row['guide_en'] }}</x-table.cell>
                                 </x-table.row>
                             @empty
                                 <x-table.empty :colspan="9">비용 내역이 없습니다.</x-table.empty>
@@ -224,12 +262,86 @@
                     <x-pagination :total="50" :per-page="10" :current="1" :per-page-options="[10, 50, 100]" />
                 </div>
             </section>
-        </div>
 
-        @php
-            // 원본 필드 칸 315x54 · 열 사이 30 · 행 피치 78 — 조직 추가 모달과 같은 격자다.
-            $modalGrid = 'grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2';
-        @endphp
+            {{-- ═══ 비용 내역 상세 팝업 ═══ Figma node 1002-94097(보기) · 1002-94371(수정)
+                 주소 변경·조직장 관리에 붙인 것과 같은 골격이다(원본 1002-280870 계열).
+                 행을 누르면 보기로 열리고, '정보 수정' 을 눌러야 입력 칸이 된다.
+                 아무것도 안 고치면 '저장' 은 비활성이다.
+
+                 원본 실측 — 폭 720 · 반경 6 · 패딩 30
+                   보기 495 — 제목 20 Bold → 30 → 절 제목 16 Bold → 24 → 필드
+                     라벨 94 + 값 · 줄 20 · 행 피치 36 · 절 사이 40
+                     기본 정보: 비용 분류 | 계정 이름 / 계정 이름 (영어) | 계정 코드
+                     기타 정보: 1인 한도 | 설정 / 대상 인원 | 사용자 가이드 / 사용자 가이드 (영어)
+                   수정 689 — 같은 순서로 칸 315x54 두 열 · 행 피치 78
+                   카드 폭 구분선 → 25 → 버튼 120x36 (사이 16 · 우측)
+                     보기 [정보 수정(선) · 확인(면)] / 수정 [취소(선) · 저장(면)]
+
+                 ⚠️ 원본 열 사이가 16 인데 DS $fieldGrid 는 24 다. 다른 상세 팝업과 같은 격자를
+                    쓰는 쪽을 골랐다 — 화면마다 필드 간격이 갈리는 게 더 눈에 띈다.
+                 ⚠️ 비용 분류만 목록에서 고르고 1인 한도는 정해진 값이라 드롭다운이다.
+                    나머지는 입력 칸이다(비용 내역 추가 팝업과 같다).
+                 ⚠️ 저장 엔드포인트가 없다. '저장'은 아직 아무 일도 하지 않는다. --}}
+            <x-modal name="account-detail" max-width="max-w-[720px]" scroll close-button>
+                <h2 class="pr-10 text-heading-2 font-bold leading-[30px] text-mono-black"
+                    x-text="mode === 'view' ? '상세 정보' : '상세 정보 수정'"></h2>
+
+                {{-- ── 보기 ── --}}
+                <div x-bind:class="{ 'hidden': mode !== 'view' }">
+                    <h3 class="{{ $modalSection }} pt-[30px]">기본 정보</h3>
+                    <dl class="{{ $fieldGrid }} pt-6">
+                        <x-detail-field label="비용 분류"><span x-text="v('group')"></span></x-detail-field>
+                        <x-detail-field label="계정 이름"><span x-text="v('name')"></span></x-detail-field>
+                        <x-detail-field label="계정 이름 (영어)"><span x-text="v('name_en')"></span></x-detail-field>
+                        <x-detail-field label="계정 코드"><span class="tabular-nums" x-text="v('code')"></span></x-detail-field>
+                    </dl>
+
+                    <h3 class="{{ $modalSection }} pt-10">기타 정보</h3>
+                    <dl class="{{ $fieldGrid }} pt-6">
+                        <x-detail-field label="1인 한도"><span x-text="v('limit')"></span></x-detail-field>
+                        <x-detail-field label="설정"><span x-text="v('setting')"></span></x-detail-field>
+                        <x-detail-field label="대상 인원"><span x-text="v('target')"></span></x-detail-field>
+                        <x-detail-field label="사용자 가이드"><span x-text="v('guide')"></span></x-detail-field>
+                        <x-detail-field label="사용자 가이드 (영어)"><span x-text="v('guide_en')"></span></x-detail-field>
+                    </dl>
+                </div>
+
+                {{-- ── 수정 ── --}}
+                <div x-bind:class="{ 'hidden': mode !== 'edit' }">
+                    <h3 class="{{ $modalSection }} pt-[30px]">기본 정보</h3>
+                    <div class="{{ $modalGrid }} pt-6">
+                        <x-dropdown label="비용 분류" size="sm"
+                                    :options="collect($groups)->pluck('name', 'name')->all()"
+                                    x-model="draft.group" />
+                        <x-input label="계정 이름" size="sm" x-model="draft.name" />
+                        <x-input label="계정 이름 (영어)" size="sm" x-model="draft.name_en" />
+                        <x-input label="계정 코드" size="sm" x-model="draft.code" />
+                    </div>
+
+                    <h3 class="{{ $modalSection }} pt-10">기타 정보</h3>
+                    <div class="{{ $modalGrid }} pt-6">
+                        <x-dropdown label="1인 한도" size="sm"
+                                    :options="['한도 없음' => '한도 없음', '월 한도' => '월 한도', '건별 한도' => '건별 한도']"
+                                    x-model="draft.limit" />
+                        <x-input label="설정" size="sm" icon="search" placeholder="설정 찾기" x-model="draft.setting" />
+                        <x-input label="대상 인원" size="sm" icon="search" placeholder="멤버 찾기" x-model="draft.target" />
+                        <x-input label="사용자 가이드" size="sm" placeholder="사용자 가이드 입력" x-model="draft.guide" />
+                        <x-input label="사용자 가이드 (영어)" size="sm" placeholder="영어 사용자 가이드 입력" x-model="draft.guide_en" />
+                    </div>
+                </div>
+
+                <x-slot:footer>
+                    <div class="ml-auto flex flex-wrap items-center gap-4" x-bind:class="{ 'hidden': mode !== 'view' }">
+                        <x-button variant="outline" size="sm" class="w-[120px]" @click="mode = 'edit'">정보 수정</x-button>
+                        <x-button variant="primary" size="sm" class="w-[120px]" @click="open = false">확인</x-button>
+                    </div>
+                    <div class="ml-auto flex flex-wrap items-center gap-4" x-bind:class="{ 'hidden': mode !== 'edit' }">
+                        <x-button variant="outline" size="sm" class="w-[120px]" @click="revert()">취소</x-button>
+                        <x-button variant="primary" size="sm" class="w-[120px]" x-bind:disabled="! dirty">저장</x-button>
+                    </div>
+                </x-slot:footer>
+            </x-modal>
+        </div>
 
         {{-- ═══ 비용 분류 추가 ═══ Figma node 1002-93353
              원본 실측 — 폭 544 · 반경 6 · 패딩 30 · 제목 20 Bold lh30 -1
@@ -322,5 +434,6 @@
                     </div>
                 </x-slot:footer>
         </x-modal>
+
     </x-workspace-shell>
 </x-layout>
