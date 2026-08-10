@@ -244,7 +244,13 @@
         
         
         <main class="min-h-0 min-w-0 flex-1 px-5 pb-20 pt-8 lg:px-20">
-            <div class="mt-8 flex min-w-0 flex-col gap-6 pb-10 xl:flex-row xl:items-start">
+            <div class="mt-8 flex min-w-0 flex-col gap-6 pb-10 xl:flex-row xl:items-start"
+             x-data="{
+                 group: null,
+                 counts: JSON.parse('{\u0022교육 훈련비\u0022:3,\u0022교통비\u0022:2,\u0022기타 수수료\u0022:1,\u0022마케팅비\u0022:2,\u0022복리 후생비\u0022:2,\u0022비품 · 소프트웨어\u0022:1,\u0022소모품비\u0022:1,\u0022식대\u0022:1,\u0022조직관리비\u0022:1,\u0022퀵 · 택배 등\u0022:2}'),
+                 pick(g) { this.group = this.group === g ? null : g; },
+                 total() { return this.group === null ? 16 : (this.counts[this.group] ?? 0); },
+             }">
 
             
             <section class="w-full min-w-0 shrink-0 rounded-lg bg-background-normal pb-[30px] xl:w-[400px]">
@@ -277,110 +283,170 @@
                         </tr>
 </thead>
                         <tbody>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;교육 훈련비&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->교육 훈련비</td>
+><button type="button" @click="pick('교육 훈련비')"
+                                                x-bind:aria-pressed="group === '교육 훈련비'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            교육 훈련비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;교통비&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->교통비</td>
+><button type="button" @click="pick('교통비')"
+                                                x-bind:aria-pressed="group === '교통비'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            교통비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;기타 수수료&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->기타 수수료</td>
+><button type="button" @click="pick('기타 수수료')"
+                                                x-bind:aria-pressed="group === '기타 수수료'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            기타 수수료
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;마케팅비&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->마케팅비</td>
+><button type="button" @click="pick('마케팅비')"
+                                                x-bind:aria-pressed="group === '마케팅비'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            마케팅비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;복리 후생비&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->복리 후생비</td>
+><button type="button" @click="pick('복리 후생비')"
+                                                x-bind:aria-pressed="group === '복리 후생비'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            복리 후생비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;비품 · 소프트웨어&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->비품 · 소프트웨어</td>
+><button type="button" @click="pick('비품 · 소프트웨어')"
+                                                x-bind:aria-pressed="group === '비품 · 소프트웨어'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            비품 · 소프트웨어
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;소모품비&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->소모품비</td>
+><button type="button" @click="pick('소모품비')"
+                                                x-bind:aria-pressed="group === '소모품비'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            소모품비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;식대&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->식대</td>
+><button type="button" @click="pick('식대')"
+                                                x-bind:aria-pressed="group === '식대'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            식대
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;조직관리비&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->조직관리비</td>
+><button type="button" @click="pick('조직관리비')"
+                                                x-bind:aria-pressed="group === '조직관리비'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            조직관리비
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;퀵 · 택배 등&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->퀵 · 택배 등</td>
+><button type="button" @click="pick('퀵 · 택배 등')"
+                                                x-bind:aria-pressed="group === '퀵 · 택배 등'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            퀵 · 택배 등
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;회사 공용 카드 정산&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->회사 공용 카드 정산</td>
+><button type="button" @click="pick('회사 공용 카드 정산')"
+                                                x-bind:aria-pressed="group === '회사 공용 카드 정산'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            회사 공용 카드 정산
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            
+                                <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative relative" x-bind:class="group === &quot;회사 개인 카드 정산&quot; ? &#039;bg-warm-gray-100&#039; : &#039;&#039;"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->회사 개인 카드 정산</td>
+><button type="button" @click="pick('회사 개인 카드 정산')"
+                                                x-bind:aria-pressed="group === '회사 개인 카드 정산'"
+                                                class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                            회사 개인 카드 정산
+                                        </button></td>
                                     <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
@@ -393,8 +459,22 @@
 
             
             <section class="min-w-0 flex-1 rounded-lg bg-background-normal pb-[30px]">
-                <div class="flex min-w-0 items-center justify-between gap-3 px-[30px] pt-[30px]">
-                    <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">비용 내역</h2>
+                <div class="flex min-w-0 flex-wrap items-center justify-between gap-3 px-[30px] pt-[30px]">
+                    <div class="flex min-w-0 flex-wrap items-center gap-3">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">비용 내역</h2>
+                        
+                        <button type="button" x-cloak x-bind:class="{ 'hidden': group === null }"
+                                @click="group = null"
+                                class="inline-flex items-center gap-1 rounded-md bg-fill-normal py-1 pl-2.5 pr-2 text-label-2 font-medium text-label-normal transition-colors hover:bg-fill-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
+                            <span x-text="group"></span>
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-3.5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.86352 4.86321C5.21499 4.51174 5.78484 4.51174 6.13631 4.86321L11.9999 10.7268L17.8635 4.86321C18.2149 4.51174 18.7848 4.51174 19.1363 4.86321C19.4877 5.21468 19.4877 5.78453 19.1363 6.13601L13.2727 11.9996L19.1363 17.8632C19.4877 18.2147 19.4877 18.7845 19.1363 19.136C18.7848 19.4875 18.2149 19.4875 17.8635 19.136L11.9999 13.2724L6.13631 19.136C5.78484 19.4875 5.21499 19.4875 4.86352 19.136C4.51205 18.7845 4.51205 18.2147 4.86352 17.8632L10.7271 11.9996L4.86352 6.13601C4.51205 5.78453 4.51205 5.21468 4.86352 4.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            <span class="sr-only">분류 선택 해제</span>
+                        </button>
+                        <span class="text-label-1 font-medium leading-5 text-label-alternative">
+                            총 <span class="tabular-nums" x-text="total()">16</span>건
+                        </span>
+                    </div>
                     <button
             type="button"
                 class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2"
@@ -435,7 +515,7 @@
                         </tr>
 </thead>
                         <tbody>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교육 훈련비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
@@ -466,7 +546,69 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >IT computing equipment</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교육 훈련비&quot; }"
+    >
+        <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>교육 훈련비</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+>외부 교육 수강료</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>External training fees</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">21002</span></td>
+                                    
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>한도 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>외부 교육 수강료</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>External training fees</td>
+</tr>
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교육 훈련비&quot; }"
+    >
+        <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>교육 훈련비</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+>자격 시험 응시료</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>Certification exam fees</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">21003</span></td>
+                                    
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>한도 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>자격 시험 응시료</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>Certification exam fees</td>
+</tr>
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교통비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
@@ -497,7 +639,38 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Client entertainment</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;교통비&quot; }"
+    >
+        <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>교통비</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+>출장 교통비</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>Business trip transportation</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">13004</span></td>
+                                    
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>한도 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>출장 교통비</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>Business trip transportation</td>
+</tr>
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;기타 수수료&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
@@ -528,7 +701,7 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Other payment fees</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;마케팅비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
@@ -559,7 +732,38 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Book purchase and printing</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;마케팅비&quot; }"
+    >
+        <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>마케팅비</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+>온라인 광고비</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>Online advertising</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">13005</span></td>
+                                    
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>한도 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>온라인 광고비</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>Online advertising</td>
+</tr>
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;복리 후생비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
@@ -590,7 +794,38 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Meeting expenses</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;복리 후생비&quot; }"
+    >
+        <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>복리 후생비</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+>경조사비</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>Congratulations and condolences</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">21004</span></td>
+                                    
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>한도 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>경조사비</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>Congratulations and condolences</td>
+</tr>
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;비품 · 소프트웨어&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
@@ -621,7 +856,7 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Software subscription</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;소모품비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
@@ -652,7 +887,7 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Consumables</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;식대&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
@@ -683,7 +918,7 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Meal expenses</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;조직관리비&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
@@ -714,7 +949,7 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Organization management</td>
 </tr>
-                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;퀵 · 택배 등&quot; }"
     >
         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
@@ -745,13 +980,51 @@
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >Communication expenses</td>
 </tr>
-                                                    </tbody>
+                                                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative" x-bind:class="{ &#039;hidden&#039;: group !== null &amp;&amp; group !== &quot;퀵 · 택배 등&quot; }"
+    >
+        <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>퀵 · 택배 등</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+>퀵 · 택배 요금</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>Courier and delivery</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">13006</span></td>
+                                    
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>한도 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+>내용 없음</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>퀵 · 택배 요금</td>
+                                    <td
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
+>Courier and delivery</td>
+</tr>
+                            
+                            
+                            <tr class="border-b border-line-solid-alternative last:border-b-0" x-cloak="x-cloak" x-bind:class="{ 'hidden': total() > 0 }">
+    <td colspan="9" class="h-14 px-4 text-center text-body-2 text-label-assistive">
+        이 분류에 등록된 비용 내역이 없습니다.
+    </td>
+</tr>
+                        </tbody>
     </table>
 </div>
                 </div>
 
                 
-                <div class="px-[30px] pt-[30px]">
+                <div class="px-[30px] pt-[30px]" x-bind:class="{ 'hidden': group !== null }">
                     <nav class="flex flex-wrap items-center justify-between gap-3" aria-label="페이지네이션">
     
     <p class="text-label-2 text-label-alternative">

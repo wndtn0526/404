@@ -8,7 +8,7 @@
      colspan 은 헤더 열 수와 맞춘다. 체크박스 열(selectable)도 한 칸으로 센다. --}}
 @props(['colspan' => 1])
 
-<tr class="border-b border-line-solid-alternative last:border-b-0">
+<tr {{ $attributes->class('border-b border-line-solid-alternative last:border-b-0') }}>
     <td colspan="{{ $colspan }}" class="h-14 px-4 text-center text-body-2 text-label-assistive">
         {{ $slot->isEmpty() ? '아직 변경 이력이 없습니다.' : $slot }}
     </td>
