@@ -462,15 +462,6 @@
                 <div class="flex min-w-0 flex-wrap items-center justify-between gap-3 px-[30px] pt-[30px]">
                     <div class="flex min-w-0 flex-wrap items-center gap-3">
                         <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">비용 내역</h2>
-                        
-                        <button type="button" x-cloak x-bind:class="{ 'hidden': group === null }"
-                                @click="group = null"
-                                class="inline-flex items-center gap-1 rounded-md bg-fill-normal py-1 pl-2.5 pr-2 text-label-2 font-medium text-label-normal transition-colors hover:bg-fill-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
-                            <span x-text="group"></span>
-                            <svg width="1em" height="1em" aria-hidden="true" class="size-3.5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M4.86352 4.86321C5.21499 4.51174 5.78484 4.51174 6.13631 4.86321L11.9999 10.7268L17.8635 4.86321C18.2149 4.51174 18.7848 4.51174 19.1363 4.86321C19.4877 5.21468 19.4877 5.78453 19.1363 6.13601L13.2727 11.9996L19.1363 17.8632C19.4877 18.2147 19.4877 18.7845 19.1363 19.136C18.7848 19.4875 18.2149 19.4875 17.8635 19.136L11.9999 13.2724L6.13631 19.136C5.78484 19.4875 5.21499 19.4875 4.86352 19.136C4.51205 18.7845 4.51205 18.2147 4.86352 17.8632L10.7271 11.9996L4.86352 6.13601C4.51205 5.78453 4.51205 5.21468 4.86352 4.86321Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                            <span class="sr-only">분류 선택 해제</span>
-                        </button>
                         <span class="text-label-1 font-medium leading-5 text-label-alternative">
                             총 <span class="tabular-nums" x-text="total()">16</span>건
                         </span>

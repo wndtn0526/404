@@ -21,9 +21,11 @@
      ⚠️ '+ 추가' · '+ 내역 추가' 는 아직 아무 일도 하지 않는다. 붙일 때는 모달로 받고
         POST + CSRF 로 보낸다.
 
-     왼쪽 비용 분류를 누르면 오른쪽이 그 분류 것만 남는다. 같은 행을 다시 누르거나 제목 옆
-     칩의 X 를 누르면 전체로 돌아간다. 정적 화면이라 이미 그려진 행을 감추는 방식이다 —
-     실제로 붙일 때는 GET 파라미터로 보내 서버에서 걸러야 페이지 수가 맞는다. --}}
+     왼쪽 비용 분류를 누르면 오른쪽이 그 분류 것만 남는다. 같은 행을 다시 누르면 전체로
+     돌아간다. 고른 분류를 오른쪽 제목 옆에 칩으로도 보여 줬다가 뺐다 — 왼쪽에서 이미
+     행이 칠해져 있어 같은 말을 두 번 하는 셈이었다.
+     정적 화면이라 이미 그려진 행을 감추는 방식이다 — 실제로 붙일 때는 GET 파라미터로
+     보내 서버에서 걸러야 페이지 수가 맞는다. --}}
 @php
     // 재무 > 업무 관리자 메뉴 탭. 예산 계정 관리만 화면이 있다.
     $adminTabs = [
@@ -167,14 +169,6 @@
                 <div class="flex min-w-0 flex-wrap items-center justify-between gap-3 px-[30px] pt-[30px]">
                     <div class="flex min-w-0 flex-wrap items-center gap-3">
                         <h2 class="{{ $cardTitle }}">비용 내역</h2>
-                        {{-- 고른 분류를 칩으로 보인다. X 를 누르면 전체로 돌아간다. --}}
-                        <button type="button" x-cloak x-bind:class="{ 'hidden': group === null }"
-                                @click="group = null"
-                                class="inline-flex items-center gap-1 rounded-md bg-fill-normal py-1 pl-2.5 pr-2 text-label-2 font-medium text-label-normal transition-colors hover:bg-fill-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
-                            <span x-text="group"></span>
-                            <x-icon-close class="size-3.5 shrink-0" />
-                            <span class="sr-only">분류 선택 해제</span>
-                        </button>
                         <span class="text-label-1 font-medium leading-5 text-label-alternative">
                             총 <span class="tabular-nums" x-text="total()">{{ count($rows) }}</span>건
                         </span>
