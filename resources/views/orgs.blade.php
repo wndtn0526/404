@@ -165,6 +165,9 @@
     ];
 
     $sectionTitle = 'text-headline-2 font-bold leading-[27px] text-mono-black';
+    // 모달 안 절 제목 16 Bold lh24 -0.6 · 필드 두 열(원본 열 사이 30 · 행 피치 78)
+    $modalSection = 'text-body-1 font-bold leading-6 text-mono-black';
+    $modalGrid = 'grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2';
     // 섹션 제목 줄 — 제목은 좌우 30 안쪽, 표는 패널 폭 전체로 흘린다(원본 그대로)
     $histTitle = 'flex min-w-0 flex-wrap items-center justify-between gap-3 px-[30px]';
     $fieldGrid = 'grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2';
@@ -200,7 +203,26 @@
             </button>
         </x-slot:actions>
 
-        <div class="flex min-w-0 flex-col gap-6 xl:flex-row xl:items-start" x-data="{ tab: 'basic' }">
+        {{-- 주소 팝업 상태를 탭 상태와 같은 스코프에 둔다 — 표(행 클릭)와 모달이 둘 다 읽는다.
+             row  : 클릭한 행의 원본 값 (되돌리기 기준)
+             draft: 편집 중인 사본. row 와 달라지면 '저장' 이 살아난다.
+             mode : view(상세 정보) | edit(상세 정보 수정) --}}
+        <div class="flex min-w-0 flex-col gap-6 xl:flex-row xl:items-start"
+             x-data="{
+                 tab: 'basic',
+                 row: null,
+                 draft: {},
+                 mode: 'view',
+                 openAddress(r) {
+                     this.row = r;
+                     this.draft = { ...r };
+                     this.mode = 'view';
+                     this.$dispatch('open-modal', 'address-detail');
+                 },
+                 revert() { this.draft = { ...this.row }; this.mode = 'view'; },
+                 get dirty() { return JSON.stringify(this.draft) !== JSON.stringify(this.row); },
+                 v(key) { return this.row?.[key] || '-'; },
+             }">
 
             {{-- ═══ 좌: 조직도 400 ═══ --}}
             <aside class="w-full min-w-0 shrink-0 rounded-lg bg-background-normal pb-5 xl:w-[400px]">
@@ -587,12 +609,22 @@
                             />
                             <tbody>
                                 @forelse ($addressHistory as $row)
-                                    <x-table.row selectable :value="$row['from']">
+                                    {{-- 행 전체가 상세 팝업을 연다. <tr> 을 버튼으로 감쌀 수 없어서
+                                         상세 주소 셀의 버튼을 행 전체로 늘렸다(after:inset-0).
+                                         체크박스는 x-table.row 안에서 z-10 이라 이 면 위에 남는다.
+                                         컨텐츠·과정 목록은 같은 자리에 <a> 를 쓴다 — 거기는 페이지로
+                                         가고 여기는 팝업이라 <button> 이다. --}}
+                                    <x-table.row selectable :value="$row['from']" class="relative">
                                         <x-table.cell tone="muted" nowrap>{{ $row['country'] }}</x-table.cell>
                                         <x-table.cell tone="muted" nowrap>
                                             <span class="tabular-nums">{{ $row['zip'] }}</span>
                                         </x-table.cell>
-                                        <x-table.cell tone="strong">{{ $row['address'] }}</x-table.cell>
+                                        <x-table.cell tone="strong">
+                                            <button type="button" @click="openAddress(@js($row))"
+                                                    class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                                {{ $row['address'] }}
+                                            </button>
+                                        </x-table.cell>
                                         <x-table.cell tone="muted">{{ $row['address_en'] ?? '-' }}</x-table.cell>
                                         <x-table.cell tone="muted">{{ $row['address_detail_en'] ?? '-' }}</x-table.cell>
                                         <x-table.cell tone="muted" nowrap>
@@ -610,6 +642,79 @@
                     </div>
                 </div>
             </div>
+
+            {{-- ═══ 주소 상세 팝업 ═══ Figma node 1002-280870 "열 클릭 시 등장하는 팝업"
+                 (읽기 1002-280923 · 수정 1002-280877 · 저장 활성 1002-280901)
+
+                 원본 주석 그대로 — 표에서 바로 고치면 실수로 값이 바뀌니까, 행을 누르면 먼저
+                 '보기' 팝업이 뜨고 '정보 수정'을 눌러야 입력 칸으로 바뀐다. 아무것도 안 고치면
+                 '저장'은 비활성이다.
+
+                 원본 실측 — 폭 720 · 반경 6 · 패딩 30
+                   제목 20 Bold lh30 -1 (DS heading-2) → 30 → 절 제목 16 Bold lh24 -0.6 (DS body-1)
+                   보기: 라벨 94 + 값 · 줄 20 · 행 피치 36 · 열 사이 24 (DS $fieldGrid 와 같다)
+                   수정: 칸 315x54 · 열 사이 30 · 행 피치 78 (조직 추가 모달과 같다)
+                   절 사이 40 · 카드 폭 구분선 → 25 → 버튼 120x36 (사이 16 · 우측)
+                   보기 [정보 수정(선) · 확인(면)] / 수정 [취소(선) · 저장(면)]
+
+                 ⚠️ 원본 화면은 인사 정보(이름·소속·사번…)를 예로 들고 있다. 여기 붙는 건
+                    주소 변경 이력이라 필드를 그 표의 열로 바꿨다 — 팝업 골격만 가져온 것이다.
+                 ⚠️ 원본 비활성 '저장'은 면 Warm gray/200 인데 DS Disabled 면은 Warm gray/100 이다.
+                    한 화면 때문에 DS 토큰을 바꾸지 않았다. 글자색(Warm gray/400)은 같다.
+                 ⚠️ 저장 엔드포인트가 없다. '저장'은 아직 아무 일도 하지 않는다.
+                    붙일 때는 POST + CSRF 로 보낸다. --}}
+            <x-modal name="address-detail" max-width="max-w-[720px]" scroll close-button>
+                <h2 class="pr-10 text-heading-2 font-bold leading-[30px] text-mono-black"
+                    x-text="mode === 'view' ? '상세 정보' : '상세 정보 수정'"></h2>
+
+                {{-- ── 보기 ── --}}
+                <div x-bind:class="{ 'hidden': mode !== 'view' }">
+                    <h3 class="{{ $modalSection }} pt-[30px]">기본 정보</h3>
+                    <dl class="{{ $fieldGrid }} pt-6">
+                        <x-detail-field label="국가"><span x-text="v('country')"></span></x-detail-field>
+                        <x-detail-field label="우편 번호"><span class="tabular-nums" x-text="v('zip')"></span></x-detail-field>
+                        <x-detail-field label="상세 주소"><span x-text="v('address')"></span></x-detail-field>
+                        <x-detail-field label="영문 주소"><span x-text="v('address_en')"></span></x-detail-field>
+                        <x-detail-field label="영문 상세 주소"><span x-text="v('address_detail_en')"></span></x-detail-field>
+                    </dl>
+
+                    <h3 class="{{ $modalSection }} pt-10">기타 정보</h3>
+                    <dl class="{{ $fieldGrid }} pt-6">
+                        <x-detail-field label="시작일"><span class="tabular-nums" x-text="v('from')"></span></x-detail-field>
+                        <x-detail-field label="종료일"><span class="tabular-nums" x-text="v('to')"></span></x-detail-field>
+                    </dl>
+                </div>
+
+                {{-- ── 수정 ── --}}
+                <div x-bind:class="{ 'hidden': mode !== 'edit' }">
+                    <h3 class="{{ $modalSection }} pt-[30px]">기본 정보</h3>
+                    <div class="{{ $modalGrid }} pt-6">
+                        <x-input label="국가" size="sm" x-model="draft.country" />
+                        <x-input label="우편 번호" size="sm" x-model="draft.zip" />
+                        <x-input label="상세 주소" size="sm" x-model="draft.address" />
+                        <x-input label="영문 주소" size="sm" placeholder="영문 주소 입력" x-model="draft.address_en" />
+                        <x-input label="영문 상세 주소" size="sm" placeholder="영문 상세 주소 입력" x-model="draft.address_detail_en" />
+                    </div>
+
+                    <h3 class="{{ $modalSection }} pt-10">기타 정보</h3>
+                    <div class="{{ $modalGrid }} pt-6">
+                        <x-input label="시작일" size="sm" x-model="draft.from" />
+                        <x-input label="종료일" size="sm" placeholder="종료일 입력" x-model="draft.to" />
+                    </div>
+                </div>
+
+                <x-slot:footer>
+                    <div class="ml-auto flex flex-wrap items-center gap-4" x-bind:class="{ 'hidden': mode !== 'view' }">
+                        <x-button variant="outline" size="sm" class="w-[120px]" @click="mode = 'edit'">정보 수정</x-button>
+                        <x-button variant="primary" size="sm" class="w-[120px]" @click="open = false">확인</x-button>
+                    </div>
+                    <div class="ml-auto flex flex-wrap items-center gap-4" x-bind:class="{ 'hidden': mode !== 'edit' }">
+                        <x-button variant="outline" size="sm" class="w-[120px]" @click="revert()">취소</x-button>
+                        {{-- 아무것도 안 고쳤으면 누를 수 없다(원본 그대로) --}}
+                        <x-button variant="primary" size="sm" class="w-[120px]" x-bind:disabled="! dirty">저장</x-button>
+                    </div>
+                </x-slot:footer>
+            </x-modal>
         </div>
 
         {{-- ═══ 새 조직 추가 모달 ═══ Figma node 1002-273618
@@ -633,11 +738,6 @@
              ⚠️ 원본 버튼은 '닫기 / 추가' 다(법인·팀 모달은 '취소 / 추가').
              ⚠️ 저장 엔드포인트가 없다. '추가'는 모달만 닫는다. --}}
         <x-modal name="org-add" title="새 조직 추가" max-width="max-w-[720px]" scroll close-button>
-            @php
-                // 필드 두 열 — 원본 열 사이 30 · 행 피치 78(칸 54 + 24)
-                $modalGrid = 'grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2';
-            @endphp
-
             <div x-data="{ detail: false }">
                 <h3 class="text-body-1 font-bold leading-6 text-mono-black">기본 정보 (필수)</h3>
 

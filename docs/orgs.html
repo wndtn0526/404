@@ -225,7 +225,22 @@
         
         
         <main class="min-h-0 min-w-0 flex-1 px-5 pb-20 pt-8 lg:px-20">
-            <div class="flex min-w-0 flex-col gap-6 xl:flex-row xl:items-start" x-data="{ tab: 'basic' }">
+            <div class="flex min-w-0 flex-col gap-6 xl:flex-row xl:items-start"
+             x-data="{
+                 tab: 'basic',
+                 row: null,
+                 draft: {},
+                 mode: 'view',
+                 openAddress(r) {
+                     this.row = r;
+                     this.draft = { ...r };
+                     this.mode = 'view';
+                     this.$dispatch('open-modal', 'address-detail');
+                 },
+                 revert() { this.draft = { ...this.row }; this.mode = 'view'; },
+                 get dirty() { return JSON.stringify(this.draft) !== JSON.stringify(this.row); },
+                 v(key) { return this.row?.[key] || '-'; },
+             }">
 
             
             <aside class="w-full min-w-0 shrink-0 rounded-lg bg-background-normal pb-5 xl:w-[400px]">
@@ -1225,7 +1240,8 @@
                         </tr>
 </thead>
                             <tbody>
-                                                                    <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors"
+                                                                    
+                                    <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors relative"
             :class="selected.includes('2021.08.01') ? 'bg-inverse-primary/50' : 'hover:bg-fill-alternative'"
     >
             <td class="h-14 w-12 px-5 align-middle">
@@ -1245,7 +1261,10 @@
 ><span class="tabular-nums">06015</span></td>
                                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
->서울특별시 강남구 청담동</td>
+><button type="button" @click="openAddress(JSON.parse('{\u0022country\u0022:\u0022대한민국\u0022,\u0022zip\u0022:\u002206015\u0022,\u0022address\u0022:\u0022서울특별시 강남구 청담동\u0022,\u0022address_en\u0022:null,\u0022address_detail_en\u0022:null,\u0022from\u0022:\u00222021.08.01\u0022,\u0022to\u0022:null}'))"
+                                                    class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
+                                                서울특별시 강남구 청담동
+                                            </button></td>
                                         <td
             class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left"
 >-</td>
@@ -1265,6 +1284,260 @@
                     </div>
                 </div>
             </div>
+
+            
+            <div x-data="{ open: false }"
+     x-on:open-modal.window="$event.detail === 'address-detail' && (open = true)"
+     x-on:keydown.escape.window="open = false"
+     x-effect="document.documentElement.style.overflow = open ? 'hidden' : ''"
+     x-show="open" x-cloak
+     class="fixed inset-0 z-50 flex items-center justify-center p-5">
+    
+    <div x-show="open" x-cloak
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+         @click="open = false"
+         class="absolute inset-0 bg-inverse-background/50"></div>
+
+    
+    <div x-show="open" x-cloak
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2 scale-[0.98]" x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0 scale-100" x-transition:leave-end="opacity-0 translate-y-2 scale-[0.98]"
+         role="dialog" aria-modal="true"                       class="relative flex max-h-full w-full max-w-[720px] flex-col overflow-hidden rounded-md bg-background-normal shadow-elevation-xl"
+         >
+                    <button type="button" @click="open = false"
+                    class="absolute right-6 top-6 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background-normal text-label-alternative transition-colors hover:bg-fill-alternative hover:text-label-normal"
+                    aria-label="닫기">
+                <svg width="1em" height="1em" aria-hidden="true" class="h-5 w-5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.86352 4.86321C5.21499 4.51174 5.78484 4.51174 6.13631 4.86321L11.9999 10.7268L17.8635 4.86321C18.2149 4.51174 18.7848 4.51174 19.1363 4.86321C19.4877 5.21468 19.4877 5.78453 19.1363 6.13601L13.2727 11.9996L19.1363 17.8632C19.4877 18.2147 19.4877 18.7845 19.1363 19.136C18.7848 19.4875 18.2149 19.4875 17.8635 19.136L11.9999 13.2724L6.13631 19.136C5.78484 19.4875 5.21499 19.4875 4.86352 19.136C4.51205 18.7845 4.51205 18.2147 4.86352 17.8632L10.7271 11.9996L4.86352 6.13601C4.51205 5.78453 4.51205 5.21468 4.86352 4.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </button>
+        
+                    
+            
+            
+            <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-7 pt-7 pb-6">
+                <h2 class="pr-10 text-heading-2 font-bold leading-[30px] text-mono-black"
+                    x-text="mode === 'view' ? '상세 정보' : '상세 정보 수정'"></h2>
+
+                
+                <div x-bind:class="{ 'hidden': mode !== 'view' }">
+                    <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-[30px]">기본 정보</h3>
+                    <dl class="grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2 pt-6">
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">국가</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('country')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">우편 번호</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span class="tabular-nums" x-text="v('zip')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">상세 주소</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('address')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">영문 주소</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('address_en')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">영문 상세 주소</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span x-text="v('address_detail_en')"></span>
+            </dd>
+</div>
+                    </dl>
+
+                    <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-10">기타 정보</h3>
+                    <dl class="grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2 pt-6">
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">시작일</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span class="tabular-nums" x-text="v('from')"></span>
+            </dd>
+</div>
+                        <div class="flex min-w-0 items-start gap-4">
+    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">종료일</dt>
+    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
+                    <span class="tabular-nums" x-text="v('to')"></span>
+            </dd>
+</div>
+                    </dl>
+                </div>
+
+                
+                <div x-bind:class="{ 'hidden': mode !== 'edit' }">
+                    <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-[30px]">기본 정보</h3>
+                    <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a791cdba5fdf" class="text-label-1 font-medium text-label-neutral">
+            국가
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a791cdba5fdf"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.country"         />
+
+            </div>
+    
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a791cdba60cd" class="text-label-1 font-medium text-label-neutral">
+            우편 번호
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a791cdba60cd"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.zip"         />
+
+            </div>
+    
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a791cdba61be" class="text-label-1 font-medium text-label-neutral">
+            상세 주소
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a791cdba61be"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.address"         />
+
+            </div>
+    
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a791cdba62ac" class="text-label-1 font-medium text-label-neutral">
+            영문 주소
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a791cdba62ac"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="영문 주소 입력" x-model="draft.address_en"         />
+
+            </div>
+    
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a791cdba6391" class="text-label-1 font-medium text-label-neutral">
+            영문 상세 주소
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a791cdba6391"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="영문 상세 주소 입력" x-model="draft.address_detail_en"         />
+
+            </div>
+    
+    </div>
+                    </div>
+
+                    <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-10">기타 정보</h3>
+                    <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a791cdba646b" class="text-label-1 font-medium text-label-neutral">
+            시작일
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a791cdba646b"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.from"         />
+
+            </div>
+    
+    </div>
+                        <div class="flex flex-col gap-1.5"  >
+            <label for="input-6a791cdba6542" class="text-label-1 font-medium text-label-neutral">
+            종료일
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="input-6a791cdba6542"
+            type="text"
+                                                                                                 class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="종료일 입력" x-model="draft.to"         />
+
+            </div>
+    
+    </div>
+                    </div>
+                </div>
+            </div>
+
+            
+                            <div class="shrink-0 flex items-center gap-3 border-t border-line-solid-alternative px-7 py-4">
+                    <div class="ml-auto flex flex-wrap items-center gap-4" x-bind:class="{ 'hidden': mode !== 'view' }">
+                        <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2  w-[120px]" @click="mode = 'edit'"
+>
+    
+    정보 수정
+
+    </button>
+                        <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-primary text-white hover:bg-primary-strong active:bg-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-10 px-4 text-body-2  w-[120px]" @click="open = false"
+>
+    
+    확인
+
+    </button>
+                    </div>
+                    <div class="ml-auto flex flex-wrap items-center gap-4" x-bind:class="{ 'hidden': mode !== 'edit' }">
+                        <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2  w-[120px]" @click="revert()"
+>
+    
+    취소
+
+    </button>
+                        
+                        <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-primary text-white hover:bg-primary-strong active:bg-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-10 px-4 text-body-2  w-[120px]" x-bind:disabled="! dirty"
+>
+    
+    저장
+
+    </button>
+                    </div>
+                </div>
+                        </div>
+</div>
         </div>
 
         
@@ -1584,7 +1857,7 @@
     </div>
                     
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a791ac5d67f5" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a791cdba6e5a" class="text-label-1 font-medium text-label-neutral">
             상위 조직
                     </label>
     
@@ -1592,7 +1865,7 @@
          >
         
         <input
-            id="input-6a791ac5d67f5"
+            id="input-6a791cdba6e5a"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="청담원" disabled="disabled"         />
 
@@ -2257,7 +2530,7 @@
     </div>
                     
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a791ac5d6f6f" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a791cdba7602" class="text-label-1 font-medium text-label-neutral">
             조직 계층
                     </label>
     
@@ -2265,7 +2538,7 @@
          >
         
         <input
-            id="input-6a791ac5d6f6f"
+            id="input-6a791cdba7602"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="02" disabled="disabled"         />
 
