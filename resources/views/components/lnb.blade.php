@@ -31,7 +31,9 @@
         </div>
     @endif
 
-    <nav class="flex flex-1 flex-col gap-0.5 overflow-y-auto p-2" aria-label="주요 메뉴">
+    {{-- 항목 사이 8 — 워크스페이스 셸 LNB 와 같은 값으로 맞췄다. 두 LNB 가 화면마다
+         다른 간격으로 보이면 안 된다. --}}
+    <nav class="flex flex-1 flex-col gap-2 overflow-y-auto p-2" aria-label="주요 메뉴">
         @foreach ($items as $item)
             @php
                 $label = $item['label'] ?? '';

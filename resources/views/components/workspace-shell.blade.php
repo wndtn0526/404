@@ -10,7 +10,8 @@
        domain     : 워크스페이스 도메인 (이름 아래 작은 글씨)
        items      : LNB 메뉴 [['label' => '홈', 'href' => '/', 'icon' => 'home', 'active' => true], ...]
                     'children' => [...] 를 주면 그 아래 한 단을 더 그린다(아이콘 없이 글자만).
-                    자식이 켜져 있으면 부모도 같이 켜진다.
+                    자식이 있으면 부모는 링크가 아니라 폴더가 된다 — 눌러서 접고 편다.
+                    처음 상태는 '지금 이 묶음 안에 있으면 펼침'. 자식이 켜지면 부모도 켜진다.
        footerItems: LNB 하단에 붙는 메뉴(설정 등). items 와 같은 모양.
        rail       : 워크스페이스 레일 심볼
                     [['icon' => 'compass', 'href' => '/community', 'active' => true, 'label' => '커뮤니티'], ...]
@@ -29,7 +30,7 @@
      원본 실측 — LNB 240 · 레일 30px 타일(top 20, gap 20) · 구분선 x54 흰색 5%
                  메뉴 항목 left 67 · w 161 · pl 10 · py 6 · 반경 6 · 아이콘 20 · 간격 12
                  항목 높이 32 · 하위 항목 28 (GPRO 화면 LNB 실측)
-                 ⚠️ 항목 사이만 원본 0 이 아니라 4 다 — 0 은 실화면에서 너무 붙어 보인다
+                 ⚠️ 항목 사이만 원본 0 이 아니라 8 이다 — 0 은 실화면에서 너무 붙어 보인다
                  GNB 56 · 아이콘 24 · 프로필 32 · 본문 좌측 320 · 우측 여백 80 --}}
 @props([
     'workspace' => null,
@@ -190,44 +191,74 @@
             {{-- 주요 메뉴 — 이름/도메인 블록이 53 까지 차지하므로 pt 17.
                  ⚠️ 항목 사이 4 는 원본과 다르다. GPRO 화면들의 LNB 는 항목 32 에 피치도 32,
                     즉 사이가 0 이다(전자결재 node 1002-106228 · 재무 node 1002-93118).
-                    0 으로 두니 실화면에서 너무 붙어 보여 4 만 띄웠다. 항목 높이(32/28)는
-                    원본 그대로다. 원본대로 되돌릴 거면 이 gap-1 을 빼면 된다.
+                    0 으로 두니 실화면에서 너무 붙어 보여 8 을 띄웠다. 항목 높이(32/28)는
+                    원본 그대로다. 원본대로 되돌릴 거면 이 gap-2 를 빼면 된다.
                     (처음엔 워크스페이스 원본 1:4530 의 gap 16 이었는데 그건 너무 벌어졌다.) --}}
-            <nav class="flex flex-col gap-1 pt-[17px]" aria-label="주요 메뉴">
+            <nav class="flex flex-col gap-2 pt-[17px]" aria-label="주요 메뉴">
                 @foreach ($items as $item)
                     @php
                         $active = (bool) ($item['active'] ?? false);
                         $children = $item['children'] ?? [];
                     @endphp
 
-                    <div class="flex flex-col gap-1">
-                        <a href="{{ $item['href'] ?? '#' }}"
-                           @if ($active) aria-current="page" @endif
-                           @class([$itemBase, 'py-1.5', $itemOn => $active, $itemOff => ! $active])>
-                            @if (! empty($item['icon']))
-                                <x-dynamic-component :component="'icon-' . $item['icon']" class="size-5 shrink-0" />
-                            @endif
-                            <span class="truncate text-label-1 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
-                        </a>
+                    <div class="flex flex-col gap-2"
+                         @if ($children) x-data="{ open: {{ $active ? 'true' : 'false' }} }" @endif>
+
+                        @if ($children)
+                            {{-- 자식이 있으면 폴더다. 눌러서 접고 편다 — 갈 곳은 자식이 갖는다.
+                                 처음 상태는 '지금 이 묶음 안에 있으면 펼침' 이다. --}}
+                            <button type="button" @click="open = ! open" x-bind:aria-expanded="open"
+                                    @class([$itemBase, 'py-1.5 pr-2.5 text-left', $itemOn => $active, $itemOff => ! $active])>
+                                @if (! empty($item['icon']))
+                                    <x-dynamic-component :component="'icon-' . $item['icon']" class="size-5 shrink-0" />
+                                @endif
+                                <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
+                                {{-- 회전은 감싼 span 에 건다. blade-icons 가 뱉는 SVG 에 직접 걸어도
+                                     되지만, 아이콘 파일이 바뀌어도 회전이 딸려가지 않게 분리했다.
+                                     ⚠️ Tailwind 4 의 rotate 유틸은 transform 이 아니라 rotate 속성을
+                                        쓴다. 헤드리스로 확인할 땐 getComputedStyle(el).rotate 를 본다
+                                        — transform 은 none 으로 나와서 안 도는 줄 착각한다. --}}
+                                <span class="shrink-0 transition-transform duration-200"
+                                      x-bind:class="open ? '' : '-rotate-90'">
+                                    <x-icon-caret-down class="size-4" />
+                                </span>
+                            </button>
+                        @else
+                            <a href="{{ $item['href'] ?? '#' }}"
+                               @if ($active) aria-current="page" @endif
+                               @class([$itemBase, 'py-1.5', $itemOn => $active, $itemOff => ! $active])>
+                                @if (! empty($item['icon']))
+                                    <x-dynamic-component :component="'icon-' . $item['icon']" class="size-5 shrink-0" />
+                                @endif
+                                <span class="truncate text-label-1 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
+                            </a>
+                        @endif
 
                         {{-- 하위 메뉴 — 원본은 아이콘 없이 글자만, 들여쓰기는 없다.
                              부모가 아이콘 자리(20 + 간격 12)를 쓰므로 그만큼 왼쪽 여백을 준다.
-                             높이는 28 이다(부모 32 보다 한 단 낮다 — 재무 node 1002-93118 실측). --}}
-                        @foreach ($children as $child)
-                            @php $childActive = (bool) ($child['active'] ?? false); @endphp
-                            <a href="{{ $child['href'] ?? '#' }}"
-                               @if ($childActive) aria-current="page" @endif
-                               @class([$itemBase, 'py-1 pl-[42px]', $itemOn => $childActive, $itemOff => ! $childActive])>
-                                <span class="truncate text-label-1 font-medium leading-5">{{ $child['label'] ?? '' }}</span>
-                            </a>
-                        @endforeach
+                             높이는 28 이다(부모 32 보다 한 단 낮다 — 재무 node 1002-93118 실측).
+
+                             ⚠️ 감싸개에 display 유틸을 static class 로 두지 않는다. hidden 과 자리를
+                                다퉈서 접어도 그대로 보인다(CLAUDE.md 의 display 함정). --}}
+                        @if ($children)
+                            <div x-bind:class="open ? 'flex flex-col gap-2' : 'hidden'">
+                                @foreach ($children as $child)
+                                    @php $childActive = (bool) ($child['active'] ?? false); @endphp
+                                    <a href="{{ $child['href'] ?? '#' }}"
+                                       @if ($childActive) aria-current="page" @endif
+                                       @class([$itemBase, 'py-1 pl-[42px]', $itemOn => $childActive, $itemOff => ! $childActive])>
+                                        <span class="truncate text-label-1 font-medium leading-5">{{ $child['label'] ?? '' }}</span>
+                                    </a>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 @endforeach
             </nav>
 
             {{-- 하단 메뉴 — 원본 bottom 17 --}}
             @if ($footerItems)
-                <nav class="mt-auto flex flex-col gap-1 pb-[17px]" aria-label="보조 메뉴">
+                <nav class="mt-auto flex flex-col gap-2 pb-[17px]" aria-label="보조 메뉴">
                     @foreach ($footerItems as $item)
                         @php
                             $active = (bool) ($item['active'] ?? false);
