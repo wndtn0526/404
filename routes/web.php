@@ -73,3 +73,8 @@ Route::view('/documents', 'documents')->name('documents');
 
 // 전자결재 — 확인할 문서 (Figma node 1002-106148). 나에게 돌아온 결재 받은함이다.
 Route::view('/documents/review', 'documents-review')->name('documents.review');
+
+// 확인할 문서 — 문서가 없을 때 (Figma node 1002-106604).
+// 퍼블릭 스페이스 빈 화면과 같은 방식으로, 같은 뷰에 빈 배열을 넘겨 상태만 바꾼다.
+Route::view('/documents/review-empty', 'documents-review', ['notices' => []])
+    ->name('documents.review.empty');

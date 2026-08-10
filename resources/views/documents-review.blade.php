@@ -14,8 +14,12 @@
         승인·반려는 상태를 바꾸는 일이라 POST + CSRF 로 보내고 권한은 Policy 에서 본다.
      ⚠️ 값은 전부 예시다. DB 에서 오지 않는다. --}}
 @php
+    /*
+     * 라우트에서 넘겨받은 값이 있으면 그걸 쓴다 — /documents/review-empty 가 빈 배열을 준다.
+     * 퍼블릭 스페이스의 빈 화면과 같은 방식이다.
+     */
     // 원본은 같은 사람 여섯 줄이라 이름만 바꿔 뒀다.
-    $notices = [
+    $notices = $notices ?? [
         ['name' => '곽프로', 'doc' => '지출 결의서 · 개인 비용', 'kind' => '승인을 요청', 'time' => '1분 전', 'unread' => true],
         ['name' => '정프로', 'doc' => '지출 결의서 · 거래처', 'kind' => '업무 내용을 수정', 'time' => '12분 전', 'unread' => true],
         ['name' => '이프로', 'doc' => '근태 · 휴가 신청서', 'kind' => '승인을 요청', 'time' => '1시간 전', 'unread' => true],
@@ -46,7 +50,11 @@
         <x-slot:title>
             <h1 class="flex min-w-0 items-baseline gap-3 text-title-2 font-bold leading-[39px] text-mono-black">
                 확인할 문서
-                <span class="tabular-nums text-label-alternative">{{ count($notices) }}</span>
+                {{-- 비었을 땐 건수를 내지 않는다(원본 빈 화면에도 없다). '0' 이 붙어 있으면
+                     세어 본 결과인지 아직 못 불러온 건지 알 수 없다. --}}
+                @if ($notices)
+                    <span class="tabular-nums text-label-alternative">{{ count($notices) }}</span>
+                @endif
             </h1>
         </x-slot:title>
 
@@ -61,7 +69,8 @@
             class="mt-8 pb-3"
         />
 
-        {{-- 원본 카드 사이 16 --}}
+        {{-- 원본 카드 사이 16. 비었을 땐 카드 대신 흰 판 하나(1200x690)에 그림 + 문구다
+             (node 1002-106604). --}}
         <div class="flex min-w-0 flex-col gap-4 pb-10">
             @forelse ($notices as $notice)
                 <x-notice-card
@@ -73,7 +82,15 @@
                     action="결재하기"
                 />
             @empty
-                <x-empty-state :lines="['확인할 문서가 없습니다.', '결재가 돌아오면 여기에 쌓입니다.']" class="py-16" />
+                {{-- 원본 판 690 · 안에서 세로 가운데. 원본 문구 끝 이모지는 빼기로 한 규칙대로
+                     넣지 않았다. '성구님' 자리에는 지금 사용자 이름이 들어간다. --}}
+                <div class="flex min-h-[690px] min-w-0 items-center justify-center rounded-lg bg-background-normal">
+                    <x-empty-state
+                        icon="empty-document"
+                        title="아직 확인할 문서가 없습니다."
+                        :lines="['김기안님이 확인해야 할 문서가 도착하면 이곳에서 보여드릴게요!']"
+                    />
+                </div>
             @endforelse
         </div>
     </x-workspace-shell>

@@ -753,6 +753,17 @@
                     />
                 </x-card>
 
+                {{-- 넓은 화면용 — 그림 + 굵은 한 줄 + 설명 (확인할 문서 node 1002-106604) --}}
+                <x-card>
+                    <p class="mb-3 text-label-1 font-semibold text-label-alternative">비어 있는 상태 (그림 · 제목)</p>
+                    <x-empty-state
+                        icon="empty-document"
+                        title="아직 확인할 문서가 없습니다."
+                        :lines="['확인해야 할 문서가 도착하면 이곳에서 보여드릴게요!']"
+                        class="py-10"
+                    />
+                </x-card>
+
                 <x-card>
                     <p class="mb-3 text-label-1 font-semibold text-label-alternative">모달</p>
                     <div x-data>
