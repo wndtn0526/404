@@ -74,6 +74,10 @@ Route::view('/documents', 'documents')->name('documents');
 // 전자결재 — 확인할 문서 (Figma node 1002-106148). 나에게 돌아온 결재 받은함이다.
 Route::view('/documents/review', 'documents-review')->name('documents.review');
 
+// 전자결재 — 기안 작성 (Figma node 1002-113826). 지금은 '지출 결의서 (개인 비용)' 하나뿐이라
+// 양식을 경로로 받지 않는다. 양식이 늘면 /documents/new/{form} 으로 나눈다.
+Route::view('/documents/new', 'documents-create')->name('documents.create');
+
 // 확인할 문서 — 문서가 없을 때 (Figma node 1002-106604).
 // 퍼블릭 스페이스 빈 화면과 같은 방식으로, 같은 뷰에 빈 배열을 넘겨 상태만 바꾼다.
 Route::view('/documents/review-empty', 'documents-review', ['notices' => []])

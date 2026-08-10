@@ -33,6 +33,7 @@ PAGES=(
     "finance/personal:finance-personal.html"
     "finance/expense:finance-expense.html"
     "documents:documents.html"
+    "documents/new:documents-new.html"
     "documents/review:documents-review.html"
     "documents/review-empty:documents-review-empty.html"
     "public-space:public-space.html"

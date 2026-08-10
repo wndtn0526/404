@@ -16,7 +16,9 @@
         만들지 않기로 한 규칙대로 DS 것을 썼다 — 원본보다 글자가 조금 진하다.
         (뷰에 hex 를 적으면 raw hex 검사에 걸린다. 주석까지 훑는다.)
      ⚠️ 'IT & 보안' 과 '사무 지원' 은 원본에서 배지 색이 같다(Warm gray/100). 그대로 뒀다.
-     ⚠️ 양식을 눌러도 아직 갈 곳이 없다. 기안 화면이 생기면 그 양식으로 연결한다.
+     ⚠️ 기안 화면이 있는 양식은 '지출 결의서 (개인 비용)' 하나뿐이다(node 1002-113826).
+        나머지는 버튼을 '준비 중' 으로 잠갔다 — 눌러도 아무 일이 없으면 고장으로 읽힌다.
+        화면이 생기는 대로 $forms 에 href 를 주면 풀린다.
      ⚠️ 값은 전부 예시다. DB 에서 오지 않는다. --}}
 @php
     /*
@@ -33,13 +35,18 @@
 
     $badgeColor = ['hr' => 'green', 'finance' => 'blue', 'it' => 'neutral', 'office' => 'neutral'];
 
+    /*
+     * href 가 있는 양식만 신청할 수 있다. 나머지는 화면이 아직 없어서 버튼을 잠근다 —
+     * 눌러도 아무 일이 없으면 고장 난 것처럼 보인다. 화면이 생기면 href 를 준다.
+     */
     $forms = [
         ['cat' => 'hr', 'name' => '근태 · 휴가 신청서', 'desc' => '휴가 신청이 필요할 때 작성'],
         ['cat' => 'hr', 'name' => '임신기 근로 시간 단축 신청서', 'desc' => '임신기 근로 시간 조절이 필요할 때 작성'],
         ['cat' => 'hr', 'name' => '육아기 근로 시간 단축 신청서', 'desc' => '육아기 근로 시간 조절이 필요할 때 작성'],
         ['cat' => 'finance', 'name' => '기안서', 'desc' => '일반 기안서'],
         ['cat' => 'finance', 'name' => '지출 결의서 (거래처)', 'desc' => '거래처용 지출 결의서'],
-        ['cat' => 'finance', 'name' => '지출 결의서 (개인 비용)', 'desc' => '개인용 지출 결의서'],
+        ['cat' => 'finance', 'name' => '지출 결의서 (개인 비용)', 'desc' => '개인용 지출 결의서',
+            'href' => '/documents/new'],
         ['cat' => 'finance', 'name' => '법인 카드 지급 신청서', 'desc' => '법인 카드가 필요할 때 작성'],
         ['cat' => 'it', 'name' => 'IT 비품 사용 신청서', 'desc' => 'IT 비품 사용 필요시 작성'],
         ['cat' => 'office', 'name' => '퀵 서비스 신청서', 'desc' => '퀵 서비스 이용 필요시 작성'],
@@ -99,9 +106,14 @@
                         <h2 class="pt-[11px] text-body-1 font-bold leading-6 text-mono-black">{{ $form['name'] }}</h2>
                         <p class="pt-1.5 text-label-1 leading-5 text-mono-black">{{ $form['desc'] }}</p>
 
-                        {{-- 원본 79x30 — DS 버튼 sm 은 40 이라 한 단계 크다.
-                             갈 곳이 아직 없어서 버튼으로 둔다. 기안 화면이 생기면 href 를 준다. --}}
-                        <x-button variant="primary" size="sm" icon="pencil" class="mt-[18px]">신청하기</x-button>
+                        {{-- 원본 79x30 — DS 버튼 sm 은 40 이라 한 단계 크다. --}}
+                        @if (! empty($form['href']))
+                            <x-button variant="primary" size="sm" icon="pencil"
+                                      href="{{ url($form['href']) }}" class="mt-[18px]">신청하기</x-button>
+                        @else
+                            <x-button variant="primary" size="sm" icon="pencil" disabled
+                                      class="mt-[18px]">준비 중</x-button>
+                        @endif
                     </div>
                 @endforeach
             </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>컨텐츠 상세 · 전자결재</title>
+        <title>지출 결의서 (개인 비용) · 전자결재</title>
 
         <link rel="preload" as="style" href="./build/assets/app-C3yV0w-P.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-C3yV0w-P.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
@@ -78,11 +78,11 @@
                                             </div>
                                     
                     <div class="flex flex-col gap-2"
-                          x-data="dsLnbFolder('워크스페이스', false)" >
+                          x-data="dsLnbFolder('워크스페이스', true)" >
 
                                                     
                             <button type="button" @click="toggle()" x-bind:aria-expanded="open"
-                                    class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-left text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                                    class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-left bg-workspace-cool-25/28 text-workspace-white">
                                                                     <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.85028 13.4996C7.85028 13.0026 8.25322 12.5996 8.75028 12.5996H12.7503C13.2473 12.5996 13.6503 13.0026 13.6503 13.4996C13.6503 13.9967 13.2473 14.3996 12.7503 14.3996H8.75028C8.25322 14.3996 7.85028 13.9967 7.85028 13.4996Z" fill="currentColor" fill-opacity="0.88"/>
 <path d="M7.85028 17.0001C7.85028 16.503 8.25322 16.1001 8.75028 16.1001H12.7503C13.2473 16.1001 13.6503 16.503 13.6503 17.0001C13.6503 17.4972 13.2473 17.9001 12.7503 17.9001H8.75028C8.25322 17.9001 7.85028 17.4972 7.85028 17.0001Z" fill="currentColor" fill-opacity="0.88"/>
@@ -113,7 +113,7 @@
                          >
 
                                                     <a href="./contents.html"
-                                aria-current="page"                                class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors bg-workspace-cool-25/28 text-workspace-white">
+                                                              class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
                                                                     <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M8.11096 4.10016C7.58631 4.09965 7.14412 4.09921 6.72868 4.22538C6.36388 4.33617 6.0245 4.51781 5.72997 4.7599C5.39457 5.03558 5.14966 5.40376 4.85908 5.8406L2.25731 9.74365C2.08884 9.99605 1.94655 10.2092 1.84317 10.4461C1.75211 10.6547 1.68593 10.8733 1.64599 11.0973C1.60065 11.3518 1.6008 11.6081 1.60097 11.9115L1.601 15.8356C1.60098 16.3655 1.60097 16.8167 1.63123 17.1871C1.66303 17.5763 1.73266 17.9549 1.91708 18.3168C2.19511 18.8625 2.63875 19.3061 3.18442 19.5841C3.54636 19.7686 3.92495 19.8382 4.31411 19.87C4.68454 19.9003 5.13572 19.9002 5.66559 19.9002H18.3364C18.8663 19.9002 19.3174 19.9003 19.6879 19.87C20.077 19.8382 20.4556 19.7686 20.8176 19.5841C21.3632 19.3061 21.8069 18.8625 22.0849 18.3168C22.2693 17.9549 22.339 17.5763 22.3708 17.1871C22.401 16.8167 22.401 16.3655 22.401 15.8357L22.401 11.9115C22.4012 11.6081 22.4013 11.3517 22.356 11.0973C22.3161 10.8733 22.2499 10.6547 22.1588 10.4461C22.0554 10.2092 21.9131 9.99605 21.7447 9.74364L19.1429 5.84061C18.8523 5.40376 18.6074 5.03559 18.272 4.7599C17.9775 4.51781 17.6381 4.33617 17.2733 4.22538C16.8579 4.09921 16.4157 4.09965 15.891 4.10016H8.11096ZM7.35658 5.92133C7.44241 5.90424 7.54581 5.90015 7.99958 5.90015H16.0024C16.4562 5.90015 16.5596 5.90424 16.6454 5.92133C16.859 5.96387 17.0552 6.06886 17.2091 6.223C17.2709 6.28494 17.3317 6.3687 17.5834 6.74628L19.8194 10.1006H16.2503C15.02 10.1006 14.2522 11.1041 13.9215 11.8504C13.5943 12.5887 12.8561 13.1008 12.0003 13.1008C11.1446 13.1008 10.4063 12.5887 10.079 11.8504C9.7483 11.1041 8.98049 10.1006 7.75026 10.1006H4.18261L6.41865 6.74628C6.67034 6.3687 6.7311 6.28494 6.79293 6.223C6.9468 6.06886 7.14297 5.96387 7.35658 5.92133ZM3.401 11.9006V16.2001C3.401 17.0147 3.4121 17.2085 3.45484 17.3401C3.56365 17.6749 3.8262 17.9375 4.16108 18.0463C4.2926 18.089 4.48644 18.1001 5.301 18.1001H18.701C19.5156 18.1001 19.7094 18.089 19.8409 18.0463C20.1758 17.9375 20.4384 17.6749 20.5472 17.3401C20.5899 17.2085 20.601 17.0147 20.601 16.2001V11.9006H16.2503C15.9229 11.9006 15.6793 12.3266 15.5671 12.5797C14.962 13.9452 13.5938 14.9008 12.0003 14.9008C10.4069 14.9008 9.0386 13.9452 8.43342 12.5797C8.32124 12.3266 8.07766 11.9006 7.75026 11.9006H3.401Z" fill="currentColor" fill-opacity="0.88"/>
 </svg>                                                                <span class="truncate text-label-1 font-medium leading-5">컨텐츠 관리</span>
@@ -276,8 +276,7 @@
         
         
         <main class="min-h-0 min-w-0 flex-1 px-5 pb-20 pt-8 lg:px-20">
-            <div class="mx-auto w-full min-w-0 max-w-[1200px]" x-data="{ tab: 'detail' }">
-
+            <div class="min-w-0" x-data="{ form: { name: '', month: '2021.10', bank: '', account: '' } }">
             <nav aria-label="현재 위치">
         <ol class="flex flex-wrap items-center gap-1.5">
                             
@@ -290,8 +289,8 @@
 </svg>                                    </li>
                             
                 <li class="flex items-center gap-1.5">
-                                            <a href="./contents.html"
-                           class="text-label-1 text-label-alternative transition-colors hover:text-label-normal">컨텐츠 관리</a>
+                                            <a href="./documents.html"
+                           class="text-label-1 text-label-alternative transition-colors hover:text-label-normal">워크스페이스</a>
                     
                                             <svg width="1em" height="1em" aria-hidden="true" class="h-3.5 w-3.5 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.86337 3.36272C7.51189 3.7142 7.51189 4.28405 7.86337 4.63552L15.227 11.9991L7.86337 19.3627C7.51189 19.7142 7.51189 20.284 7.86337 20.6355C8.21484 20.987 8.78469 20.987 9.13616 20.6355L17.1362 12.6355C17.4876 12.284 17.4876 11.7142 17.1362 11.3627L9.13616 3.36272C8.78469 3.01125 8.21484 3.01125 7.86337 3.36272Z" fill="currentColor" fill-opacity="0.88"/>
@@ -299,242 +298,282 @@
                             
                 <li class="flex items-center gap-1.5">
                                             <span class="text-label-1 text-label-normal  font-semibold "
-                               aria-current="page" >컨텐츠 상세</span>
+                               aria-current="page" >업무 신청</span>
                     
                                     </li>
                     </ol>
     </nav>
 
-            
-            <div class="flex min-w-0 items-center gap-4 pt-12">
-                <a href="./contents.html"
-                   class="inline-flex size-8 shrink-0 items-center justify-center rounded-md text-label-normal transition-colors hover:bg-warm-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                   aria-label="컨텐츠 관리로 돌아가기">
-                    <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="flex min-w-0 flex-wrap items-center justify-between gap-4 pt-[30px]">
+                <div class="flex min-w-0 items-center gap-2">
+                    <a href="./documents.html"
+                       class="inline-flex size-8 shrink-0 items-center justify-center rounded-md text-label-normal transition-colors hover:bg-warm-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                       aria-label="문서 신청으로 돌아가기">
+                        <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M2.86358 11.3635C2.51211 11.715 2.51211 12.2848 2.86358 12.6363L9.86355 19.6363C10.215 19.9878 10.7849 19.9878 11.1363 19.6363C11.4878 19.2848 11.4878 18.715 11.1363 18.3635L5.67276 12.8999H20.4999C20.997 12.8999 21.3999 12.497 21.3999 11.9999C21.3999 11.5028 20.997 11.0999 20.4999 11.0999L5.67276 11.0999L11.1363 5.6363C11.4878 5.28483 11.4878 4.71498 11.1363 4.36351C10.7849 4.01203 10.215 4.01203 9.86355 4.36351L2.86358 11.3635Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                </a>
-                <h1 class="min-w-0 truncate text-title-2 font-bold leading-[39px] text-mono-black">
-                    요양보호사 직무향상 1차시 · 감염관리
-                </h1>
-            </div>
+</svg>                    </a>
+                    <h1 class="min-w-0 truncate text-title-2 font-bold leading-[39px] text-mono-black">지출 결의서 (개인 비용)</h1>
+                </div>
 
-            
-            <div class="relative mt-[27px]">
-                <div x-data="{ value: 'detail' }"
-     x-modelable="value"
-     x-model="tab"
-     role="tablist"
-     
-     class="relative flex items-center border-b border-line-normal-alternative gap-6 pr-[140px]">
-            <input type="hidden" name="content_detail_tab" :value="value">
-                <button type="button" role="tab"
-                :aria-selected="value === 'detail'"
-                @click="value = 'detail'"
-                class="relative flex shrink-0 items-center gap-1.5 whitespace-nowrap py-3 text-body-2 font-semibold transition-colors focus:outline-none"
-                :class="value === 'detail' ? 'text-label-strong' : 'text-label-assistive hover:text-label-alternative'">
-            상세 정보
-            
-            <span aria-hidden="true" x-show="value === 'detail'" x-cloak
-                  class="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-label-strong"></span>
-        </button>
-            <button type="button" role="tab"
-                :aria-selected="value === 'courses'"
-                @click="value = 'courses'"
-                class="relative flex shrink-0 items-center gap-1.5 whitespace-nowrap py-3 text-body-2 font-semibold transition-colors focus:outline-none"
-                :class="value === 'courses' ? 'text-label-strong' : 'text-label-assistive hover:text-label-alternative'">
-            과정 편성
-            
-            <span aria-hidden="true" x-show="value === 'courses'" x-cloak
-                  class="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-label-strong"></span>
-        </button>
-    </div>
-
-                <div class="absolute bottom-2 right-0 flex items-center gap-2">
+                
+                <div class="flex shrink-0 flex-wrap items-center gap-4">
                     <button
             type="button"
-                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2  w-[120px]"
 >
     
-    수정
+    임시 저장
 
     </button>
-                    <button type="button"
-                            class="inline-flex size-6 shrink-0 items-center justify-center text-label-normal transition-opacity hover:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                            aria-label="더보기">
-                        <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M5.24969 13.75C6.21618 13.75 6.99968 12.9665 6.99968 12C6.99968 11.0335 6.21618 10.25 5.24969 10.25C4.28319 10.25 3.49969 11.0335 3.49969 12C3.49969 12.9665 4.28319 13.75 5.24969 13.75Z" fill="currentColor" fill-opacity="0.88"/>
-<path d="M13.7497 12C13.7497 12.9665 12.9662 13.75 11.9997 13.75C11.0332 13.75 10.2497 12.9665 10.2497 12C10.2497 11.0335 11.0332 10.25 11.9997 10.25C12.9662 10.25 13.7497 11.0335 13.7497 12Z" fill="currentColor" fill-opacity="0.88"/>
-<path d="M20.4996 12C20.4996 12.9665 19.7161 13.75 18.7496 13.75C17.7832 13.75 16.9997 12.9665 16.9997 12C16.9997 11.0335 17.7832 10.25 18.7496 10.25C19.7161 10.25 20.4996 11.0335 20.4996 12Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                    </button>
+                    <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-primary text-white hover:bg-primary-strong active:bg-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-10 px-4 text-body-2  w-[120px]" x-bind:disabled="! form.name.trim()"
+>
+    
+    신청
+
+    </button>
                 </div>
             </div>
 
             
-            <div x-show="tab === 'detail'"
-                 class="mt-8 min-w-0 rounded-lg bg-background-normal p-5 lg:p-[30px]">
+            <div class="mt-[30px] flex min-w-0 flex-col gap-6 pb-10 xl:flex-row xl:items-start">
 
-                
-                <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">1. 컨텐츠 정보</h2>
+                <div class="flex min-w-0 flex-1 flex-col gap-4">
+                    
+                    <section class="min-w-0 rounded-lg bg-background-normal p-[30px]">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">기본 내용</h2>
 
-                <p class="text-label-1 font-bold leading-5 text-mono-black pt-8">일반</p>
-                <dl class="grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2 pt-4">
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">컨텐츠ID</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    C-1042
-            </dd>
-</div>
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">상태</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    <span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-green/[0.08] text-accent-fg-green">
-        공개
-    </span>
-            </dd>
-</div>
+                        <div class="pt-[18px]">
+                            <div class="flex flex-col gap-1.5"  >
+            <label for="doc_name" class="text-label-1 font-medium text-label-neutral">
+            문서 이름
+                    </label>
+    
+        <div class="relative"
+         >
+        
+        <input
+            id="doc_name"
+            type="text"
+                         name="doc_name"                                                                          class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="지출 결의서 (개인 비용)" x-model="form.name"         />
 
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">제목</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    요양보호사 직무향상 1차시 · 감염관리
-            </dd>
-</div>
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">아카이브 분류</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    법정의무교육
-            </dd>
-</div>
-
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">대분류</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    요양보호
-            </dd>
-</div>
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">중분류</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    직무향상
-            </dd>
-</div>
-
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">소분류</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    감염관리
-            </dd>
-</div>
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">태그명</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    감염관리, 위생
-            </dd>
-</div>
-                </dl>
-
-                
-                <p class="text-label-1 font-bold leading-5 text-mono-black pt-8">기타</p>
-                <dl class="grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2 pt-4">
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">제작연도</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    2021
-            </dd>
-</div>
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">재생시간</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    24분 10초
-            </dd>
-</div>
-                </dl>
-
-                <div class="mt-10 h-px bg-warm-gray-100" aria-hidden="true"></div>
-
-                
-                <h2 class="pt-10 text-heading-2 font-bold leading-[30px] text-mono-black">2. 영상 정보</h2>
-
-                <p class="text-label-1 font-bold leading-5 text-mono-black pt-8">일반</p>
-                <dl class="grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2 pt-4">
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">영상 파일</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    <a href="#" class="break-all underline decoration-warm-gray-300 underline-offset-4 transition-colors hover:text-primary">
-                            요양보호_직무향상_1차시_감염관리.mp4
-                        </a>
-            </dd>
-</div>
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">파일 크기</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    512.4MB
-            </dd>
-</div>
-                </dl>
-
-                <div class="mt-10 h-px bg-warm-gray-100" aria-hidden="true"></div>
-
-                
-                <h2 class="pt-10 text-heading-2 font-bold leading-[30px] text-mono-black">3. 등록 정보</h2>
-
-                <p class="text-label-1 font-bold leading-5 text-mono-black pt-8">일반</p>
-                <dl class="grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2 pt-4">
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">등록자</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    김기안
-            </dd>
-</div>
-                    <div class="flex min-w-0 items-start gap-4">
-    <dt class="w-[94px] shrink-0 text-label-1 font-medium leading-5 text-warm-gray-500">등록일</dt>
-    <dd class="min-w-0 flex-1 text-label-1 font-medium leading-5 text-mono-black">
-                    2021.07.31
-            </dd>
-</div>
-                </dl>
             </div>
+    
+    </div>
+                        </div>
 
-            
-            <div x-show="tab === 'courses'" x-cloak class="mt-8 min-w-0">
-                <div class="w-full overflow-x-auto rounded-xs border border-line-solid-neutral bg-background-normal"
-     >
-    <table class="w-full border-collapse text-left" style="min-width: 720px">
-        <thead class="border-b border-line-solid-normal bg-background-alternative">
-    <tr>
-                                                            <th scope="col"
-                     style="width: 130px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">과정ID</th>
-                                            <th scope="col"
-                                        class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">과정명</th>
-                                            <th scope="col"
-                     style="width: 100px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-right">차시</th>
-                                            <th scope="col"
-                     style="width: 110px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-center">상태</th>
-                        </tr>
-</thead>
-                    <tbody>
-                                                    <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
-    >
-        <td
-            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
-><span class="text-label-2 tabular-nums">CO-2104</span></td>
-                                <td
-            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
-><a href="./courses.html" class="underline decoration-warm-gray-300 underline-offset-4 transition-colors hover:text-primary">
-                                        요양보호사 직무향상 과정 (2021)
-                                    </a></td>
-                                <td
-            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-right whitespace-nowrap"
-><span class="tabular-nums">1차시</span></td>
-                                <td
-            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-center"
-><span class="inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-xs gap-[3px] text-caption-1 bg-accent-fg-green/[0.08] text-accent-fg-green">
-        공개
-    </span></td>
-</tr>
-                                            </tbody>
-    </table>
-</div>
+                        <div class="grid grid-cols-1 gap-x-6 gap-y-6 pt-6 sm:grid-cols-2">
+                            <div class="flex flex-col gap-1.5"
+          x-data="{
+        open: false,
+        highlighted: -1,
+        value: '2021.10',
+        options: JSON.parse('[{\u0022value\u0022:\u00222021.10\u0022,\u0022label\u0022:\u00222021.10\u0022},{\u0022value\u0022:\u00222021.09\u0022,\u0022label\u0022:\u00222021.09\u0022},{\u0022value\u0022:\u00222021.08\u0022,\u0022label\u0022:\u00222021.08\u0022}]'),
+        placeholder: '선택하세요',
+        anchor: { top: 0, left: 0, width: 0, maxH: 256, up: false },
+        _onScroll: null,
+        get selectedOption() { return this.options.find(o => String(o.value) === String(this.value)) || null },
+        get display() { return this.selectedOption ? this.selectedOption.label : this.placeholder },
+        get hasValue() { return this.value !== '' && this.value !== null },
+        position() {
+            const t = this.$refs.trigger.getBoundingClientRect();
+            const gap = 6;
+            const below = window.innerHeight - t.bottom - gap;
+            const above = t.top - gap;
+            const want = Math.min(256, this.options.length * 44 + 8);
+            const up = below < want && above > below;
+            this.anchor.up = up;
+            this.anchor.left = Math.round(t.left);
+            this.anchor.width = Math.round(t.width);
+            this.anchor.top = Math.round(up ? t.top - gap : t.bottom + gap);
+            this.anchor.maxH = Math.max(140, Math.min(256, Math.round(up ? above : below)));
+        },
+        anchorStyle() {
+            const b = `position:fixed;left:${this.anchor.left}px;width:${this.anchor.width}px;z-index:60;`;
+            return this.anchor.up
+                ? b + `bottom:${Math.round(window.innerHeight - this.anchor.top)}px;`
+                : b + `top:${this.anchor.top}px;`;
+        },
+        openMenu() {
+            this.open = true;
+            const i = this.options.findIndex(o => String(o.value) === String(this.value));
+            this.highlighted = i < 0 ? 0 : i;
+            this.$nextTick(() => this.position());
+            this._onScroll = () => { if (this.open) this.position() };
+            window.addEventListener('scroll', this._onScroll, true);
+            window.addEventListener('resize', this._onScroll);
+        },
+        close() {
+            this.open = false;
+            if (this._onScroll) {
+                window.removeEventListener('scroll', this._onScroll, true);
+                window.removeEventListener('resize', this._onScroll);
+                this._onScroll = null;
+            }
+        },
+        toggle() { this.open ? this.close() : this.openMenu() },
+        move(d) {
+            if (!this.open) { this.openMenu(); return }
+            const n = this.options.length;
+            if (n) this.highlighted = (this.highlighted + d + n) % n;
+        },
+        choose(v) { this.value = String(v); this.close(); this.$refs.trigger.focus();  },
+        chooseHighlighted() {
+            if (this.open && this.options[this.highlighted]) this.choose(this.options[this.highlighted].value);
+            else this.openMenu();
+        },
+     }"
+     x-modelable="value"
+     x-model="form.month"
+     @keydown.escape.stop="open && (open = false)">
+
+            <label for="doc_month" class="text-label-1 font-medium text-label-neutral">
+            귀속년월
+                    </label>
+    
+    <div class="relative" @click.outside="close()">
+        <button
+            type="button"
+            id="doc_month"
+            x-ref="trigger"
+            @click="toggle()"
+            @keydown.arrow-down.prevent="move(1)"
+            @keydown.arrow-up.prevent="move(-1)"
+            @keydown.enter.prevent="chooseHighlighted()"
+            @keydown.space.prevent="chooseHighlighted()"
+            @keydown.home.prevent="open && (highlighted = 0)"
+            @keydown.end.prevent="open && (highlighted = options.length - 1)"
+            :aria-expanded="open"
+            aria-haspopup="listbox"
+                        class="flex w-full items-center justify-between text-left border bg-background-normal h-8 gap-1.5 rounded-md px-2.5 transition-colors duration-150 focus:outline-none focus-visible:ring-2 border-line-normal-neutral focus-visible:border-primary focus-visible:ring-primary/30"
+        >
+            <span class="truncate text-label-2 text-label-normal" :class="hasValue ? 'text-label-normal' : 'text-label-assistive'" x-text="display">2021.10</span>
+            <svg width="1em" height="1em" aria-hidden="true" :class="open && 'rotate-180'" class="w-4 h-4 shrink-0 text-label-alternative transition-transform duration-200" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>        </button>
+
+        <input type="hidden"  name="doc_month"  :value="value">
+
+        
+        <div
+            x-show="open"
+            x-cloak
+            :style="anchorStyle()"
+            x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="overflow-hidden rounded-md border border-line-solid-neutral bg-background-normal shadow-elevation-lg"
+        >
+            <ul role="listbox" :style="`max-height:${anchor.maxH}px`" class="overflow-y-auto overscroll-contain py-1 focus:outline-none">
+                <template x-for="(o, i) in options" :key="o.value">
+                    <li
+                        role="option"
+                        :aria-selected="String(o.value) === String(value)"
+                        @click="choose(o.value)"
+                        @mouseenter="highlighted = i"
+                        class="flex cursor-pointer select-none items-center gap-2 px-3 py-1.5"
+                        :class="highlighted === i ? 'bg-fill-alternative' : ''"
+                    >
+                        <span
+                            class="flex-1 truncate text-label-2"
+                            :class="String(o.value) === String(value) ? 'font-medium text-primary' : 'text-label-normal'"
+                            x-text="o.label"
+                        ></span>
+                        <svg width="1em" height="1em" aria-hidden="true" x-show="String(o.value) === String(value)" class="w-4 h-4 shrink-0 text-primary" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+                            
+                            <div class="min-w-0">
+                                <p class="pb-1.5 text-label-1 font-medium leading-5 text-label-normal">계좌 정보</p>
+                                <div class="flex h-8 min-w-0 items-stretch overflow-hidden rounded-md border border-line-solid-normal bg-background-normal focus-within:border-deep-blue-900">
+                                    <select name="doc_bank" x-model="form.bank" aria-label="은행 선택"
+                                            class="min-w-0 shrink-0 border-0 bg-transparent pl-3 pr-1 text-label-2 text-label-normal focus:outline-none focus:ring-0">
+                                        <option value="">은행 선택</option>
+                                                                                    <option value="국민은행">국민은행</option>
+                                                                                    <option value="신한은행">신한은행</option>
+                                                                                    <option value="하나은행">하나은행</option>
+                                                                                    <option value="우리은행">우리은행</option>
+                                                                            </select>
+                                    <span class="my-0 w-px shrink-0 bg-line-solid-normal" aria-hidden="true"></span>
+                                    <input type="text" name="doc_account" x-model="form.account"
+                                           placeholder="계좌 번호 입력" aria-label="계좌 번호"
+                                           class="min-w-0 flex-1 border-0 bg-transparent px-3 text-label-2 text-label-normal caret-deep-blue-900 placeholder:text-label-assistive focus:outline-none focus:ring-0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="inline-flex items-center gap-2 text-label-1 leading-5 text-label-assistive transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 mt-6">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-6 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.9 8.00049C12.9 7.50343 12.4971 7.10049 12 7.10049C11.503 7.10049 11.1 7.50343 11.1 8.00049V11.1005H8.00005C7.50299 11.1005 7.10005 11.5034 7.10005 12.0005C7.10005 12.4975 7.50299 12.9005 8.00005 12.9005H11.1V16.0005C11.1 16.4976 11.503 16.9005 12 16.9005C12.4971 16.9005 12.9 16.4976 12.9 16.0005V12.9005H16C16.4971 12.9005 16.9 12.4975 16.9 12.0005C16.9 11.5034 16.4971 11.1005 16 11.1005H12.9V8.00049Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.26264 2.60205C7.4546 2.60204 6.79373 2.60203 6.25666 2.64591C5.70075 2.69133 5.19867 2.78822 4.72978 3.02713C3.99595 3.40103 3.39932 3.99766 3.02542 4.73149C2.78651 5.20038 2.68962 5.70246 2.6442 6.25837C2.60032 6.79544 2.60033 7.45629 2.60034 8.26433V15.7398C2.60033 16.5478 2.60032 17.2087 2.6442 17.7457C2.68962 18.3016 2.78651 18.8037 3.02542 19.2726C3.39932 20.0064 3.99595 20.6031 4.72978 20.977C5.19867 21.2159 5.70075 21.3128 6.25666 21.3582C6.79374 21.4021 7.45459 21.4021 8.26264 21.4021H15.738C16.5461 21.4021 17.2069 21.4021 17.744 21.3582C18.2999 21.3128 18.802 21.2159 19.2709 20.977C20.0047 20.6031 20.6014 20.0064 20.9753 19.2726C21.2142 18.8037 21.3111 18.3016 21.3565 17.7457C21.4004 17.2087 21.4004 16.5478 21.4003 15.7398V8.26435C21.4004 7.4563 21.4004 6.79545 21.3565 6.25837C21.3111 5.70246 21.2142 5.20038 20.9753 4.73149C20.6014 3.99766 20.0047 3.40103 19.2709 3.02713C18.802 2.78822 18.2999 2.69133 17.744 2.64591C17.207 2.60203 16.5461 2.60204 15.7381 2.60205H8.26264ZM5.54696 4.63094C5.71981 4.54287 5.95864 4.47626 6.40324 4.43994C6.85834 4.40275 7.44541 4.40205 8.30034 4.40205H15.7003C16.5553 4.40205 17.1423 4.40275 17.5974 4.43994C18.042 4.47626 18.2809 4.54287 18.4537 4.63094C18.8489 4.83227 19.1701 5.15353 19.3715 5.54867C19.4595 5.72152 19.5261 5.96035 19.5625 6.40495C19.5996 6.86005 19.6003 7.44712 19.6003 8.30205V15.7021C19.6003 16.557 19.5996 17.1441 19.5625 17.5992C19.5261 18.0438 19.4595 18.2826 19.3715 18.4554C19.1701 18.8506 18.8489 19.1718 18.4537 19.3732C18.2809 19.4612 18.042 19.5278 17.5974 19.5642C17.1423 19.6014 16.5553 19.6021 15.7003 19.6021H8.30034C7.44541 19.6021 6.85834 19.6014 6.40324 19.5642C5.95864 19.5278 5.71981 19.4612 5.54696 19.3732C5.15182 19.1718 4.83056 18.8506 4.62923 18.4554C4.54116 18.2826 4.47455 18.0438 4.43823 17.5992C4.40104 17.1441 4.40034 16.557 4.40034 15.7021V8.30205C4.40034 7.44712 4.40104 6.86005 4.43823 6.40495C4.47455 5.96035 4.54116 5.72152 4.62923 5.54867C4.83056 5.15353 5.15182 4.83227 5.54696 4.63094Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            상세 내용 추가
+                        </button>
+                    </section>
+
+                    
+                    <section class="min-w-0 rounded-lg bg-background-normal p-[30px]">
+                        <div class="flex min-w-0 flex-wrap items-center justify-between gap-3">
+                            <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">관련 파일</h2>
+                            <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2"
+>
+    
+    구글 드라이브
+
+    </button>
+                        </div>
+
+                        <button type="button" class="inline-flex items-center gap-2 text-label-1 leading-5 text-label-assistive transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 mt-[16px]">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-6 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.9 8.00049C12.9 7.50343 12.4971 7.10049 12 7.10049C11.503 7.10049 11.1 7.50343 11.1 8.00049V11.1005H8.00005C7.50299 11.1005 7.10005 11.5034 7.10005 12.0005C7.10005 12.4975 7.50299 12.9005 8.00005 12.9005H11.1V16.0005C11.1 16.4976 11.503 16.9005 12 16.9005C12.4971 16.9005 12.9 16.4976 12.9 16.0005V12.9005H16C16.4971 12.9005 16.9 12.4975 16.9 12.0005C16.9 11.5034 16.4971 11.1005 16 11.1005H12.9V8.00049Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.26264 2.60205C7.4546 2.60204 6.79373 2.60203 6.25666 2.64591C5.70075 2.69133 5.19867 2.78822 4.72978 3.02713C3.99595 3.40103 3.39932 3.99766 3.02542 4.73149C2.78651 5.20038 2.68962 5.70246 2.6442 6.25837C2.60032 6.79544 2.60033 7.45629 2.60034 8.26433V15.7398C2.60033 16.5478 2.60032 17.2087 2.6442 17.7457C2.68962 18.3016 2.78651 18.8037 3.02542 19.2726C3.39932 20.0064 3.99595 20.6031 4.72978 20.977C5.19867 21.2159 5.70075 21.3128 6.25666 21.3582C6.79374 21.4021 7.45459 21.4021 8.26264 21.4021H15.738C16.5461 21.4021 17.2069 21.4021 17.744 21.3582C18.2999 21.3128 18.802 21.2159 19.2709 20.977C20.0047 20.6031 20.6014 20.0064 20.9753 19.2726C21.2142 18.8037 21.3111 18.3016 21.3565 17.7457C21.4004 17.2087 21.4004 16.5478 21.4003 15.7398V8.26435C21.4004 7.4563 21.4004 6.79545 21.3565 6.25837C21.3111 5.70246 21.2142 5.20038 20.9753 4.73149C20.6014 3.99766 20.0047 3.40103 19.2709 3.02713C18.802 2.78822 18.2999 2.69133 17.744 2.64591C17.207 2.60203 16.5461 2.60204 15.7381 2.60205H8.26264ZM5.54696 4.63094C5.71981 4.54287 5.95864 4.47626 6.40324 4.43994C6.85834 4.40275 7.44541 4.40205 8.30034 4.40205H15.7003C16.5553 4.40205 17.1423 4.40275 17.5974 4.43994C18.042 4.47626 18.2809 4.54287 18.4537 4.63094C18.8489 4.83227 19.1701 5.15353 19.3715 5.54867C19.4595 5.72152 19.5261 5.96035 19.5625 6.40495C19.5996 6.86005 19.6003 7.44712 19.6003 8.30205V15.7021C19.6003 16.557 19.5996 17.1441 19.5625 17.5992C19.5261 18.0438 19.4595 18.2826 19.3715 18.4554C19.1701 18.8506 18.8489 19.1718 18.4537 19.3732C18.2809 19.4612 18.042 19.5278 17.5974 19.5642C17.1423 19.6014 16.5553 19.6021 15.7003 19.6021H8.30034C7.44541 19.6021 6.85834 19.6014 6.40324 19.5642C5.95864 19.5278 5.71981 19.4612 5.54696 19.3732C5.15182 19.1718 4.83056 18.8506 4.62923 18.4554C4.54116 18.2826 4.47455 18.0438 4.43823 17.5992C4.40104 17.1441 4.40034 16.557 4.40034 15.7021V8.30205C4.40034 7.44712 4.40104 6.86005 4.43823 6.40495C4.47455 5.96035 4.54116 5.72152 4.62923 5.54867C4.83056 5.15353 5.15182 4.83227 5.54696 4.63094Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            파일 추가
+                        </button>
+                    </section>
+
+                    
+                    <section class="min-w-0 rounded-lg bg-background-normal p-[30px]">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">참조 문서</h2>
+
+                        <button type="button" class="inline-flex items-center gap-2 text-label-1 leading-5 text-label-assistive transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 mt-[16px]">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-6 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.9 8.00049C12.9 7.50343 12.4971 7.10049 12 7.10049C11.503 7.10049 11.1 7.50343 11.1 8.00049V11.1005H8.00005C7.50299 11.1005 7.10005 11.5034 7.10005 12.0005C7.10005 12.4975 7.50299 12.9005 8.00005 12.9005H11.1V16.0005C11.1 16.4976 11.503 16.9005 12 16.9005C12.4971 16.9005 12.9 16.4976 12.9 16.0005V12.9005H16C16.4971 12.9005 16.9 12.4975 16.9 12.0005C16.9 11.5034 16.4971 11.1005 16 11.1005H12.9V8.00049Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.26264 2.60205C7.4546 2.60204 6.79373 2.60203 6.25666 2.64591C5.70075 2.69133 5.19867 2.78822 4.72978 3.02713C3.99595 3.40103 3.39932 3.99766 3.02542 4.73149C2.78651 5.20038 2.68962 5.70246 2.6442 6.25837C2.60032 6.79544 2.60033 7.45629 2.60034 8.26433V15.7398C2.60033 16.5478 2.60032 17.2087 2.6442 17.7457C2.68962 18.3016 2.78651 18.8037 3.02542 19.2726C3.39932 20.0064 3.99595 20.6031 4.72978 20.977C5.19867 21.2159 5.70075 21.3128 6.25666 21.3582C6.79374 21.4021 7.45459 21.4021 8.26264 21.4021H15.738C16.5461 21.4021 17.2069 21.4021 17.744 21.3582C18.2999 21.3128 18.802 21.2159 19.2709 20.977C20.0047 20.6031 20.6014 20.0064 20.9753 19.2726C21.2142 18.8037 21.3111 18.3016 21.3565 17.7457C21.4004 17.2087 21.4004 16.5478 21.4003 15.7398V8.26435C21.4004 7.4563 21.4004 6.79545 21.3565 6.25837C21.3111 5.70246 21.2142 5.20038 20.9753 4.73149C20.6014 3.99766 20.0047 3.40103 19.2709 3.02713C18.802 2.78822 18.2999 2.69133 17.744 2.64591C17.207 2.60203 16.5461 2.60204 15.7381 2.60205H8.26264ZM5.54696 4.63094C5.71981 4.54287 5.95864 4.47626 6.40324 4.43994C6.85834 4.40275 7.44541 4.40205 8.30034 4.40205H15.7003C16.5553 4.40205 17.1423 4.40275 17.5974 4.43994C18.042 4.47626 18.2809 4.54287 18.4537 4.63094C18.8489 4.83227 19.1701 5.15353 19.3715 5.54867C19.4595 5.72152 19.5261 5.96035 19.5625 6.40495C19.5996 6.86005 19.6003 7.44712 19.6003 8.30205V15.7021C19.6003 16.557 19.5996 17.1441 19.5625 17.5992C19.5261 18.0438 19.4595 18.2826 19.3715 18.4554C19.1701 18.8506 18.8489 19.1718 18.4537 19.3732C18.2809 19.4612 18.042 19.5278 17.5974 19.5642C17.1423 19.6014 16.5553 19.6021 15.7003 19.6021H8.30034C7.44541 19.6021 6.85834 19.6014 6.40324 19.5642C5.95864 19.5278 5.71981 19.4612 5.54696 19.3732C5.15182 19.1718 4.83056 18.8506 4.62923 18.4554C4.54116 18.2826 4.47455 18.0438 4.43823 17.5992C4.40104 17.1441 4.40034 16.557 4.40034 15.7021V8.30205C4.40034 7.44712 4.40104 6.86005 4.43823 6.40495C4.47455 5.96035 4.54116 5.72152 4.62923 5.54867C4.83056 5.15353 5.15182 4.83227 5.54696 4.63094Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            문서 추가
+                        </button>
+                    </section>
+                </div>
+
+                
+                <section class="w-full min-w-0 shrink-0 rounded-lg bg-background-normal p-[30px] xl:w-[384px]">
+                    <div class="flex min-w-0 flex-wrap items-center justify-between gap-3">
+                        <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">결재선</h2>
+                        <button type="button"
+                                class="shrink-0 text-label-1 font-medium leading-5 text-label-alternative transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
+                            결재선 추가
+                        </button>
+                    </div>
+
+                    
+                    <div class="flex min-w-0 items-center gap-2.5 pt-[17px]">
+                        <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-10 w-10 rounded-full bg-deep-blue-800 shrink-0">
+            <span class="text-body-2 font-semibold text-white select-none">김</span>
+    </span>
+                        <div class="min-w-0 flex-1">
+                            <p class="truncate text-label-1 font-bold leading-5 text-mono-black">김기안</p>
+                            <p class="truncate pt-0.5 text-caption-1 leading-[18px] text-label-alternative">청담원 · 대표</p>
+                        </div>
+                        <span class="shrink-0 text-label-2 leading-5 text-label-alternative">신청 (본인)</span>
+                    </div>
+                </section>
             </div>
         </div>
         </main>
