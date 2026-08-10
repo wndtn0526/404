@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>조직 관리 · 전자결재</title>
 
-        <link rel="preload" as="style" href="./build/assets/app-hcvaUGfT.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-hcvaUGfT.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="preload" as="style" href="./build/assets/app-EyVA6Pbb.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-EyVA6Pbb.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
     <meta name="robots" content="noindex">
 </head>
@@ -78,10 +78,10 @@
                                             </div>
                                     
                     <div class="flex flex-col gap-2"
-                          x-data="{ open: false }" >
+                          x-data="dsLnbFolder('워크스페이스', false)" >
 
                                                     
-                            <button type="button" @click="open = ! open" x-bind:aria-expanded="open"
+                            <button type="button" @click="toggle()" x-bind:aria-expanded="open"
                                     class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-left text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
                                                                     <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.85028 13.4996C7.85028 13.0026 8.25322 12.5996 8.75028 12.5996H12.7503C13.2473 12.5996 13.6503 13.0026 13.6503 13.4996C13.6503 13.9967 13.2473 14.3996 12.7503 14.3996H8.75028C8.25322 14.3996 7.85028 13.9967 7.85028 13.4996Z" fill="currentColor" fill-opacity="0.88"/>
@@ -167,10 +167,10 @@
                                             </div>
                                     
                     <div class="flex flex-col gap-2"
-                          x-data="{ open: false }" >
+                          x-data="dsLnbFolder('재무', false)" >
 
                                                     
-                            <button type="button" @click="open = ! open" x-bind:aria-expanded="open"
+                            <button type="button" @click="toggle()" x-bind:aria-expanded="open"
                                     class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-left text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
                                                                     <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M3.60012 6.26021C3.60011 6.25652 3.6001 6.25282 3.6001 6.24912C3.6001 4.77151 4.89967 3.80957 6.28325 3.25705C7.75331 2.67001 9.75063 2.34887 12.0002 2.34912C14.2496 2.34937 16.2468 2.67051 17.7168 3.25739C19.0979 3.80876 20.3954 4.768 20.4 6.24125C20.4001 6.244 20.4001 6.24676 20.4001 6.24951V17.4995L20.4 17.5096C20.394 18.9814 19.0973 19.9402 17.7169 20.4914C16.2468 21.0785 14.2495 21.3996 12 21.3994C9.75056 21.3991 7.75331 21.078 6.28332 20.4911C4.89982 19.9387 3.6001 18.9771 3.6001 17.4994L3.60012 17.4927V13.7605L3.6001 13.7494L3.60012 13.7427V10.0105L3.6001 9.99937L3.60012 9.99266V6.26021ZM5.40011 6.24553C5.40251 5.9725 5.6787 5.43668 6.9508 4.92869C8.14203 4.45299 9.89469 4.14889 12 4.14912C14.1054 4.14936 15.8581 4.45347 17.0494 4.92909C18.3272 5.43923 18.6001 5.97732 18.6001 6.24912C18.6001 6.52102 18.327 7.05932 17.0493 7.56955C15.8581 8.04525 14.1055 8.34936 12.0002 8.34912C9.89476 8.34889 8.14202 8.04477 6.95073 7.56916C5.67991 7.06179 5.4031 6.52679 5.40012 6.25359V6.24951L5.40011 6.24553ZM18.6001 8.81872V9.99261L18.6001 9.99937C18.6001 10.2713 18.327 10.8096 17.0493 11.3198C15.8581 11.7955 14.1055 12.0996 12.0002 12.0994C9.89476 12.0991 8.14202 11.795 6.95073 11.3194C5.67991 10.812 5.4031 10.277 5.40012 10.0038V8.81847C5.68202 8.9796 5.98067 9.12002 6.28332 9.24085C7.75331 9.82774 9.75056 10.1489 12 10.1491C14.2495 10.1494 16.2468 9.82824 17.7169 9.24119C18.0195 9.12033 18.3182 8.97988 18.6001 8.81872ZM5.40012 13.7538V12.5687C5.68202 12.7298 5.98067 12.8703 6.28332 12.9911C7.75331 13.578 9.75056 13.8991 12 13.8994C14.2495 13.8996 16.2468 13.5785 17.7169 12.9914C18.0195 12.8706 18.3182 12.7301 18.6001 12.569V13.7425L18.6001 13.7494C18.6001 14.0213 18.327 14.5596 17.0493 15.0698C15.8581 15.5455 14.1055 15.8496 12.0002 15.8494C9.89476 15.8491 8.14202 15.545 6.95073 15.0694C5.67991 14.562 5.4031 14.027 5.40012 13.7538ZM17.7169 16.7414C18.0195 16.6206 18.3182 16.4801 18.6001 16.319V17.4925L18.6001 17.4994C18.6001 17.7713 18.327 18.3096 17.0493 18.8198C15.8581 19.2955 14.1055 19.5996 12.0002 19.5994C9.89476 19.5991 8.14202 19.295 6.95073 18.8194C5.67881 18.3116 5.40262 17.7761 5.40011 17.5031L5.40012 17.4995V16.3187C5.68202 16.4798 5.98067 16.6203 6.28332 16.7411C7.75331 17.328 9.75056 17.6491 12 17.6494C14.2495 17.6496 16.2468 17.3285 17.7169 16.7414Z" fill="currentColor" fill-opacity="0.88"/>
@@ -1748,7 +1748,7 @@
                     <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-[30px]">기본 정보</h3>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a0aa5" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eedee55" class="text-label-1 font-medium text-label-neutral">
             국가
                     </label>
     
@@ -1756,7 +1756,7 @@
          >
         
         <input
-            id="input-6a796f27a0aa5"
+            id="input-6a7970eedee55"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.country"         />
 
@@ -1764,7 +1764,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a0ba6" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eedef44" class="text-label-1 font-medium text-label-neutral">
             우편 번호
                     </label>
     
@@ -1772,7 +1772,7 @@
          >
         
         <input
-            id="input-6a796f27a0ba6"
+            id="input-6a7970eedef44"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.zip"         />
 
@@ -1780,7 +1780,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a0c9e" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eedf02b" class="text-label-1 font-medium text-label-neutral">
             상세 주소
                     </label>
     
@@ -1788,7 +1788,7 @@
          >
         
         <input
-            id="input-6a796f27a0c9e"
+            id="input-6a7970eedf02b"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.address"         />
 
@@ -1796,7 +1796,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a0d8e" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eedf108" class="text-label-1 font-medium text-label-neutral">
             영문 주소
                     </label>
     
@@ -1804,7 +1804,7 @@
          >
         
         <input
-            id="input-6a796f27a0d8e"
+            id="input-6a7970eedf108"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="영문 주소 입력" x-model="draft.address_en"         />
 
@@ -1812,7 +1812,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a0e79" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eedf1e4" class="text-label-1 font-medium text-label-neutral">
             영문 상세 주소
                     </label>
     
@@ -1820,7 +1820,7 @@
          >
         
         <input
-            id="input-6a796f27a0e79"
+            id="input-6a7970eedf1e4"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="영문 상세 주소 입력" x-model="draft.address_detail_en"         />
 
@@ -1832,7 +1832,7 @@
                     <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-10">기타 정보</h3>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a0f63" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eedf2c4" class="text-label-1 font-medium text-label-neutral">
             시작일
                     </label>
     
@@ -1840,7 +1840,7 @@
          >
         
         <input
-            id="input-6a796f27a0f63"
+            id="input-6a7970eedf2c4"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.from"         />
 
@@ -1848,7 +1848,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a104a" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eedf3a0" class="text-label-1 font-medium text-label-neutral">
             종료일
                     </label>
     
@@ -1856,7 +1856,7 @@
          >
         
         <input
-            id="input-6a796f27a104a"
+            id="input-6a7970eedf3a0"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="종료일 입력" x-model="draft.to"         />
 
@@ -2002,7 +2002,7 @@
                     <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-[30px]">기본 정보</h3>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a159a" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eedf8db" class="text-label-1 font-medium text-label-neutral">
             이름
                     </label>
     
@@ -2010,7 +2010,7 @@
          >
         
         <input
-            id="input-6a796f27a159a"
+            id="input-6a7970eedf8db"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.name"         />
 
@@ -2018,7 +2018,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a169b" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eedfa2e" class="text-label-1 font-medium text-label-neutral">
             사번
                     </label>
     
@@ -2026,7 +2026,7 @@
          >
         
         <input
-            id="input-6a796f27a169b"
+            id="input-6a7970eedfa2e"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.employee_no"         />
 
@@ -2097,14 +2097,14 @@
      x-model="draft.title"
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a796f27a178e" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7970eedfb03" class="text-label-1 font-medium text-label-neutral">
             직책
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a796f27a178e"
+            id="dropdown-6a7970eedfb03"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -2221,14 +2221,14 @@
      x-model="draft.kind"
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a796f27a18cd" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7970eedfcda" class="text-label-1 font-medium text-label-neutral">
             구분
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a796f27a18cd"
+            id="dropdown-6a7970eedfcda"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -2286,7 +2286,7 @@
                     <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-10">기타 정보</h3>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a1a75" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eedfeb4" class="text-label-1 font-medium text-label-neutral">
             시작일
                     </label>
     
@@ -2294,7 +2294,7 @@
          >
         
         <input
-            id="input-6a796f27a1a75"
+            id="input-6a7970eedfeb4"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.from"         />
 
@@ -2302,7 +2302,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a1be8" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eedffc3" class="text-label-1 font-medium text-label-neutral">
             종료일
                     </label>
     
@@ -2310,7 +2310,7 @@
          >
         
         <input
-            id="input-6a796f27a1be8"
+            id="input-6a7970eedffc3"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="종료일 입력" x-model="draft.to"         />
 
@@ -2318,7 +2318,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a1d17" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eee00b9" class="text-label-1 font-medium text-label-neutral">
             비고
                     </label>
     
@@ -2326,7 +2326,7 @@
          >
         
         <input
-            id="input-6a796f27a1d17"
+            id="input-6a7970eee00b9"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="내용 입력" x-model="draft.note"         />
 
@@ -2697,7 +2697,7 @@
     </div>
                     
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a2934" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eee0b8a" class="text-label-1 font-medium text-label-neutral">
             상위 조직
                     </label>
     
@@ -2705,7 +2705,7 @@
          >
         
         <input
-            id="input-6a796f27a2934"
+            id="input-6a7970eee0b8a"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="청담원" disabled="disabled"         />
 
@@ -3370,7 +3370,7 @@
     </div>
                     
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a796f27a3158" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7970eee1403" class="text-label-1 font-medium text-label-neutral">
             조직 계층
                     </label>
     
@@ -3378,7 +3378,7 @@
          >
         
         <input
-            id="input-6a796f27a3158"
+            id="input-6a7970eee1403"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="02" disabled="disabled"         />
 
@@ -3505,6 +3505,43 @@
 
                         this.tabs.splice(i, 1);
                         this.save();
+                    },
+                }));
+            });
+        </script>
+            <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('dsLnbFolder', (key, inside) => ({
+                    open: inside,
+
+                    init() {
+                        const saved = this.load();
+                        if (typeof saved[key] === 'boolean') this.open = saved[key];
+
+                        // 지금 이 묶음 안에 있으면 접힌 채로 두지 않는다.
+                        if (inside) this.open = true;
+                    },
+
+                    load() {
+                        // 저장된 값이 깨져 있어도 화면이 죽지 않게 한다.
+                        try {
+                            const raw = JSON.parse(sessionStorage.getItem('cdw.lnbFolders') || '{}');
+                            return raw && typeof raw === 'object' ? raw : {};
+                        } catch (e) {
+                            return {};
+                        }
+                    },
+
+                    toggle() {
+                        this.open = ! this.open;
+
+                        try {
+                            const all = this.load();
+                            all[key] = this.open;
+                            sessionStorage.setItem('cdw.lnbFolders', JSON.stringify(all));
+                        } catch (e) {
+                            // 시크릿 모드 등에서 저장이 막혀도 이번 화면은 그대로 쓴다.
+                        }
                     },
                 }));
             });

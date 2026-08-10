@@ -209,12 +209,14 @@
                     @endphp
 
                     <div class="flex flex-col gap-2"
-                         @if ($children) x-data="{ open: {{ $active ? 'true' : 'false' }} }" @endif>
+                         @if ($children) x-data="dsLnbFolder(@js($item['label'] ?? ''), {{ $active ? 'true' : 'false' }})" @endif>
 
                         @if ($children)
                             {{-- 자식이 있으면 폴더다. 눌러서 접고 편다 — 갈 곳은 자식이 갖는다.
-                                 처음 상태는 '지금 이 묶음 안에 있으면 펼침' 이다. --}}
-                            <button type="button" @click="open = ! open" x-bind:aria-expanded="open"
+                                 접고 편 상태는 sessionStorage 에 남아 화면을 옮겨도 그대로다.
+                                 그게 없으면 같은 LNB 인데 화면마다 펼침이 달라져 딴 메뉴처럼 읽힌다.
+                                 단, 지금 그 묶음 안에 있으면 접혀 있어도 펼친다. --}}
+                            <button type="button" @click="toggle()" x-bind:aria-expanded="open"
                                     @class([$itemBase, 'text-left', $itemOn => $active, $itemOff => ! $active])>
                                 @if (! empty($item['icon']))
                                     <x-dynamic-component :component="'icon-' . $item['icon']" class="size-5 shrink-0" />
@@ -351,3 +353,45 @@
         </main>
     </div>
 </div>
+
+@once
+    @push('scripts')
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('dsLnbFolder', (key, inside) => ({
+                    open: inside,
+
+                    init() {
+                        const saved = this.load();
+                        if (typeof saved[key] === 'boolean') this.open = saved[key];
+
+                        // 지금 이 묶음 안에 있으면 접힌 채로 두지 않는다.
+                        if (inside) this.open = true;
+                    },
+
+                    load() {
+                        // 저장된 값이 깨져 있어도 화면이 죽지 않게 한다.
+                        try {
+                            const raw = JSON.parse(sessionStorage.getItem('cdw.lnbFolders') || '{}');
+                            return raw && typeof raw === 'object' ? raw : {};
+                        } catch (e) {
+                            return {};
+                        }
+                    },
+
+                    toggle() {
+                        this.open = ! this.open;
+
+                        try {
+                            const all = this.load();
+                            all[key] = this.open;
+                            sessionStorage.setItem('cdw.lnbFolders', JSON.stringify(all));
+                        } catch (e) {
+                            // 시크릿 모드 등에서 저장이 막혀도 이번 화면은 그대로 쓴다.
+                        }
+                    },
+                }));
+            });
+        </script>
+    @endpush
+@endonce
