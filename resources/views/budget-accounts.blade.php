@@ -18,8 +18,8 @@
      ⚠️ 원본은 계정 이름과 영어 이름이 서로 어긋나 있다(미팅비 → IT computing equipment 등).
         자리표시자를 돌려 쓴 것으로 보여 여기서는 한국어에 맞는 영어로 적었다.
      ⚠️ 값은 전부 예시다. DB 에서 오지 않는다.
-     ⚠️ '+ 추가' · '+ 내역 추가' 는 아직 아무 일도 하지 않는다. 붙일 때는 모달로 받고
-        POST + CSRF 로 보낸다.
+     ⚠️ '+ 추가' · '+ 내역 추가' 는 모달을 열기만 한다. 저장 엔드포인트가 없다 —
+        붙일 때는 POST + CSRF 로 보낸다.
 
      왼쪽 비용 분류를 누르면 오른쪽이 그 분류 것만 남는다. 같은 행을 다시 누르면 전체로
      돌아간다. 고른 분류를 오른쪽 제목 옆에 칩으로도 보여 줬다가 뺐다 — 왼쪽에서 이미
@@ -115,7 +115,8 @@
                 <div class="flex min-w-0 items-center justify-between gap-3 px-[30px] pt-[30px]">
                     <h2 class="{{ $cardTitle }}">비용 분류</h2>
                     {{-- 원본 59x30 — DS 버튼 sm 은 40 이라 한 단계 크다 --}}
-                    <x-button variant="outline" size="sm" icon="plus">추가</x-button>
+                    <x-button variant="outline" size="sm" icon="plus"
+                              @click="$dispatch('open-modal', 'group-add')">추가</x-button>
                 </div>
 
                 {{-- 표는 카드 폭 전체로 흘린다(원본 그대로) --}}
@@ -163,7 +164,8 @@
                             총 <span class="tabular-nums" x-text="total()">{{ count($rows) }}</span>건
                         </span>
                     </div>
-                    <x-button variant="outline" size="sm" icon="plus">내역 추가</x-button>
+                    <x-button variant="outline" size="sm" icon="plus"
+                              @click="$dispatch('open-modal', 'account-add')">내역 추가</x-button>
                 </div>
 
                 {{-- 열 합이 1240 이라 카드보다 넓다. 원본도 잘려 있고 가로로 넘긴다. --}}
@@ -220,5 +222,97 @@
                 </div>
             </section>
         </div>
+
+        @php
+            // 원본 필드 칸 315x54 · 열 사이 30 · 행 피치 78 — 조직 추가 모달과 같은 격자다.
+            $modalGrid = 'grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2';
+        @endphp
+
+        {{-- ═══ 비용 분류 추가 ═══ Figma node 1002-93353
+             원본 실측 — 폭 544 · 반경 6 · 패딩 30 · 제목 20 Bold lh30 -1
+               필드 484x54 한 열 · 행 피치 78
+               카드 폭 구분선 → 25 → 버튼 120x36 (사이 16 · 우측)
+               '추가' 는 비활성으로 그려져 있다 — 아무것도 안 넣은 상태라서다
+
+             ⚠️ 원본 제목 앞 📄 이모지는 빼기로 한 규칙대로 넣지 않았다.
+             ⚠️ DS 모달 제목이 22 라 원본 20 보다 한 단계 크다. 이 저장소 모달 전부가 그렇다.
+             ⚠️ 저장 엔드포인트가 없다. '추가'는 모달만 닫는다. 붙일 때는 POST + CSRF. --}}
+        {{-- ⚠️ x-data 는 <x-modal> 에 준다. 푸터는 별도 슬롯이라 본문 안 div 에 두면
+             그 스코프 밖이라 버튼이 form 을 못 본다. 모달에 주면 본문·푸터가 같이 본다. --}}
+        <x-modal name="group-add" title="비용 분류 추가" max-width="max-w-[544px]" scroll close-button
+                 x-data="{ form: { name: '', name_en: '', amount: '' } }">
+                <div class="grid grid-cols-1 gap-y-6">
+                    <x-input label="비용 분류 이름" name="group_name" size="sm"
+                             placeholder="비용 분류 이름 입력" x-model="form.name" />
+                    <x-input label="비용 분류 이름 (영어)" name="group_name_en" size="sm"
+                             placeholder="비용 분류 영어 이름 입력" x-model="form.name_en" />
+                    {{-- 원본 placeholder 가 '0 원' 이다 --}}
+                    <x-input label="지급 금액" name="group_amount" size="sm"
+                             placeholder="0 원" x-model="form.amount" />
+                </div>
+
+                <x-slot:footer>
+                    <div class="ml-auto flex flex-wrap items-center gap-4">
+                        <x-button variant="outline" size="sm" class="w-[120px]" @click="open = false">취소</x-button>
+                        {{-- 이름을 넣어야 누를 수 있다(원본이 비활성으로 그려져 있다) --}}
+                        <x-button variant="primary" size="sm" class="w-[120px]"
+                                  x-bind:disabled="! form.name.trim()" @click="open = false">추가</x-button>
+                    </div>
+                </x-slot:footer>
+        </x-modal>
+
+        {{-- ═══ 비용 내역 추가 ═══ Figma node 1002-93832
+             원본 실측 — 폭 720 · 반경 6 · 패딩 30
+               필드 315x54 두 열 (315+30+315 = 660) · 행 피치 78
+               세 줄은 두 열, 사용자 가이드 두 줄은 660 전체 폭
+               비용 분류·1인 한도 금액은 드롭다운, 설정·대상 인원은 돋보기 붙은 검색 칸
+               카드 폭 구분선 → 25 → 버튼 120x36
+
+             ⚠️ 비용 분류 선택지는 왼쪽 표와 같은 목록이다. 실제로 붙을 땐 한 곳에서 온다.
+             ⚠️ 1인 한도 금액은 원본이 '한도 없음' 이 들어간 드롭다운이다. 금액을 직접 넣는
+                칸이 따로 필요해 보이는데 원본에 없어서 그대로 뒀다.
+             ⚠️ 설정·대상 인원은 원본이 검색 칸이다. 무엇을 찾는 검색인지는 원본에 없다.
+             ⚠️ 저장 엔드포인트가 없다. --}}
+        <x-modal name="account-add" title="비용 내역 추가" max-width="max-w-[720px]" scroll close-button
+                 x-data="{ form: { group: '', name: '', code: '', limit: '한도 없음', setting: '', target: '', guide: '', guide_en: '' } }">
+                <div class="{{ $modalGrid }}">
+                    <x-dropdown label="비용 분류" name="account_group" size="sm"
+                                placeholder="비용 분류 선택"
+                                :options="collect($groups)->pluck('name', 'name')->all()"
+                                x-model="form.group" />
+                    <x-input label="계정 이름" name="account_name" size="sm"
+                             placeholder="계정 이름 입력" x-model="form.name" />
+
+                    <x-input label="계정 코드" name="account_code" size="sm"
+                             placeholder="계정 코드 번호 입력" x-model="form.code" />
+                    <x-dropdown label="1인 한도 금액" name="account_limit" size="sm"
+                                :options="['한도 없음' => '한도 없음', '월 한도' => '월 한도', '건별 한도' => '건별 한도']"
+                                selected="한도 없음" x-model="form.limit" />
+
+                    <x-input label="설정" name="account_setting" size="sm" icon="search"
+                             placeholder="설정 찾기" x-model="form.setting" />
+                    <x-input label="대상 인원" name="account_target" size="sm" icon="search"
+                             placeholder="멤버 찾기" x-model="form.target" />
+
+                    <div class="sm:col-span-2">
+                        <x-input label="사용자 가이드" name="account_guide" size="sm"
+                                 placeholder="사용자 가이드 입력" x-model="form.guide" />
+                    </div>
+                    <div class="sm:col-span-2">
+                        <x-input label="사용자 가이드 (영어)" name="account_guide_en" size="sm"
+                                 placeholder="영어 사용자 가이드 입력" x-model="form.guide_en" />
+                    </div>
+                </div>
+
+                <x-slot:footer>
+                    <div class="ml-auto flex flex-wrap items-center gap-4">
+                        <x-button variant="outline" size="sm" class="w-[120px]" @click="open = false">취소</x-button>
+                        {{-- 분류·계정 이름·계정 코드가 있어야 누를 수 있다 --}}
+                        <x-button variant="primary" size="sm" class="w-[120px]"
+                                  x-bind:disabled="! (form.group && form.name.trim() && form.code.trim())"
+                                  @click="open = false">추가</x-button>
+                    </div>
+                </x-slot:footer>
+        </x-modal>
     </x-workspace-shell>
 </x-layout>
