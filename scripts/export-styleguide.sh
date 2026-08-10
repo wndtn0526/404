@@ -30,6 +30,8 @@ PAGES=(
     "orgs/history:orgs-history.html"
     "finance:finance.html"
     "finance/budget:finance-budget.html"
+    "finance/personal:finance-personal.html"
+    "finance/expense:finance-expense.html"
     "public-space:public-space.html"
     "public-space-empty:public-space-empty.html"
     "profile-settings:profile-settings.html"

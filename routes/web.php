@@ -63,3 +63,7 @@ Route::view('/finance', 'finance')->name('finance');
 // 재무 > 업무 관리자 메뉴 > 예산 계정 관리 (Figma node 1002-93118).
 // 같은 탭 줄의 나머지 탭은 아직 화면이 없다.
 Route::view('/finance/budget', 'budget-accounts')->name('finance.budget');
+
+// 재무 > 업무 관리자 메뉴 > 개인 비용 정산 (1002-92654) · 지출 결의서 정산 (1002-92909)
+Route::view('/finance/personal', 'personal-settlement')->name('finance.personal');
+Route::view('/finance/expense', 'expense-settlement')->name('finance.expense');

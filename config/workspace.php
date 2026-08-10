@@ -68,6 +68,10 @@ return [
         //    있을 때 두 항목이 같이 켜진다.
         ['label' => '재무', 'href' => '/finance', 'icon' => 'coins',
             'match' => ['finance']],
+        ['label' => '개인 비용 정산', 'href' => '/finance/personal', 'icon' => 'coins',
+            'match' => ['finance/personal', 'finance/personal/*']],
+        ['label' => '지출 결의서 정산', 'href' => '/finance/expense', 'icon' => 'document',
+            'match' => ['finance/expense', 'finance/expense/*']],
         ['label' => '예산 계정 관리', 'href' => '/finance/budget', 'icon' => 'list-category',
             'match' => ['finance/budget', 'finance/budget/*']],
     ],
