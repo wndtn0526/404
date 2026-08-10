@@ -50,7 +50,6 @@
 
         <x-slot:title>
             <h1 class="min-w-0 truncate text-title-2 font-bold leading-[39px] text-mono-black">업무 관리자 메뉴</h1>
-            <x-menu-tabs menu="expense-settlement" label="지출 결의서 정산" href="/finance/expense" />
         </x-slot:title>
 
         <x-filter-bar

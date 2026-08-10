@@ -128,7 +128,6 @@
 
         <x-slot:title>
             <h1 class="min-w-0 truncate text-title-2 font-bold leading-[39px] text-mono-black">지출 현황 대시보드</h1>
-            <x-menu-tabs menu="finance" label="지출 현황 대시보드" href="/finance" />
         </x-slot:title>
 
         {{-- ═══ 필터 ═══

@@ -53,7 +53,6 @@
 
         <x-slot:title>
             <h1 class="min-w-0 truncate text-title-2 font-bold leading-[39px] text-mono-black">업무 관리자 메뉴</h1>
-            <x-menu-tabs menu="personal-settlement" label="개인 비용 정산" href="/finance/personal" />
         </x-slot:title>
 
         <x-filter-bar

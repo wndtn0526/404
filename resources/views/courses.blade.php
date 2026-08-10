@@ -64,7 +64,6 @@
 
         <x-slot:title>
             <h1 class="text-title-2 font-bold text-mono-black">과정 관리</h1>
-            <x-menu-tabs menu="courses" label="과정 관리" href="/courses" />
         </x-slot:title>
 
         <x-slot:actions>

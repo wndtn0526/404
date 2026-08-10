@@ -687,20 +687,6 @@
             <section id="nav" class="flex flex-col gap-5">
                 <h2 class="text-title-3 font-bold text-label-normal">탭 · 페이지네이션</h2>
 
-                {{-- x-menu-tabs 는 여기에 살아있는 예시를 두지 않는다. 그리는 순간 자기를
-                     「들렀던 메뉴」 목록에 등록해서, 스타일가이드를 열었다는 이유로 모든 화면
-                     제목 옆에 '디자인 시스템' 알약이 생겨 버린다. 설명만 남긴다. --}}
-                <x-card>
-                    <h3 class="text-headline-2 font-semibold text-label-normal">메뉴 바로가기 탭 (x-menu-tabs)</h3>
-                    <p class="pt-2 text-label-1 text-label-alternative">
-                        화면 제목 옆 알약 줄. 그 화면의 하위 탭이 아니라
-                        <strong class="font-semibold text-label-normal">들렀던 메뉴가 쌓이는 바로가기</strong>다.
-                        방문 순서로 남고, 지금 보고 있는 메뉴가 검정 알약 + 닫기다.
-                        목록은 sessionStorage 에 두고 화면마다
-                        <code class="rounded-md bg-fill-normal px-1 text-label-2">&lt;x-menu-tabs menu="…" label="…" href="…" /&gt;</code>
-                        로 자기가 어느 메뉴인지만 알린다. 실제 모습은 워크스페이스 화면들에서 본다.
-                    </p>
-                </x-card>
                 <x-card>
                     <x-tabs
                         name="sg_tabs"

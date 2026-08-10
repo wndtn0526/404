@@ -48,7 +48,6 @@
                 확인할 문서
                 <span class="tabular-nums text-label-alternative">{{ count($notices) }}</span>
             </h1>
-            <x-menu-tabs menu="documents-review" label="확인할 문서" href="/documents/review" />
         </x-slot:title>
 
         <x-filter-bar

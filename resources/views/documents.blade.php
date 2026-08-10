@@ -69,7 +69,6 @@
 
         <x-slot:title>
             <h1 class="min-w-0 truncate text-title-2 font-bold leading-[39px] text-mono-black">문서 신청</h1>
-            <x-menu-tabs menu="documents" label="문서 신청" href="/documents" />
         </x-slot:title>
 
         {{-- 탭이 카드를 거른다. 카드에는 display 유틸을 두지 않는다 —
