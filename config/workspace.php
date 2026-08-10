@@ -55,28 +55,46 @@ return [
     // href 한 곳만 보면 등록 화면에서 메뉴가 꺼진다.
     //
     // 과정 관리도 마찬가지다. 목록(/courses)과 추가(/courses/new) 두 화면을 쓴다.
+    /*
+    | 워크스페이스 안쪽 메뉴.
+    |
+    | 원본 LNB 는 워크스페이스·재무 밑에 한 단을 더 둔다(전자결재 node 1002-106228 ·
+    | 재무 node 1002-93118). 화면이 늘면서 평평하게 열 개가 늘어서 있었는데 원본대로 접었다.
+    | 하위 항목은 아이콘 없이 글자만 나가고, 자식이 켜지면 부모도 같이 켜진다.
+    |
+    | match 는 하위 화면까지 포함한다 — /contents/new 에서 '컨텐츠 관리' 가 꺼지면 안 된다.
+    */
     'items' => [
-        ['label' => '홈', 'href' => '/workspace', 'icon' => 'home'],
-        ['label' => '문서 신청', 'href' => '/documents', 'icon' => 'document-text',
-            'match' => ['documents', 'documents/*']],
+        ['label' => '홈', 'href' => '/workspace', 'icon' => 'home',
+            'match' => ['workspace']],
+
+        // 전자결재. 원본은 여기에 확인할 문서·내 문서함·문서 관리자 메뉴·시스템 관리자
+        // 메뉴가 더 있다 — 화면이 생기면 같이 넣는다.
+        ['label' => '워크스페이스', 'href' => '/documents', 'icon' => 'document-text',
+            'match' => ['documents', 'documents/*'], 'children' => [
+                ['label' => '문서 신청', 'href' => '/documents',
+                    'match' => ['documents', 'documents/*']],
+            ]],
+
+        // ⚠️ 컨텐츠 관리·과정 관리는 묶지 않는다. 둘을 감쌀 이름이 원본에 없어서 부모를
+        //    '컨텐츠 관리' 로 두면 같은 이름이 두 번 나온다.
         ['label' => '컨텐츠 관리', 'href' => '/contents', 'icon' => 'inbox',
             'match' => ['contents', 'contents/*']],
         ['label' => '과정 관리', 'href' => '/courses', 'icon' => 'graduation',
             'match' => ['courses', 'courses/*']],
+
         ['label' => '화상조직도', 'href' => '/organization', 'icon' => 'company',
             'match' => ['organization', 'organization/*']],
         ['label' => '조직 관리', 'href' => '/orgs', 'icon' => 'persons',
             'match' => ['orgs', 'orgs/*']],
-        // ⚠️ 재무는 match 를 'finance' 하나로 둔다. 'finance/*' 까지 넣으면 예산 계정 관리에
-        //    있을 때 두 항목이 같이 켜진다.
+
         ['label' => '재무', 'href' => '/finance', 'icon' => 'coins',
-            'match' => ['finance']],
-        ['label' => '개인 비용 정산', 'href' => '/finance/personal', 'icon' => 'coins',
-            'match' => ['finance/personal', 'finance/personal/*']],
-        ['label' => '지출 결의서 정산', 'href' => '/finance/expense', 'icon' => 'document',
-            'match' => ['finance/expense', 'finance/expense/*']],
-        ['label' => '예산 계정 관리', 'href' => '/finance/budget', 'icon' => 'list-category',
-            'match' => ['finance/budget', 'finance/budget/*']],
+            'match' => ['finance', 'finance/*'], 'children' => [
+                ['label' => '지출 현황 대시보드', 'href' => '/finance', 'match' => ['finance']],
+                ['label' => '개인 비용 정산', 'href' => '/finance/personal', 'match' => ['finance/personal']],
+                ['label' => '지출 결의서 정산', 'href' => '/finance/expense', 'match' => ['finance/expense']],
+                ['label' => '예산 계정 관리', 'href' => '/finance/budget', 'match' => ['finance/budget']],
+            ]],
     ],
 
     // 설정 화면은 아직 없다. href 를 경로로 적으면 정적 배포에서 치환 대상이 없어

@@ -9,6 +9,8 @@
        workspace  : 워크스페이스 이름 (LNB 상단 굵은 글씨)
        domain     : 워크스페이스 도메인 (이름 아래 작은 글씨)
        items      : LNB 메뉴 [['label' => '홈', 'href' => '/', 'icon' => 'home', 'active' => true], ...]
+                    'children' => [...] 를 주면 그 아래 한 단을 더 그린다(아이콘 없이 글자만).
+                    자식이 켜져 있으면 부모도 같이 켜진다.
        footerItems: LNB 하단에 붙는 메뉴(설정 등). items 와 같은 모양.
        rail       : 워크스페이스 레일 심볼
                     [['icon' => 'compass', 'href' => '/community', 'active' => true, 'label' => '커뮤니티'], ...]
@@ -63,7 +65,29 @@
         return $entry;
     };
 
-    $items = array_map($resolveNav, array_values(array_filter((array) $items)));
+    /*
+     * 하위 메뉴 — 원본 LNB 는 워크스페이스·인사·재무 밑에 한 단을 더 둔다
+     * (전자결재 node 1002-106228 · 재무 node 1002-93118 실측).
+     * 하위 항목은 아이콘이 없고 들여쓰기도 없다. 부모와 같은 자리에 글자만 온다.
+     * 부모가 켜지는 조건에 자식 경로도 넣어야 한다 — 자식에 있을 때 부모가 꺼지면
+     * 어느 묶음에 있는지가 안 보인다.
+     */
+    $resolveTree = function (array $entry) use ($resolveNav): array {
+        $children = array_values(array_filter((array) ($entry['children'] ?? [])));
+
+        if ($children) {
+            $entry['children'] = array_map($resolveNav, $children);
+            $entry = $resolveNav($entry);
+            $entry['active'] = $entry['active']
+                || collect($entry['children'])->contains(fn ($c) => $c['active'] ?? false);
+
+            return $entry;
+        }
+
+        return $resolveNav($entry);
+    };
+
+    $items = array_map($resolveTree, array_values(array_filter((array) $items)));
     $footerItems = array_map($resolveNav, array_values(array_filter((array) $footerItems)));
     $rail = array_map($resolveNav, array_values(array_filter((array) $rail)));
 
@@ -166,16 +190,30 @@
                 @foreach ($items as $item)
                     @php
                         $active = (bool) ($item['active'] ?? false);
+                        $children = $item['children'] ?? [];
                     @endphp
 
-                    <a href="{{ $item['href'] ?? '#' }}"
-                       @if ($active) aria-current="page" @endif
-                       @class([$itemBase, $itemOn => $active, $itemOff => ! $active])>
-                        @if (! empty($item['icon']))
-                            <x-dynamic-component :component="'icon-' . $item['icon']" class="size-6 shrink-0" />
-                        @endif
-                        <span class="truncate pt-[2px] text-label-1 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
-                    </a>
+                    <div @class(['flex flex-col', 'gap-4' => (bool) $children])>
+                        <a href="{{ $item['href'] ?? '#' }}"
+                           @if ($active) aria-current="page" @endif
+                           @class([$itemBase, $itemOn => $active, $itemOff => ! $active])>
+                            @if (! empty($item['icon']))
+                                <x-dynamic-component :component="'icon-' . $item['icon']" class="size-6 shrink-0" />
+                            @endif
+                            <span class="truncate pt-[2px] text-label-1 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
+                        </a>
+
+                        {{-- 하위 메뉴 — 원본은 아이콘 없이 글자만, 들여쓰기는 없다.
+                             부모가 아이콘 자리(24 + 간격 12)를 쓰므로 그만큼 왼쪽 여백을 준다. --}}
+                        @foreach ($children as $child)
+                            @php $childActive = (bool) ($child['active'] ?? false); @endphp
+                            <a href="{{ $child['href'] ?? '#' }}"
+                               @if ($childActive) aria-current="page" @endif
+                               @class([$itemBase, 'pl-[46px]', $itemOn => $childActive, $itemOff => ! $childActive])>
+                                <span class="truncate pt-[2px] text-label-1 font-medium leading-5">{{ $child['label'] ?? '' }}</span>
+                            </a>
+                        @endforeach
+                    </div>
                 @endforeach
             </nav>
 
