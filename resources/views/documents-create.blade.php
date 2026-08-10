@@ -183,22 +183,43 @@
                             </div>
                         </div>
 
-                        {{-- 팝업에서 넣은 상세 내용이 여기 쌓인다 --}}
-                        <template x-for="(d, i) in details" :key="i">
-                            <div class="mt-4 flex min-w-0 items-start gap-4 rounded-md bg-background-alternative p-4">
-                                <div class="min-w-0 flex-1">
-                                    <p class="truncate text-label-1 font-bold leading-5 text-mono-black" x-text="d.memo"></p>
-                                    <p class="truncate pt-1 text-caption-1 leading-[18px] text-label-alternative"
-                                       x-text="[d.project, d.category, d.used_at].filter(Boolean).join(' · ')"></p>
-                                </div>
-                                <span class="shrink-0 text-label-1 font-medium leading-5 text-mono-black tabular-nums" x-text="d.amount"></span>
-                                <button type="button" @click="details.splice(i, 1)"
-                                        class="shrink-0 text-label-alternative transition-colors hover:text-label-normal focus:outline-none"
-                                        aria-label="상세 내용 삭제">
-                                    <x-icon-close class="size-[18px]" />
-                                </button>
-                            </div>
-                        </template>
+                        {{-- 팝업에서 넣은 상세 내용은 표로 쌓인다. 열은 팝업의 칸 그대로다 —
+                             넣을 때 본 이름과 쌓인 뒤 보는 이름이 달라지면 안 된다.
+                             카드(792)보다 넓어서 가로로 넘긴다. 하나도 없으면 표를 안 낸다. --}}
+                        <div class="pt-5" x-cloak x-bind:class="{ 'hidden': ! details.length }">
+                            <x-table min-width="900px">
+                                <x-table.head :columns="[
+                                    ['label' => '프로젝트', 'width' => '140px'],
+                                    ['label' => '사용 날짜', 'width' => '110px'],
+                                    ['label' => '비용 분류', 'width' => '120px'],
+                                    ['label' => '비용 내역', 'width' => '140px'],
+                                    ['label' => '사용 금액', 'align' => 'right', 'width' => '110px'],
+                                    ['label' => '증빙 거래처 이름', 'width' => '140px'],
+                                    ['label' => '상세 내역'],
+                                    ['label' => '', 'width' => '56px'],
+                                ]" />
+                                <tbody>
+                                    <template x-for="(d, i) in details" :key="i">
+                                        <x-table.row>
+                                            <x-table.cell tone="muted" nowrap><span x-text="d.project"></span></x-table.cell>
+                                            <x-table.cell tone="muted" nowrap><span class="tabular-nums" x-text="d.used_at"></span></x-table.cell>
+                                            <x-table.cell tone="muted" nowrap><span x-text="d.category"></span></x-table.cell>
+                                            <x-table.cell tone="muted" nowrap><span x-text="d.account"></span></x-table.cell>
+                                            <x-table.cell tone="strong" align="right" nowrap><span class="tabular-nums" x-text="d.amount"></span></x-table.cell>
+                                            <x-table.cell tone="muted" nowrap><span x-text="d.vendor"></span></x-table.cell>
+                                            <x-table.cell tone="muted"><span x-text="d.memo"></span></x-table.cell>
+                                            <x-table.cell align="right" nowrap>
+                                                <button type="button" @click="details.splice(i, 1)"
+                                                        class="text-label-alternative transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                                                        aria-label="상세 내용 삭제">
+                                                    <x-icon-close class="size-[18px]" />
+                                                </button>
+                                            </x-table.cell>
+                                        </x-table.row>
+                                    </template>
+                                </tbody>
+                            </x-table>
+                        </div>
 
                         <button type="button" class="{{ $addRow }} mt-6"
                                 @click="$dispatch('open-modal', 'detail-add')">
