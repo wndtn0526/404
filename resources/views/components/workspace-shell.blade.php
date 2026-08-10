@@ -28,7 +28,8 @@
 
      원본 실측 — LNB 240 · 레일 30px 타일(top 20, gap 20) · 구분선 x54 흰색 5%
                  메뉴 항목 left 67 · w 161 · pl 10 · py 6 · 반경 6 · 아이콘 20 · 간격 12
-                 항목 높이 32 · 사이 0 · 하위 항목 28 (GPRO 화면 LNB 실측)
+                 항목 높이 32 · 하위 항목 28 (GPRO 화면 LNB 실측)
+                 ⚠️ 항목 사이만 원본 0 이 아니라 4 다 — 0 은 실화면에서 너무 붙어 보인다
                  GNB 56 · 아이콘 24 · 프로필 32 · 본문 좌측 320 · 우측 여백 80 --}}
 @props([
     'workspace' => null,
@@ -187,18 +188,19 @@
             @endif
 
             {{-- 주요 메뉴 — 이름/도메인 블록이 53 까지 차지하므로 pt 17.
-                 ⚠️ 항목 사이는 0 이다. GPRO 화면들의 LNB 는 항목이 32 이고 피치도 32 다
-                    (전자결재 node 1002-106228: y 72·104·136·168… · 재무 node 1002-93118 도 같다).
-                    처음엔 워크스페이스 원본(1:4530)의 gap 16 을 그대로 뒀는데, 화면이 늘면서
-                    메뉴가 너무 벌어졌다. 항목 안쪽 여백(py 6)만으로 32 가 나온다. --}}
-            <nav class="flex flex-col pt-[17px]" aria-label="주요 메뉴">
+                 ⚠️ 항목 사이 4 는 원본과 다르다. GPRO 화면들의 LNB 는 항목 32 에 피치도 32,
+                    즉 사이가 0 이다(전자결재 node 1002-106228 · 재무 node 1002-93118).
+                    0 으로 두니 실화면에서 너무 붙어 보여 4 만 띄웠다. 항목 높이(32/28)는
+                    원본 그대로다. 원본대로 되돌릴 거면 이 gap-1 을 빼면 된다.
+                    (처음엔 워크스페이스 원본 1:4530 의 gap 16 이었는데 그건 너무 벌어졌다.) --}}
+            <nav class="flex flex-col gap-1 pt-[17px]" aria-label="주요 메뉴">
                 @foreach ($items as $item)
                     @php
                         $active = (bool) ($item['active'] ?? false);
                         $children = $item['children'] ?? [];
                     @endphp
 
-                    <div class="flex flex-col">
+                    <div class="flex flex-col gap-1">
                         <a href="{{ $item['href'] ?? '#' }}"
                            @if ($active) aria-current="page" @endif
                            @class([$itemBase, 'py-1.5', $itemOn => $active, $itemOff => ! $active])>
@@ -225,7 +227,7 @@
 
             {{-- 하단 메뉴 — 원본 bottom 17 --}}
             @if ($footerItems)
-                <nav class="mt-auto flex flex-col pb-[17px]" aria-label="보조 메뉴">
+                <nav class="mt-auto flex flex-col gap-1 pb-[17px]" aria-label="보조 메뉴">
                     @foreach ($footerItems as $item)
                         @php
                             $active = (bool) ($item['active'] ?? false);
