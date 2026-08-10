@@ -604,37 +604,43 @@
                 <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
                     <x-card>
                         <h3 class="pb-4 text-headline-2 font-semibold text-label-normal">꺾은선</h3>
-                        <div class="relative">
-                            <x-chart.line
-                                :labels="$sgMonths"
-                                :values="[4200, 5600, 5100, 7300, 8800, 8200]"
-                                :max="10000"
-                                :highlight="4"
-                                :y-labels="[['at' => 1.0, 'text' => '10,000k'], ['at' => 0.5, 'text' => '5,000k']]" />
-                            <x-chart.tooltip title="5월" label="전체" value="8,800" class="absolute left-[62%] top-[6%]" />
-                        </div>
+                        <p class="pb-3 text-label-2 text-label-alternative">달 칸에 마우스를 올리면 띠와 말풍선이 뜬다.</p>
+                        <x-chart.line
+                            :labels="$sgMonths"
+                            :values="[4200, 5600, 5100, 7300, 8800, 8200]"
+                            :max="10000"
+                            tip-label="전체" unit="k"
+                            :y-labels="[['at' => 1.0, 'text' => '10,000k'], ['at' => 0.5, 'text' => '5,000k']]" />
                     </x-card>
 
                     <x-card>
                         <h3 class="pb-4 text-headline-2 font-semibold text-label-normal">누적 막대</h3>
+                        <p class="pb-3 text-label-2 text-label-alternative">조각 하나에 마우스를 올리면 그 조각의 비율과 값이 뜬다.</p>
+                        @php
+                            $sgSeg = fn (int $a, int $b) => [
+                                ['label' => '콘텐츠 제작', 'value' => $a, 'class' => 'text-cool-gray-800'],
+                                ['label' => '강사료', 'value' => $b, 'class' => 'text-purple-900'],
+                            ];
+                        @endphp
                         <x-chart.bars
                             :labels="$sgMonths"
                             :groups="[
-                                [['value' => 0, 'class' => 'text-warm-gray-200']],
-                                [['value' => 900, 'class' => 'text-cool-gray-800'], ['value' => 1200, 'class' => 'text-purple-900']],
-                                [['value' => 1400, 'class' => 'text-cool-gray-800'], ['value' => 1800, 'class' => 'text-purple-900']],
-                                [['value' => 1100, 'class' => 'text-cool-gray-800'], ['value' => 1500, 'class' => 'text-purple-900']],
-                                [['value' => 2100, 'class' => 'text-cool-gray-800'], ['value' => 2400, 'class' => 'text-purple-900']],
+                                [['label' => '', 'value' => 0, 'class' => 'text-warm-gray-200']],
+                                $sgSeg(900, 1200),
+                                $sgSeg(1400, 1800),
+                                $sgSeg(1100, 1500),
+                                $sgSeg(2100, 2400),
                                 [],
                             ]"
-                            :max="10000"
+                            :max="10000" unit="k"
                             :y-labels="[['at' => 0.5, 'text' => '5,000k']]" />
                     </x-card>
 
                     <x-card>
                         <h3 class="pb-4 text-headline-2 font-semibold text-label-normal">도넛</h3>
+                        <p class="pb-3 text-label-2 text-label-alternative">조각에 마우스를 올리면 나머지가 옅어지고 말풍선이 뜬다.</p>
                         <div class="flex justify-center">
-                            <x-chart.donut :slices="[
+                            <x-chart.donut :amounts="[8000, 5300, 3900, 2900, 2400, 1700]" unit="k" :slices="[
                                 ['label' => '콘텐츠 제작', 'value' => 33, 'class' => 'text-cool-gray-800'],
                                 ['label' => '강사료', 'value' => 22, 'class' => 'text-purple-900'],
                                 ['label' => '시스템 운영', 'value' => 16, 'class' => 'text-deep-blue-900'],
@@ -647,6 +653,7 @@
 
                     <x-card>
                         <h3 class="pb-4 text-headline-2 font-semibold text-label-normal">말풍선</h3>
+                        <p class="pb-3 text-label-2 text-label-alternative">차트가 호버 때 띄우는 것과 같은 조각이다.</p>
                         <div class="flex items-start gap-4">
                             <x-chart.tooltip title="2021.09" label="전체" value="130,452" />
                             <x-chart.tooltip title="강사료 (33%)" value="3,000" />

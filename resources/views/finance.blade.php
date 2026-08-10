@@ -13,7 +13,8 @@
      ⚠️ 값은 전부 예시다. DB 에서 오지 않는다.
      ⚠️ 필터·초기화·정산하기는 아직 동작하지 않는다. 정산은 상태를 바꾸는 요청이므로
         붙일 때 POST + CSRF 로 보내고 권한은 Policy 에서 본다.
-     ⚠️ 말풍선은 원본에서 마우스를 올린 지점에 뜬다. 정적 화면이라 강조한 달 옆에 세워 뒀다. --}}
+     말풍선은 마우스를 올린 지점에 뜬다 — 꺾은선은 달 칸, 막대는 조각 하나, 도넛은 조각 하나가
+     기준이다. 원본이 그려 둔 말풍선이 그 호버 상태를 그린 것이다. --}}
 @php
     /*
      * 비용 항목 여섯. 색은 원본 범례(node 1002-88919)에서 그대로 가져왔다 —
@@ -43,12 +44,16 @@
     $stack = function (array $values) use ($categories) {
         $out = [];
         foreach ($values as $i => $v) {
-            $out[] = ['value' => $v, 'class' => $categories[$i]['class']];
+            $out[] = [
+                'label' => $categories[$i]['label'],
+                'value' => $v,
+                'class' => $categories[$i]['class'],
+            ];
         }
 
         return $out;
     };
-    $empty = [['value' => 0, 'class' => 'text-warm-gray-200']];
+    $empty = [['label' => '', 'value' => 0, 'class' => 'text-warm-gray-200']];
 
     $vendorBars = [
         $empty, $empty, $empty, $empty, $empty,
@@ -69,7 +74,8 @@
     $barMax = 25000;
     $barYLabels = [['at' => 0.4, 'text' => '10,000k']];
 
-    // 도넛 — 비율. 원본 말풍선이 33% 를 가리킨다.
+    // 도넛 — 비율. 말풍선에는 금액을 보인다(원본이 '게임 제작 (33%) / 8,000' 이다).
+    $ratioAmounts = [8000, 5300, 3900, 2900, 2400, 1700];
     $ratio = [
         ['label' => '콘텐츠 제작', 'value' => 33, 'class' => 'text-cool-gray-800'],
         ['label' => '강사료', 'value' => 22, 'class' => 'text-purple-900'],
@@ -157,13 +163,9 @@
                     </span>
                 </div>
 
-                <div class="relative pt-[18px]">
+                <div class="pt-[18px]">
                     <x-chart.line :labels="$months" :values="$trend" :max="$trendMax"
-                                  :highlight="8" :y-labels="$trendYLabels" />
-
-                    {{-- 원본 말풍선은 9월 점 오른쪽에 선다 --}}
-                    <x-chart.tooltip title="2021.09" label="전체" value="130,452"
-                                     class="absolute left-[72%] top-[24%]" />
+                                  :y-labels="$trendYLabels" tip-label="전체" unit="k" />
                 </div>
             </section>
 
@@ -174,10 +176,8 @@
                     <x-chart.legend :items="$categories" class="pt-1.5" />
                 </div>
 
-                <div class="relative flex min-w-0 items-center justify-center pt-6">
-                    <x-chart.donut :slices="$ratio" />
-                    <x-chart.tooltip title="콘텐츠 제작 (33%)" value="8,000"
-                                     class="absolute left-[calc(50%+72px)] top-[26%]" />
+                <div class="flex min-w-0 items-center justify-center pt-6">
+                    <x-chart.donut :slices="$ratio" :amounts="$ratioAmounts" unit="k" />
                 </div>
 
                 <p class="pt-4 text-right text-caption-1 leading-[17px] text-label-alternative">선택된 날짜 2021년 9월</p>
@@ -196,10 +196,9 @@
                     <x-chart.legend :items="$categories" class="pt-1.5" />
                 </div>
 
-                <div class="relative pt-[18px]">
-                    <x-chart.bars :labels="$months" :groups="$vendorBars" :max="$barMax" :y-labels="$barYLabels" />
-                    <x-chart.tooltip title="강사료 (33%)" value="3,000"
-                                     class="absolute left-[76%] top-[42%]" />
+                <div class="pt-[18px]">
+                    <x-chart.bars :labels="$months" :groups="$vendorBars" :max="$barMax"
+                                  :y-labels="$barYLabels" unit="k" />
                 </div>
             </section>
 
@@ -217,10 +216,9 @@
                     <x-chart.legend :items="array_slice($categories, 0, 3)" class="pt-1.5" />
                 </div>
 
-                <div class="relative pt-[18px]">
-                    <x-chart.bars :labels="$months" :groups="$personalBars" :max="$barMax" :y-labels="$barYLabels" />
-                    <x-chart.tooltip title="강사료 (60%)" value="5,000"
-                                     class="absolute left-[76%] top-[52%]" />
+                <div class="pt-[18px]">
+                    <x-chart.bars :labels="$months" :groups="$personalBars" :max="$barMax"
+                                  :y-labels="$barYLabels" unit="k" />
                 </div>
             </section>
         </div>

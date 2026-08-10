@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>지출 현황 대시보드 · 전자결재</title>
 
-        <link rel="preload" as="style" href="./build/assets/app-DwJ9Q01p.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-DwJ9Q01p.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="preload" as="style" href="./build/assets/app-DBPKqXtz.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-DBPKqXtz.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
     <meta name="robots" content="noindex">
 </head>
@@ -415,7 +415,7 @@
      @keydown.escape.stop="open = false">
     
     <div class="relative" @click.outside="open = false; panel = null">
-        <button type="button" id="date-6a793ee82ea70" x-ref="trigger" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog"
+        <button type="button" id="date-6a7943d66dd35" x-ref="trigger" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog"
                 class="flex w-full items-center h-9 gap-1.5 rounded-md pl-3 pr-2.5 border bg-background-normal text-left transition-colors duration-150 focus:outline-none focus-visible:ring-2 border-line-solid-normal focus-visible:border-primary focus-visible:ring-primary/30">
             <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M9.39998 1.7501C9.39998 1.25304 8.99703 0.850098 8.49998 0.850098C8.00292 0.850098 7.59998 1.25304 7.59998 1.7501V2.84988H6.9148C6.38495 2.84986 5.93375 2.84985 5.56333 2.88012C5.17417 2.91191 4.79558 2.98155 4.43364 3.16596C3.88798 3.44399 3.44433 3.88764 3.1663 4.43331C2.98189 4.79524 2.91226 5.17383 2.88046 5.563C2.8502 5.93341 2.85021 6.38456 2.85022 6.91439V17.0853C2.85021 17.6151 2.8502 18.0664 2.88046 18.4368C2.91226 18.8259 2.98189 19.2045 3.1663 19.5665C3.44433 20.1121 3.88798 20.5558 4.43364 20.8338C4.79558 21.0182 5.17417 21.0878 5.56333 21.1196C5.93374 21.1499 6.38488 21.1499 6.91471 21.1499H17.0856C17.6154 21.1499 18.0666 21.1499 18.437 21.1196C18.8262 21.0878 19.2048 21.0182 19.5667 20.8338C20.1124 20.5558 20.556 20.1121 20.8341 19.5665C21.0185 19.2045 21.0881 18.8259 21.1199 18.4368C21.1502 18.0664 21.1502 17.6152 21.1502 17.0854V6.91447C21.1502 6.38465 21.1502 5.9334 21.1199 5.563C21.0881 5.17383 21.0185 4.79524 20.8341 4.43331C20.556 3.88764 20.1124 3.44399 19.5667 3.16596C19.2048 2.98155 18.8262 2.91191 18.437 2.88012C18.0666 2.84985 17.6155 2.84986 17.0856 2.84988H16.4V1.75012C16.4 1.25307 15.997 0.850122 15.5 0.850122C15.0029 0.850122 14.6 1.25307 14.6 1.75012V2.84988H9.39998V1.7501ZM14.6 5.75012V4.64987H9.39998V5.7501C9.39998 6.24715 8.99703 6.6501 8.49998 6.6501C8.00292 6.6501 7.59998 6.24715 7.59998 5.7501V4.64987H6.55023C5.73567 4.64987 5.54184 4.66098 5.41032 4.70371C5.07543 4.81252 4.81288 5.07507 4.70407 5.40996C4.66134 5.54148 4.65024 5.73531 4.65024 6.54987V8.59985H19.3502V6.54987C19.3502 5.73531 19.3391 5.54148 19.2963 5.40996C19.1875 5.07507 18.925 4.81252 18.5901 4.70371C18.4586 4.66098 18.2647 4.64987 17.4502 4.64987H16.4V5.75012C16.4 6.24718 15.997 6.65012 15.5 6.65012C15.0029 6.65012 14.6 6.24718 14.6 5.75012ZM19.3502 10.3999H4.65024V17.4499C4.65024 18.2644 4.66134 18.4583 4.70407 18.5898C4.81288 18.9247 5.07543 19.1872 5.41032 19.296C5.54184 19.3388 5.73567 19.3499 6.55023 19.3499H17.4502C18.2647 19.3499 18.4586 19.3388 18.5901 19.296C18.925 19.1872 19.1875 18.9247 19.2963 18.5898C19.3391 18.4583 19.3502 18.2644 19.3502 17.4499V10.3999Z" fill="currentColor" fill-opacity="0.88"/>
@@ -521,7 +521,7 @@
      @keydown.escape.stop="open = false">
     
     <div class="relative" @click.outside="open = false; panel = null">
-        <button type="button" id="date-6a793ee82ec75" x-ref="trigger" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog"
+        <button type="button" id="date-6a7943d66df4c" x-ref="trigger" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog"
                 class="flex w-full items-center h-9 gap-1.5 rounded-md pl-3 pr-2.5 border bg-background-normal text-left transition-colors duration-150 focus:outline-none focus-visible:ring-2 border-line-solid-normal focus-visible:border-primary focus-visible:ring-primary/30">
             <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M9.39998 1.7501C9.39998 1.25304 8.99703 0.850098 8.49998 0.850098C8.00292 0.850098 7.59998 1.25304 7.59998 1.7501V2.84988H6.9148C6.38495 2.84986 5.93375 2.84985 5.56333 2.88012C5.17417 2.91191 4.79558 2.98155 4.43364 3.16596C3.88798 3.44399 3.44433 3.88764 3.1663 4.43331C2.98189 4.79524 2.91226 5.17383 2.88046 5.563C2.8502 5.93341 2.85021 6.38456 2.85022 6.91439V17.0853C2.85021 17.6151 2.8502 18.0664 2.88046 18.4368C2.91226 18.8259 2.98189 19.2045 3.1663 19.5665C3.44433 20.1121 3.88798 20.5558 4.43364 20.8338C4.79558 21.0182 5.17417 21.0878 5.56333 21.1196C5.93374 21.1499 6.38488 21.1499 6.91471 21.1499H17.0856C17.6154 21.1499 18.0666 21.1499 18.437 21.1196C18.8262 21.0878 19.2048 21.0182 19.5667 20.8338C20.1124 20.5558 20.556 20.1121 20.8341 19.5665C21.0185 19.2045 21.0881 18.8259 21.1199 18.4368C21.1502 18.0664 21.1502 17.6152 21.1502 17.0854V6.91447C21.1502 6.38465 21.1502 5.9334 21.1199 5.563C21.0881 5.17383 21.0185 4.79524 20.8341 4.43331C20.556 3.88764 20.1124 3.44399 19.5667 3.16596C19.2048 2.98155 18.8262 2.91191 18.437 2.88012C18.0666 2.84985 17.6155 2.84986 17.0856 2.84988H16.4V1.75012C16.4 1.25307 15.997 0.850122 15.5 0.850122C15.0029 0.850122 14.6 1.25307 14.6 1.75012V2.84988H9.39998V1.7501ZM14.6 5.75012V4.64987H9.39998V5.7501C9.39998 6.24715 8.99703 6.6501 8.49998 6.6501C8.00292 6.6501 7.59998 6.24715 7.59998 5.7501V4.64987H6.55023C5.73567 4.64987 5.54184 4.66098 5.41032 4.70371C5.07543 4.81252 4.81288 5.07507 4.70407 5.40996C4.66134 5.54148 4.65024 5.73531 4.65024 6.54987V8.59985H19.3502V6.54987C19.3502 5.73531 19.3391 5.54148 19.2963 5.40996C19.1875 5.07507 18.925 4.81252 18.5901 4.70371C18.4586 4.66098 18.2647 4.64987 17.4502 4.64987H16.4V5.75012C16.4 6.24718 15.997 6.65012 15.5 6.65012C15.0029 6.65012 14.6 6.24718 14.6 5.75012ZM19.3502 10.3999H4.65024V17.4499C4.65024 18.2644 4.66134 18.4583 4.70407 18.5898C4.81288 18.9247 5.07543 19.1872 5.41032 19.296C5.54184 19.3388 5.73567 19.3499 6.55023 19.3499H17.4502C18.2647 19.3499 18.4586 19.3388 18.5901 19.296C18.925 19.1872 19.1875 18.9247 19.2963 18.5898C19.3391 18.4583 19.3502 18.2644 19.3502 17.4499V10.3999Z" fill="currentColor" fill-opacity="0.88"/>
@@ -705,62 +705,129 @@
                     </span>
                 </div>
 
-                <div class="relative pt-[18px]">
-                    <div class="relative pl-[51px]">
+                <div class="pt-[18px]">
+                    <div class="relative pl-[51px]" x-data="{ hover: null, tip: null }">
     
             <span class="absolute left-0 w-[41px] text-right text-caption-1 leading-4 text-label-alternative tabular-nums"
               style="bottom: calc(100% - 8px)">25,000k</span>
             <span class="absolute left-0 w-[41px] text-right text-caption-1 leading-4 text-label-alternative tabular-nums"
               style="bottom: calc(40% - 8px)">10,000k</span>
     
-    <svg class="block h-auto w-full" viewBox="0 0 637 200" fill="none" aria-hidden="true">
-        
-                    <rect x="424.67" y="0" width="53.08" height="200"
-                  class="fill-warm-gray-50" />
-        
-        
-                    <line x1="0" y1="0" x2="0" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="53.08" y1="0" x2="53.08" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="106.17" y1="0" x2="106.17" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="159.25" y1="0" x2="159.25" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="212.33" y1="0" x2="212.33" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="265.42" y1="0" x2="265.42" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="318.5" y1="0" x2="318.5" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="371.58" y1="0" x2="371.58" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="424.67" y1="0" x2="424.67" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="477.75" y1="0" x2="477.75" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="530.83" y1="0" x2="530.83" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="583.92" y1="0" x2="583.92" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="637" y1="0" x2="637" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-        
-        
-                    <line x1="0" y1="200" x2="637" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="0" y1="120" x2="637" y2="120"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="0" y1="0" x2="637" y2="0"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-        
-        <polyline points="26.54,166.4 79.63,155.2 132.71,159.2 185.79,141.6 238.88,129.6 291.96,134.4 345.04,108 398.13,89.6 451.21,71.2" class="stroke-warm-gray-800" stroke-width="1.5"
+    
+    <div class="relative">
+        <svg class="block h-auto w-full" viewBox="0 0 637 200" fill="none" aria-hidden="true">
+            
+            <rect x="0" y="0" width="53.08" height="200" class="fill-warm-gray-50"
+                  x-bind:x="hover === null ? -1000 : hover * 53.0833" />
+
+            
+                            <line x1="0" y1="0" x2="0" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="53.08" y1="0" x2="53.08" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="106.17" y1="0" x2="106.17" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="159.25" y1="0" x2="159.25" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="212.33" y1="0" x2="212.33" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="265.42" y1="0" x2="265.42" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="318.5" y1="0" x2="318.5" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="371.58" y1="0" x2="371.58" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="424.67" y1="0" x2="424.67" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="477.75" y1="0" x2="477.75" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="530.83" y1="0" x2="530.83" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="583.92" y1="0" x2="583.92" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="637" y1="0" x2="637" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+            
+            
+                            <line x1="0" y1="200" x2="637" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="0" y1="120" x2="637" y2="120"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="0" y1="0" x2="637" y2="0"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+            
+            <polyline points="26.54,166.4 79.63,155.2 132.71,159.2 185.79,141.6 238.88,129.6 291.96,134.4 345.04,108 398.13,89.6 451.21,71.2" class="stroke-warm-gray-800" stroke-width="1.5"
                   stroke-linejoin="round" stroke-linecap="round" />
     
-            
-        <circle cx="451.21" cy="71.2" r="8" class="fill-warm-gray-800/15" />
-        <circle cx="451.21" cy="71.2" r="4" class="fill-warm-gray-800" />
-    </svg>
+    
+    <g x-bind:class="{ 'hidden': tip === null }">
+        <circle cx="0" cy="0" r="8" class="fill-warm-gray-800/15"
+                x-bind:cx="tip ? tip.x / 100 * 637 : 0" x-bind:cy="tip ? tip.y / 100 * 200 : 0" />
+        <circle cx="0" cy="0" r="4" class="fill-warm-gray-800"
+                x-bind:cx="tip ? tip.x / 100 * 637 : 0" x-bind:cy="tip ? tip.y / 100 * 200 : 0" />
+    </g>
+
+    
+            <rect x="0" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 0; tip = JSON.parse('{\u0022title\u0022:\u00221월\u0022,\u0022label\u0022:\u0022전체\u0022,\u0022value\u0022:\u00224,200k\u0022,\u0022x\u0022:4.166,\u0022y\u0022:83.2}')"
+              @mouseleave="hover = null; tip = null" />
+            <rect x="53.08" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 1; tip = JSON.parse('{\u0022title\u0022:\u00222월\u0022,\u0022label\u0022:\u0022전체\u0022,\u0022value\u0022:\u00225,600k\u0022,\u0022x\u0022:12.501,\u0022y\u0022:77.6}')"
+              @mouseleave="hover = null; tip = null" />
+            <rect x="106.17" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 2; tip = JSON.parse('{\u0022title\u0022:\u00223월\u0022,\u0022label\u0022:\u0022전체\u0022,\u0022value\u0022:\u00225,100k\u0022,\u0022x\u0022:20.834,\u0022y\u0022:79.6}')"
+              @mouseleave="hover = null; tip = null" />
+            <rect x="159.25" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 3; tip = JSON.parse('{\u0022title\u0022:\u00224월\u0022,\u0022label\u0022:\u0022전체\u0022,\u0022value\u0022:\u00227,300k\u0022,\u0022x\u0022:29.166,\u0022y\u0022:70.8}')"
+              @mouseleave="hover = null; tip = null" />
+            <rect x="212.33" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 4; tip = JSON.parse('{\u0022title\u0022:\u00225월\u0022,\u0022label\u0022:\u0022전체\u0022,\u0022value\u0022:\u00228,800k\u0022,\u0022x\u0022:37.501,\u0022y\u0022:64.8}')"
+              @mouseleave="hover = null; tip = null" />
+            <rect x="265.42" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u00226월\u0022,\u0022label\u0022:\u0022전체\u0022,\u0022value\u0022:\u00228,200k\u0022,\u0022x\u0022:45.834,\u0022y\u0022:67.2}')"
+              @mouseleave="hover = null; tip = null" />
+            <rect x="318.5" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u00227월\u0022,\u0022label\u0022:\u0022전체\u0022,\u0022value\u0022:\u002211,500k\u0022,\u0022x\u0022:54.166,\u0022y\u0022:54}')"
+              @mouseleave="hover = null; tip = null" />
+            <rect x="371.58" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u00228월\u0022,\u0022label\u0022:\u0022전체\u0022,\u0022value\u0022:\u002213,800k\u0022,\u0022x\u0022:62.501,\u0022y\u0022:44.8}')"
+              @mouseleave="hover = null; tip = null" />
+            <rect x="424.67" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u00229월\u0022,\u0022label\u0022:\u0022전체\u0022,\u0022value\u0022:\u002216,100k\u0022,\u0022x\u0022:70.834,\u0022y\u0022:35.6}')"
+              @mouseleave="hover = null; tip = null" />
+            <rect x="477.75" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 9; tip = null"
+              @mouseleave="hover = null; tip = null" />
+            <rect x="530.83" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 10; tip = null"
+              @mouseleave="hover = null; tip = null" />
+            <rect x="583.92" y="0" width="53.08" height="200"
+              fill="transparent"
+              @mouseenter="hover = 11; tip = null"
+              @mouseleave="hover = null; tip = null" />
+        </svg>
+
+        
+        
+        <div class="pointer-events-none rounded-lg bg-warm-gray-800 p-2.5 shadow-elevation-lg absolute z-10 -translate-y-1/2" x-cloak="x-cloak" x-bind:class="tip ? 'block' : 'hidden'" x-bind:style="tip ? `left:${tip.x}%; top:${tip.y}%; transform:translate(${tip.x > 70 ? 'calc(-100% - 12px)' : '12px'}, -50%)` : ''">
+            <p class="whitespace-nowrap text-caption-2 leading-4 text-white tabular-nums" x-text="tip?.title"></p>
+            <p class="whitespace-nowrap pt-1 text-caption-2 leading-[17px] text-white">
+                <span x-bind:class="{ 'hidden': ! tip?.label }" x-text="(tip?.label ?? '') + ' '"></span><span
+                    class="font-bold tabular-nums" x-text="tip?.value"></span>
+            </p>
+    </div>
+    </div>
 
     
     <div class="flex pt-2">
@@ -777,14 +844,6 @@
                     <span class="min-w-0 flex-1 text-center text-caption-1 leading-[17px] text-label-alternative">11월</span>
                     <span class="min-w-0 flex-1 text-center text-caption-1 leading-[17px] text-label-alternative">12월</span>
             </div>
-</div>
-
-                    
-                    <div class="pointer-events-none rounded-lg bg-warm-gray-800 p-2.5 shadow-elevation-lg absolute left-[72%] top-[24%]">
-            <p class="whitespace-nowrap text-caption-2 leading-4 text-white tabular-nums">2021.09</p>
-        <p class="whitespace-nowrap pt-1 text-caption-2 leading-[17px] text-white">
-        <span>전체 </span>        <span class="font-bold tabular-nums">130,452</span>
-    </p>
 </div>
                 </div>
             </section>
@@ -821,44 +880,66 @@
     </ul>
                 </div>
 
-                <div class="relative flex min-w-0 items-center justify-center pt-6">
-                    <svg class="block size-40" viewBox="0 0 160 160" role="img" aria-label="비용 비율">
-                    <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
-                stroke-dasharray="130.63 265.21"
-                stroke-dashoffset="-0"
-                transform="rotate(-90 80 80)"
-                class="text-cool-gray-800" />
-                            <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
-                stroke-dasharray="87.08 308.76"
-                stroke-dashoffset="-130.63"
-                transform="rotate(-90 80 80)"
-                class="text-purple-900" />
-                            <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
-                stroke-dasharray="63.33 332.51"
-                stroke-dashoffset="-217.71"
-                transform="rotate(-90 80 80)"
-                class="text-deep-blue-900" />
-                            <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
-                stroke-dasharray="47.5 348.34"
-                stroke-dashoffset="-281.05"
-                transform="rotate(-90 80 80)"
-                class="text-blue-900" />
-                            <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
-                stroke-dasharray="39.58 356.26"
-                stroke-dashoffset="-328.55"
-                transform="rotate(-90 80 80)"
-                class="text-bluegreen-900" />
-                            <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
-                stroke-dasharray="27.71 368.13"
-                stroke-dashoffset="-368.13"
-                transform="rotate(-90 80 80)"
-                class="text-green-800" />
-            </svg>
-                    <div class="pointer-events-none rounded-lg bg-warm-gray-800 p-2.5 shadow-elevation-lg absolute left-[calc(50%+72px)] top-[26%]">
-            <p class="whitespace-nowrap text-caption-2 leading-4 text-white tabular-nums">콘텐츠 제작 (33%)</p>
-        <p class="whitespace-nowrap pt-1 text-caption-2 leading-[17px] text-white">
-                <span class="font-bold tabular-nums">8,000</span>
-    </p>
+                <div class="flex min-w-0 items-center justify-center pt-6">
+                    <div class="relative inline-block" x-data="{ tip: null }">
+    <svg class="block size-40" viewBox="0 0 160 160" role="img" aria-label="비용 비율">
+                                <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
+                    stroke-dasharray="130.63 265.21"
+                    stroke-dashoffset="-0"
+                    transform="rotate(-90 80 80)"
+                    class="text-cool-gray-800 transition-opacity"
+                    x-bind:class="tip && tip.title !== '콘텐츠 제작 (33%)' ? 'opacity-40' : ''"
+                    @mouseenter="tip = JSON.parse('{\u0022title\u0022:\u0022콘텐츠 제작 (33%)\u0022,\u0022value\u0022:\u00228,000k\u0022}')"
+                    @mouseleave="tip = null" />
+                                            <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
+                    stroke-dasharray="87.08 308.76"
+                    stroke-dashoffset="-130.63"
+                    transform="rotate(-90 80 80)"
+                    class="text-purple-900 transition-opacity"
+                    x-bind:class="tip && tip.title !== '강사료 (22%)' ? 'opacity-40' : ''"
+                    @mouseenter="tip = JSON.parse('{\u0022title\u0022:\u0022강사료 (22%)\u0022,\u0022value\u0022:\u00225,300k\u0022}')"
+                    @mouseleave="tip = null" />
+                                            <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
+                    stroke-dasharray="63.33 332.51"
+                    stroke-dashoffset="-217.71"
+                    transform="rotate(-90 80 80)"
+                    class="text-deep-blue-900 transition-opacity"
+                    x-bind:class="tip && tip.title !== '시스템 운영 (16%)' ? 'opacity-40' : ''"
+                    @mouseenter="tip = JSON.parse('{\u0022title\u0022:\u0022시스템 운영 (16%)\u0022,\u0022value\u0022:\u00223,900k\u0022}')"
+                    @mouseleave="tip = null" />
+                                            <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
+                    stroke-dasharray="47.5 348.34"
+                    stroke-dashoffset="-281.05"
+                    transform="rotate(-90 80 80)"
+                    class="text-blue-900 transition-opacity"
+                    x-bind:class="tip && tip.title !== '마케팅 (12%)' ? 'opacity-40' : ''"
+                    @mouseenter="tip = JSON.parse('{\u0022title\u0022:\u0022마케팅 (12%)\u0022,\u0022value\u0022:\u00222,900k\u0022}')"
+                    @mouseleave="tip = null" />
+                                            <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
+                    stroke-dasharray="39.58 356.26"
+                    stroke-dashoffset="-328.55"
+                    transform="rotate(-90 80 80)"
+                    class="text-bluegreen-900 transition-opacity"
+                    x-bind:class="tip && tip.title !== '사무실 (10%)' ? 'opacity-40' : ''"
+                    @mouseenter="tip = JSON.parse('{\u0022title\u0022:\u0022사무실 (10%)\u0022,\u0022value\u0022:\u00222,400k\u0022}')"
+                    @mouseleave="tip = null" />
+                                            <circle cx="80" cy="80" r="63" fill="none" stroke="currentColor" stroke-width="34"
+                    stroke-dasharray="27.71 368.13"
+                    stroke-dashoffset="-368.13"
+                    transform="rotate(-90 80 80)"
+                    class="text-green-800 transition-opacity"
+                    x-bind:class="tip && tip.title !== '외주 용역 (7%)' ? 'opacity-40' : ''"
+                    @mouseenter="tip = JSON.parse('{\u0022title\u0022:\u0022외주 용역 (7%)\u0022,\u0022value\u0022:\u00221,700k\u0022}')"
+                    @mouseleave="tip = null" />
+                        </svg>
+
+    
+    
+    <div class="pointer-events-none rounded-lg bg-warm-gray-800 p-2.5 shadow-elevation-lg absolute left-[calc(100%-8px)] top-1/4 z-10 -translate-y-1/2" x-cloak="x-cloak" x-bind:class="tip ? 'block' : 'hidden'">
+            <p class="whitespace-nowrap text-caption-2 leading-4 text-white" x-text="tip?.title"></p>
+        <p class="whitespace-nowrap pt-1 text-caption-2 font-bold leading-[17px] text-white tabular-nums"
+           x-text="tip?.value"></p>
+    </div>
 </div>
                 </div>
 
@@ -904,52 +985,56 @@
     </ul>
                 </div>
 
-                <div class="relative pt-[18px]">
-                    <div class="relative pl-[51px]">
+                <div class="pt-[18px]">
+                    <div class="relative pl-[51px]" x-data="{ hover: null, tip: null }">
     
             <span class="absolute left-0 w-[41px] text-right text-caption-1 leading-4 text-label-alternative tabular-nums"
               style="bottom: calc(40% - 8px)">10,000k</span>
     
-    <svg class="block h-auto w-full" viewBox="0 0 637 200" fill="none" aria-hidden="true">
-        
-        
-        
-                    <line x1="0" y1="0" x2="0" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="53.08" y1="0" x2="53.08" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="106.17" y1="0" x2="106.17" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="159.25" y1="0" x2="159.25" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="212.33" y1="0" x2="212.33" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="265.42" y1="0" x2="265.42" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="318.5" y1="0" x2="318.5" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="371.58" y1="0" x2="371.58" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="424.67" y1="0" x2="424.67" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="477.75" y1="0" x2="477.75" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="530.83" y1="0" x2="530.83" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="583.92" y1="0" x2="583.92" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="637" y1="0" x2="637" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-        
-        
-                    <line x1="0" y1="200" x2="637" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="0" y1="120" x2="637" y2="120"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="0" y1="0" x2="637" y2="0"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-        
-        <rect x="11.54" y="196" width="30" height="4" rx="2" class="fill-warm-gray-200" />
+    
+    <div class="relative">
+        <svg class="block h-auto w-full" viewBox="0 0 637 200" fill="none" aria-hidden="true">
+            
+            <rect x="0" y="0" width="53.08" height="200" class="fill-warm-gray-50"
+                  x-bind:x="hover === null ? -1000 : hover * 53.0833" />
+
+            
+                            <line x1="0" y1="0" x2="0" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="53.08" y1="0" x2="53.08" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="106.17" y1="0" x2="106.17" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="159.25" y1="0" x2="159.25" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="212.33" y1="0" x2="212.33" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="265.42" y1="0" x2="265.42" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="318.5" y1="0" x2="318.5" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="371.58" y1="0" x2="371.58" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="424.67" y1="0" x2="424.67" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="477.75" y1="0" x2="477.75" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="530.83" y1="0" x2="530.83" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="583.92" y1="0" x2="583.92" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="637" y1="0" x2="637" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+            
+            
+                            <line x1="0" y1="200" x2="637" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="0" y1="120" x2="637" y2="120"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="0" y1="0" x2="637" y2="0"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+            
+            <rect x="11.54" y="196" width="30" height="4" rx="2" class="fill-warm-gray-200" />
                     
                     
             <rect x="64.63" y="196" width="30" height="4" rx="2" class="fill-warm-gray-200" />
@@ -964,81 +1049,164 @@
             <rect x="223.88" y="196" width="30" height="4" rx="2" class="fill-warm-gray-200" />
                     
                                                     <g class="text-cool-gray-800">
-                    <rect x="276.96" y="180.8" width="30" height="19.2" fill="currentColor" />
+                    <rect x="276.96" y="180.8" width="30" height="19.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022콘텐츠 제작 (24%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00222,400k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:95.2}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-purple-900">
-                    <rect x="276.96" y="156.8" width="30" height="24" fill="currentColor" />
+                    <rect x="276.96" y="156.8" width="30" height="24"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022강사료 (30%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00223,000k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:84.4}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-deep-blue-900">
-                    <rect x="276.96" y="141.6" width="30" height="15.2" fill="currentColor" />
+                    <rect x="276.96" y="141.6" width="30" height="15.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022시스템 운영 (19%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,900k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:74.6}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-blue-900">
-                    <rect x="276.96" y="131.2" width="30" height="10.4" fill="currentColor" />
+                    <rect x="276.96" y="131.2" width="30" height="10.4"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022마케팅 (13%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,300k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:68.2}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-bluegreen-900">
-                    <rect x="276.96" y="124" width="30" height="7.2" fill="currentColor" />
+                    <rect x="276.96" y="124" width="30" height="7.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022사무실 (9%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022900k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:63.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-green-800">
-                    <rect x="276.96" y="119.2" width="30" height="4.8" fill="currentColor" />
+                    <rect x="276.96" y="119.2" width="30" height="4.8"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022외주 용역 (6%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022600k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:60.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                 
                                                     <g class="text-cool-gray-800">
-                    <rect x="330.04" y="186.4" width="30" height="13.6" fill="currentColor" />
+                    <rect x="330.04" y="186.4" width="30" height="13.6"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022콘텐츠 제작 (24%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,700k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:96.6}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-purple-900">
-                    <rect x="330.04" y="169.6" width="30" height="16.8" fill="currentColor" />
+                    <rect x="330.04" y="169.6" width="30" height="16.8"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022강사료 (30%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00222,100k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:89}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-deep-blue-900">
-                    <rect x="330.04" y="159.2" width="30" height="10.4" fill="currentColor" />
+                    <rect x="330.04" y="159.2" width="30" height="10.4"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022시스템 운영 (19%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,300k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:82.2}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-blue-900">
-                    <rect x="330.04" y="152" width="30" height="7.2" fill="currentColor" />
+                    <rect x="330.04" y="152" width="30" height="7.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022마케팅 (13%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022900k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:77.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-bluegreen-900">
-                    <rect x="330.04" y="147.2" width="30" height="4.8" fill="currentColor" />
+                    <rect x="330.04" y="147.2" width="30" height="4.8"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022사무실 (9%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022600k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:74.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-green-800">
-                    <rect x="330.04" y="144" width="30" height="3.2" fill="currentColor" />
+                    <rect x="330.04" y="144" width="30" height="3.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022외주 용역 (6%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022400k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:72.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                 
                                                     <g class="text-cool-gray-800">
-                    <rect x="383.13" y="180.8" width="30" height="19.2" fill="currentColor" />
+                    <rect x="383.13" y="180.8" width="30" height="19.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022콘텐츠 제작 (24%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00222,400k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:95.2}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-purple-900">
-                    <rect x="383.13" y="156.8" width="30" height="24" fill="currentColor" />
+                    <rect x="383.13" y="156.8" width="30" height="24"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022강사료 (30%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00223,000k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:84.4}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-deep-blue-900">
-                    <rect x="383.13" y="141.6" width="30" height="15.2" fill="currentColor" />
+                    <rect x="383.13" y="141.6" width="30" height="15.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022시스템 운영 (19%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,900k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:74.6}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-blue-900">
-                    <rect x="383.13" y="131.2" width="30" height="10.4" fill="currentColor" />
+                    <rect x="383.13" y="131.2" width="30" height="10.4"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022마케팅 (13%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,300k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:68.2}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-bluegreen-900">
-                    <rect x="383.13" y="124" width="30" height="7.2" fill="currentColor" />
+                    <rect x="383.13" y="124" width="30" height="7.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022사무실 (9%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022900k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:63.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-green-800">
-                    <rect x="383.13" y="119.2" width="30" height="4.8" fill="currentColor" />
+                    <rect x="383.13" y="119.2" width="30" height="4.8"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022외주 용역 (6%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022600k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:60.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                 
                                                     <g class="text-cool-gray-800">
-                    <rect x="436.21" y="176.8" width="30" height="23.2" fill="currentColor" />
+                    <rect x="436.21" y="176.8" width="30" height="23.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022콘텐츠 제작 (25%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00222,900k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:94.2}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-purple-900">
-                    <rect x="436.21" y="149.6" width="30" height="27.2" fill="currentColor" />
+                    <rect x="436.21" y="149.6" width="30" height="27.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022강사료 (29%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00223,400k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:81.6}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-deep-blue-900">
-                    <rect x="436.21" y="132" width="30" height="17.6" fill="currentColor" />
+                    <rect x="436.21" y="132" width="30" height="17.6"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022시스템 운영 (19%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00222,200k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:70.4}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-blue-900">
-                    <rect x="436.21" y="120" width="30" height="12" fill="currentColor" />
+                    <rect x="436.21" y="120" width="30" height="12"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022마케팅 (13%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,500k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:63}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-bluegreen-900">
-                    <rect x="436.21" y="112" width="30" height="8" fill="currentColor" />
+                    <rect x="436.21" y="112" width="30" height="8"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022사무실 (9%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,000k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:58}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-green-800">
-                    <rect x="436.21" y="106.4" width="30" height="5.6" fill="currentColor" />
+                    <rect x="436.21" y="106.4" width="30" height="5.6"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022외주 용역 (6%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022700k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:54.6}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
-    </svg>
+        </svg>
+
+        
+        
+        <div class="pointer-events-none rounded-lg bg-warm-gray-800 p-2.5 shadow-elevation-lg absolute z-10 -translate-y-1/2" x-cloak="x-cloak" x-bind:class="tip ? 'block' : 'hidden'" x-bind:style="tip ? `left:${tip.x}%; top:${tip.y}%; transform:translate(${tip.x > 70 ? 'calc(-100% - 12px)' : '12px'}, -50%)` : ''">
+            <p class="whitespace-nowrap text-caption-2 leading-4 text-white tabular-nums" x-text="tip?.title"></p>
+            <p class="whitespace-nowrap pt-1 text-caption-2 leading-[17px] text-white">
+                <span x-bind:class="{ 'hidden': ! tip?.label }" x-text="(tip?.label ?? '') + ' '"></span><span
+                    class="font-bold tabular-nums" x-text="tip?.value"></span>
+            </p>
+    </div>
+    </div>
 
     
     <div class="flex pt-2">
@@ -1055,12 +1223,6 @@
                     <span class="min-w-0 flex-1 text-center text-caption-1 leading-[17px] text-label-alternative">11월</span>
                     <span class="min-w-0 flex-1 text-center text-caption-1 leading-[17px] text-label-alternative">12월</span>
             </div>
-</div>
-                    <div class="pointer-events-none rounded-lg bg-warm-gray-800 p-2.5 shadow-elevation-lg absolute left-[76%] top-[42%]">
-            <p class="whitespace-nowrap text-caption-2 leading-4 text-white tabular-nums">강사료 (33%)</p>
-        <p class="whitespace-nowrap pt-1 text-caption-2 leading-[17px] text-white">
-                <span class="font-bold tabular-nums">3,000</span>
-    </p>
 </div>
                 </div>
             </section>
@@ -1093,52 +1255,56 @@
     </ul>
                 </div>
 
-                <div class="relative pt-[18px]">
-                    <div class="relative pl-[51px]">
+                <div class="pt-[18px]">
+                    <div class="relative pl-[51px]" x-data="{ hover: null, tip: null }">
     
             <span class="absolute left-0 w-[41px] text-right text-caption-1 leading-4 text-label-alternative tabular-nums"
               style="bottom: calc(40% - 8px)">10,000k</span>
     
-    <svg class="block h-auto w-full" viewBox="0 0 637 200" fill="none" aria-hidden="true">
-        
-        
-        
-                    <line x1="0" y1="0" x2="0" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="53.08" y1="0" x2="53.08" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="106.17" y1="0" x2="106.17" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="159.25" y1="0" x2="159.25" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="212.33" y1="0" x2="212.33" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="265.42" y1="0" x2="265.42" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="318.5" y1="0" x2="318.5" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="371.58" y1="0" x2="371.58" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="424.67" y1="0" x2="424.67" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="477.75" y1="0" x2="477.75" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="530.83" y1="0" x2="530.83" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="583.92" y1="0" x2="583.92" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="637" y1="0" x2="637" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-        
-        
-                    <line x1="0" y1="200" x2="637" y2="200"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="0" y1="120" x2="637" y2="120"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-                    <line x1="0" y1="0" x2="637" y2="0"
-                  class="stroke-warm-gray-50" stroke-width="1" />
-        
-        <rect x="11.54" y="196" width="30" height="4" rx="2" class="fill-warm-gray-200" />
+    
+    <div class="relative">
+        <svg class="block h-auto w-full" viewBox="0 0 637 200" fill="none" aria-hidden="true">
+            
+            <rect x="0" y="0" width="53.08" height="200" class="fill-warm-gray-50"
+                  x-bind:x="hover === null ? -1000 : hover * 53.0833" />
+
+            
+                            <line x1="0" y1="0" x2="0" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="53.08" y1="0" x2="53.08" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="106.17" y1="0" x2="106.17" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="159.25" y1="0" x2="159.25" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="212.33" y1="0" x2="212.33" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="265.42" y1="0" x2="265.42" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="318.5" y1="0" x2="318.5" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="371.58" y1="0" x2="371.58" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="424.67" y1="0" x2="424.67" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="477.75" y1="0" x2="477.75" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="530.83" y1="0" x2="530.83" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="583.92" y1="0" x2="583.92" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="637" y1="0" x2="637" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+            
+            
+                            <line x1="0" y1="200" x2="637" y2="200"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="0" y1="120" x2="637" y2="120"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+                            <line x1="0" y1="0" x2="637" y2="0"
+                      class="stroke-warm-gray-50" stroke-width="1" />
+            
+            <rect x="11.54" y="196" width="30" height="4" rx="2" class="fill-warm-gray-200" />
                     
                     
             <rect x="64.63" y="196" width="30" height="4" rx="2" class="fill-warm-gray-200" />
@@ -1153,81 +1319,164 @@
             <rect x="223.88" y="196" width="30" height="4" rx="2" class="fill-warm-gray-200" />
                     
                                                     <g class="text-cool-gray-800">
-                    <rect x="276.96" y="192.8" width="30" height="7.2" fill="currentColor" />
+                    <rect x="276.96" y="192.8" width="30" height="7.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022콘텐츠 제작 (23%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022900k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:98.2}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-purple-900">
-                    <rect x="276.96" y="181.6" width="30" height="11.2" fill="currentColor" />
+                    <rect x="276.96" y="181.6" width="30" height="11.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022강사료 (36%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,400k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:93.6}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-deep-blue-900">
-                    <rect x="276.96" y="176" width="30" height="5.6" fill="currentColor" />
+                    <rect x="276.96" y="176" width="30" height="5.6"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022시스템 운영 (18%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022700k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:89.4}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-blue-900">
-                    <rect x="276.96" y="172.8" width="30" height="3.2" fill="currentColor" />
+                    <rect x="276.96" y="172.8" width="30" height="3.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022마케팅 (10%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022400k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:87.2}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-bluegreen-900">
-                    <rect x="276.96" y="170.4" width="30" height="2.4" fill="currentColor" />
+                    <rect x="276.96" y="170.4" width="30" height="2.4"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022사무실 (8%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022300k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:85.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-green-800">
-                    <rect x="276.96" y="168.8" width="30" height="1.6" fill="currentColor" />
+                    <rect x="276.96" y="168.8" width="30" height="1.6"
+                          fill="currentColor"
+                          @mouseenter="hover = 5; tip = JSON.parse('{\u0022title\u0022:\u0022외주 용역 (5%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022200k\u0022,\u0022x\u0022:48.188,\u0022y\u0022:84.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                 
                                                     <g class="text-cool-gray-800">
-                    <rect x="330.04" y="191.2" width="30" height="8.8" fill="currentColor" />
+                    <rect x="330.04" y="191.2" width="30" height="8.8"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022콘텐츠 제작 (22%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,100k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:97.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-purple-900">
-                    <rect x="330.04" y="177.6" width="30" height="13.6" fill="currentColor" />
+                    <rect x="330.04" y="177.6" width="30" height="13.6"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022강사료 (35%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,700k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:92.2}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-deep-blue-900">
-                    <rect x="330.04" y="170.4" width="30" height="7.2" fill="currentColor" />
+                    <rect x="330.04" y="170.4" width="30" height="7.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022시스템 운영 (18%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022900k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:87}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-blue-900">
-                    <rect x="330.04" y="166.4" width="30" height="4" fill="currentColor" />
+                    <rect x="330.04" y="166.4" width="30" height="4"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022마케팅 (10%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022500k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:84.2}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-bluegreen-900">
-                    <rect x="330.04" y="163.2" width="30" height="3.2" fill="currentColor" />
+                    <rect x="330.04" y="163.2" width="30" height="3.2"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022사무실 (8%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022400k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:82.4}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-green-800">
-                    <rect x="330.04" y="160.8" width="30" height="2.4" fill="currentColor" />
+                    <rect x="330.04" y="160.8" width="30" height="2.4"
+                          fill="currentColor"
+                          @mouseenter="hover = 6; tip = JSON.parse('{\u0022title\u0022:\u0022외주 용역 (6%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022300k\u0022,\u0022x\u0022:56.521,\u0022y\u0022:81}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                 
                                                     <g class="text-cool-gray-800">
-                    <rect x="383.13" y="192" width="30" height="8" fill="currentColor" />
+                    <rect x="383.13" y="192" width="30" height="8"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022콘텐츠 제작 (23%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,000k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:98}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-purple-900">
-                    <rect x="383.13" y="180" width="30" height="12" fill="currentColor" />
+                    <rect x="383.13" y="180" width="30" height="12"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022강사료 (34%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,500k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:93}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-deep-blue-900">
-                    <rect x="383.13" y="173.6" width="30" height="6.4" fill="currentColor" />
+                    <rect x="383.13" y="173.6" width="30" height="6.4"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022시스템 운영 (18%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022800k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:88.4}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-blue-900">
-                    <rect x="383.13" y="169.6" width="30" height="4" fill="currentColor" />
+                    <rect x="383.13" y="169.6" width="30" height="4"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022마케팅 (11%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022500k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:85.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-bluegreen-900">
-                    <rect x="383.13" y="166.8" width="30" height="2.8" fill="currentColor" />
+                    <rect x="383.13" y="166.8" width="30" height="2.8"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022사무실 (8%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022350k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:84.1}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-green-800">
-                    <rect x="383.13" y="164.8" width="30" height="2" fill="currentColor" />
+                    <rect x="383.13" y="164.8" width="30" height="2"
+                          fill="currentColor"
+                          @mouseenter="hover = 7; tip = JSON.parse('{\u0022title\u0022:\u0022외주 용역 (6%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022250k\u0022,\u0022x\u0022:64.856,\u0022y\u0022:82.9}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                 
                                                     <g class="text-cool-gray-800">
-                    <rect x="436.21" y="188" width="30" height="12" fill="currentColor" />
+                    <rect x="436.21" y="188" width="30" height="12"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022콘텐츠 제작 (24%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,500k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:97}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-purple-900">
-                    <rect x="436.21" y="171.2" width="30" height="16.8" fill="currentColor" />
+                    <rect x="436.21" y="171.2" width="30" height="16.8"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022강사료 (34%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00222,100k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:89.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-deep-blue-900">
-                    <rect x="436.21" y="162.4" width="30" height="8.8" fill="currentColor" />
+                    <rect x="436.21" y="162.4" width="30" height="8.8"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022시스템 운영 (18%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u00221,100k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:83.4}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-blue-900">
-                    <rect x="436.21" y="156.8" width="30" height="5.6" fill="currentColor" />
+                    <rect x="436.21" y="156.8" width="30" height="5.6"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022마케팅 (11%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022700k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:79.8}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-bluegreen-900">
-                    <rect x="436.21" y="152.8" width="30" height="4" fill="currentColor" />
+                    <rect x="436.21" y="152.8" width="30" height="4"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022사무실 (8%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022500k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:77.4}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
                                             <g class="text-green-800">
-                    <rect x="436.21" y="150" width="30" height="2.8" fill="currentColor" />
+                    <rect x="436.21" y="150" width="30" height="2.8"
+                          fill="currentColor"
+                          @mouseenter="hover = 8; tip = JSON.parse('{\u0022title\u0022:\u0022외주 용역 (6%)\u0022,\u0022label\u0022:null,\u0022value\u0022:\u0022350k\u0022,\u0022x\u0022:73.188,\u0022y\u0022:75.7}')"
+                          @mouseleave="hover = null; tip = null" />
                 </g>
-    </svg>
+        </svg>
+
+        
+        
+        <div class="pointer-events-none rounded-lg bg-warm-gray-800 p-2.5 shadow-elevation-lg absolute z-10 -translate-y-1/2" x-cloak="x-cloak" x-bind:class="tip ? 'block' : 'hidden'" x-bind:style="tip ? `left:${tip.x}%; top:${tip.y}%; transform:translate(${tip.x > 70 ? 'calc(-100% - 12px)' : '12px'}, -50%)` : ''">
+            <p class="whitespace-nowrap text-caption-2 leading-4 text-white tabular-nums" x-text="tip?.title"></p>
+            <p class="whitespace-nowrap pt-1 text-caption-2 leading-[17px] text-white">
+                <span x-bind:class="{ 'hidden': ! tip?.label }" x-text="(tip?.label ?? '') + ' '"></span><span
+                    class="font-bold tabular-nums" x-text="tip?.value"></span>
+            </p>
+    </div>
+    </div>
 
     
     <div class="flex pt-2">
@@ -1244,12 +1493,6 @@
                     <span class="min-w-0 flex-1 text-center text-caption-1 leading-[17px] text-label-alternative">11월</span>
                     <span class="min-w-0 flex-1 text-center text-caption-1 leading-[17px] text-label-alternative">12월</span>
             </div>
-</div>
-                    <div class="pointer-events-none rounded-lg bg-warm-gray-800 p-2.5 shadow-elevation-lg absolute left-[76%] top-[52%]">
-            <p class="whitespace-nowrap text-caption-2 leading-4 text-white tabular-nums">강사료 (60%)</p>
-        <p class="whitespace-nowrap pt-1 text-caption-2 leading-[17px] text-white">
-                <span class="font-bold tabular-nums">5,000</span>
-    </p>
 </div>
                 </div>
             </section>
