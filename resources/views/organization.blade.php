@@ -73,6 +73,7 @@
 
         <x-slot:title>
             <h1 class="text-title-2 font-bold text-mono-black">화상조직도</h1>
+            <x-menu-tabs menu="organization" label="화상조직도" href="/organization" />
         </x-slot:title>
 
         {{-- items-stretch: 원본 우측 패널은 높이 976 로 화면을 거의 다 채운다. 내용만큼만

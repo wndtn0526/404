@@ -18,6 +18,7 @@
 
         <x-slot:title>
             <h1 class="text-title-2 font-bold text-mono-black">홈</h1>
+            <x-menu-tabs menu="home" label="홈" href="/workspace" />
         </x-slot:title>
 
         <p class="text-body-2 text-label-alternative">디자인 대기 중인 화면이다.</p>

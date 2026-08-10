@@ -84,6 +84,14 @@ Cool gray 는 원본 변수라 원시 계층에 남겨 두지만 **의미 계층
 - **새 컴포넌트를 만들면 `/styleguide` 에도 추가한다.** 그래야 깨진 걸 눈으로 본다.
 - ⚠️ Tailwind 는 파일 내용을 문자열로 훑는다. `bg-{$token}` 처럼 런타임에 클래스명을
   조립하면 CSS 가 생성되지 않는다. 배열엔 완성된 클래스명(`'bg-primary'`)을 담는다.
+- ⚠️ **`display` 유틸이 이미 붙은 요소에 `hidden` 을 토글하면 안 먹는다.** `hidden` 도
+  `display` 유틸이라 `inline-flex`·`flex` 와 같은 자리를 다투고, CSS 순서로 정적 클래스가
+  이긴다 — DOM 에는 `hidden` 이 있는데 화면에는 그대로 보인다. 이럴 땐 `display` 자체를
+  바꾼다: `x-bind:class="열림 ? 'inline-flex' : 'hidden'"` (정적 class 에서는 뺀다).
+  `<tr>`·`<li>` 처럼 `display` 유틸이 없는 곳에서는 `hidden` 토글이 그냥 먹는다.
+- ⚠️ **`@js()` 는 컴포넌트 속성 안에서 컴파일되지 않는다.** 일반 엘리먼트(`<li :class="…@js($x)…">`)
+  에서는 되지만 `<x-table.row x-bind:class="…@js($x)…">` 처럼 컴포넌트에 쓰면 문자열이 그대로
+  나간다. Alpine 식을 통째로 PHP 에서 만들어 `:속성="$식"` 으로 넘긴다.
 
 **컴포넌트 출처** — 어디서 온 것인지 모르면 Figma 를 고쳐도 반영이 안 된다.
 

@@ -59,8 +59,7 @@
 
         <x-slot:title>
             <h1 class="text-title-2 font-bold text-mono-black">컨텐츠 관리</h1>
-
-            @include('partials.workspace-tabs', ['active' => 'contents'])
+            <x-menu-tabs menu="contents" label="컨텐츠 관리" href="/contents" />
         </x-slot:title>
 
         <x-slot:actions>
