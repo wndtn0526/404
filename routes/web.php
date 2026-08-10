@@ -70,3 +70,6 @@ Route::view('/finance/expense', 'expense-settlement')->name('finance.expense');
 
 // 전자결재 — 문서 신청 (Figma node 1002-106228). 이 저장소의 본 도메인 첫 화면이다.
 Route::view('/documents', 'documents')->name('documents');
+
+// 전자결재 — 확인할 문서 (Figma node 1002-106148). 나에게 돌아온 결재 받은함이다.
+Route::view('/documents/review', 'documents-review')->name('documents.review');

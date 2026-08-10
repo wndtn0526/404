@@ -506,6 +506,27 @@
                 </x-card>
             </section>
 
+            {{-- 알림 카드 — "누가 무엇을 했다" + 상태·시각 + 오른쪽 액션.
+                 확인할 문서 목록이 이걸로 쌓인다. --}}
+            <section class="flex flex-col gap-4">
+                <h3 class="text-headline-2 font-semibold text-label-normal">알림 카드</h3>
+                <x-notice-card
+                    name="곽프로"
+                    message="곽프로님이 [지출 결의서 · 개인 비용] 승인을 요청했습니다."
+                    state="결재 진행중"
+                    time="1분 전"
+                    unread
+                    action="결재하기"
+                />
+                <x-notice-card
+                    name="이프로"
+                    message="이프로님이 [근태 · 휴가 신청서] 승인을 요청했습니다."
+                    state="결재 진행중"
+                    time="어제"
+                    action="결재하기"
+                />
+            </section>
+
             {{-- ═══ 표 ═══ --}}
             <section id="table" class="flex flex-col gap-5">
                 <h2 class="text-title-3 font-bold text-label-normal">표</h2>

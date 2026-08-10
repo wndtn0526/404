@@ -68,12 +68,12 @@ return [
         ['label' => '홈', 'href' => '/workspace', 'icon' => 'home',
             'match' => ['workspace']],
 
-        // 전자결재. 원본은 여기에 확인할 문서·내 문서함·문서 관리자 메뉴·시스템 관리자
-        // 메뉴가 더 있다 — 화면이 생기면 같이 넣는다.
+        // 전자결재. 원본은 여기에 내 문서함·문서 관리자 메뉴·시스템 관리자 메뉴가
+        // 더 있다 — 화면이 생기면 같이 넣는다.
         ['label' => '워크스페이스', 'href' => '/documents', 'icon' => 'document-text',
             'match' => ['documents', 'documents/*'], 'children' => [
-                ['label' => '문서 신청', 'href' => '/documents',
-                    'match' => ['documents', 'documents/*']],
+                ['label' => '문서 신청', 'href' => '/documents', 'match' => ['documents']],
+                ['label' => '확인할 문서', 'href' => '/documents/review', 'match' => ['documents/review']],
             ]],
 
         // ⚠️ 컨텐츠 관리·과정 관리는 묶지 않는다. 둘을 감쌀 이름이 원본에 없어서 부모를

@@ -27,7 +27,8 @@
        breadcrumb / title / actions / (기본 슬롯 = 본문)
 
      원본 실측 — LNB 240 · 레일 30px 타일(top 20, gap 20) · 구분선 x54 흰색 5%
-                 메뉴 항목 left 67 · w 161 · pl 10 · py 6 · 반경 6 · 아이콘·텍스트 간격 12
+                 메뉴 항목 left 67 · w 161 · pl 10 · py 6 · 반경 6 · 아이콘 20 · 간격 12
+                 항목 높이 32 · 사이 0 · 하위 항목 28 (GPRO 화면 LNB 실측)
                  GNB 56 · 아이콘 24 · 프로필 32 · 본문 좌측 320 · 우측 여백 80 --}}
 @props([
     'workspace' => null,
@@ -91,8 +92,9 @@
     $footerItems = array_map($resolveNav, array_values(array_filter((array) $footerItems)));
     $rail = array_map($resolveNav, array_values(array_filter((array) $rail)));
 
-    // 원본 실측: pl 10 · py 6 · gap 12 · 반경 6. 활성만 BG 02 를 깐다.
-    $itemBase = 'flex w-[161px] items-start gap-3 rounded-lg py-1.5 pl-2.5 transition-colors';
+    // 원본 실측: pl 10 · py 6 · gap 12 · 반경 6 → 항목 높이 32. 활성만 BG 02 를 깐다.
+    // py 는 여기 두지 않는다 — 하위 항목이 28(py 4)이라 자리를 다툰다.
+    $itemBase = 'flex w-[161px] items-start gap-3 rounded-lg pl-2.5 transition-colors';
 
     // 활성 = Label/Assistive 28% 면 + Background/Normal/Alternative 글자 (node 1-4530).
     // 비활성 글자는 Cool Neutral/50 — 다크 면에서 대비 약 4:1 로 읽힌다.
@@ -184,33 +186,37 @@
                 </div>
             @endif
 
-            {{-- 주요 메뉴 — 원본이 auto-layout 컨테이너(1:4530)로 바뀌었다. top 70 · gap 16.
-                 이름/도메인 블록이 53 까지 차지하므로 pt 17. --}}
-            <nav class="flex flex-col gap-4 pt-[17px]" aria-label="주요 메뉴">
+            {{-- 주요 메뉴 — 이름/도메인 블록이 53 까지 차지하므로 pt 17.
+                 ⚠️ 항목 사이는 0 이다. GPRO 화면들의 LNB 는 항목이 32 이고 피치도 32 다
+                    (전자결재 node 1002-106228: y 72·104·136·168… · 재무 node 1002-93118 도 같다).
+                    처음엔 워크스페이스 원본(1:4530)의 gap 16 을 그대로 뒀는데, 화면이 늘면서
+                    메뉴가 너무 벌어졌다. 항목 안쪽 여백(py 6)만으로 32 가 나온다. --}}
+            <nav class="flex flex-col pt-[17px]" aria-label="주요 메뉴">
                 @foreach ($items as $item)
                     @php
                         $active = (bool) ($item['active'] ?? false);
                         $children = $item['children'] ?? [];
                     @endphp
 
-                    <div @class(['flex flex-col', 'gap-4' => (bool) $children])>
+                    <div class="flex flex-col">
                         <a href="{{ $item['href'] ?? '#' }}"
                            @if ($active) aria-current="page" @endif
-                           @class([$itemBase, $itemOn => $active, $itemOff => ! $active])>
+                           @class([$itemBase, 'py-1.5', $itemOn => $active, $itemOff => ! $active])>
                             @if (! empty($item['icon']))
-                                <x-dynamic-component :component="'icon-' . $item['icon']" class="size-6 shrink-0" />
+                                <x-dynamic-component :component="'icon-' . $item['icon']" class="size-5 shrink-0" />
                             @endif
-                            <span class="truncate pt-[2px] text-label-1 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
+                            <span class="truncate text-label-1 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
                         </a>
 
                         {{-- 하위 메뉴 — 원본은 아이콘 없이 글자만, 들여쓰기는 없다.
-                             부모가 아이콘 자리(24 + 간격 12)를 쓰므로 그만큼 왼쪽 여백을 준다. --}}
+                             부모가 아이콘 자리(20 + 간격 12)를 쓰므로 그만큼 왼쪽 여백을 준다.
+                             높이는 28 이다(부모 32 보다 한 단 낮다 — 재무 node 1002-93118 실측). --}}
                         @foreach ($children as $child)
                             @php $childActive = (bool) ($child['active'] ?? false); @endphp
                             <a href="{{ $child['href'] ?? '#' }}"
                                @if ($childActive) aria-current="page" @endif
-                               @class([$itemBase, 'pl-[46px]', $itemOn => $childActive, $itemOff => ! $childActive])>
-                                <span class="truncate pt-[2px] text-label-1 font-medium leading-5">{{ $child['label'] ?? '' }}</span>
+                               @class([$itemBase, 'py-1 pl-[42px]', $itemOn => $childActive, $itemOff => ! $childActive])>
+                                <span class="truncate text-label-1 font-medium leading-5">{{ $child['label'] ?? '' }}</span>
                             </a>
                         @endforeach
                     </div>
@@ -219,7 +225,7 @@
 
             {{-- 하단 메뉴 — 원본 bottom 17 --}}
             @if ($footerItems)
-                <nav class="mt-auto flex flex-col gap-4 pb-[17px]" aria-label="보조 메뉴">
+                <nav class="mt-auto flex flex-col pb-[17px]" aria-label="보조 메뉴">
                     @foreach ($footerItems as $item)
                         @php
                             $active = (bool) ($item['active'] ?? false);
@@ -227,11 +233,11 @@
 
                         <a href="{{ $item['href'] ?? '#' }}"
                            @if ($active) aria-current="page" @endif
-                           @class([$itemBase, $itemOn => $active, $itemOff => ! $active])>
+                           @class([$itemBase, 'py-1.5', $itemOn => $active, $itemOff => ! $active])>
                             @if (! empty($item['icon']))
-                                <x-dynamic-component :component="'icon-' . $item['icon']" class="size-6 shrink-0" />
+                                <x-dynamic-component :component="'icon-' . $item['icon']" class="size-5 shrink-0" />
                             @endif
-                            <span class="truncate pt-[2px] text-label-1 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
+                            <span class="truncate text-label-1 font-medium leading-5">{{ $item['label'] ?? '' }}</span>
                         </a>
                     @endforeach
                 </nav>
