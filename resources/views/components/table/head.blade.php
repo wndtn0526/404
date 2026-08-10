@@ -6,6 +6,7 @@
     'columns' => null,       // 문자열 또는 ['label'=>, 'align'=>'left|center|right', 'width'=>] 배열
     'selectable' => false,   // 전체선택 체크박스 컬럼
     'allIds' => [],          // selectable일 때 전체 행 id 배열(전체선택 대상)
+    'dense' => false,        // 원본 Row Heights 28 — x-table.cell 의 dense 와 짝이다
 ])
 
 @php $ids = array_map('strval', $allIds); @endphp
@@ -35,7 +36,9 @@
                 <th scope="col"
                     @if ($width) style="width: {{ $width }}" @endif
                     @class([
-                        'h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5',
+                        'px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap',
+                        'h-14 first:pl-5 last:pr-5' => ! $dense,
+                        'h-7 first:pl-[30px]' => $dense,
                         'text-left' => $align === 'left',
                         'text-center' => $align === 'center',
                         'text-right' => $align === 'right',

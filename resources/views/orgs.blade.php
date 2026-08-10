@@ -90,6 +90,23 @@
 
     $treeRows = $flattenTree($orgTree);
 
+    /*
+     * 리스트 모드 — Figma node 1002-274090. 트리를 계단 없이 평평하게 편 표다.
+     * 열: ID 100 · 조직 이름 140 · 조직 유형 80 · 조직 순차 80 = 400 (패널 폭 전체)
+     *
+     * ⚠️ 원본은 맨 위 조직의 조직 유형을 'Root' 로 적는다. 우리 조직 기본·상세는 청담원을
+     *    '본부' 로 쓰고 있어서 그쪽에 맞췄다 — 한 화면에서 같은 값이 달리 보이면 안 된다.
+     */
+    $listRows = [];
+    foreach ($treeRows as $i => $r) {
+        $listRows[] = [
+            'id' => str_pad((string) (101 + $i), 7, '0', STR_PAD_LEFT),
+            'name' => $r['name'],
+            'type' => $r['depth'] === 0 ? '본부' : '팀',
+            'order' => '0',
+        ];
+    }
+
     // 선택된 조직(청담원)의 상세. 값은 예시다.
     $org = [
         'name' => '청담원',
@@ -225,7 +242,18 @@
              }">
 
             {{-- ═══ 좌: 조직도 400 ═══ --}}
-            <aside class="w-full min-w-0 shrink-0 rounded-lg bg-background-normal pb-5 xl:w-[400px]">
+            <aside class="w-full min-w-0 shrink-0 rounded-lg bg-background-normal pb-5 xl:w-[400px]"
+                   x-data="{
+                       view: 'tree',
+                       closed: @js($closedOrgs),
+                       toggle(name) {
+                           this.closed = this.closed.includes(name)
+                               ? this.closed.filter(n => n !== name)
+                               : [...this.closed, name];
+                       },
+                       isOpen(name) { return ! this.closed.includes(name); },
+                       isHidden(path) { return path.some(p => this.closed.includes(p)); },
+                   }">
                 <h2 class="px-[30px] pt-[30px] text-heading-2 font-bold leading-[30px] text-mono-black">조직도</h2>
 
                 <div class="px-[30px] pt-[30px]">
@@ -239,19 +267,31 @@
                                     :options="['2021.09.01' => '2021.09.01']" selected="2021.09.01" />
                     </div>
 
-                    {{-- 트리 / 목록 보기 전환 — 원본은 아이콘만 있는 32짜리 두 칸(합 64)이다.
-                         DS x-segmented 는 라벨이 글자라서 아이콘을 넣을 수 없다. 그 컴포넌트와
-                         같은 모양(면 fill-alternative · 반경 md · 안쪽 2 · 사이 4)으로 조립했다.
-                         x-segmented 에 아이콘 옵션이 생기면 그걸로 바꾼다.
-                         ⚠️ 지금은 트리 보기만 있다. 목록 보기는 화면이 없다. --}}
-                    <div class="inline-flex shrink-0 items-center gap-1 rounded-md bg-fill-alternative p-0.5" role="radiogroup" aria-label="보기 전환">
-                        <button type="button" role="radio" aria-checked="true" aria-label="트리로 보기"
-                                class="flex size-7 items-center justify-center rounded-md bg-background-normal text-label-normal shadow-elevation-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
-                            <x-icon-share class="size-4 -rotate-90" />
+                    {{-- 트리 / 리스트 전환 — 원본은 아이콘만 있는 32짜리 두 칸이 맞붙어 있다(합 64).
+                         고른 쪽이 Warm gray/200 으로 채워지고, 안 고른 쪽이 흰 면 + 테두리다
+                         (트리 모드 1002-274941 · 리스트 모드 1002-274150 을 맞대 보고 확인).
+                         DS x-segmented 는 라벨이 글자라서 아이콘을 넣을 수 없다.
+
+                         ⚠️ 반경 4 가 바깥 모서리에만 있다. 모서리별 반경 변형은 DS 반경 단계
+                            테스트의 허용 목록 밖이라, 바깥을 rounded-md + overflow-hidden 으로
+                            잘랐다. 결과는 같다. (테스트가 파일 전체를 훑으므로 주석에도 그
+                            클래스명을 적으면 안 된다.) --}}
+                    <div class="inline-flex shrink-0 items-center overflow-hidden rounded-md" role="radiogroup" aria-label="보기 전환">
+                        <button type="button" role="radio" @click="view = 'tree'"
+                                x-bind:aria-checked="view === 'tree'" aria-label="트리로 보기"
+                                class="flex size-8 items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/40"
+                                x-bind:class="view === 'tree'
+                                    ? 'bg-warm-gray-200 text-mono-black'
+                                    : 'border border-warm-gray-200 bg-background-normal text-label-alternative hover:text-label-normal'">
+                            <x-icon-share class="size-6 -rotate-90" />
                         </button>
-                        <button type="button" role="radio" aria-checked="false" aria-label="목록으로 보기"
-                                class="flex size-7 items-center justify-center rounded-md text-label-alternative transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
-                            <x-icon-list class="size-4" />
+                        <button type="button" role="radio" @click="view = 'list'"
+                                x-bind:aria-checked="view === 'list'" aria-label="리스트로 보기"
+                                class="flex size-8 items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/40"
+                                x-bind:class="view === 'list'
+                                    ? 'bg-warm-gray-200 text-mono-black'
+                                    : 'border border-warm-gray-200 bg-background-normal text-label-alternative hover:text-label-normal'">
+                            <x-icon-list class="size-6" />
                         </button>
                     </div>
 
@@ -275,17 +315,7 @@
                         :class 로 감춘다 — x-show 는 Alpine 이 그리기를 프레임에 미뤄서
                         헤드리스 확인이 안 된다.
                      ⚠️ 행을 눌러도 우측 상세는 청담원 그대로다. 다른 조직의 데이터가 없다. --}}
-                <ul class="pt-4"
-                    x-data="{
-                        closed: @js($closedOrgs),
-                        toggle(name) {
-                            this.closed = this.closed.includes(name)
-                                ? this.closed.filter(n => n !== name)
-                                : [...this.closed, name];
-                        },
-                        isOpen(name) { return ! this.closed.includes(name); },
-                        isHidden(path) { return path.some(p => this.closed.includes(p)); },
-                    }">
+                <ul class="pt-4" x-bind:class="{ 'hidden': view !== 'tree' }">
                     @foreach ($treeRows as $row)
                         <li @if ($row['path']) :class="{ 'hidden': isHidden(@js($row['path'])) }" @endif>
                             <div @class([
@@ -359,6 +389,52 @@
                         </li>
                     @endforeach
                 </ul>
+
+                {{-- ── 리스트 모드 ── Figma node 1002-274090
+                     트리를 계단 없이 평평하게 편 표다. 계층은 안 보이고 조직 유형 열로 구분한다.
+
+                     원본 실측 — 행 28 (헤더도 28) · 글자 13
+                       ID 100 | 조직 이름 140 | 조직 유형 80 | 조직 순차 80 = 400 (패널 폭 전체)
+                       첫 칸 좌 패딩 30 (패널 여백에 맞춘 것) · 나머지 16
+                       표 아래 패널 폭 구분선 → '엑셀로 저장' 우측
+
+                     원본 주석 그대로 — 엑셀 저장은 쓰는 일이 드물어서 위 툴바가 아니라 아래 뒀다.
+
+                     ⚠️ 접힘 상태와 상관없이 모든 조직이 나온다(원본도 그렇다).
+                     ⚠️ 엑셀로 저장은 아직 동작하지 않는다. 내려받기가 붙으면 권한 확인 후
+                        스트리밍한다. --}}
+                <div x-bind:class="{ 'hidden': view !== 'list' }">
+                    <x-table dense min-width="400px" class="rounded-none border-x-0 border-t-0">
+                        <x-table.head dense :columns="[
+                            ['label' => 'ID', 'width' => '100px'],
+                            ['label' => '조직 이름', 'width' => '140px'],
+                            ['label' => '조직 유형', 'width' => '80px'],
+                            ['label' => '조직 순차'],
+                        ]" />
+                        <tbody>
+                            @forelse ($listRows as $row)
+                                <x-table.row>
+                                    <x-table.cell dense tone="muted" nowrap>
+                                        <span class="tabular-nums">{{ $row['id'] }}</span>
+                                    </x-table.cell>
+                                    <x-table.cell dense tone="strong" nowrap>{{ $row['name'] }}</x-table.cell>
+                                    <x-table.cell dense tone="muted" nowrap>{{ $row['type'] }}</x-table.cell>
+                                    <x-table.cell dense tone="muted" nowrap>
+                                        <span class="tabular-nums">{{ $row['order'] }}</span>
+                                    </x-table.cell>
+                                </x-table.row>
+                            @empty
+                                <x-table.empty :colspan="4">조직이 없습니다.</x-table.empty>
+                            @endforelse
+                        </tbody>
+                    </x-table>
+
+                    <div class="mt-[30px] h-px bg-warm-gray-100" aria-hidden="true"></div>
+
+                    <div class="flex justify-end px-[30px] pt-4">
+                        <x-button variant="outline" size="sm" icon="download">엑셀로 저장</x-button>
+                    </div>
+                </div>
             </aside>
 
             {{-- ═══ 우: 조직 상세 ═══ --}}

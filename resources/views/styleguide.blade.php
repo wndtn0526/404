@@ -539,6 +539,28 @@
                     </tbody>
                 </x-table>
 
+                {{-- 좁은 행(dense) — 원본 Data Tables 는 56 과 28 두 단이다.
+                     28 은 좁은 패널에 줄을 많이 담을 때 쓴다(조직 관리 리스트 모드).
+                     첫 칸 좌 패딩이 30 인 것도 원본 그대로다 — 30 패딩 패널 안에 놓인다. --}}
+                <x-table dense min-width="400px">
+                    <x-table.head dense :columns="[
+                        ['label' => 'ID', 'width' => '100px'],
+                        ['label' => '조직 이름', 'width' => '140px'],
+                        ['label' => '조직 유형', 'width' => '80px'],
+                        ['label' => '조직 순차'],
+                    ]" />
+                    <tbody>
+                        @foreach ([['0000101', '청담원', '본부'], ['0000102', '개발팀', '팀']] as [$id, $nm, $tp])
+                            <x-table.row>
+                                <x-table.cell dense tone="muted" nowrap><span class="tabular-nums">{{ $id }}</span></x-table.cell>
+                                <x-table.cell dense tone="strong" nowrap>{{ $nm }}</x-table.cell>
+                                <x-table.cell dense tone="muted" nowrap>{{ $tp }}</x-table.cell>
+                                <x-table.cell dense tone="muted" nowrap><span class="tabular-nums">0</span></x-table.cell>
+                            </x-table.row>
+                        @endforeach
+                    </tbody>
+                </x-table>
+
                 {{-- 빈 표 — 헤더는 남기고 표 안에서 알린다. 화면 전체가 비는 자리에는
                      아래 '빈 상태' 의 x-empty-state 를 쓴다. --}}
                 <x-table min-width="820px">

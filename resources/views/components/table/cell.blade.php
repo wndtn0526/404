@@ -6,13 +6,18 @@
     'tone' => 'default',    // default(label-normal) | muted(label-alternative) | strong(label-strong·semibold)
     'nowrap' => false,
     'width' => null,
+    // dense: 원본 Row Heights 28 (기본은 56). 좁은 패널에 많은 줄을 담을 때 쓴다.
+    // 원본 28 행 표는 30 패딩 패널 안에 있어서 첫 칸 좌 패딩만 30 이다(끝 칸은 16 그대로).
+    'dense' => false,
 ])
 
 <{{ $as }}
     @if ($as === 'th') scope="col" @endif
     @if ($width) style="width: {{ $width }}" @endif
     {{ $attributes->class([
-        'h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5',
+        'px-4 align-middle',
+        'h-14 text-body-2 first:pl-5 last:pr-5' => ! $dense,
+        'h-7 text-label-2 first:pl-[30px]' => $dense,
         'text-label-normal' => $tone === 'default',
         'text-label-alternative' => $tone === 'muted',
         'font-semibold text-label-strong' => $tone === 'strong',

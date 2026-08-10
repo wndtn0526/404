@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>조직 관리 · 전자결재</title>
 
-        <link rel="preload" as="style" href="./build/assets/app-DSHp0bjH.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-DSHp0bjH.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="preload" as="style" href="./build/assets/app-BUMgizwF.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-BUMgizwF.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
     <meta name="robots" content="noindex">
 </head>
@@ -243,7 +243,18 @@
              }">
 
             
-            <aside class="w-full min-w-0 shrink-0 rounded-lg bg-background-normal pb-5 xl:w-[400px]">
+            <aside class="w-full min-w-0 shrink-0 rounded-lg bg-background-normal pb-5 xl:w-[400px]"
+                   x-data="{
+                       view: 'tree',
+                       closed: JSON.parse('[\u0022운영팀\u0022]'),
+                       toggle(name) {
+                           this.closed = this.closed.includes(name)
+                               ? this.closed.filter(n => n !== name)
+                               : [...this.closed, name];
+                       },
+                       isOpen(name) { return ! this.closed.includes(name); },
+                       isHidden(path) { return path.some(p => this.closed.includes(p)); },
+                   }">
                 <h2 class="px-[30px] pt-[30px] text-heading-2 font-bold leading-[30px] text-mono-black">조직도</h2>
 
                 <div class="px-[30px] pt-[30px]">
@@ -393,15 +404,23 @@
                     </div>
 
                     
-                    <div class="inline-flex shrink-0 items-center gap-1 rounded-md bg-fill-alternative p-0.5" role="radiogroup" aria-label="보기 전환">
-                        <button type="button" role="radio" aria-checked="true" aria-label="트리로 보기"
-                                class="flex size-7 items-center justify-center rounded-md bg-background-normal text-label-normal shadow-elevation-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
-                            <svg width="1em" height="1em" aria-hidden="true" class="size-4 -rotate-90" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <div class="inline-flex shrink-0 items-center overflow-hidden rounded-md" role="radiogroup" aria-label="보기 전환">
+                        <button type="button" role="radio" @click="view = 'tree'"
+                                x-bind:aria-checked="view === 'tree'" aria-label="트리로 보기"
+                                class="flex size-8 items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/40"
+                                x-bind:class="view === 'tree'
+                                    ? 'bg-warm-gray-200 text-mono-black'
+                                    : 'border border-warm-gray-200 bg-background-normal text-label-alternative hover:text-label-normal'">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-6 -rotate-90" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.7497 2.35059C14.8719 2.35059 13.3497 3.87282 13.3497 5.75059C13.3497 6.01729 13.3804 6.27682 13.4385 6.52584L7.70136 9.64386C7.08272 9.00019 6.21301 8.59961 5.24975 8.59961C3.37199 8.59961 1.84976 10.1218 1.84976 11.9996C1.84976 13.8774 3.37199 15.3996 5.24975 15.3996C6.21237 15.3996 7.08156 14.9996 7.70013 14.3566L13.4383 17.4752C13.3804 17.724 13.3497 17.9832 13.3497 18.2496C13.3497 20.1274 14.8719 21.6496 16.7497 21.6496C18.6275 21.6496 20.1497 20.1274 20.1497 18.2496C20.1497 16.3718 18.6275 14.8496 16.7497 14.8496C15.7864 14.8496 14.9167 15.2502 14.2981 15.8939L8.56075 12.7757C8.61896 12.5264 8.64974 12.2666 8.64974 11.9996C8.64974 11.7332 8.6191 11.474 8.56116 11.2252L14.2987 8.10698C14.9173 8.75027 15.7868 9.15059 16.7497 9.15059C18.6275 9.15059 20.1497 7.62835 20.1497 5.75059C20.1497 3.87282 18.6275 2.35059 16.7497 2.35059ZM15.1497 5.75059C15.1497 4.86693 15.8661 4.15059 16.7497 4.15059C17.6334 4.15059 18.3497 4.86693 18.3497 5.75059C18.3497 6.63424 17.6334 7.35059 16.7497 7.35059C15.8661 7.35059 15.1497 6.63424 15.1497 5.75059ZM3.64976 11.9996C3.64976 11.116 4.3661 10.3996 5.24975 10.3996C6.1334 10.3996 6.84974 11.116 6.84974 11.9996C6.84974 12.8833 6.1334 13.5996 5.24975 13.5996C4.3661 13.5996 3.64976 12.8833 3.64976 11.9996ZM15.1497 18.2496C15.1497 17.366 15.8661 16.6496 16.7497 16.6496C17.6334 16.6496 18.3497 17.366 18.3497 18.2496C18.3497 19.1333 17.6334 19.8496 16.7497 19.8496C15.8661 19.8496 15.1497 19.1333 15.1497 18.2496Z" fill="currentColor" fill-opacity="0.88"/>
 </svg>                        </button>
-                        <button type="button" role="radio" aria-checked="false" aria-label="목록으로 보기"
-                                class="flex size-7 items-center justify-center rounded-md text-label-alternative transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
-                            <svg width="1em" height="1em" aria-hidden="true" class="size-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <button type="button" role="radio" @click="view = 'list'"
+                                x-bind:aria-checked="view === 'list'" aria-label="리스트로 보기"
+                                class="flex size-8 items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/40"
+                                x-bind:class="view === 'list'
+                                    ? 'bg-warm-gray-200 text-mono-black'
+                                    : 'border border-warm-gray-200 bg-background-normal text-label-alternative hover:text-label-normal'">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M3.74969 7C4.44004 7 4.99969 6.44036 4.99969 5.75C4.99969 5.05964 4.44004 4.5 3.74969 4.5C3.05934 4.5 2.49969 5.05964 2.49969 5.75C2.49969 6.44036 3.05934 7 3.74969 7Z" fill="currentColor" fill-opacity="0.88"/>
 <path d="M7.3498 5.75C7.3498 5.25294 7.75274 4.85 8.2498 4.85H20.2498C20.7468 4.85 21.1498 5.25294 21.1498 5.75C21.1498 6.24706 20.7468 6.65 20.2498 6.65H8.2498C7.75274 6.65 7.3498 6.24706 7.3498 5.75Z" fill="currentColor" fill-opacity="0.88"/>
 <path d="M3.74969 13.25C4.44004 13.25 4.99969 12.6904 4.99969 12C4.99969 11.3096 4.44004 10.75 3.74969 10.75C3.05934 10.75 2.49969 11.3096 2.49969 12C2.49969 12.6904 3.05934 13.25 3.74969 13.25Z" fill="currentColor" fill-opacity="0.88"/>
@@ -421,17 +440,7 @@
                 <div class="mt-5 h-px bg-warm-gray-100" aria-hidden="true"></div>
 
                 
-                <ul class="pt-4"
-                    x-data="{
-                        closed: JSON.parse('[\u0022운영팀\u0022]'),
-                        toggle(name) {
-                            this.closed = this.closed.includes(name)
-                                ? this.closed.filter(n => n !== name)
-                                : [...this.closed, name];
-                        },
-                        isOpen(name) { return ! this.closed.includes(name); },
-                        isHidden(path) { return path.some(p => this.closed.includes(p)); },
-                    }">
+                <ul class="pt-4" x-bind:class="{ 'hidden': view !== 'tree' }">
                                             <li >
                             <div class="group flex h-10 min-w-0 items-center pl-[30px] pr-[30px] transition-colors bg-warm-gray-100">
                                 
@@ -658,6 +667,150 @@
                             </div>
                         </li>
                                     </ul>
+
+                
+                <div x-bind:class="{ 'hidden': view !== 'list' }">
+                    <div class="w-full overflow-x-auto rounded-xs border border-line-solid-neutral bg-background-normal rounded-none border-x-0 border-t-0" dense="dense"
+     >
+    <table class="w-full border-collapse text-left" style="min-width: 400px">
+        <thead class="border-b border-line-solid-normal bg-background-alternative">
+    <tr>
+                                                            <th scope="col"
+                     style="width: 100px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-7 first:pl-[30px] text-left">ID</th>
+                                            <th scope="col"
+                     style="width: 140px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-7 first:pl-[30px] text-left">조직 이름</th>
+                                            <th scope="col"
+                     style="width: 80px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-7 first:pl-[30px] text-left">조직 유형</th>
+                                            <th scope="col"
+                                        class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-7 first:pl-[30px] text-left">조직 순차</th>
+                        </tr>
+</thead>
+                        <tbody>
+                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+    >
+        <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0000101</span></td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
+>청담원</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+>본부</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0</span></td>
+</tr>
+                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+    >
+        <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0000102</span></td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
+>개발팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+>팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0</span></td>
+</tr>
+                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+    >
+        <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0000103</span></td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
+>프론트엔드팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+>팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0</span></td>
+</tr>
+                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+    >
+        <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0000104</span></td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
+>백엔드팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+>팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0</span></td>
+</tr>
+                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+    >
+        <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0000105</span></td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
+>운영팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+>팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0</span></td>
+</tr>
+                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+    >
+        <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0000106</span></td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
+>수강 운영팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+>팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0</span></td>
+</tr>
+                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+    >
+        <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0000107</span></td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
+>콘텐츠팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+>팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0</span></td>
+</tr>
+                                                    </tbody>
+    </table>
+</div>
+
+                    <div class="mt-[30px] h-px bg-warm-gray-100" aria-hidden="true"></div>
+
+                    <div class="flex justify-end px-[30px] pt-4">
+                        <button
+            type="button"
+                class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2"
+>
+            <svg width="1em" height="1em" aria-hidden="true" class="w-4 h-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2.59961C12.497 2.59961 12.9 3.00255 12.9 3.49961V12.8273L15.8636 9.8637C16.215 9.51223 16.7849 9.51223 17.1364 9.8637C17.4878 10.2152 17.4878 10.785 17.1364 11.1365L12.6364 15.6365C12.2849 15.988 11.715 15.988 11.3636 15.6365L6.86359 11.1365C6.51212 10.785 6.51212 10.2152 6.86359 9.8637C7.21506 9.51223 7.78491 9.51223 8.13638 9.8637L11.1 12.8273V3.49961C11.1 3.00255 11.5029 2.59961 12 2.59961Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M21.1502 14.8997C21.1502 14.4026 20.7472 13.9997 20.2502 13.9997C19.7531 13.9997 19.3502 14.4026 19.3502 14.8997V17.4498C19.3502 18.2644 19.3391 18.4582 19.2964 18.5897C19.1875 18.9246 18.925 19.1872 18.5901 19.296C18.4586 19.3387 18.2648 19.3498 17.4502 19.3498H6.55023C5.73567 19.3498 5.54184 19.3387 5.41032 19.296C5.07544 19.1872 4.81289 18.9246 4.70408 18.5897C4.66134 18.4582 4.65024 18.2644 4.65024 17.4498V14.8997C4.65024 14.4027 4.24729 13.9997 3.75023 13.9997C3.25317 13.9997 2.85022 14.4027 2.85022 14.8997V17.0852C2.85021 17.615 2.8502 18.0663 2.88046 18.4367C2.91226 18.8259 2.98189 19.2044 3.1663 19.5664C3.44434 20.112 3.88798 20.5557 4.43365 20.8337C4.79558 21.0181 5.17417 21.0878 5.56333 21.1196C5.93374 21.1498 6.3849 21.1498 6.91473 21.1498H17.0856C17.6154 21.1498 18.0667 21.1498 18.4371 21.1196C18.8262 21.0878 19.2048 21.0181 19.5667 20.8337C20.1124 20.5557 20.5561 20.112 20.8341 19.5664C21.0185 19.2044 21.0881 18.8259 21.1199 18.4367C21.1502 18.0663 21.1502 17.6151 21.1502 17.0853V14.8997Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>    
+    엑셀로 저장
+
+    </button>
+                    </div>
+                </div>
             </aside>
 
             
@@ -934,19 +1087,19 @@
                 </label>
             </th>
                                                             <th scope="col"
-                     style="width: 160px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">이름</th>
+                     style="width: 160px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">이름</th>
                                             <th scope="col"
-                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">시작일</th>
+                     style="width: 110px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">시작일</th>
                                             <th scope="col"
-                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">종료일</th>
+                     style="width: 110px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">종료일</th>
                                             <th scope="col"
-                     style="width: 120px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">구분</th>
+                     style="width: 120px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">구분</th>
                                             <th scope="col"
-                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">사번</th>
+                     style="width: 110px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">사번</th>
                                             <th scope="col"
-                     style="width: 160px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">직책</th>
+                     style="width: 160px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">직책</th>
                                             <th scope="col"
-                                        class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">비고</th>
+                                        class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">비고</th>
                         </tr>
 </thead>
                             <tbody>
@@ -963,7 +1116,7 @@
 </svg>            </label>
         </td>
         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left whitespace-nowrap"
 ><span class="flex min-w-0 items-center gap-2.5">
                                                 <span class="inline-flex shrink-0 items-center justify-center overflow-hidden h-8 w-8 rounded-full bg-deep-blue-800">
             <span class="text-caption-1 font-semibold text-white select-none">김</span>
@@ -971,22 +1124,22 @@
                                                 <span class="truncate">김기안</span>
                                             </span></td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">2021.08.01</span></td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">-</span></td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >대표</td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">20210001</span></td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >대표</td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >-</td>
 </tr>
                                                             </tbody>
@@ -1032,15 +1185,15 @@
                 </label>
             </th>
                                                             <th scope="col"
-                     style="width: 160px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">조직 시작일</th>
+                     style="width: 160px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">조직 시작일</th>
                                             <th scope="col"
-                     style="width: 160px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">조직 종료일</th>
+                     style="width: 160px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">조직 종료일</th>
                                             <th scope="col"
-                     style="width: 200px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">조직 이름</th>
+                     style="width: 200px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">조직 이름</th>
                                             <th scope="col"
-                     style="width: 200px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">상위 조직 이름</th>
+                     style="width: 200px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">상위 조직 이름</th>
                                             <th scope="col"
-                                        class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">비고</th>
+                                        class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">비고</th>
                         </tr>
 </thead>
                             <tbody>
@@ -1057,19 +1210,19 @@
 </svg>            </label>
         </td>
         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">2021.08.01</span></td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">-</span></td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left whitespace-nowrap"
 >청담원</td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >-</td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >내용 없음</td>
 </tr>
                                                             </tbody>
@@ -1126,9 +1279,9 @@
                 </label>
             </th>
                                                             <th scope="col"
-                     style="width: 160px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">언어</th>
+                     style="width: 160px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">언어</th>
                                             <th scope="col"
-                                        class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">주요 업무</th>
+                                        class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">주요 업무</th>
                         </tr>
 </thead>
                             <tbody>
@@ -1145,10 +1298,10 @@
 </svg>            </label>
         </td>
         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >한국어</td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
 >요양보호 · 방문간호 교육 컨텐츠를 만들고 운영합니다.</td>
 </tr>
                                                                     <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors"
@@ -1164,10 +1317,10 @@
 </svg>            </label>
         </td>
         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >English</td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
 >We build and run care-worker education content.</td>
 </tr>
                                                             </tbody>
@@ -1224,19 +1377,19 @@
                 </label>
             </th>
                                                             <th scope="col"
-                     style="width: 120px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">국가</th>
+                     style="width: 120px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">국가</th>
                                             <th scope="col"
-                     style="width: 100px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">우편 번호</th>
+                     style="width: 100px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">우편 번호</th>
                                             <th scope="col"
-                     style="width: 252px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">상세 주소</th>
+                     style="width: 252px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">상세 주소</th>
                                             <th scope="col"
-                     style="width: 160px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">영문 주소</th>
+                     style="width: 160px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">영문 주소</th>
                                             <th scope="col"
-                     style="width: 160px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">영문 상세 주소</th>
+                     style="width: 160px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">영문 상세 주소</th>
                                             <th scope="col"
-                     style="width: 110px"                     class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">시작일</th>
+                     style="width: 110px"                     class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">시작일</th>
                                             <th scope="col"
-                                        class="h-14 px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap first:pl-5 last:pr-5 text-left">종료일</th>
+                                        class="px-4 align-middle text-label-2 font-medium text-label-alternative whitespace-nowrap h-14 first:pl-5 last:pr-5 text-left">종료일</th>
                         </tr>
 </thead>
                             <tbody>
@@ -1254,28 +1407,28 @@
 </svg>            </label>
         </td>
         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 >대한민국</td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">06015</span></td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 font-semibold text-label-strong text-left"
 ><button type="button" @click="openAddress(JSON.parse('{\u0022country\u0022:\u0022대한민국\u0022,\u0022zip\u0022:\u002206015\u0022,\u0022address\u0022:\u0022서울특별시 강남구 청담동\u0022,\u0022address_en\u0022:null,\u0022address_detail_en\u0022:null,\u0022from\u0022:\u00222021.08.01\u0022,\u0022to\u0022:null}'))"
                                                     class="text-left after:absolute after:inset-0 focus:outline-none focus-visible:underline focus-visible:decoration-primary focus-visible:underline-offset-4">
                                                 서울특별시 강남구 청담동
                                             </button></td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >-</td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left"
 >-</td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">2021.08.01</span></td>
                                         <td
-            class="h-14 px-4 text-body-2 align-middle first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
+            class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">-</span></td>
 </tr>
                                                             </tbody>
@@ -1377,7 +1530,7 @@
                     <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-[30px]">기본 정보</h3>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a791cdba5fdf" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a791f5504f56" class="text-label-1 font-medium text-label-neutral">
             국가
                     </label>
     
@@ -1385,7 +1538,7 @@
          >
         
         <input
-            id="input-6a791cdba5fdf"
+            id="input-6a791f5504f56"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.country"         />
 
@@ -1393,7 +1546,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a791cdba60cd" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a791f550504c" class="text-label-1 font-medium text-label-neutral">
             우편 번호
                     </label>
     
@@ -1401,7 +1554,7 @@
          >
         
         <input
-            id="input-6a791cdba60cd"
+            id="input-6a791f550504c"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.zip"         />
 
@@ -1409,7 +1562,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a791cdba61be" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a791f5505138" class="text-label-1 font-medium text-label-neutral">
             상세 주소
                     </label>
     
@@ -1417,7 +1570,7 @@
          >
         
         <input
-            id="input-6a791cdba61be"
+            id="input-6a791f5505138"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.address"         />
 
@@ -1425,7 +1578,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a791cdba62ac" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a791f550521a" class="text-label-1 font-medium text-label-neutral">
             영문 주소
                     </label>
     
@@ -1433,7 +1586,7 @@
          >
         
         <input
-            id="input-6a791cdba62ac"
+            id="input-6a791f550521a"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="영문 주소 입력" x-model="draft.address_en"         />
 
@@ -1441,7 +1594,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a791cdba6391" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a791f55052f9" class="text-label-1 font-medium text-label-neutral">
             영문 상세 주소
                     </label>
     
@@ -1449,7 +1602,7 @@
          >
         
         <input
-            id="input-6a791cdba6391"
+            id="input-6a791f55052f9"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="영문 상세 주소 입력" x-model="draft.address_detail_en"         />
 
@@ -1461,7 +1614,7 @@
                     <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-10">기타 정보</h3>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a791cdba646b" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a791f55053d8" class="text-label-1 font-medium text-label-neutral">
             시작일
                     </label>
     
@@ -1469,7 +1622,7 @@
          >
         
         <input
-            id="input-6a791cdba646b"
+            id="input-6a791f55053d8"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.from"         />
 
@@ -1477,7 +1630,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a791cdba6542" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a791f55054b4" class="text-label-1 font-medium text-label-neutral">
             종료일
                     </label>
     
@@ -1485,7 +1638,7 @@
          >
         
         <input
-            id="input-6a791cdba6542"
+            id="input-6a791f55054b4"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="종료일 입력" x-model="draft.to"         />
 
@@ -1857,7 +2010,7 @@
     </div>
                     
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a791cdba6e5a" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a791f5505f00" class="text-label-1 font-medium text-label-neutral">
             상위 조직
                     </label>
     
@@ -1865,7 +2018,7 @@
          >
         
         <input
-            id="input-6a791cdba6e5a"
+            id="input-6a791f5505f00"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="청담원" disabled="disabled"         />
 
@@ -2530,7 +2683,7 @@
     </div>
                     
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a791cdba7602" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a791f55066ed" class="text-label-1 font-medium text-label-neutral">
             조직 계층
                     </label>
     
@@ -2538,7 +2691,7 @@
          >
         
         <input
-            id="input-6a791cdba7602"
+            id="input-6a791f55066ed"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="02" disabled="disabled"         />
 
