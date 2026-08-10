@@ -3,14 +3,18 @@
      DS <x-tabs> 는 밑줄형이라 형태가 다르다. 원본이 알약형이어서 여기서 조립했다.
 
      컨텐츠 관리 · 과정 관리 · 조직 관리가 같은 탭 줄을 쓴다. 화면마다 되풀이하지 않으려고 뺐다.
+     재무의 '업무 관리자 메뉴'(node 1002-93118)도 모양이 같아서 $tabs 를 넘겨 같이 쓴다.
 
-     $active = 'contents' | 'courses' | 'orgs' --}}
+     $active : 켜 둘 탭의 키
+     $tabs   : ['키' => ['label' => …, 'href' => …]] — href 를 비우면 아직 화면이 없는 탭이라
+               링크가 아니라 글자로만 나간다. 안 넘기면 워크스페이스 세 탭이 기본이다. --}}
 @php
-    $tabs = [
+    $tabs = $tabs ?? [
         'contents' => ['label' => '컨텐츠 관리', 'href' => url('/contents')],
         'courses' => ['label' => '과정 관리', 'href' => url('/courses')],
         'orgs' => ['label' => '조직 관리', 'href' => url('/orgs')],
     ];
+    $pill = 'inline-flex items-center justify-center rounded-lg bg-warm-gray-200 px-3 pb-[5px] pt-1.5 text-body-2 font-bold leading-[23px] text-warm-gray-500';
 @endphp
 
 <div class="flex flex-wrap items-start gap-4">
@@ -25,11 +29,13 @@
                     <x-icon-close class="size-[18px]" />
                 </button>
             </span>
-        @else
-            <a href="{{ $tab['href'] }}"
-               class="inline-flex items-center justify-center rounded-lg bg-warm-gray-200 px-3 pb-[5px] pt-1.5 text-body-2 font-bold leading-[23px] text-warm-gray-500 transition-colors hover:text-label-normal">
+        @elseif (! empty($tab['href']))
+            <a href="{{ $tab['href'] }}" class="{{ $pill }} transition-colors hover:text-label-normal">
                 {{ $tab['label'] }}
             </a>
+        @else
+            {{-- 아직 화면이 없는 탭 — 누를 데가 없으니 링크로 내보내지 않는다 --}}
+            <span class="{{ $pill }}">{{ $tab['label'] }}</span>
         @endif
     @endforeach
 </div>

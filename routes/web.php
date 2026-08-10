@@ -59,3 +59,7 @@ Route::view('/courses/detail', 'courses-detail')->name('courses.detail');
 
 // 재무 — 지출 현황 대시보드 (Figma node 1002-88730). 값은 전부 뷰에 박아둔 예시다.
 Route::view('/finance', 'finance')->name('finance');
+
+// 재무 > 업무 관리자 메뉴 > 예산 계정 관리 (Figma node 1002-93118).
+// 같은 탭 줄의 나머지 탭은 아직 화면이 없다.
+Route::view('/finance/budget', 'budget-accounts')->name('finance.budget');
