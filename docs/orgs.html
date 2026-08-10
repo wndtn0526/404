@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>조직 관리 · 전자결재</title>
 
-        <link rel="preload" as="style" href="./build/assets/app-BUMgizwF.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-BUMgizwF.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="preload" as="style" href="./build/assets/app-C-Z_y57G.css" /><link rel="modulepreload" as="script" href="./build/assets/app-BvRk9kiK.js" /><link rel="stylesheet" href="./build/assets/app-C-Z_y57G.css" data-navigate-track="reload" /><script type="module" src="./build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
     <meta name="robots" content="noindex">
 </head>
@@ -478,7 +478,7 @@
                                             <li  :class="{ 'hidden': isHidden(JSON.parse('[\u0022청담원\u0022]')) }" >
                             <div class="group flex h-10 min-w-0 items-center pl-[30px] pr-[30px] transition-colors hover:bg-fill-alternative">
                                 
-                                                                    <span class="relative h-10 w-[26px] shrink-0" aria-hidden="true">
+                                                                    <span class="relative h-10 shrink-0 w-[26px]" aria-hidden="true">
                                                                             </span>
                                 
                                 
@@ -517,9 +517,54 @@
                                             <li  :class="{ 'hidden': isHidden(JSON.parse('[\u0022청담원\u0022,\u0022개발팀\u0022]')) }" >
                             <div class="group flex h-10 min-w-0 items-center pl-[30px] pr-[30px] transition-colors hover:bg-fill-alternative">
                                 
-                                                                    <span class="relative h-10 w-[26px] shrink-0" aria-hidden="true">
+                                                                    <span class="relative h-10 shrink-0 w-[26px]" aria-hidden="true">
                                                                             </span>
-                                                                    <span class="relative h-10 w-[26px] shrink-0" aria-hidden="true">
+                                                                    <span class="relative h-10 shrink-0 w-[20px]" aria-hidden="true">
+                                                                                    <span class="absolute left-[6px] top-0 h-full w-px bg-warm-gray-400"></span>
+                                                                            </span>
+                                
+                                
+                                                                    <span class="relative h-10 w-[21px] shrink-0">
+                                                                                    
+                                            <span class="absolute left-[6px] top-0 h-[14px] w-px bg-warm-gray-400" aria-hidden="true"></span>
+                                                                                            <span class="absolute left-[6px] top-[27px] h-[13px] w-px bg-warm-gray-400" aria-hidden="true"></span>
+                                                                                    
+                                        <button type="button"
+                                                @click="toggle('프론트엔드팀')"
+                                                x-bind:aria-expanded="isOpen('프론트엔드팀')"
+                                                aria-label="프론트엔드팀 하위 조직 접기/펴기"
+                                                class="absolute left-0 top-[14px] flex size-[13px] items-center justify-center rounded-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                                                x-bind:class="isOpen('프론트엔드팀')
+                                                    ? 'border border-warm-gray-400 text-warm-gray-400'
+                                                    : 'bg-warm-gray-700 text-white'">
+                                            <span class="absolute h-px w-[7px] bg-current" aria-hidden="true"></span>
+                                            <span class="absolute h-[7px] w-px bg-current" aria-hidden="true"
+                                                  x-bind:class="isOpen('프론트엔드팀') && 'hidden'"></span>
+                                        </button>
+                                    </span>
+                                
+                                <a href="#" class="min-w-0 flex-1 truncate pl-2 text-label-1 leading-5 text-mono-black focus:outline-none focus-visible:underline font-bold"
+                                   >
+                                    프론트엔드팀
+                                </a>
+
+                                
+                                <button type="button"
+                                        @click="$dispatch('open-modal', 'org-add')"
+                                        class="shrink-0 pl-2 text-label-2 font-medium leading-5 text-mono-black opacity-0 transition-opacity focus:outline-none group-hover:opacity-100 focus-visible:opacity-100">
+                                    + 조직 추가
+                                </button>
+                            </div>
+                        </li>
+                                            <li  :class="{ 'hidden': isHidden(JSON.parse('[\u0022청담원\u0022,\u0022개발팀\u0022,\u0022프론트엔드팀\u0022]')) }" >
+                            <div class="group flex h-10 min-w-0 items-center pl-[30px] pr-[30px] transition-colors hover:bg-fill-alternative">
+                                
+                                                                    <span class="relative h-10 shrink-0 w-[26px]" aria-hidden="true">
+                                                                            </span>
+                                                                    <span class="relative h-10 shrink-0 w-[20px]" aria-hidden="true">
+                                                                                    <span class="absolute left-[6px] top-0 h-full w-px bg-warm-gray-400"></span>
+                                                                            </span>
+                                                                    <span class="relative h-10 shrink-0 w-[20px]" aria-hidden="true">
                                                                                     <span class="absolute left-[6px] top-0 h-full w-px bg-warm-gray-400"></span>
                                                                             </span>
                                 
@@ -532,7 +577,39 @@
                                 
                                 <a href="#" class="min-w-0 flex-1 truncate pl-2 text-label-1 leading-5 text-mono-black focus:outline-none focus-visible:underline font-medium"
                                    >
-                                    프론트엔드팀
+                                    웹 스쿼드
+                                </a>
+
+                                
+                                <button type="button"
+                                        @click="$dispatch('open-modal', 'org-add')"
+                                        class="shrink-0 pl-2 text-label-2 font-medium leading-5 text-mono-black opacity-0 transition-opacity focus:outline-none group-hover:opacity-100 focus-visible:opacity-100">
+                                    + 조직 추가
+                                </button>
+                            </div>
+                        </li>
+                                            <li  :class="{ 'hidden': isHidden(JSON.parse('[\u0022청담원\u0022,\u0022개발팀\u0022,\u0022프론트엔드팀\u0022]')) }" >
+                            <div class="group flex h-10 min-w-0 items-center pl-[30px] pr-[30px] transition-colors hover:bg-fill-alternative">
+                                
+                                                                    <span class="relative h-10 shrink-0 w-[26px]" aria-hidden="true">
+                                                                            </span>
+                                                                    <span class="relative h-10 shrink-0 w-[20px]" aria-hidden="true">
+                                                                                    <span class="absolute left-[6px] top-0 h-full w-px bg-warm-gray-400"></span>
+                                                                            </span>
+                                                                    <span class="relative h-10 shrink-0 w-[20px]" aria-hidden="true">
+                                                                                    <span class="absolute left-[6px] top-0 h-full w-px bg-warm-gray-400"></span>
+                                                                            </span>
+                                
+                                
+                                                                    
+                                    <span class="relative h-10 w-[21px] shrink-0" aria-hidden="true">
+                                        <span class="absolute left-[6px] top-0 w-px bg-warm-gray-400 h-[21px]"></span>
+                                        <span class="absolute left-[7px] top-[20px] h-px w-2 bg-warm-gray-400"></span>
+                                    </span>
+                                
+                                <a href="#" class="min-w-0 flex-1 truncate pl-2 text-label-1 leading-5 text-mono-black focus:outline-none focus-visible:underline font-medium"
+                                   >
+                                    앱 스쿼드
                                 </a>
 
                                 
@@ -546,9 +623,9 @@
                                             <li  :class="{ 'hidden': isHidden(JSON.parse('[\u0022청담원\u0022,\u0022개발팀\u0022]')) }" >
                             <div class="group flex h-10 min-w-0 items-center pl-[30px] pr-[30px] transition-colors hover:bg-fill-alternative">
                                 
-                                                                    <span class="relative h-10 w-[26px] shrink-0" aria-hidden="true">
+                                                                    <span class="relative h-10 shrink-0 w-[26px]" aria-hidden="true">
                                                                             </span>
-                                                                    <span class="relative h-10 w-[26px] shrink-0" aria-hidden="true">
+                                                                    <span class="relative h-10 shrink-0 w-[20px]" aria-hidden="true">
                                                                                     <span class="absolute left-[6px] top-0 h-full w-px bg-warm-gray-400"></span>
                                                                             </span>
                                 
@@ -575,7 +652,7 @@
                                             <li  :class="{ 'hidden': isHidden(JSON.parse('[\u0022청담원\u0022]')) }" >
                             <div class="group flex h-10 min-w-0 items-center pl-[30px] pr-[30px] transition-colors hover:bg-fill-alternative">
                                 
-                                                                    <span class="relative h-10 w-[26px] shrink-0" aria-hidden="true">
+                                                                    <span class="relative h-10 shrink-0 w-[26px]" aria-hidden="true">
                                                                             </span>
                                 
                                 
@@ -614,9 +691,9 @@
                                             <li  :class="{ 'hidden': isHidden(JSON.parse('[\u0022청담원\u0022,\u0022운영팀\u0022]')) }" >
                             <div class="group flex h-10 min-w-0 items-center pl-[30px] pr-[30px] transition-colors hover:bg-fill-alternative">
                                 
-                                                                    <span class="relative h-10 w-[26px] shrink-0" aria-hidden="true">
+                                                                    <span class="relative h-10 shrink-0 w-[26px]" aria-hidden="true">
                                                                             </span>
-                                                                    <span class="relative h-10 w-[26px] shrink-0" aria-hidden="true">
+                                                                    <span class="relative h-10 shrink-0 w-[20px]" aria-hidden="true">
                                                                                     <span class="absolute left-[6px] top-0 h-full w-px bg-warm-gray-400"></span>
                                                                             </span>
                                 
@@ -643,7 +720,7 @@
                                             <li  :class="{ 'hidden': isHidden(JSON.parse('[\u0022청담원\u0022]')) }" >
                             <div class="group flex h-10 min-w-0 items-center pl-[30px] pr-[30px] transition-colors hover:bg-fill-alternative">
                                 
-                                                                    <span class="relative h-10 w-[26px] shrink-0" aria-hidden="true">
+                                                                    <span class="relative h-10 shrink-0 w-[26px]" aria-hidden="true">
                                                                             </span>
                                 
                                 
@@ -738,7 +815,7 @@
 ><span class="tabular-nums">0000104</span></td>
                                     <td
             class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
->백엔드팀</td>
+>웹 스쿼드</td>
                                     <td
             class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
 >팀</td>
@@ -753,7 +830,7 @@
 ><span class="tabular-nums">0000105</span></td>
                                     <td
             class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
->운영팀</td>
+>앱 스쿼드</td>
                                     <td
             class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
 >팀</td>
@@ -768,7 +845,7 @@
 ><span class="tabular-nums">0000106</span></td>
                                     <td
             class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
->수강 운영팀</td>
+>백엔드팀</td>
                                     <td
             class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
 >팀</td>
@@ -781,6 +858,36 @@
         <td
             class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
 ><span class="tabular-nums">0000107</span></td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
+>운영팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+>팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0</span></td>
+</tr>
+                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+    >
+        <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0000108</span></td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
+>수강 운영팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+>팀</td>
+                                    <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0</span></td>
+</tr>
+                                                            <tr class="border-b border-line-solid-alternative last:border-b-0 transition-colors hover:bg-fill-alternative"
+    >
+        <td
+            class="px-4 align-middle h-7 text-label-2 first:pl-[30px] text-label-alternative text-left whitespace-nowrap"
+><span class="tabular-nums">0000109</span></td>
                                     <td
             class="px-4 align-middle h-7 text-label-2 first:pl-[30px] font-semibold text-label-strong text-left whitespace-nowrap"
 >콘텐츠팀</td>
@@ -1534,7 +1641,7 @@
                     <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-[30px]">기본 정보</h3>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7920627869d" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a79220147da9" class="text-label-1 font-medium text-label-neutral">
             국가
                     </label>
     
@@ -1542,7 +1649,7 @@
          >
         
         <input
-            id="input-6a7920627869d"
+            id="input-6a79220147da9"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.country"         />
 
@@ -1550,7 +1657,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a792062786b9" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a79220147dc2" class="text-label-1 font-medium text-label-neutral">
             우편 번호
                     </label>
     
@@ -1558,7 +1665,7 @@
          >
         
         <input
-            id="input-6a792062786b9"
+            id="input-6a79220147dc2"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.zip"         />
 
@@ -1566,7 +1673,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a792062786d0" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a79220147dd6" class="text-label-1 font-medium text-label-neutral">
             상세 주소
                     </label>
     
@@ -1574,7 +1681,7 @@
          >
         
         <input
-            id="input-6a792062786d0"
+            id="input-6a79220147dd6"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.address"         />
 
@@ -1582,7 +1689,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a792062786e5" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a79220147de9" class="text-label-1 font-medium text-label-neutral">
             영문 주소
                     </label>
     
@@ -1590,7 +1697,7 @@
          >
         
         <input
-            id="input-6a792062786e5"
+            id="input-6a79220147de9"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="영문 주소 입력" x-model="draft.address_en"         />
 
@@ -1598,7 +1705,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a792062786fb" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a79220147dfd" class="text-label-1 font-medium text-label-neutral">
             영문 상세 주소
                     </label>
     
@@ -1606,7 +1713,7 @@
          >
         
         <input
-            id="input-6a792062786fb"
+            id="input-6a79220147dfd"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="영문 상세 주소 입력" x-model="draft.address_detail_en"         />
 
@@ -1618,7 +1725,7 @@
                     <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-10">기타 정보</h3>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a79206278710" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a79220147e11" class="text-label-1 font-medium text-label-neutral">
             시작일
                     </label>
     
@@ -1626,7 +1733,7 @@
          >
         
         <input
-            id="input-6a79206278710"
+            id="input-6a79220147e11"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.from"         />
 
@@ -1634,7 +1741,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a79206278723" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a79220147e25" class="text-label-1 font-medium text-label-neutral">
             종료일
                     </label>
     
@@ -1642,7 +1749,7 @@
          >
         
         <input
-            id="input-6a79206278723"
+            id="input-6a79220147e25"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="종료일 입력" x-model="draft.to"         />
 
@@ -1788,7 +1895,7 @@
                     <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-[30px]">기본 정보</h3>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a792062789ab" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a79220147f60" class="text-label-1 font-medium text-label-neutral">
             이름
                     </label>
     
@@ -1796,7 +1903,7 @@
          >
         
         <input
-            id="input-6a792062789ab"
+            id="input-6a79220147f60"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.name"         />
 
@@ -1804,7 +1911,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a792062789c2" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a79220147f75" class="text-label-1 font-medium text-label-neutral">
             사번
                     </label>
     
@@ -1812,7 +1919,7 @@
          >
         
         <input
-            id="input-6a792062789c2"
+            id="input-6a79220147f75"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.employee_no"         />
 
@@ -1883,14 +1990,14 @@
      x-model="draft.title"
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a79206278a6a" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a79220147f90" class="text-label-1 font-medium text-label-neutral">
             직책
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a79206278a6a"
+            id="dropdown-6a79220147f90"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -2007,14 +2114,14 @@
      x-model="draft.kind"
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a79206278c9d" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7922014802c" class="text-label-1 font-medium text-label-neutral">
             구분
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a79206278c9d"
+            id="dropdown-6a7922014802c"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -2072,7 +2179,7 @@
                     <h3 class="text-body-1 font-bold leading-6 text-mono-black pt-10">기타 정보</h3>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 sm:grid-cols-2 pt-6">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a79206278d1b" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a79220148092" class="text-label-1 font-medium text-label-neutral">
             시작일
                     </label>
     
@@ -2080,7 +2187,7 @@
          >
         
         <input
-            id="input-6a79206278d1b"
+            id="input-6a79220148092"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.from"         />
 
@@ -2088,7 +2195,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a79206278d34" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a792201480a9" class="text-label-1 font-medium text-label-neutral">
             종료일
                     </label>
     
@@ -2096,7 +2203,7 @@
          >
         
         <input
-            id="input-6a79206278d34"
+            id="input-6a792201480a9"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="종료일 입력" x-model="draft.to"         />
 
@@ -2104,7 +2211,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a79206278d4c" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a792201480bd" class="text-label-1 font-medium text-label-neutral">
             비고
                     </label>
     
@@ -2112,7 +2219,7 @@
          >
         
         <input
-            id="input-6a79206278d4c"
+            id="input-6a792201480bd"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="내용 입력" x-model="draft.note"         />
 
@@ -2483,7 +2590,7 @@
     </div>
                     
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a79206279361" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a792201484ba" class="text-label-1 font-medium text-label-neutral">
             상위 조직
                     </label>
     
@@ -2491,7 +2598,7 @@
          >
         
         <input
-            id="input-6a79206279361"
+            id="input-6a792201484ba"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="청담원" disabled="disabled"         />
 
@@ -3156,7 +3263,7 @@
     </div>
                     
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a79206279aa9" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7922014883d" class="text-label-1 font-medium text-label-neutral">
             조직 계층
                     </label>
     
@@ -3164,7 +3271,7 @@
          >
         
         <input
-            id="input-6a79206279aa9"
+            id="input-6a7922014883d"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="02" disabled="disabled"         />
 

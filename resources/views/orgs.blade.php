@@ -33,12 +33,17 @@
      * 중첩으로 적고 아래에서 평탄화한다. 연결선을 그리려면 각 행이 '조상 중 뒤에 형제가
      * 남은 단계' 를 알아야 하는데, 평평한 배열로는 그 정보가 안 나온다.
      *
-     * ⚠️ 하위 팀(프론트엔드팀·백엔드팀·수강 운영팀)은 트리 모양을 보이려고 넣은 예시다.
+     * ⚠️ 하위 조직(프론트엔드팀·백엔드팀·웹/앱 스쿼드·수강 운영팀)은 예시다. 원본 사이드바가
+     *    그룹 > 법인 > 실 > 팀 > 스쿼드까지 다섯 단을 그리므로(node 1002-273882),
+     *    연결선이 깊이마다 제대로 서는지 보려고 네 단까지 채웠다.
      */
     $orgTree = [
         ['name' => '청담원', 'current' => true, 'children' => [
             ['name' => '개발팀', 'children' => [
-                ['name' => '프론트엔드팀'],
+                ['name' => '프론트엔드팀', 'children' => [
+                    ['name' => '웹 스쿼드'],
+                    ['name' => '앱 스쿼드'],
+                ]],
                 ['name' => '백엔드팀'],
             ]],
             ['name' => '운영팀', 'children' => [
@@ -306,9 +311,9 @@
 
                 <div class="mt-5 h-px bg-warm-gray-100" aria-hidden="true"></div>
 
-                {{-- 트리 — Figma node 1002-274353 실측
+                {{-- 트리 — Figma node 1002-274353 · 깊이는 1002-273882(4차 펼침) 실측
                      행 40 · 선택 행 Warm gray/100 · 이름 14 (자식 있으면 Bold · 잎이면 Medium)
-                     단계 칸 26 · 세로선 x+6 · 잎 엘보 가로선 8 (행 중간)
+                     단계 칸 26 → 그 뒤 20 · 세로선 x+6 · 잎 엘보 가로선 8 (행 중간)
                      마지막 자식은 세로선을 행 중간까지만 그린다
                      토글 13x13 반경 1 — 펼침: 테두리 Warm gray/400 + 마이너스
                                         접힘: 면 Warm gray/700 + 흰 플러스
@@ -317,7 +322,10 @@
                      ⚠️ 접기는 Alpine 이 감추는 방식이다(서버가 다시 그리지 않는다). x-show 대신
                         :class 로 감춘다 — x-show 는 Alpine 이 그리기를 프레임에 미뤄서
                         헤드리스 확인이 안 된다.
-                     ⚠️ 행을 눌러도 우측 상세는 청담원 그대로다. 다른 조직의 데이터가 없다. --}}
+                     ⚠️ 행을 눌러도 우측 상세는 청담원 그대로다. 다른 조직의 데이터가 없다.
+                     ⚠️ 이름 굵기는 '자식 있으면 Bold' 로 뒀다. 원본은 같은 단계인 GPRO 웹툰·GPRO 페이가
+                        Bold 인데 GPRO 만 Medium 이다(1002-274353 · 1002-273882 둘 다 그렇다).
+                        형제끼리 굵기가 갈리면 읽을 규칙이 없어서 한쪽으로 맞췄다. --}}
                 <ul class="pt-4" x-bind:class="{ 'hidden': view !== 'tree' }">
                     @foreach ($treeRows as $row)
                         <li @if ($row['path']) :class="{ 'hidden': isHidden(@js($row['path'])) }" @endif>
@@ -326,9 +334,16 @@
                                 'bg-warm-gray-100' => $row['current'],
                                 'hover:bg-fill-alternative' => ! $row['current'],
                             ])>
-                                {{-- 조상 단계 — 뒤에 형제가 남은 단계만 세로선이 계속 내려간다 --}}
-                                @foreach ($row['lines'] as $hasLine)
-                                    <span class="relative h-10 w-[26px] shrink-0" aria-hidden="true">
+                                {{-- 조상 단계 — 뒤에 형제가 남은 단계만 세로선이 계속 내려간다.
+                                     ⚠️ 단계 폭이 균일하지 않다. 첫 단만 26 이고 그 뒤로는 20 씩이다
+                                        (원본 4차 펼침 1002-273882 실측: 토글 좌가 30 · 56 · 76 · 96).
+                                        전부 26 으로 두면 깊어질수록 원본과 벌어진다. --}}
+                                @foreach ($row['lines'] as $level => $hasLine)
+                                    <span @class([
+                                        'relative h-10 shrink-0',
+                                        'w-[26px]' => $level === 0,
+                                        'w-[20px]' => $level > 0,
+                                    ]) aria-hidden="true">
                                         @if ($hasLine)
                                             <span class="absolute left-[6px] top-0 h-full w-px bg-warm-gray-400"></span>
                                         @endif
@@ -360,9 +375,9 @@
                                         </button>
                                     </span>
                                 @else
-                                    {{-- 원본 잎 단계는 칸이 17 이라 이름이 4 왼쪽에 선다. 원본엔 한 그룹에
-                                         토글과 잎이 섞인 경우가 없어서 드러나지 않는 차이다. 여기선 섞이므로
-                                         토글 칸과 같은 21 로 맞춰 이름 왼끝을 나란히 둔다. --}}
+                                    {{-- 잎은 세로선 + 엘보만 있고 토글이 없다. 원본 이름은 세로선에서 17
+                                         (= 칸 시작에서 23) 인데, 같은 그룹에 토글 있는 형제가 섞이면 이름
+                                         왼끝이 2 어긋난다. 토글 칸과 같은 21 로 맞춰 나란히 뒀다. --}}
                                     <span class="relative h-10 w-[21px] shrink-0" aria-hidden="true">
                                         <span @class([
                                             'absolute left-[6px] top-0 w-px bg-warm-gray-400',
