@@ -33,7 +33,7 @@ return [
         ['mark' => 'cdw-mark', 'href' => '/workspace', 'label' => '청담원 워크스페이스',
             'match' => ['workspace', 'workspace/*', 'contents', 'contents/*',
                 'courses', 'courses/*', 'organization', 'organization/*', 'orgs', 'orgs/*',
-                'settings', 'settings/*']],
+                'finance', 'finance/*', 'settings', 'settings/*']],
     ],
 
     /*
@@ -64,6 +64,8 @@ return [
             'match' => ['organization', 'organization/*']],
         ['label' => '조직 관리', 'href' => '/orgs', 'icon' => 'persons',
             'match' => ['orgs', 'orgs/*']],
+        ['label' => '재무', 'href' => '/finance', 'icon' => 'coins',
+            'match' => ['finance', 'finance/*']],
     ],
 
     // 설정 화면은 아직 없다. href 를 경로로 적으면 정적 배포에서 치환 대상이 없어

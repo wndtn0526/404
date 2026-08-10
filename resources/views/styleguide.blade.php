@@ -13,6 +13,7 @@
         'badges' => '배지',
         'forms' => '폼 컨트롤',
         'table' => '표',
+        'charts' => '차트',
         'nav' => '탭 · 페이지네이션',
         'surfaces' => '면 · 오버레이',
         'navigation' => '내비게이션',
@@ -574,6 +575,84 @@
                         <x-table.empty :colspan="4">아직 기안한 문서가 없습니다.</x-table.empty>
                     </tbody>
                 </x-table>
+            </section>
+
+            {{-- ═══ 차트 ═══ --}}
+            <section id="charts" class="flex flex-col gap-5">
+                <h2 class="text-title-3 font-bold text-label-normal">차트</h2>
+                <p class="text-label-1 text-label-alternative">
+                    원본에 차트가 지출 현황 대시보드(GPRO_PORTFOLIO node 1002-88730) 하나뿐이라
+                    DS 에 차트 규격이 따로 없다. 플롯 637x200 · 눈금 Warm gray/050 ·
+                    계열 색 여섯은 그 화면 범례에서 가져왔다. 색은 완성된 유틸리티 클래스로 넘긴다.
+                </p>
+                @php
+                    $sgSeries = [
+                        ['label' => '콘텐츠 제작', 'class' => 'text-cool-gray-800'],
+                        ['label' => '강사료', 'class' => 'text-purple-900'],
+                        ['label' => '시스템 운영', 'class' => 'text-deep-blue-900'],
+                        ['label' => '마케팅', 'class' => 'text-blue-900'],
+                        ['label' => '사무실', 'class' => 'text-bluegreen-900'],
+                        ['label' => '외주 용역', 'class' => 'text-green-800'],
+                    ];
+                    $sgMonths = ['1월', '2월', '3월', '4월', '5월', '6월'];
+                @endphp
+
+                <x-card>
+                    <x-chart.legend :items="$sgSeries" />
+                </x-card>
+
+                <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+                    <x-card>
+                        <h3 class="pb-4 text-headline-2 font-semibold text-label-normal">꺾은선</h3>
+                        <div class="relative">
+                            <x-chart.line
+                                :labels="$sgMonths"
+                                :values="[4200, 5600, 5100, 7300, 8800, 8200]"
+                                :max="10000"
+                                :highlight="4"
+                                :y-labels="[['at' => 1.0, 'text' => '10,000k'], ['at' => 0.5, 'text' => '5,000k']]" />
+                            <x-chart.tooltip title="5월" label="전체" value="8,800" class="absolute left-[62%] top-[6%]" />
+                        </div>
+                    </x-card>
+
+                    <x-card>
+                        <h3 class="pb-4 text-headline-2 font-semibold text-label-normal">누적 막대</h3>
+                        <x-chart.bars
+                            :labels="$sgMonths"
+                            :groups="[
+                                [['value' => 0, 'class' => 'text-warm-gray-200']],
+                                [['value' => 900, 'class' => 'text-cool-gray-800'], ['value' => 1200, 'class' => 'text-purple-900']],
+                                [['value' => 1400, 'class' => 'text-cool-gray-800'], ['value' => 1800, 'class' => 'text-purple-900']],
+                                [['value' => 1100, 'class' => 'text-cool-gray-800'], ['value' => 1500, 'class' => 'text-purple-900']],
+                                [['value' => 2100, 'class' => 'text-cool-gray-800'], ['value' => 2400, 'class' => 'text-purple-900']],
+                                [],
+                            ]"
+                            :max="10000"
+                            :y-labels="[['at' => 0.5, 'text' => '5,000k']]" />
+                    </x-card>
+
+                    <x-card>
+                        <h3 class="pb-4 text-headline-2 font-semibold text-label-normal">도넛</h3>
+                        <div class="flex justify-center">
+                            <x-chart.donut :slices="[
+                                ['label' => '콘텐츠 제작', 'value' => 33, 'class' => 'text-cool-gray-800'],
+                                ['label' => '강사료', 'value' => 22, 'class' => 'text-purple-900'],
+                                ['label' => '시스템 운영', 'value' => 16, 'class' => 'text-deep-blue-900'],
+                                ['label' => '마케팅', 'value' => 12, 'class' => 'text-blue-900'],
+                                ['label' => '사무실', 'value' => 10, 'class' => 'text-bluegreen-900'],
+                                ['label' => '외주 용역', 'value' => 7, 'class' => 'text-green-800'],
+                            ]" />
+                        </div>
+                    </x-card>
+
+                    <x-card>
+                        <h3 class="pb-4 text-headline-2 font-semibold text-label-normal">말풍선</h3>
+                        <div class="flex items-start gap-4">
+                            <x-chart.tooltip title="2021.09" label="전체" value="130,452" />
+                            <x-chart.tooltip title="강사료 (33%)" value="3,000" />
+                        </div>
+                    </x-card>
+                </div>
             </section>
 
             {{-- ═══ 내비 ═══ --}}

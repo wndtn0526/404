@@ -28,6 +28,7 @@ PAGES=(
     "organization:organization.html"
     "orgs:orgs.html"
     "orgs/history:orgs-history.html"
+    "finance:finance.html"
     "public-space:public-space.html"
     "public-space-empty:public-space-empty.html"
     "profile-settings:profile-settings.html"

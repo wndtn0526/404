@@ -56,3 +56,6 @@ Route::view('/orgs/history', 'orgs-history-edit')->name('orgs.history');
 // 과정 상세 — 표에서 행을 누르면 온다. 필드 구조는 컨텐츠 상세와 같다.
 // 정적이라 과정 하나만 보여준다. 모델이 붙으면 /courses/{id} 로 바꾼다.
 Route::view('/courses/detail', 'courses-detail')->name('courses.detail');
+
+// 재무 — 지출 현황 대시보드 (Figma node 1002-88730). 값은 전부 뷰에 박아둔 예시다.
+Route::view('/finance', 'finance')->name('finance');
