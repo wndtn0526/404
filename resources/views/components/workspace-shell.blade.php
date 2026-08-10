@@ -28,9 +28,9 @@
        breadcrumb / title / actions / (기본 슬롯 = 본문)
 
      원본 실측 — LNB 240 · 레일 30px 타일(top 20, gap 20) · 구분선 x54 흰색 5%
-                 메뉴 항목 left 67 · w 161 · pl 10 · py 6 · 반경 6 · 아이콘 20 · 간격 12
-                 항목 높이 32 · 하위 항목 28 (GPRO 화면 LNB 실측)
-                 ⚠️ 항목 사이만 원본 0 이 아니라 8 이다 — 0 은 실화면에서 너무 붙어 보인다
+                 메뉴 항목 left 67 · w 161 · 반경 6 · 아이콘 20 · 아이콘↔글자 12
+                 원본 실측은 pl 10 · py 6 · 항목 32 · 하위 28 · 사이 0 이다
+                 ⚠️ 여백은 사방 8 로, 사이도 8 로 통일했다(원본과 다름). 항목이 36 이 된다.
                  GNB 56 · 아이콘 24 · 프로필 32 · 본문 좌측 320 · 우측 여백 80 --}}
 @props([
     'workspace' => null,
@@ -94,9 +94,16 @@
     $footerItems = array_map($resolveNav, array_values(array_filter((array) $footerItems)));
     $rail = array_map($resolveNav, array_values(array_filter((array) $rail)));
 
-    // 원본 실측: pl 10 · py 6 · gap 12 · 반경 6 → 항목 높이 32. 활성만 BG 02 를 깐다.
-    // py 는 여기 두지 않는다 — 하위 항목이 28(py 4)이라 자리를 다툰다.
-    $itemBase = 'flex w-[161px] items-start gap-3 rounded-lg pl-2.5 transition-colors';
+    /*
+     * 항목 안쪽 여백은 사방 8 로 통일한다. 원본은 pl 10 · py 6(하위 4)이라 값이 세 개였다 —
+     * 한 화면 안에서 여백이 제각각이면 어디를 기준으로 읽어야 할지가 흐려진다.
+     * 사이(gap)도 8 이라 LNB 안의 간격이 전부 8 하나로 맞는다.
+     *
+     * ⚠️ 그 결과 항목 높이가 원본 32(하위 28) 대신 전부 36 이 된다. 원본으로 되돌릴 거면
+     *    py-2 를 상위 py-1.5 · 하위 py-1 로 나누고 pl-2 를 pl-2.5 로 되돌린다.
+     * 활성만 BG 02 를 깐다.
+     */
+    $itemBase = 'flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors';
 
     // 활성 = Label/Assistive 28% 면 + Background/Normal/Alternative 글자 (node 1-4530).
     // 비활성 글자는 Cool Neutral/50 — 다크 면에서 대비 약 4:1 로 읽힌다.
@@ -208,7 +215,7 @@
                             {{-- 자식이 있으면 폴더다. 눌러서 접고 편다 — 갈 곳은 자식이 갖는다.
                                  처음 상태는 '지금 이 묶음 안에 있으면 펼침' 이다. --}}
                             <button type="button" @click="open = ! open" x-bind:aria-expanded="open"
-                                    @class([$itemBase, 'py-1.5 pr-2.5 text-left', $itemOn => $active, $itemOff => ! $active])>
+                                    @class([$itemBase, 'text-left', $itemOn => $active, $itemOff => ! $active])>
                                 @if (! empty($item['icon']))
                                     <x-dynamic-component :component="'icon-' . $item['icon']" class="size-5 shrink-0" />
                                 @endif
@@ -226,7 +233,7 @@
                         @else
                             <a href="{{ $item['href'] ?? '#' }}"
                                @if ($active) aria-current="page" @endif
-                               @class([$itemBase, 'py-1.5', $itemOn => $active, $itemOff => ! $active])>
+                               @class([$itemBase, $itemOn => $active, $itemOff => ! $active])>
                                 @if (! empty($item['icon']))
                                     <x-dynamic-component :component="'icon-' . $item['icon']" class="size-5 shrink-0" />
                                 @endif
@@ -235,8 +242,8 @@
                         @endif
 
                         {{-- 하위 메뉴 — 원본은 아이콘 없이 글자만, 들여쓰기는 없다.
-                             부모가 아이콘 자리(20 + 간격 12)를 쓰므로 그만큼 왼쪽 여백을 준다.
-                             높이는 28 이다(부모 32 보다 한 단 낮다 — 재무 node 1002-93118 실측).
+                             부모가 아이콘 자리(20 + 간격 12)를 쓰므로 왼쪽 여백은 8 + 32 = 40.
+                             ⚠️ 원본 하위 항목은 28 인데 여기서는 여백을 8 로 통일해서 36 이다.
 
                              ⚠️ 감싸개에 display 유틸을 static class 로 두지 않는다. hidden 과 자리를
                                 다퉈서 접어도 그대로 보인다(CLAUDE.md 의 display 함정). --}}
@@ -246,7 +253,7 @@
                                     @php $childActive = (bool) ($child['active'] ?? false); @endphp
                                     <a href="{{ $child['href'] ?? '#' }}"
                                        @if ($childActive) aria-current="page" @endif
-                                       @class([$itemBase, 'py-1 pl-[42px]', $itemOn => $childActive, $itemOff => ! $childActive])>
+                                       @class([$itemBase, 'pl-10', $itemOn => $childActive, $itemOff => ! $childActive])>
                                         <span class="truncate text-label-1 font-medium leading-5">{{ $child['label'] ?? '' }}</span>
                                     </a>
                                 @endforeach
@@ -266,7 +273,7 @@
 
                         <a href="{{ $item['href'] ?? '#' }}"
                            @if ($active) aria-current="page" @endif
-                           @class([$itemBase, 'py-1.5', $itemOn => $active, $itemOff => ! $active])>
+                           @class([$itemBase, $itemOn => $active, $itemOff => ! $active])>
                             @if (! empty($item['icon']))
                                 <x-dynamic-component :component="'icon-' . $item['icon']" class="size-5 shrink-0" />
                             @endif
