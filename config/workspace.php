@@ -33,6 +33,7 @@ return [
         ['mark' => 'cdw-mark', 'href' => '/workspace', 'label' => '청담원 워크스페이스',
             'match' => ['workspace', 'workspace/*', 'contents', 'contents/*',
                 'courses', 'courses/*', 'organization', 'organization/*', 'orgs', 'orgs/*',
+                'documents', 'documents/*',
                 'finance', 'finance/*', 'settings', 'settings/*']],
     ],
 
@@ -56,6 +57,8 @@ return [
     // 과정 관리도 마찬가지다. 목록(/courses)과 추가(/courses/new) 두 화면을 쓴다.
     'items' => [
         ['label' => '홈', 'href' => '/workspace', 'icon' => 'home'],
+        ['label' => '문서 신청', 'href' => '/documents', 'icon' => 'document-text',
+            'match' => ['documents', 'documents/*']],
         ['label' => '컨텐츠 관리', 'href' => '/contents', 'icon' => 'inbox',
             'match' => ['contents', 'contents/*']],
         ['label' => '과정 관리', 'href' => '/courses', 'icon' => 'graduation',

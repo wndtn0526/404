@@ -32,6 +32,7 @@ PAGES=(
     "finance/budget:finance-budget.html"
     "finance/personal:finance-personal.html"
     "finance/expense:finance-expense.html"
+    "documents:documents.html"
     "public-space:public-space.html"
     "public-space-empty:public-space-empty.html"
     "profile-settings:profile-settings.html"

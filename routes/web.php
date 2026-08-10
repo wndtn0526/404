@@ -67,3 +67,6 @@ Route::view('/finance/budget', 'budget-accounts')->name('finance.budget');
 // 재무 > 업무 관리자 메뉴 > 개인 비용 정산 (1002-92654) · 지출 결의서 정산 (1002-92909)
 Route::view('/finance/personal', 'personal-settlement')->name('finance.personal');
 Route::view('/finance/expense', 'expense-settlement')->name('finance.expense');
+
+// 전자결재 — 문서 신청 (Figma node 1002-106228). 이 저장소의 본 도메인 첫 화면이다.
+Route::view('/documents', 'documents')->name('documents');

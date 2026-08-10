@@ -12,20 +12,20 @@
        menu  : 메뉴 식별자. 같은 메뉴의 하위 화면(예: 컨텐츠 추가)은 같은 값을 쓴다.
        label : 알약에 보일 이름
        href  : 그 메뉴의 대표 경로 (하위 화면에서도 목록 경로를 준다)
-       home  : 마지막 탭을 닫았을 때 갈 곳 (기본 /workspace)
        max   : 최대 개수. 넘치면 오래된 것부터 버린다(지금 보는 건 안 버린다)
 
      ⚠️ 목록은 클라이언트에만 있으므로 서버가 그릴 수 없다. Alpine 이 붙기 전에는 지금
         메뉴 하나만 서버가 그려 두고, 붙는 순간 전체 목록으로 바꾼다. 그래야 처음에
         줄이 비었다가 튀지 않는다. JS 가 아예 없으면 그 하나가 그대로 남는다
         (display 유틸이 없어 inline 으로 그려진다 — 알약 모양은 그대로다).
-     ⚠️ 닫기는 목록에서 빼기만 한다. 지금 보고 있는 걸 닫으면 옆 탭으로 옮겨 간다 —
-        지운 자리에 그대로 머물면 목록에 없는 화면을 보고 있게 된다. --}}
+     ⚠️ 닫기는 목록에서 빼기만 하고 화면은 그대로 둔다. 보고 있던 걸 닫아도 옮겨 가지 않는다
+        — 누른 자리에서 사라지는 게 눌렀을 때 기대하는 동작이다.
+        그 사이에는 목록에 없는 화면을 보고 있게 되는데, 새로 고치거나 다시 들르면 목록에
+        다시 붙는다(들른 메뉴를 모으는 목록이라 그게 맞다). --}}
 @props([
     'menu',
     'label',
     'href',
-    'home' => '/workspace',
     'max' => 8,
 ])
 
@@ -42,7 +42,7 @@
 @endphp
 
 <div {{ $attributes->class('flex flex-wrap items-start gap-4') }}
-     x-data="dsMenuTabs(@js($menu), @js($label), @js(url($href)), @js(url($home)), {{ (int) $max }})">
+     x-data="dsMenuTabs(@js($menu), @js($label), @js(url($href)), {{ (int) $max }})">
 
     {{-- Alpine 이 붙기 전 · JS 가 없을 때 — 지금 메뉴만 --}}
     <span class="{{ $activePill }}" x-bind:class="ready ? 'hidden' : 'inline-flex'">
@@ -72,7 +72,7 @@
     @push('scripts')
         <script>
             document.addEventListener('alpine:init', () => {
-                Alpine.data('dsMenuTabs', (menu, label, href, home, max) => ({
+                Alpine.data('dsMenuTabs', (menu, label, href, max) => ({
                     tabs: [],
                     current: menu,
                     ready: false,
@@ -117,18 +117,14 @@
                         }
                     },
 
+                    // 목록에서 빼기만 한다. 보고 있던 걸 닫아도 화면은 그대로 둔다 —
+                    // 누른 자리에서 사라지는 게 눌렀을 때 기대하는 동작이다.
                     close(target) {
                         const i = this.tabs.findIndex((t) => t.menu === target);
                         if (i === -1) return;
 
                         this.tabs.splice(i, 1);
                         this.save();
-
-                        if (target !== this.current) return;
-
-                        // 보고 있던 걸 닫았으면 왼쪽 탭으로, 없으면 오른쪽, 그것도 없으면 홈.
-                        const next = this.tabs[i - 1] || this.tabs[i] || null;
-                        window.location.href = next ? next.href : home;
                     },
                 }));
             });
