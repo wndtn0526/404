@@ -804,6 +804,41 @@
             <section id="surfaces" class="flex flex-col gap-5">
                 <h2 class="text-title-3 font-bold text-label-normal">면 · 오버레이</h2>
 
+                {{-- 확인 다이얼로그 · 토스트 — x-layout 에 한 번만 심어 두고 이벤트로 부른다.
+                     화면마다 마크업을 두지 않는다. 원본 Dialog 는 GPRO_PORTFOLIO node 1002-113764. --}}
+                <x-card>
+                    <h3 class="pb-1 text-headline-2 font-semibold text-label-normal">확인 다이얼로그 · 토스트</h3>
+                    <p class="pb-4 text-label-2 text-label-alternative">
+                        마크업이 아니라 이벤트로 부른다 — <code>window.dispatchEvent(new CustomEvent('confirm', …))</code>
+                        의 detail 에 title · message · onConfirm 을 담는다. 되돌릴 수 없는 일은 한 번 물어보고 보낸다.
+                    </p>
+                    {{-- ⚠️ x-data 가 필요하다. Alpine 은 x-data 가 붙은 나무만 훑어서,
+                         이게 없으면 @click 이 그냥 무시된다(오류도 안 난다). --}}
+                    <div class="flex flex-wrap gap-3" x-data>
+                        <x-button variant="primary" size="sm"
+                                  @click="window.dispatchEvent(new CustomEvent('confirm', { detail: {
+                                      title: '문서를 신청하시겠어요?',
+                                      message: '신청한 후 이 문서는 “내 문서함”에서 확인이나 수정할 수 있습니다.',
+                                      cancelLabel: '취소', confirmLabel: '신청',
+                                      onConfirm: () => window.dispatchEvent(new CustomEvent('toast', { detail: { message: '신청했습니다.' } })),
+                                  } }))">기본 (원본)</x-button>
+
+                        <x-button variant="danger" size="sm"
+                                  @click="window.dispatchEvent(new CustomEvent('confirm', { detail: {
+                                      title: '이 문서를 삭제할까요?',
+                                      message: '삭제하면 되돌릴 수 없습니다.',
+                                      cancelLabel: '취소', confirmLabel: '삭제',
+                                      onConfirm: () => window.dispatchEvent(new CustomEvent('toast', { detail: { message: '삭제했습니다.', type: 'error' } })),
+                                  } }))">삭제 확인</x-button>
+
+                        <x-button variant="outline" size="sm"
+                                  @click="window.dispatchEvent(new CustomEvent('toast', { detail: { message: '토스트만 띄웁니다.' } }))">토스트</x-button>
+                    </div>
+                    <p class="mt-4 text-label-2 text-label-alternative">
+                        ⚠️ 원본 인스턴스는 반경 6 인데 DS 가이드 Dialog 는 4 다. x-modal 과 맞추려고 4 로 뒀다 — 디자이너 확인이 필요하다.
+                    </p>
+                </x-card>
+
                 <div class="grid gap-5 sm:grid-cols-3">
                     <x-stat-tile label="결재 대기" value="12" unit="건" sub="어제보다 +3" />
                     <x-stat-tile label="이번 달 기안" value="48" unit="건" note="반려 2건 포함" />

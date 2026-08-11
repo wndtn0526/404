@@ -46,31 +46,48 @@
          x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
          x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
          @click="close()" class="absolute inset-0 bg-inverse-background/40"></div>
-    {{-- 패널 (컴팩트 확인 다이얼로그) --}}
+    {{-- 패널 — 원본 Dialog (GPRO_PORTFOLIO node 1002:113764) 실측
+           328 · pt 8 · 제목칸 px24 pt16 pb12 · 본문칸 px24 py8 · 버튼칸 px24 pt16 pb24 gap8
+           제목 20 Bold lh30 검정 · 본문 15 lh23 검정 · 버튼 136 씩(둘이 280 = 328-48)
+
+         ⚠️ 원본 인스턴스는 반경 6 인데 DS 가이드의 Dialog 는 4 다. x-modal 이 4 라서 4 로 맞췄다 —
+            같은 화면에 뜨는 두 다이얼로그의 모서리가 다르면 안 된다. 디자이너 확인이 필요하다.
+         ⚠️ 아이콘·강조값·요약표를 쓰는 다이얼로그는 328 에 안 들어간다. 그때만 420 으로 넓힌다.
+            원본에 없는 형태라 넓히는 폭도 원본 값이 아니다. --}}
     <div x-show="show" x-cloak
          x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2 scale-[0.98]" x-transition:enter-end="opacity-100 translate-y-0 scale-100"
          x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0 scale-100" x-transition:leave-end="opacity-0 translate-y-2 scale-[0.98]"
          role="dialog" aria-modal="true" :aria-label="title"
-         class="relative w-full max-w-[420px] rounded-md bg-background-normal p-8 shadow-elevation-xl">
+         :class="(highlight || icon || rows.length) && 'max-w-[420px]!'"
+         class="relative w-full max-w-[328px] rounded-md bg-background-normal pt-2 shadow-elevation-xl">
         {{-- 우상단 X 닫기 (dismissible) --}}
         <button x-show="dismissible" x-cloak type="button" @click="close()" aria-label="닫기"
-                class="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-md text-label-alternative transition-colors hover:bg-fill-alternative">
+                class="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-md text-label-alternative transition-colors hover:bg-fill-alternative">
             <x-icon-close class="h-[22px] w-[22px]" />
         </button>
-        {{-- 상단 아이콘(선택) — 아이콘·highlight 있는 다이얼로그는 전체 중앙 정렬(모먼트형), 그 외 일반 확인창은 좌측 --}}
-        <span x-show="icon" x-cloak class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
-            <x-icon-circle-check x-show="icon === 'check'" class="h-7 w-7 text-primary" />
-            <x-icon-send x-show="icon === 'send'" class="h-7 w-7 text-primary" />
-            <x-icon-message x-show="icon === 'message'" class="h-7 w-7 text-primary" />
-        </span>
-        <h2 class="text-heading-1 font-bold text-label-strong" :class="(highlight || icon) && 'text-center'" x-text="title"></h2>
+
+        {{-- 제목칸 --}}
+        <div class="px-6 pt-4 pb-3">
+            {{-- 상단 아이콘(선택) — 아이콘·강조값이 있는 다이얼로그만 가운데 정렬(모먼트형) --}}
+            <span x-show="icon" x-cloak class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+                <x-icon-circle-check x-show="icon === 'check'" class="h-7 w-7 text-primary" />
+                <x-icon-send x-show="icon === 'send'" class="h-7 w-7 text-primary" />
+                <x-icon-message x-show="icon === 'message'" class="h-7 w-7 text-primary" />
+            </span>
+            <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black" :class="(highlight || icon) && 'text-center'" x-text="title"></h2>
+        </div>
+
         {{-- 강조 박스 — 사용자가 꼭 확인해야 할 핵심 값(전화번호·금액 등)을 크게 --}}
-        <p x-show="highlight" x-cloak class="mt-5 rounded-md bg-background-alternative py-4 text-center text-title-3 font-bold tabular-nums tracking-wide text-label-strong" x-text="highlight"></p>
-        {{-- message는 \n 줄바꿈 지원(whitespace-pre-line) — 변경내역·미리보기 등 여러 줄 본문용 --}}
-        {{-- 본문은 확인창 공통 body-1 (시니어 가독성 하한) --}}
-        <p x-show="message" class="whitespace-pre-line break-keep text-body-1 leading-relaxed text-label-alternative" :class="(highlight || icon) ? 'mt-3 text-center' : 'mt-2'" x-text="message"></p>
+        <p x-show="highlight" x-cloak class="mx-6 rounded-md bg-background-alternative py-4 text-center text-title-3 font-bold tabular-nums tracking-wide text-label-strong" x-text="highlight"></p>
+
+        {{-- 본문칸 — message 는 \n 줄바꿈을 그대로 낸다(변경내역·미리보기 등 여러 줄) --}}
+        <div x-show="message" class="px-6 py-2">
+            <p class="whitespace-pre-line break-keep text-body-2 leading-[23px] text-mono-black"
+               :class="(highlight || icon) && 'text-center'" x-text="message"></p>
+        </div>
+
         {{-- 라벨-값 요약 카드 (접수번호·연락처 등) — 항상 좌우 정렬 --}}
-        <div x-show="rows.length" x-cloak class="mt-5 flex flex-col gap-2.5 rounded-md border border-line-solid-neutral bg-background-alternative px-5 py-4">
+        <div x-show="rows.length" x-cloak class="mx-6 mt-3 flex flex-col gap-2.5 rounded-md border border-line-solid-neutral bg-background-alternative px-5 py-4">
             <template x-for="row in rows" :key="row[0]">
                 <div class="flex items-start justify-between gap-4 text-body-2">
                     <span class="shrink-0 text-label-alternative" x-text="row[0]"></span>
@@ -78,14 +95,17 @@
                 </div>
             </template>
         </div>
-        <div class="mt-6 flex gap-2.5">
+
+        {{-- 버튼칸 — 원본은 136 씩 고정이다. 좁은 화면에서도 깨지지 않게 같은 폭을 flex-1 로 낸다. --}}
+        <div class="flex items-center justify-center gap-2 px-6 pt-4 pb-6">
             <template x-if="cancelLabel">
-                <x-button variant="secondary" size="md" type="button" class="flex-1" @click="close()"><span x-text="cancelLabel">취소하기</span></x-button>
+                <x-button variant="secondary" size="sm" type="button" class="flex-1" @click="close()"><span x-text="cancelLabel">취소하기</span></x-button>
             </template>
-            <x-button variant="primary" size="md" type="button" class="flex-1" @click="ok()"><span x-text="confirmLabel">확인</span></x-button>
+            <x-button variant="primary" size="sm" type="button" class="flex-1" @click="ok()"><span x-text="confirmLabel">확인</span></x-button>
         </div>
+
         {{-- 하단 보조 안내 + 링크 (로그인 유도 확인창의 '회원가입하기' 등) --}}
-        <p x-show="footerText || footerLinkLabel" x-cloak class="mt-5 text-center text-body-2 text-label-alternative">
+        <p x-show="footerText || footerLinkLabel" x-cloak class="px-6 pb-6 -mt-2 text-center text-body-2 text-label-alternative">
             <span x-show="footerText" x-text="footerText"></span>
             <a x-show="footerLinkLabel" :href="footerHref" class="ml-1 font-semibold text-primary underline underline-offset-2 hover:no-underline" x-text="footerLinkLabel"></a>
         </p>

@@ -150,6 +150,18 @@ Figma 를 봐도 나오지 않는다. 새로 만들 때 여기 있는지 먼저 
 - `segmented` — 뷰 전환. **`tabs` 와 역할이 겹친다.** 새 화면에선 `tabs` 를 먼저 검토한다.
 - `chip-removable` — 삭제 가능한 칩. **`chip` 의 변형이다.** 통합 대상.
 - `confirm` `prompt` — Dialog 의 용도별 사전 조립. 원본은 `modal`(Dialog).
+  `confirm` 은 GPRO_PORTFOLIO node 1002-113764 실측으로 맞췄다 — 328 · pt 8 ·
+  제목칸 px24 pt16 pb12 (20 Bold lh30) · 본문칸 px24 py8 (15 lh23) · 버튼칸 px24 pt16 pb24 gap8.
+  ⚠️ 원본 인스턴스는 반경 6 인데 DS 가이드 Dialog 는 4 다. `modal` 과 맞추려고 4 로 뒀다 —
+     같은 화면에 뜨는 두 다이얼로그의 모서리가 다르면 안 된다. 디자이너 확인이 필요하다.
+  ⚠️ 원본 확인 버튼은 순검정(#000000)인데 이 저장소 프라이머리는 Black `#111111` 이다.
+     토큰을 따랐다.
+- **`confirm` 과 `toast` 는 `x-layout` 이 한 번만 심는다.** 화면마다 마크업을 두지 않고
+  이벤트로 부른다 — `window.dispatchEvent(new CustomEvent('confirm', { detail: { title, message, onConfirm } }))`.
+  ⚠️ Alpine 은 `x-data` 가 붙은 나무만 훑는다. 부르는 버튼이 `x-data` 밖에 있으면
+     `@click` 이 **오류 없이 그냥 무시된다.** 스타일가이드에서 실제로 걸렸다.
+  ⚠️ 헤드리스에서 이벤트로 여는 건 측정이 안 된다(`x-show` 가 프레임을 기다린다).
+     `x-modal` 도 같다 — 열리는지 볼 땐 스크린샷으로 본다.
 - `detail-field` — 상세 화면의 라벨 + 값 한 칸. `<dl>` 안에서 쓴다. 값이 비면 하이픈.
   DS 가이드에는 없고 GPRO_PORTFOLIO node 1002-275959 실측이다.
 - `empty-state` — 목록이 비었을 때의 문구 + 액션. DS 가이드에는 없고 GPRO_PORTFOLIO

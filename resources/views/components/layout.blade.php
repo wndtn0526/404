@@ -17,6 +17,15 @@
     <body class="min-h-full">
         {{ $slot }}
 
+        {{-- 확인 다이얼로그·토스트는 화면마다 마크업을 두지 않고 여기 한 번만 심는다.
+             어디서든 이벤트로 부른다:
+               window.dispatchEvent(new CustomEvent('confirm', { detail: { title, message, onConfirm } }))
+               window.dispatchEvent(new CustomEvent('toast', { detail: { message } }))
+             ⚠️ 심어 두지 않으면 이벤트를 아무도 안 듣는다. 그동안 두 컴포넌트가
+                여기 없어서 조용히 아무 일도 하지 않았다. --}}
+        <x-confirm />
+        <x-toast />
+
         {{-- 컴포넌트가 @push('scripts') 로 올린 스크립트가 여기 쌓인다.
              ⚠️ 이 스택이 없으면 그 스크립트가 조용히 버려진다. x-file-dropzone 과
                 x-datepicker 가 Alpine.data 를 이 방식으로 등록하는데, 스택이 없어서
