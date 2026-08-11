@@ -19,8 +19,16 @@
 cp .env.example .env && php artisan key:generate
 vendor/bin/sail up -d
 vendor/bin/sail artisan migrate
-vendor/bin/sail npm install && vendor/bin/sail npm run dev
+npm install && npm run dev   # ⚠️ sail 이 아니라 호스트에서 돈다 — 아래 참고
 ```
+
+⚠️ **프런트 빌드는 호스트에서 돌린다.** `node_modules` 는 컨테이너와 같은 디렉터리를 보는데
+lightningcss(Tailwind 4 가 쓴다)는 플랫폼별 네이티브 바이너리를 깐다. 맥에서 `npm install` 하면
+`lightningcss-darwin-arm64` 만 들어가고, 컨테이너 안에서 부르면
+`Cannot find module '../lightningcss.linux-arm64-gnu.node'` 로 죽는다. 반대로 컨테이너에서 깔면
+호스트 빌드가 같은 이유로 죽는다. **한쪽에서만 돌린다 — 이 저장소는 호스트다.**
+`scripts/export-styleguide.sh` 도 호스트의 `npm run build` 를 부른다.
+빌드를 잊으면 새로 쓴 유틸리티가 CSS 에 없어서 **클래스는 DOM 에 있는데 화면에는 안 먹는다.**
 
 - `http://localhost:8000/styleguide` — 디자인 시스템 (기본 진입)
 - `http://localhost:8000/health` — DB·Redis·Livewire 왕복이 초록불이면 환경 정상
@@ -160,6 +168,11 @@ Figma 를 봐도 나오지 않는다. 새로 만들 때 여기 있는지 먼저 
   대시보드용. DS 가이드에 차트가 없다. 호버 상태는 `chart/xy` 가 들고 있고 나머지가 그걸 쓴다.
   ⚠️ 값은 SVG 를 직접 그린다. 차트 라이브러리를 새로 들이지 않는다.
 - `table/empty` — 표가 비었을 때의 한 줄. `colspan` 을 준다.
+- `file-badge` — 파일 종류 배지(모서리 접힌 문서 + 확장자). GPRO_PORTFOLIO `jpg_24`
+  (I1002:115045;3302:167197) · `doc_24` (I1002:115030;3302:167455) 실측. DS 아이콘 219종에는
+  없다 — `document` 는 단색 외곽선이라 확장자를 얹을 자리가 없다. `svg/ext` 가 아닌 이유는
+  색 두 가지와 글자를 받아야 해서다(blade-icons 는 글자를 넣지 못한다).
+  ⚠️ 원본이 정한 색은 사진(deep blue)·문서(purple) 둘뿐이다. 그 밖의 확장자는 문서로 떨어진다.
 
 **전자결재 고유** (원본에 없음)
 

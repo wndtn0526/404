@@ -16,6 +16,12 @@
     'size' => 'md',
     'shape' => 'circle',
     'fallback' => 'auto',
+    /*
+     * nameExpr: 이름이 Alpine 쪽에만 있을 때 쓰는 식 (예: "m.name").
+     * 서버는 이름을 모르므로 이니셜 자리만 만들어 두고 글자는 Alpine 이 채운다.
+     * x-for 로 찍는 목록에서 아바타를 손으로 만들지 않게 하려고 둔 것이다.
+     */
+    'nameExpr' => null,
 ])
 
 @php
@@ -47,6 +53,9 @@
         <img src="{{ $src }}" alt="{{ $name ?? '' }}" class="h-full w-full object-cover" />
     @elseif ($fallback === 'none')
         {{-- 면만 그린다. 부르는 쪽이 위에 무언가를 얹는다. --}}
+    @elseif ($nameExpr)
+        <span class="{{ $sz['text'] }} font-semibold text-white select-none"
+              x-text="String({{ $nameExpr }} ?? '').trim().slice(0, 1)"></span>
     @elseif ($initial)
         <span class="{{ $sz['text'] }} font-semibold text-white select-none">{{ $initial }}</span>
     @else

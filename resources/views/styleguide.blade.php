@@ -503,6 +503,21 @@
                     <p class="mt-4 text-label-1 text-label-alternative">
                         첨부는 공개 디스크에 두지 않는다. 권한 확인 후 스트리밍한다.
                     </p>
+
+                    {{-- 파일 종류 배지 — 기안 작성의 관련 파일·참조 문서 줄에 붙는다.
+                         원본은 사진(deep blue)·문서(purple) 둘만 정한다. 그 밖은 문서로 떨어진다. --}}
+                    <p class="mt-8 mb-3 text-label-1 font-semibold text-label-alternative">파일 종류 배지 (file-badge)</p>
+                    <div class="flex flex-wrap items-center gap-6">
+                        @foreach (['JPG', 'PNG', 'DOC', 'PDF', 'XLS', 'ZIP'] as $ext)
+                            <span class="inline-flex items-center gap-2">
+                                <x-file-badge :label="$ext" />
+                                <span class="text-label-2 text-label-alternative">{{ $ext }}</span>
+                            </span>
+                        @endforeach
+                    </div>
+                    <p class="mt-3 text-label-2 text-label-alternative">
+                        확장자로 색을 고른다. 목록에서 x-for 로 찍을 땐 label-expr 에 Alpine 식을 준다.
+                    </p>
                 </x-card>
             </section>
 

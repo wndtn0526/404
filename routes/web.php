@@ -82,3 +82,45 @@ Route::view('/documents/new', 'documents-create')->name('documents.create');
 // 퍼블릭 스페이스 빈 화면과 같은 방식으로, 같은 뷰에 빈 배열을 넘겨 상태만 바꾼다.
 Route::view('/documents/review-empty', 'documents-review', ['notices' => []])
     ->name('documents.review.empty');
+
+/*
+ * 기안 작성 — 다 채운 화면 (Figma node 1002-115013).
+ * 빈 화면과 같은 뷰다. 팝업으로 하나씩 채워 넣어도 이 모양이 된다.
+ *
+ * ⚠️ 계좌 번호는 원본 값을 그대로 쓰지 않았다. 원본은 실제 형식의 번호라
+ *    저장소·정적 배포본에 남기지 않는 게 맞다(CLAUDE.md · 조직 지침).
+ *    자리수만 맞춘 0 이다. 은행 이름도 원본 그대로 가상의 'GPRO 뱅크' 다.
+ * ⚠️ 값은 전부 예시다. DB 에서 오지 않는다.
+ */
+Route::view('/documents/new-done', 'documents-create', [
+    'prefill' => [
+        'form' => [
+            'name' => '지출 결의서 (개인 비용)',
+            'month' => '2021.10',
+            'bank' => 'GPRO 뱅크',
+            'account' => '0000 00 0000000',
+        ],
+        'details' => [[
+            'project' => '회사 운영',
+            'category' => '기타 수수료',
+            'account' => '기타 수수료',
+            'used_at' => '2021.12.30',
+            'memo' => '내용 없음',
+            'vendor' => 'GPRO',
+            'amount' => '3,000,000 원',
+        ]],
+        'files' => [
+            ['name' => 'Receipt_20210801.jpg', 'ext' => 'JPG'],
+        ],
+        'refs' => [
+            ['no' => 'CDW-210801-003', 'kind' => '업무', 'used_at' => '2021.08.01 03:30',
+                'title' => '지출 결의서 · 기타 수수료', 'writer' => '김기안'],
+        ],
+        // 신청(본인)은 화면이 늘 맨 위에 그린다. 여기엔 그 아래 줄만 담는다.
+        'line' => [
+            ['name' => '정프로', 'dept' => 'GPRO 그룹 · CFO', 'role' => 'progress'],
+            ['name' => '곽프로', 'dept' => 'GPRO 그룹 · CFO', 'role' => 'view'],
+            ['name' => '황프로', 'dept' => 'GPRO 그룹 · COO', 'role' => 'ref'],
+        ],
+    ],
+])->name('documents.create.done');

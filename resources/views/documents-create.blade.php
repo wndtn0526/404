@@ -1,5 +1,16 @@
-{{-- 기안 작성 — Figma GPRO_PORTFOLIO (sJC6AduTG0I4cTttQJFAes · node 1002-113826)
+{{-- 기안 작성 — Figma GPRO_PORTFOLIO (sJC6AduTG0I4cTttQJFAes)
+       빈 화면  node 1002-113826  (/documents/new)
+       다 채운 화면 node 1002-115013  (/documents/new-done)
      문서 신청에서 양식을 고르면 오는 화면. 지금은 '지출 결의서 (개인 비용)' 하나만 있다.
+
+     한 화면이 두 상태를 다 낸다. 라우트가 $prefill 을 주면 채워진 채로 열린다 —
+     /documents/review-empty 와 같은 방식이다. 빈 상태에서 팝업으로 채워 넣어도 같은 모양이 된다.
+
+     다 채운 화면에서 달라지는 것 (원본 대조)
+       상세 내용   '+ 상세 내용 추가' 링크 → '상세 내용' 제목 + 표 (표 맨 아래 줄이 '+ 내역 추가')
+       관련 파일   줄 하나가 늘어 카드 130 → 170 · 배지 + 이름 + 오른쪽 초록 체크
+       참조 문서   같음
+       결재선      '결재선 추가' → '결재선 수정' · 카드 156 → 359 · 진행/열람·참조 사이 구분선
 
      원본 실측(1920) — 본문 1200 (좌 카드 792 + 24 + 우 카드 384)
        뒤로 32 · 제목 30 Bold lh39 · 우상단 버튼 120x36 둘 (사이 16)
@@ -58,10 +69,26 @@
         ];
     }
 
+    /*
+     * 라우트가 준 값이 있으면 그걸로 열고, 없으면 빈 화면이다.
+     * 여기서 뽑아 x-data 초기값으로 넘긴다 — 화면을 두 벌 만들지 않기 위해서다.
+     */
+    $prefill = $prefill ?? [];
+    $initForm = $prefill['form'] ?? ['name' => '', 'month' => '2021.10', 'bank' => '', 'account' => ''];
+    $initDetails = $prefill['details'] ?? [];
+    $initFiles = $prefill['files'] ?? [];
+    $initRefs = $prefill['refs'] ?? [];
+    $initLine = $prefill['line'] ?? [];
+
     $cardTitle = 'text-heading-2 font-bold leading-[30px] text-mono-black';
     $card = 'min-w-0 rounded-lg bg-background-normal p-[30px]';
-    // '+ ○○ 추가' 줄 — 아이콘 24 + 글자 14, 아직 아무것도 없는 자리라 옅게 나간다
-    $addRow = 'inline-flex items-center gap-2 text-label-1 leading-5 text-label-assistive transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40';
+    /*
+     * '+ ○○ 추가' 줄 — 아이콘 24 + 글자 14, 아직 아무것도 없는 자리라 옅게 나간다.
+     * ⚠️ display 유틸(inline-flex)은 일부러 뺐다. 여기에 박아 두면 hidden 을 걸어도
+     *    안 먹는다(CLAUDE.md). 늘 보이는 자리에서는 붙여 쓰고, 접었다 펴는 자리에서는
+     *    x-bind:class 로 display 자체를 바꾼다.
+     */
+    $addRow = 'items-center gap-2 text-label-1 leading-5 text-label-assistive transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40';
 @endphp
 
 <x-layout title="지출 결의서 (개인 비용)">
@@ -78,12 +105,12 @@
         {{-- 셸의 제목 슬롯을 쓰지 않는다. 원본은 뒤로 화살표와 제목이 한 줄이고 오른쪽에
              버튼이 붙는데, 셸 헤더에 넣으면 화살표 자리가 안 나온다. --}}
         <div class="min-w-0" x-data="{
-                 form: { name: '', month: '2021.10', bank: '', account: '' },
+                 form: @js($initForm),
 
                  // 세 팝업이 채워 넣는 것들. 비었을 땐 '+ 추가' 줄만 보인다.
-                 details: [],
-                 files: [],
-                 refs: [],
+                 details: @js($initDetails),
+                 files: @js($initFiles),
+                 refs: @js($initRefs),
 
                  // 상세 내용 추가 — 원본 안내대로 모두 필수다
                  detail: { project: '', used_at: '2021.12.30', category: '', account: '', amount: '', vendor: '', memo: '' },
@@ -95,7 +122,10 @@
 
                  // 결재선 — 진행/열람/참조 세 갈래
                  lineTab: 'progress',
-                 picked: [],
+                 picked: @js($initLine),
+                 // 원본은 진행(승인)과 열람·참조 사이에 구분선을 하나 넣는다. 성격이 다른 줄이라서다.
+                 progressPicked() { return this.picked.filter((m) => m.role === 'progress'); },
+                 asidePicked() { return this.picked.filter((m) => m.role !== 'progress'); },
                  pick(name, dept) {
                      if (this.picked.some((m) => m.name === name)) return;
                      this.picked.push({ name, dept, role: this.lineTab });
@@ -117,6 +147,15 @@
                          if (! this.refs.some((r) => r.no === no)) this.refs.push(this.catalog[no]);
                      }
                      this.selected = [];
+                 },
+
+                 /*
+                  * 파일 배지 색 — 원본은 사진(deep blue)과 문서(purple) 둘만 정한다.
+                  * x-file-badge 의 PHP 쪽 판정과 같은 목록이다. 한쪽만 고치면 어긋난다.
+                  */
+                 isImage(ext) {
+                     return ['JPG', 'JPEG', 'PNG', 'GIF', 'WEBP', 'HEIC', 'SVG', 'BMP', 'TIF', 'TIFF']
+                         .includes(String(ext || '').toUpperCase());
                  },
 
                  // 파일 — 실제 고른 파일을 이름만 담는다. 올리는 건 아직 없다.
@@ -174,7 +213,10 @@
                                 <div class="w-[124px] shrink-0">
                                     <x-dropdown id="doc_bank" name="doc_bank" variant="bare" size="sm"
                                                 placeholder="은행 선택"
-                                                :options="['국민은행' => '국민은행', '신한은행' => '신한은행', '하나은행' => '하나은행', '우리은행' => '우리은행']"
+                                                {{-- 'GPRO 뱅크' 는 원본이 쓰는 가상의 은행이다. 다 채운 화면이
+                                                     고르는 값이라 목록에 있어야 빈칸으로 떨어지지 않는다. --}}
+                                                :options="['GPRO 뱅크' => 'GPRO 뱅크', '국민은행' => '국민은행', '신한은행' => '신한은행', '하나은행' => '하나은행', '우리은행' => '우리은행']"
+                                                :selected="$initForm['bank'] ?? null"
                                                 x-model="form.bank" />
                                 </div>
                                 <div class="min-w-0 flex-1">
@@ -184,45 +226,74 @@
                             </x-field-group>
                         </div>
 
-                        {{-- 팝업에서 넣은 상세 내용은 표로 쌓인다. 열은 팝업의 칸 그대로다 —
-                             넣을 때 본 이름과 쌓인 뒤 보는 이름이 달라지면 안 된다.
-                             카드(792)보다 넓어서 가로로 넘긴다. 하나도 없으면 표를 안 낸다. --}}
-                        <div class="pt-5" x-cloak x-bind:class="{ 'hidden': ! details.length }">
-                            <x-table min-width="900px">
-                                <x-table.head :columns="[
-                                    ['label' => '프로젝트', 'width' => '140px'],
-                                    ['label' => '사용 날짜', 'width' => '110px'],
-                                    ['label' => '비용 분류', 'width' => '120px'],
-                                    ['label' => '비용 내역', 'width' => '140px'],
-                                    ['label' => '사용 금액', 'align' => 'right', 'width' => '110px'],
-                                    ['label' => '증빙 거래처 이름', 'width' => '140px'],
-                                    ['label' => '상세 내역'],
-                                    ['label' => '', 'width' => '56px'],
-                                ]" />
-                                <tbody>
-                                    <template x-for="(d, i) in details" :key="i">
-                                        <x-table.row>
-                                            <x-table.cell tone="muted" nowrap><span x-text="d.project"></span></x-table.cell>
-                                            <x-table.cell tone="muted" nowrap><span class="tabular-nums" x-text="d.used_at"></span></x-table.cell>
-                                            <x-table.cell tone="muted" nowrap><span x-text="d.category"></span></x-table.cell>
-                                            <x-table.cell tone="muted" nowrap><span x-text="d.account"></span></x-table.cell>
-                                            <x-table.cell tone="strong" align="right" nowrap><span class="tabular-nums" x-text="d.amount"></span></x-table.cell>
-                                            <x-table.cell tone="muted" nowrap><span x-text="d.vendor"></span></x-table.cell>
-                                            <x-table.cell tone="muted"><span x-text="d.memo"></span></x-table.cell>
-                                            <x-table.cell align="right" nowrap>
-                                                <button type="button" @click="details.splice(i, 1)"
-                                                        class="text-label-alternative transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                                                        aria-label="상세 내용 삭제">
-                                                    <x-icon-close class="size-[18px]" />
-                                                </button>
-                                            </x-table.cell>
-                                        </x-table.row>
-                                    </template>
-                                </tbody>
-                            </x-table>
-                        </div>
+                        {{-- 상세 내용이 하나라도 있으면 원본(node 1002-115013)처럼 제목 + 표가 선다.
+                             하나도 없으면 아래 '+ 상세 내용 추가' 줄만 남는다(node 1002-113826).
 
-                        <button type="button" class="{{ $addRow }} mt-6"
+                             원본 실측 — 제목은 계좌 정보 줄에서 40 아래 · 표는 제목에서 20 아래
+                               표가 카드 안쪽 폭(792)을 꽉 채운다. 카드 패딩 30 을 음수 여백으로 되돌리고
+                               첫 칸만 좌 패딩 30 을 줘서 제목과 세로줄을 맞춘다.
+                               열 7개 120/110/120/100/114/100/128 · 머리 56 · 줄 56 · 마지막 줄 28 --}}
+                        <template x-if="details.length">
+                            <div>
+                                <h2 class="{{ $cardTitle }} pt-10">상세 내용</h2>
+
+                                <div class="-mx-[30px] mt-5">
+                                    <x-table flush min-width="792px"
+                                             class="[&_td:first-child]:pl-[30px] [&_th:first-child]:pl-[30px]">
+                                        {{-- 열 이름·차례는 원본 그대로다. 팝업에서 넣을 때 본 이름과
+                                             쌓인 뒤 보는 이름이 달라지면 안 된다. --}}
+                                        <x-table.head :columns="[
+                                            ['label' => '프로젝트', 'width' => '120px'],
+                                            ['label' => '비용 분류', 'width' => '110px'],
+                                            ['label' => '비용 내역', 'width' => '120px'],
+                                            ['label' => '사용 날짜', 'width' => '100px'],
+                                            ['label' => '상세 내역', 'width' => '114px'],
+                                            ['label' => '거래처 이름', 'width' => '100px'],
+                                            ['label' => '사용 금액', 'width' => '128px'],
+                                        ]" />
+                                        <tbody>
+                                            <template x-for="(d, i) in details" :key="i">
+                                                <x-table.row class="group/row">
+                                                    <x-table.cell tone="muted" nowrap><span x-text="d.project"></span></x-table.cell>
+                                                    <x-table.cell tone="muted" nowrap><span x-text="d.category"></span></x-table.cell>
+                                                    <x-table.cell tone="muted" nowrap><span x-text="d.account"></span></x-table.cell>
+                                                    <x-table.cell tone="muted" nowrap><span class="tabular-nums" x-text="d.used_at"></span></x-table.cell>
+                                                    <x-table.cell tone="muted" nowrap><span x-text="d.memo"></span></x-table.cell>
+                                                    <x-table.cell tone="muted" nowrap><span x-text="d.vendor"></span></x-table.cell>
+                                                    {{-- ⚠️ 원본에는 삭제 자리가 없다(열 7개로 792 가 딱 맞는다). 그렇다고 잘못
+                                                         넣은 줄을 지울 방법이 없으면 곤란해서, 열을 늘리지 않고 마지막 칸
+                                                         오른쪽에 겹쳐 뒀다. 줄에 마우스를 올리거나 탭으로 짚어야 나온다. --}}
+                                                    <x-table.cell tone="muted" nowrap class="relative">
+                                                        <span class="tabular-nums" x-text="d.amount"></span>
+                                                        <button type="button" @click="details.splice(i, 1)"
+                                                                class="absolute right-4 top-1/2 -translate-y-1/2 rounded-xs bg-background-normal p-0.5 text-label-alternative opacity-0 transition group-hover/row:opacity-100 hover:text-label-normal focus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                                                                aria-label="상세 내용 삭제">
+                                                            <x-icon-close class="size-[18px]" />
+                                                        </button>
+                                                    </x-table.cell>
+                                                </x-table.row>
+                                            </template>
+
+                                            {{-- 표 맨 아래 28 줄이 '+ 내역 추가' 다. 원본은 잠긴 줄(Row Locked)
+                                                 모양이라 글자가 13 Warm gray/400 이다.
+                                                 ⚠️ 마지막 줄이라도 아래 선을 남긴다 — 원본에 있다. --}}
+                                            <x-table.row :hover="false" class="border-b! border-line-solid-normal!">
+                                                <x-table.cell dense colspan="7" class="p-0!">
+                                                    <button type="button" @click="$dispatch('open-modal', 'detail-add')"
+                                                            class="flex h-7 w-full items-center pl-[30px] pr-4 text-left text-label-2 text-label-assistive transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
+                                                        + 내역 추가
+                                                    </button>
+                                                </x-table.cell>
+                                            </x-table.row>
+                                        </tbody>
+                                    </x-table>
+                                </div>
+                            </div>
+                        </template>
+
+                        {{-- 아직 아무것도 없을 때만 나오는 줄. 표가 서면 '+ 내역 추가' 가 그 자리를 대신한다. --}}
+                        <button type="button" class="{{ $addRow }} mt-6" x-cloak
+                                x-bind:class="details.length ? 'hidden' : 'inline-flex'"
                                 @click="$dispatch('open-modal', 'detail-add')">
                             <x-icon-square-plus class="size-6 shrink-0" />
                             상세 내용 추가
@@ -236,24 +307,39 @@
                             <x-button variant="outline" size="sm">구글 드라이브</x-button>
                         </div>
 
-                        {{-- 붙은 파일 — 원본은 테두리 없는 줄이다(아이콘 + 이름 + 오른쪽 상태).
+                        {{-- 붙은 파일 — 원본(node 1002-115042)은 테두리 없는 줄이다.
+                             배지 24 + 이름 14 + 오른쪽 끝 초록 체크(붙었다는 표시).
                              DS x-file-item 은 테두리 있는 미리보기 카드라 모양이 다르다.
-                             같은 줄이 다른 화면에도 나오면 그때 컴포넌트로 뺀다. --}}
+                             같은 줄이 다른 화면에도 나오면 그때 컴포넌트로 뺀다.
+
+                             ⚠️ 원본에는 삭제가 없다. 잘못 붙인 파일을 뗄 방법이 없으면 곤란해서
+                                줄에 마우스를 올릴 때만 체크 자리에 X 가 뜨게 했다. 가만히 두면 원본 그대로다.
+                             ⚠️ 배지 색은 원본이 사진(deep blue)·문서(purple) 둘만 정한다.
+                                x-if 로 갈래를 나눈 건 display 유틸이 서로 다투지 않게 하려는 것이다. --}}
                         <template x-for="(f, i) in files" :key="i">
-                            <div class="mt-3 flex min-w-0 items-center gap-3">
-                                <span class="flex size-6 shrink-0 items-center justify-center rounded-xs bg-deep-blue-900 text-[8px] font-bold text-white"
-                                      x-text="f.ext.slice(0, 3)"></span>
+                            <div class="group/file mt-3 flex min-w-0 items-center gap-2">
+                                <template x-if="isImage(f.ext)">
+                                    <x-file-badge tone="deep-blue" label-expr="f.ext.slice(0, 3)" />
+                                </template>
+                                <template x-if="! isImage(f.ext)">
+                                    <x-file-badge tone="purple" label-expr="f.ext.slice(0, 3)" />
+                                </template>
+
                                 <p class="min-w-0 flex-1 truncate text-label-1 leading-5 text-mono-black" x-text="f.name"></p>
-                                <button type="button" @click="files.splice(i, 1)"
-                                        class="shrink-0 text-label-alternative transition-colors hover:text-label-normal focus:outline-none"
-                                        aria-label="파일 삭제">
-                                    <x-icon-close class="size-[18px]" />
-                                </button>
+
+                                <span class="relative size-6 shrink-0">
+                                    <x-icon-check class="absolute inset-0 size-6 text-status-positive transition-opacity group-hover/file:opacity-0 group-focus-within/file:opacity-0" />
+                                    <button type="button" @click="files.splice(i, 1)"
+                                            class="absolute inset-0 flex items-center justify-center text-label-alternative opacity-0 transition-opacity hover:text-label-normal focus:opacity-100 focus:outline-none group-hover/file:opacity-100"
+                                            aria-label="파일 떼기">
+                                        <x-icon-close class="size-[18px]" />
+                                    </button>
+                                </span>
                             </div>
                         </template>
 
                         {{-- 원본 주석대로 시스템 파일 선택 창을 띄운다 --}}
-                        <label class="{{ $addRow }} mt-[16px] cursor-pointer">
+                        <label class="{{ $addRow }} mt-[16px] inline-flex cursor-pointer">
                             <x-icon-square-plus class="size-6 shrink-0" />
                             파일 추가
                             <input type="file" multiple class="sr-only"
@@ -265,20 +351,26 @@
                     <section class="{{ $card }}">
                         <h2 class="{{ $cardTitle }}">참조 문서</h2>
 
+                        {{-- 원본(node 1002-115027) — 문서 배지(purple) + 이름 + 오른쪽 끝 초록 체크.
+                             문서 번호는 원본에 없다. 뗄 때 어느 문서인지 알아야 해서 남겨 뒀다. --}}
                         <template x-for="(r, i) in refs" :key="i">
-                            <div class="mt-3 flex min-w-0 items-center gap-3">
-                                <x-icon-document class="size-5 shrink-0 text-label-alternative" />
+                            <div class="group/ref mt-3 flex min-w-0 items-center gap-2">
+                                <x-file-badge tone="purple" label="DOC" />
                                 <p class="min-w-0 flex-1 truncate text-label-1 leading-5 text-mono-black" x-text="r.title"></p>
                                 <span class="shrink-0 text-caption-1 leading-[18px] text-label-alternative tabular-nums" x-text="r.no"></span>
-                                <button type="button" @click="refs.splice(i, 1)"
-                                        class="shrink-0 text-label-alternative transition-colors hover:text-label-normal focus:outline-none"
-                                        aria-label="참조 문서 삭제">
-                                    <x-icon-close class="size-[18px]" />
-                                </button>
+
+                                <span class="relative size-6 shrink-0">
+                                    <x-icon-check class="absolute inset-0 size-6 text-status-positive transition-opacity group-hover/ref:opacity-0 group-focus-within/ref:opacity-0" />
+                                    <button type="button" @click="refs.splice(i, 1)"
+                                            class="absolute inset-0 flex items-center justify-center text-label-alternative opacity-0 transition-opacity hover:text-label-normal focus:opacity-100 focus:outline-none group-hover/ref:opacity-100"
+                                            aria-label="참조 문서 떼기">
+                                        <x-icon-close class="size-[18px]" />
+                                    </button>
+                                </span>
                             </div>
                         </template>
 
-                        <button type="button" class="{{ $addRow }} mt-[16px]"
+                        <button type="button" class="{{ $addRow }} mt-[16px] inline-flex"
                                 @click="$dispatch('open-modal', 'ref-doc-add')">
                             <x-icon-square-plus class="size-6 shrink-0" />
                             문서 추가
@@ -290,40 +382,43 @@
                 <section class="w-full min-w-0 shrink-0 rounded-lg bg-background-normal p-[30px] xl:w-[384px]">
                     <div class="flex min-w-0 flex-wrap items-center justify-between gap-3">
                         <h2 class="{{ $cardTitle }}">결재선</h2>
+                        {{-- 결재자가 있으면 '수정', 없으면 '추가'. 여는 팝업은 같다. --}}
                         <button type="button" @click="$dispatch('open-modal', 'approval-line')"
-                                class="shrink-0 text-label-1 font-medium leading-5 text-label-alternative transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
-                            결재선 추가
-                        </button>
+                                class="shrink-0 text-label-1 font-medium leading-5 text-label-alternative transition-colors hover:text-label-normal focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                                x-text="picked.length ? '결재선 수정' : '결재선 추가'">결재선 추가</button>
                     </div>
 
-                    {{-- 원본 줄 324x56 — 아바타 + 이름/소속 + 오른쪽 역할 --}}
-                    <div class="flex min-w-0 items-center gap-2.5 pt-[17px]">
-                        <x-thumbnail name="김기안" size="md" shape="circle" class="shrink-0" />
-                        <div class="min-w-0 flex-1">
-                            <p class="truncate text-label-1 font-bold leading-5 text-mono-black">김기안</p>
-                            <p class="truncate pt-0.5 text-caption-1 leading-[18px] text-label-alternative">청담원 · 대표</p>
-                        </div>
-                        <span class="shrink-0 text-label-2 leading-5 text-label-alternative">신청 (본인)</span>
-                    </div>
-
-                    {{-- 팝업에서 고른 결재자 --}}
-                    <template x-for="(m, i) in picked" :key="m.name">
-                        <div class="flex min-w-0 items-center gap-2.5 pt-4">
-                            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-deep-blue-800 text-body-2 font-semibold text-white"
-                                  x-text="m.name.slice(0, 1)"></span>
+                    {{-- 원본 줄은 324x56 이 빈틈없이 쌓인다. 제목에서 17 아래에서 시작한다. --}}
+                    <div class="min-w-0 pt-[17px]">
+                        {{-- 신청자 — 늘 맨 위다. 지금 로그인한 사람이라 팝업에서 고르는 대상이 아니다.
+                             ⚠️ 원본 이름은 '심프로' 지만 이 저장소는 어느 화면에서나 '김기안' 이 로그인한
+                                사람이다. 셸(GNB)과 어긋나면 안 돼서 이름만 맞췄다. --}}
+                        <div class="flex h-14 min-w-0 items-center gap-2">
+                            <x-thumbnail name="김기안" size="md" shape="circle" class="shrink-0" />
                             <div class="min-w-0 flex-1">
-                                <p class="truncate text-label-1 font-bold leading-5 text-mono-black" x-text="m.name"></p>
-                                <p class="truncate pt-0.5 text-caption-1 leading-[18px] text-label-alternative" x-text="m.dept"></p>
+                                <p class="truncate text-body-2 font-bold leading-[23px] text-mono-black">김기안</p>
+                                <p class="truncate text-caption-2 leading-[17px] text-label-alternative">청담원 · 대표</p>
                             </div>
-                            <span class="shrink-0 text-label-2 leading-5 text-label-alternative"
-                                  x-text="({ progress: '진행', view: '열람', ref: '참조' })[m.role]"></span>
-                            <button type="button" @click="dropPick(m.name)"
-                                    class="shrink-0 text-label-alternative transition-colors hover:text-label-normal focus:outline-none"
-                                    aria-label="결재자 삭제">
-                                <x-icon-close class="size-[18px]" />
-                            </button>
+                            <span class="shrink-0 text-label-1 leading-5 text-mono-black">신청 (본인)</span>
                         </div>
-                    </template>
+
+                        {{-- 진행(승인) — 신청자 바로 아래에 붙는다 --}}
+                        <template x-for="m in progressPicked()" :key="'p' + m.name">
+                            @include('partials.approval-line-row')
+                        </template>
+
+                        {{-- ⚠️ 원본은 진행과 열람·참조 사이에 선을 하나 넣는다(node 1002:115051 ·
+                             324x1 Warm gray/100). 결재 흐름을 타는 사람과 보기만 하는 사람을 가르는
+                             선이라 한쪽이 비면 긋지 않는다. 원본 여백은 위 17 · 아래 18 이다. --}}
+                        <template x-if="progressPicked().length && asidePicked().length">
+                            <div class="mt-[17px] mb-[18px] h-px bg-line-solid-neutral"></div>
+                        </template>
+
+                        {{-- 열람·참조 --}}
+                        <template x-for="m in asidePicked()" :key="'a' + m.name">
+                            @include('partials.approval-line-row')
+                        </template>
+                    </div>
                 </section>
             </div>
 
