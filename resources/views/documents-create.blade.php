@@ -151,11 +151,13 @@
 
                  /*
                   * '신청' — 원본(node 1002-113762)은 바로 보내지 않고 한 번 물어본다.
-                  * 다이얼로그는 x-layout 에 심어 둔 x-confirm 이 받는다.
+                  * 확인을 누르면 문서 신청 목록으로 돌아가면서 스낵바가 뜬다(node 1002-114271).
+                  * 다이얼로그와 스낵바는 x-layout 에 심어 둔 x-confirm · x-toast 가 받는다.
                   *
                   * ⚠️ 아직 보낼 곳이 없다. 붙일 때는 POST + CSRF 로 보내고, 상신은 문서 상태 전이를
                   *    한 곳에서 정의한 뒤 그쪽을 부른다. 권한은 화면이 아니라 Policy 에서 본다.
-                  * ⚠️ 원본 문구의 '내 문서함' 화면은 아직 없다. 생기면 확인 뒤 그리로 보낸다.
+                  *    그때 문구는 서버 세션 플래시로 넘기고 아래 sessionStorage 는 지운다.
+                  * ⚠️ 원본 문구의 '내 문서함' 화면은 아직 없다. 생기면 그 화면도 만든다.
                   */
                  askSubmit() {
                      window.dispatchEvent(new CustomEvent('confirm', { detail: {
@@ -163,9 +165,10 @@
                          message: '신청한 후 이 문서는 “내 문서함”에서 확인이나 수정할 수 있습니다.',
                          cancelLabel: '취소',
                          confirmLabel: '신청',
-                         onConfirm: () => window.dispatchEvent(new CustomEvent('toast', {
-                             detail: { message: '아직 보낼 곳이 없습니다. 화면만 있는 상태입니다.' },
-                         })),
+                         onConfirm: () => {
+                             sessionStorage.setItem('cdw.toast', '문서 신청이 완료되었습니다!');
+                             window.location.href = '{{ url('/documents') }}';
+                         },
                      } }));
                  },
 
