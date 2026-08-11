@@ -168,3 +168,38 @@ Route::view('/documents/new-crowd', 'documents-create', [
         ],
     ],
 ])->name('documents.create.crowd');
+
+/*
+ * 휴가 신청 (Figma node 1002-108468).
+ * 기안 작성과 같은 뷰다 — 왼쪽 첫 카드만 partials/doc-form-vacation 으로 바뀐다.
+ * 종류를 고르면 '사용할 날짜' 가, 시간을 받는 종류면 '사용할 시간' 까지 생긴다.
+ */
+Route::view('/documents/vacation', 'documents-create', [
+    'docForm' => 'vacation',
+    'docTitle' => '휴가 신청',
+])->name('documents.vacation');
+
+// 휴가 신청 — 다 채운 화면 (Figma node 1002-108556). 값은 전부 예시다.
+Route::view('/documents/vacation-done', 'documents-create', [
+    'docForm' => 'vacation',
+    'docTitle' => '휴가 신청',
+    'prefill' => [
+        'form' => [
+            'name' => '휴가 신청',
+            'leave_type' => '연차',
+            'leave_date' => '2021.10.01 - 2021.10.01',
+            'reason' => '휴가를 신청합니다.',
+        ],
+        'leave' => ['total' => 15, 'used' => 8],
+        'files' => [['name' => 'Receipt_20210801.jpg', 'ext' => 'JPG']],
+        'refs' => [
+            ['no' => 'CDW-210801-001', 'kind' => '업무', 'used_at' => '2021.08.01 03:30',
+                'title' => '휴가 관련 문서', 'writer' => '김기안'],
+        ],
+        'line' => [
+            ['name' => '정프로', 'dept' => 'GPRO 그룹 · CFO', 'role' => 'progress'],
+            ['name' => '곽프로', 'dept' => 'GPRO 그룹 · CFO', 'role' => 'view'],
+            ['name' => '황프로', 'dept' => 'GPRO 그룹 · COO', 'role' => 'ref'],
+        ],
+    ],
+])->name('documents.vacation.done');

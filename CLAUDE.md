@@ -214,6 +214,23 @@ Figma 를 봐도 나오지 않는다. 새로 만들 때 여기 있는지 먼저 
 
 - `<x-button variant="danger">` — 반려·삭제. 승인 버튼과 색이 겹치면 사고가 난다.
 
+## 기안 양식을 더할 때
+
+`documents-create.blade.php` 한 뷰가 모든 양식을 낸다. 껍데기(머리 · 관련 파일 · 참조 문서 ·
+결재선 · 팝업 셋)는 어느 양식이나 같고 **왼쪽 첫 카드만 다르다.**
+
+1. `resources/views/partials/doc-form-{양식}.blade.php` 를 만든다.
+2. 라우트에서 `docForm`(조각 이름) · `docTitle` · `prefill` 을 넘긴다.
+3. 양식 전용 팝업이 있으면 `@if ($docForm === '…')` 로 감싼다 — 상세 내용 팝업이 그렇다.
+
+지금 있는 것 — `expense`(지출 결의서 개인 비용 · node 1002-113826) ·
+`vacation`(휴가 신청 · node 1002-108468).
+
+⚠️ **원본 폼 라벨은 12 Medium Warm gray/700 인데 이 저장소 `x-input` 은 14 다.**
+(`Box 32 (with label)` node I1002:108584;2759:106274 실측). 컴포넌트 주석에 '시니어 가독성'
+이라고 이유가 적혀 있어 건드리지 않았다. 화면 하나만 12 로 내리면 나머지와 어긋난다 —
+바꾸려면 `x-input` · `x-dropdown` 을 한꺼번에 바꾸고 전 화면을 다시 봐야 한다.
+
 ## 코드 규칙
 
 - **로직은 Service Layer(`app/Services`)에 둔다.** 컨트롤러와 Livewire 컴포넌트는 입력 검증 →
