@@ -126,6 +126,21 @@
                  // 원본은 진행(승인)과 열람·참조 사이에 구분선을 하나 넣는다. 성격이 다른 줄이라서다.
                  progressPicked() { return this.picked.filter((m) => m.role === 'progress'); },
                  asidePicked() { return this.picked.filter((m) => m.role !== 'progress'); },
+                 byRole(role) { return this.picked.filter((m) => m.role === role); },
+
+                 /*
+                  * 열람·참조는 사람이 많아지면 줄로 늘어놓지 않는다 — 원본이 4명까지만 줄이고
+                  * 넘으면 아바타를 겹친 한 줄로 접는다(node 1002-115417 · 115425 · 115437).
+                  * 진행(승인)은 순서가 뜻을 가지므로 접지 않는다. 원본도 다섯이면 다섯 줄이다.
+                  *
+                  * ⚠️ 원본 라벨이 '4명 이하일 경우' / '4명 이상일 경우' 라 4 에서 겹친다.
+                  *    4명까지는 줄(이하), 넘으면 접는 것으로 봤다.
+                  */
+                 asideFold: 4,
+                 foldsRole(role) { return this.byRole(role).length > this.asideFold; },
+                 // 접힌 줄을 누르면 이름 목록이 뜬다. 한 번에 하나만 연다.
+                 openRole: null,
+                 toggleRole(role) { this.openRole = this.openRole === role ? null : role; },
                  pick(name, dept) {
                      if (this.picked.some((m) => m.name === name)) return;
                      this.picked.push({ name, dept, role: this.lineTab });
@@ -437,10 +452,57 @@
                             <div class="mt-[17px] mb-[18px] h-px bg-line-solid-neutral"></div>
                         </template>
 
-                        {{-- 열람·참조 --}}
-                        <template x-for="m in asidePicked()" :key="'a' + m.name">
-                            @include('partials.approval-line-row')
-                        </template>
+                        {{-- 열람·참조 — 갈래마다 4명까지는 줄로, 넘으면 아바타 한 줄로 접는다.
+                             원본 순서는 열람 먼저 참조 나중이다(node 1002-115048). --}}
+                        @foreach (['view' => '열람', 'ref' => '참조'] as $role => $roleLabel)
+                            <template x-if="! foldsRole('{{ $role }}')">
+                                <div>
+                                    <template x-for="m in byRole('{{ $role }}')" :key="'{{ $role }}' + m.name">
+                                        @include('partials.approval-line-row')
+                                    </template>
+                                </div>
+                            </template>
+
+                            {{-- 접힌 줄 — 원본 실측: 아바타 그룹 184x40, 오른쪽 끝에 역할 글자.
+                                 줄 높이는 펼친 줄과 같은 56 이다(원본 40 + 위아래 8). --}}
+                            <template x-if="foldsRole('{{ $role }}')">
+                                {{-- ⚠️ click.outside 는 팝오버가 아니라 이 칸에 건다. 팝오버에 걸면
+                                     여는 버튼이 팝오버 '밖' 이라 누르는 순간 다시 닫힌다.
+                                     자기 갈래가 열려 있을 때만 닫는다 — 다른 갈래를 누르면 그쪽이
+                                     막 연 것을 이 핸들러가 도로 닫아 버린다. --}}
+                                <div class="relative"
+                                     @click.outside="openRole === '{{ $role }}' && (openRole = null)">
+                                    <button type="button" @click="toggleRole('{{ $role }}')"
+                                            x-bind:aria-expanded="openRole === '{{ $role }}'"
+                                            class="flex h-14 w-full min-w-0 items-center gap-2 rounded-md text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
+                                        <x-avatar-group size="md" overflow="count" :max="4"
+                                                        names-expr="byRole('{{ $role }}').map(m => m.name)"
+                                                        class="shrink-0" />
+                                        <span class="min-w-0 flex-1"></span>
+                                        <span class="shrink-0 text-label-1 leading-5 text-mono-black">{{ $roleLabel }}</span>
+                                    </button>
+
+                                    {{-- 이름 목록 — 원본 210x336 (node 1002-115544 · 반경 6 · 안쪽 20 ·
+                                         아바타 32 + 이름 14 · 줄 간격 44). 원본은 줄에서 오른쪽 167 ·
+                                         아래 34 자리에 뜬다. 카드 밖으로 조금 나가는데 원본이 그렇다.
+                                         띄운 면이라 여기엔 그림자를 쓴다(CLAUDE.md). --}}
+                                    <div x-show="openRole === '{{ $role }}'" x-cloak
+                                         @keydown.escape.window="openRole = null"
+                                         x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
+                                         class="absolute left-[167px] top-[34px] z-20 w-[210px] max-w-[calc(100%+23px)] rounded-lg bg-background-normal p-5 shadow-elevation-lg"
+                                         role="dialog" aria-label="{{ $roleLabel }} 명단">
+                                        <ul class="flex min-w-0 flex-col gap-3">
+                                            <template x-for="m in byRole('{{ $role }}')" :key="'p{{ $role }}' + m.name">
+                                                <li class="flex min-w-0 items-center gap-2.5">
+                                                    <x-thumbnail name-expr="m.name" size="sm" shape="circle" class="shrink-0" />
+                                                    <span class="min-w-0 truncate text-label-1 leading-5 text-mono-black" x-text="m.name"></span>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </template>
+                        @endforeach
                     </div>
                 </section>
             </div>

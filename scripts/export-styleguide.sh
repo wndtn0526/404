@@ -35,6 +35,7 @@ PAGES=(
     "documents:documents.html"
     "documents/new:documents-new.html"
     "documents/new-done:documents-new-done.html"
+    "documents/new-crowd:documents-new-crowd.html"
     "documents/review:documents-review.html"
     "documents/review-empty:documents-review-empty.html"
     "public-space:public-space.html"

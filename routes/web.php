@@ -124,3 +124,47 @@ Route::view('/documents/new-done', 'documents-create', [
         ],
     ],
 ])->name('documents.create.done');
+
+/*
+ * 기안 작성 — 결재선에 사람이 많을 때 (Figma node 1002-115437).
+ * 열람·참조는 갈래마다 4명까지만 줄로 늘어놓고 넘으면 아바타 한 줄로 접는다.
+ * 접힌 줄을 누르면 이름 목록이 뜬다(node 1002-115544).
+ * 진행(승인)은 순서가 뜻을 가지므로 접지 않는다 — 원본도 다섯이면 다섯 줄이다(node 1002-115532).
+ *
+ * 위의 다 채운 화면과 같은 뷰다. 결재선만 바꿔 넘긴다.
+ */
+Route::view('/documents/new-crowd', 'documents-create', [
+    'prefill' => [
+        'form' => [
+            'name' => '지출 결의서 (개인 비용)',
+            'month' => '2021.10',
+            'bank' => 'GPRO 뱅크',
+            'account' => '0000 00 0000000',
+        ],
+        'details' => [[
+            'project' => '회사 운영',
+            'category' => '기타 수수료',
+            'account' => '기타 수수료',
+            'used_at' => '2021.12.30',
+            'memo' => '내용 없음',
+            'vendor' => 'GPRO',
+            'amount' => '3,000,000 원',
+        ]],
+        'files' => [['name' => 'Receipt_20210801.jpg', 'ext' => 'JPG']],
+        'refs' => [],
+        'line' => [
+            ['name' => '정프로', 'dept' => 'GPRO 그룹 · CFO', 'role' => 'progress'],
+            ['name' => '오프로', 'dept' => 'GPRO 그룹 · 개발', 'role' => 'view'],
+            ['name' => '최프로', 'dept' => 'GPRO 그룹 · 개발', 'role' => 'view'],
+            ['name' => '장프로', 'dept' => 'GPRO 그룹 · 운영', 'role' => 'view'],
+            ['name' => '곽프로', 'dept' => 'GPRO 그룹 · 운영', 'role' => 'view'],
+            ['name' => '황프로', 'dept' => 'GPRO 그룹 · COO', 'role' => 'view'],
+            ['name' => '문프로', 'dept' => 'GPRO 그룹 · 콘텐츠', 'role' => 'view'],
+            ['name' => '유프로', 'dept' => 'GPRO 그룹 · 콘텐츠', 'role' => 'ref'],
+            ['name' => '한프로', 'dept' => 'GPRO 그룹 · 마케팅', 'role' => 'ref'],
+            ['name' => '조프로', 'dept' => 'GPRO 그룹 · 마케팅', 'role' => 'ref'],
+            ['name' => '배프로', 'dept' => 'GPRO 그룹 · 디자인', 'role' => 'ref'],
+            ['name' => '신프로', 'dept' => 'GPRO 그룹 · 디자인', 'role' => 'ref'],
+        ],
+    ],
+])->name('documents.create.crowd');

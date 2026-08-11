@@ -1043,6 +1043,21 @@
                         <code class="text-label-2">fallback="none"</code> 은 둘 다 그리지 않는다 —
                         위에 글리프를 얹는 자리(마지막)에 쓴다. 이니셜과 겹쳐서 둘 다 안 읽히는 것을 막는다.
                     </p>
+
+                    {{-- 아바타 그룹 — 그동안 스타일가이드에 없었고, 없는 클래스를 부르고 있어서
+                         그리는 순간 죽는 상태였다. 여기 두면 다음엔 눈에 띈다. --}}
+                    <p class="mt-8 mb-3 text-label-1 font-semibold text-label-alternative">아바타 그룹 (avatar-group)</p>
+                    <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
+                        <x-avatar-group :names="['김기안', '이대리', '박과장', '최부장', '정이사', '한주임']" size="xs" />
+                        <x-avatar-group :names="['김기안', '이대리', '박과장', '최부장', '정이사', '한주임']" size="sm" />
+                        {{-- md · count 는 결재선 카드가 쓰는 모양이다 (원본 Profile Group 184x40) --}}
+                        <x-avatar-group :names="['오프로', '최프로', '장프로', '곽프로', '황프로', '문프로']"
+                                        size="md" overflow="count" />
+                    </div>
+                    <p class="mt-3 text-label-2 text-label-alternative">
+                        <code>overflow="text"</code>(기본)는 뒤에 「외 N명」, <code>overflow="count"</code>는
+                        겹친 마지막 자리에 검정 원 「+N」. 목록에서 x-for 로 찍을 땐 <code>names-expr</code> 에 Alpine 식을 준다.
+                    </p>
                 </x-card>
             </section>
 
