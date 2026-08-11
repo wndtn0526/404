@@ -14,8 +14,9 @@
      ⚠️ 원본은 LNB 가 접힌 상태로 그려져 있어 본문이 360 에서 시작한다. 우리는 셸을 그대로
         쓰므로 320 이다. 카드 폭(792 · 384)은 원본 그대로다.
      ⚠️ 원본 제목 앞 이모지는 빼기로 한 규칙대로 넣지 않았다.
-     ⚠️ 계좌 정보는 한 칸 안에 은행 드롭다운 + 구분선 + 계좌번호가 들어간다. DS 에 그런
-        복합 컨트롤이 없어서 토큰만으로 짰다. 같은 모양이 또 나오면 컴포넌트로 뺀다.
+     ⚠️ 계좌 정보는 원본이 테두리 하나 안에 은행 + 구분선 + 계좌번호가 든 복합 칸이다.
+        DS 에 그런 컨트롤이 없어서 라벨 하나 아래 두 칸(드롭다운 + 입력)으로 나눴다.
+        같은 모양이 또 나오면 그때 DS 에 복합 칸을 만든다.
      ⚠️ '구글 드라이브' 버튼은 글자만 넣었다. 원본에 있는 드라이브 로고는 남의 브랜드
         마크라 우리가 그려 넣지 않는다 — 에셋을 받아 오기로 하면 그때 붙인다.
      ⚠️ 계좌 번호는 개인정보다. 지금은 화면뿐이지만 실제로 붙을 때 평문 저장·평문 로그를
@@ -100,19 +101,20 @@
                  dropPick(name) { this.picked = this.picked.filter((m) => m.name !== name); },
                  tabPicked() { return this.picked.filter((m) => m.role === this.lineTab); },
 
-                 // 참조 문서 — 고를 수 있는 목록을 통째로 들고 있다가 고른 것만 옮긴다
+                 /*
+                  * 참조 문서 — 고를 수 있는 목록을 통째로 들고 있다가 고른 것만 옮긴다.
+                  * selected 라는 이름은 DS 표가 쓰는 것이다. 표 루트에 selectable 을 주지 않고
+                  * head·row 에만 주면 표가 자기 스코프를 만들지 않고 이 값을 쓴다 —
+                  * 그래야 팝업 푸터의 '완료' 도 같은 값을 본다.
+                  * (여기 컴포넌트 태그를 적으면 안 된다 — 속성 안 문자열도 컴파일된다.)
+                  */
                  catalog: @js(collect($refDocs)->keyBy('no')->all()),
-                 checked: [],
-                 toggleDoc(no) {
-                     this.checked = this.checked.includes(no)
-                         ? this.checked.filter((n) => n !== no)
-                         : [...this.checked, no];
-                 },
+                 selected: [],
                  applyDocs() {
-                     for (const no of this.checked) {
+                     for (const no of this.selected) {
                          if (! this.refs.some((r) => r.no === no)) this.refs.push(this.catalog[no]);
                      }
-                     this.checked = [];
+                     this.selected = [];
                  },
 
                  // 파일 — 실제 고른 파일을 이름만 담는다. 올리는 건 아직 없다.
@@ -163,22 +165,26 @@
                                         :options="['2021.10' => '2021.10', '2021.09' => '2021.09', '2021.08' => '2021.08']"
                                         selected="2021.10" x-model="form.month" />
 
-                            {{-- 계좌 정보 — 원본은 한 칸 안에 은행 + 구분선 + 계좌번호다.
-                                 DS 에 복합 컨트롤이 없어 토큰만으로 짰다. 높이 32 는 sm 과 같다. --}}
-                            <div class="min-w-0">
-                                <p class="pb-1.5 text-label-1 font-medium leading-5 text-label-normal">계좌 정보</p>
-                                <div class="flex h-8 min-w-0 items-stretch overflow-hidden rounded-md border border-line-solid-normal bg-background-normal focus-within:border-deep-blue-900">
-                                    <select name="doc_bank" x-model="form.bank" aria-label="은행 선택"
-                                            class="min-w-0 shrink-0 border-0 bg-transparent pl-3 pr-1 text-label-2 text-label-normal focus:outline-none focus:ring-0">
-                                        <option value="">은행 선택</option>
-                                        @foreach (['국민은행', '신한은행', '하나은행', '우리은행'] as $bank)
-                                            <option value="{{ $bank }}">{{ $bank }}</option>
-                                        @endforeach
-                                    </select>
-                                    <span class="my-0 w-px shrink-0 bg-line-solid-normal" aria-hidden="true"></span>
-                                    <input type="text" name="doc_account" x-model="form.account"
-                                           placeholder="계좌 번호 입력" aria-label="계좌 번호"
-                                           class="min-w-0 flex-1 border-0 bg-transparent px-3 text-label-2 text-label-normal caret-deep-blue-900 placeholder:text-label-assistive focus:outline-none focus:ring-0">
+                            {{-- 계좌 정보 — 라벨 하나 아래 은행(드롭다운) + 계좌번호(입력) 두 칸.
+                                 라벨만 직접 그리고 컨트롤은 DS 것을 쓴다. 라벨 마크업은
+                                 x-input 의 것과 같은 클래스다(gap 1.5 · label-1 · label-neutral).
+
+                                 ⚠️ 원본은 이 둘이 테두리 하나 안에 구분선으로 나뉜 복합 칸이다.
+                                    DS 에 그런 컨트롤이 없어서 두 칸으로 나눴다. 처음엔 네이티브
+                                    select 로 한 칸처럼 만들었는데, 그러면 쉐브론이 OS 것이 나와
+                                    옆 드롭다운과 모양이 갈렸다. DS 를 쓰는 쪽을 골랐다. --}}
+                            <div class="flex min-w-0 flex-col gap-1.5">
+                                <span class="text-label-1 font-medium text-label-neutral">계좌 정보</span>
+                                <div class="flex min-w-0 items-start gap-2">
+                                    <div class="w-[128px] shrink-0">
+                                        <x-dropdown name="doc_bank" size="sm" placeholder="은행 선택"
+                                                    :options="['국민은행' => '국민은행', '신한은행' => '신한은행', '하나은행' => '하나은행', '우리은행' => '우리은행']"
+                                                    x-model="form.bank" />
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <x-input name="doc_account" size="sm" placeholder="계좌 번호 입력"
+                                                 x-model="form.account" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -473,26 +479,25 @@
                 <h3 class="{{ $cardTitle }}">문서 목록</h3>
 
                 <div class="pt-4">
+                    {{-- ⚠️ 표 루트에는 selectable 을 주지 않는다. 주면 표가 자기 x-data 를 만들어
+                         푸터의 '완료' 가 그 선택을 못 본다. head·row 에만 주면 바깥 selected 를 쓴다.
+                         ⚠️ Blade 주석 안에 컴포넌트 태그를 그대로 적으면 안 된다 — 주석이어도
+                            컴파일돼서 짝 없는 여는 태그가 되고 파스 에러가 난다. --}}
                     <x-table min-width="720px">
-                        <x-table.head :columns="[
-                            ['label' => '', 'width' => '48px'],
-                            ['label' => '문서 유형', 'width' => '90px'],
-                            ['label' => '사용 날짜', 'width' => '150px'],
-                            ['label' => '상세 내역'],
-                            ['label' => '신청자 · 제안자', 'width' => '120px'],
-                            ['label' => '문서 번호', 'width' => '150px'],
-                        ]" />
+                        <x-table.head
+                            selectable
+                            :all-ids="collect($refDocs)->pluck('no')->all()"
+                            :columns="[
+                                ['label' => '문서 유형', 'width' => '90px'],
+                                ['label' => '사용 날짜', 'width' => '150px'],
+                                ['label' => '상세 내역'],
+                                ['label' => '신청자 · 제안자', 'width' => '120px'],
+                                ['label' => '문서 번호', 'width' => '150px'],
+                            ]"
+                        />
                         <tbody>
                             @foreach ($refDocs as $doc)
-                                <x-table.row>
-                                    <x-table.cell nowrap>
-                                        <label class="relative inline-flex cursor-pointer items-center justify-center align-middle">
-                                            <input type="checkbox" class="peer sr-only" aria-label="{{ $doc['title'] }} 고르기"
-                                                   @change="toggleDoc(@js($doc['no']))">
-                                            <span class="size-5 rounded-xs border-[1.5px] border-line-normal-strong bg-background-normal transition-colors peer-checked:border-primary peer-checked:bg-primary"></span>
-                                            <x-icon-check class="pointer-events-none absolute h-[90%] w-[90%] text-white opacity-0 transition-opacity peer-checked:opacity-100 [&_path]:[fill-opacity:1] [&_path]:[stroke:currentColor] [&_path]:[stroke-width:1.5] [&_path]:[stroke-linejoin:round]" />
-                                        </label>
-                                    </x-table.cell>
+                                <x-table.row selectable :value="$doc['no']">
                                     <x-table.cell tone="muted" nowrap>{{ $doc['kind'] }}</x-table.cell>
                                     <x-table.cell tone="muted" nowrap>
                                         <span class="tabular-nums">{{ $doc['used_at'] }}</span>
@@ -514,16 +519,16 @@
 
                 <h3 class="{{ $cardTitle }} border-t border-line-solid-alternative pt-[30px]">선택한 문서</h3>
                 <p class="pt-3 text-label-1 leading-5 text-label-assistive"
-                   x-bind:class="{ 'hidden': checked.length }">아직 선택한 문서가 없습니다.</p>
+                   x-bind:class="{ 'hidden': selected.length }">아직 선택한 문서가 없습니다.</p>
                 <p class="pt-3 text-label-1 leading-5 text-mono-black"
-                   x-bind:class="{ 'hidden': ! checked.length }"
-                   x-text="checked.length + '건을 골랐습니다.'"></p>
+                   x-bind:class="{ 'hidden': ! selected.length }"
+                   x-text="selected.length + '건을 골랐습니다.'"></p>
 
                 <x-slot:footer>
                     <div class="ml-auto flex flex-wrap items-center gap-4">
                         <x-button variant="outline" size="sm" class="w-[120px]" @click="open = false">닫기</x-button>
                         <x-button variant="primary" size="sm" class="w-[120px]"
-                                  x-bind:disabled="! checked.length"
+                                  x-bind:disabled="! selected.length"
                                   @click="applyDocs(); open = false">완료</x-button>
                     </div>
                 </x-slot:footer>

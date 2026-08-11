@@ -89,6 +89,10 @@ Cool gray 는 원본 변수라 원시 계층에 남겨 두지만 **의미 계층
   이긴다 — DOM 에는 `hidden` 이 있는데 화면에는 그대로 보인다. 이럴 땐 `display` 자체를
   바꾼다: `x-bind:class="열림 ? 'inline-flex' : 'hidden'"` (정적 class 에서는 뺀다).
   `<tr>`·`<li>` 처럼 `display` 유틸이 없는 곳에서는 `hidden` 토글이 그냥 먹는다.
+- ⚠️ **템플릿 어디에든 `<x-…>` 를 글자로 적지 않는다.** Blade 컴포넌트 컴파일러는 주석이든
+  속성값 안 문자열이든 가리지 않고 훑는다. Alpine `x-data` 안 JS 주석에 `<x-table>` 이라고
+  적었더니 짝 없는 여는 태그가 돼서 그 뒤가 통째로 먹혔다 — 화면이 500 이 되고, 에러는
+  `syntax error … expecting "endif"` 로 엉뚱하게 뜬다. 태그 이름만 적는다(`x-table`).
 - ⚠️ **`@js()` 는 컴포넌트 속성 안에서 컴파일되지 않는다.** 일반 엘리먼트(`<li :class="…@js($x)…">`)
   에서는 되지만 `<x-table.row x-bind:class="…@js($x)…">` 처럼 컴포넌트에 쓰면 문자열이 그대로
   나간다. Alpine 식을 통째로 PHP 에서 만들어 `:속성="$식"` 으로 넘긴다.
