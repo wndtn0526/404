@@ -120,9 +120,17 @@ Cool gray 는 원본 변수라 원시 계층에 남겨 두지만 **의미 계층
 | `breadcrumb` | Tab / Breadcrumb 1002:522322 | 글자 14 |
 | `tooltip` | Tooltip 1002:522381 | 반경 6 · 글자 11 |
 | `thumbnail` `avatar-group` | Profile 1002:522932 | 원형 / 사각 4 |
+| `field-group` | Box Only (compact) 1002:113843 | 높이 32 · 반경 4 · 구분선 1x32 |
 
 ⚠️ **원본 컴포넌트는 Dialog 를 빼면 그림자가 없다.** 폼 컨트롤에 `shadow-elevation-*` 을 붙이지 않는다.
 띄운 면(드롭다운 패널·캘린더 팝오버)에만 `shadow-elevation-lg` 를 쓴다.
+
+⚠️ **테두리 하나 안에 컨트롤 여럿을 넣을 땐 `field-group` 을 쓴다.** 칸(테두리·반경·구분선·
+포커스)은 `field-group` 이 그리고, 안쪽 컨트롤은 DS 것을 `variant="bare"` 로 넣는다 —
+`bare` 는 테두리·반경만 뺀 것이라 글자 크기·높이·캐럿은 DS 그대로다. `input` `dropdown` 에 있다.
+포커스 테두리는 `focus-within` 이라 안쪽 어디를 눌러도 칸 하나가 통째로 살아난다.
+**컨트롤을 손으로 만들어 끼우지 않는다.** 같은 값을 칸 두 개로 나눠 두고 싶으면
+`field-group` 없이 각각 기본 variant 로 두면 된다 — 두 모양 다 `/styleguide` '복합 칸' 에 있다.
 
 *원본 밖 확장* — 원본에 대응이 없다. 전자결재에 필요해서 DS 토큰만으로 만든 것들이라
 Figma 를 봐도 나오지 않는다. 새로 만들 때 여기 있는지 먼저 확인한다.
@@ -140,6 +148,18 @@ Figma 를 봐도 나오지 않는다. 새로 만들 때 여기 있는지 먼저 
   node 1104-59420 실측이다. 위쪽 여백은 놓이는 자리마다 달라 컴포넌트가 갖지 않는다.
 - `ext-heart-filled` (아이콘) — 채운 하트. DS `heart` 는 외곽선뿐이라 '이미 좋아요를
   누른' 상태를 표현할 수 없다. DS `heart.svg` 의 바깥 윤곽만 남겨 실루엣을 그대로 썼다.
+- `filter-bar` — 검색 + 조건 칩 한 줄. **화면마다 필터 생김새가 갈리지 않게 이걸로 통일한다.**
+  원본은 화면마다 필터 카드가 제각각이라 대응 노드를 하나로 정할 수 없었다.
+- `notice-card` — "누가 무엇을 했다" + 상태·시각 + 오른쪽 액션. 확인할 문서 목록이 이걸로
+  쌓인다. GPRO_PORTFOLIO node 1002-106150 실측(1200x102 · 반경 6 · 패딩 30).
+  원본 이름이 '홈카드' 라 워크스페이스 홈에서도 같은 카드를 쓴다.
+- `workspace-shell` — GNB + LNB + 본문을 한 판으로 묶은 껍데기. 워크스페이스 화면은 전부
+  이걸 쓴다. 메뉴는 `config/workspace.php` 한 곳에서 온다 — 화면마다 배열을 따로 적지 않는다.
+  폴더 펼침은 `sessionStorage` 에 남아 화면을 옮겨도 유지된다.
+- `chart/xy` `chart/line` `chart/bars` `chart/donut` `chart/legend` `chart/tooltip` — 재무
+  대시보드용. DS 가이드에 차트가 없다. 호버 상태는 `chart/xy` 가 들고 있고 나머지가 그걸 쓴다.
+  ⚠️ 값은 SVG 를 직접 그린다. 차트 라이브러리를 새로 들이지 않는다.
+- `table/empty` — 표가 비었을 때의 한 줄. `colspan` 을 준다.
 
 **전자결재 고유** (원본에 없음)
 

@@ -38,6 +38,17 @@
     ];
     $sz = $sizes[$size] ?? $sizes['lg'];
 
+    /*
+     * bare 는 x-field-group 안에서만 쓴다. 옆 칸은 x-input 이고 x-input 은 크기와 상관없이
+     * 본문이 14px(text-label-1)인데, 드롭다운은 sm 13px · md 15px 라 한 칸 안에서 글자가
+     * 어긋난다 — 원본(node 1002:113844 은행 선택 · 1002:113845 계좌 번호 입력)은 둘 다 14px/20 이다.
+     * bare 일 때만 x-input 에 맞춘다.
+     * ⚠️ sm/md 자체의 크기는 건드리지 않는다. 조밀한 표·필터가 그 크기를 쓴다.
+     */
+    if ($variant === 'bare') {
+        $sz['text'] = 'text-label-1';
+    }
+
     // 폼 기본(lg)은 라벨을 body-1(16px)로 — 시니어 가독성. 조밀한 sm/md(테이블·필터)는 14px 유지.
     $labelCls = $size === 'lg' ? 'text-body-1' : 'text-label-1';
 

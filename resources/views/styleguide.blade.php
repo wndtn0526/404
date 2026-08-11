@@ -528,13 +528,18 @@
             </section>
 
             {{-- 복합 칸 — 테두리 하나 안에 컨트롤 여럿. 기안 작성의 '계좌 정보' 가 이 모양이다
-                 (GPRO_PORTFOLIO node 1002-113842). 안쪽 컨트롤은 DS 것을 variant="bare" 로 넣는다.
-                 오른쪽은 같은 값을 두 칸으로 나눠 둔 모습이다 — 둘 다 DS 다. --}}
+                 (GPRO_PORTFOLIO node 1002-113842 · 안쪽 칸 1002-113843 Box Only (compact)).
+
+                 칸(테두리·반경·구분선·포커스)은 field-group 이 그리고, 안쪽 컨트롤은 DS 것을
+                 variant="bare" 로 넣는다. bare 는 테두리·반경만 뺀 것이라 높이·캐럿은 DS 그대로다.
+                 ⚠️ 컨트롤을 손으로 만들어 끼우지 않는다 — 그러면 포커스·비활성·에러가 갈린다.
+                 ⚠️ 구분선은 divide-x 라 직계 자식 사이에만 들어간다. 칸마다 div 로 한 번 감싼다. --}}
             <section class="flex flex-col gap-4">
                 <h3 class="text-headline-2 font-semibold text-label-normal">복합 칸 (field-group)</h3>
+
                 <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
                     <x-card>
-                        <p class="mb-3 text-label-1 font-semibold text-label-alternative">한 칸 (원본)</p>
+                        <p class="mb-3 text-label-1 font-semibold text-label-alternative">한 칸 (원본) · sm 32</p>
                         <x-field-group label="계좌 정보" size="sm" for="sg_bank">
                             <div class="w-[124px] shrink-0">
                                 <x-dropdown id="sg_bank" variant="bare" size="sm" placeholder="은행 선택"
@@ -544,6 +549,9 @@
                                 <x-input variant="bare" size="sm" placeholder="계좌 번호 입력" />
                             </div>
                         </x-field-group>
+                        <p class="mt-3 text-label-2 text-label-alternative">
+                            안쪽 어디를 눌러도 칸 하나가 통째로 살아난다 (focus-within).
+                        </p>
                     </x-card>
 
                     <x-card>
@@ -560,6 +568,43 @@
                                 </div>
                             </div>
                         </div>
+                        <p class="mt-3 text-label-2 text-label-alternative">
+                            field-group 을 빼고 각각 기본 variant 로 두면 된다. 둘 다 DS 다.
+                        </p>
+                    </x-card>
+
+                    <x-card>
+                        <p class="mb-3 text-label-1 font-semibold text-label-alternative">md 40</p>
+                        <x-field-group label="계좌 정보" size="md" for="sg_bank_md">
+                            <div class="w-[140px] shrink-0">
+                                <x-dropdown id="sg_bank_md" variant="bare" size="md" placeholder="은행 선택"
+                                            :options="['국민은행' => '국민은행', '신한은행' => '신한은행']" />
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <x-input variant="bare" size="md" placeholder="계좌 번호 입력" />
+                            </div>
+                        </x-field-group>
+                        <p class="mt-3 text-label-2 text-label-alternative">
+                            원본 계좌 정보는 sm(32) 이다. md 는 폼 기본 높이에 맞출 때 쓴다.
+                        </p>
+                    </x-card>
+
+                    <x-card>
+                        <p class="mb-3 text-label-1 font-semibold text-label-alternative">세 칸</p>
+                        <x-field-group label="사업자 등록번호" size="sm">
+                            <div class="w-[72px] shrink-0">
+                                <x-input variant="bare" size="sm" placeholder="000" inputmode="numeric" />
+                            </div>
+                            <div class="w-[64px] shrink-0">
+                                <x-input variant="bare" size="sm" placeholder="00" inputmode="numeric" />
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <x-input variant="bare" size="sm" placeholder="00000" inputmode="numeric" />
+                            </div>
+                        </x-field-group>
+                        <p class="mt-3 text-label-2 text-label-alternative">
+                            칸 수는 제한이 없다. 구분선은 칸 사이마다 들어간다.
+                        </p>
                     </x-card>
                 </div>
             </section>
