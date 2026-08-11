@@ -14,9 +14,11 @@
      ⚠️ 원본은 LNB 가 접힌 상태로 그려져 있어 본문이 360 에서 시작한다. 우리는 셸을 그대로
         쓰므로 320 이다. 카드 폭(792 · 384)은 원본 그대로다.
      ⚠️ 원본 제목 앞 이모지는 빼기로 한 규칙대로 넣지 않았다.
-     ⚠️ 계좌 정보는 원본이 테두리 하나 안에 은행 + 구분선 + 계좌번호가 든 복합 칸이다.
-        DS 에 그런 컨트롤이 없어서 라벨 하나 아래 두 칸(드롭다운 + 입력)으로 나눴다.
-        같은 모양이 또 나오면 그때 DS 에 복합 칸을 만든다.
+     계좌 정보는 원본대로 테두리 하나 안에 은행 + 구분선 + 계좌번호가 든 복합 칸이다.
+     그 칸을 x-field-group 으로 새로 만들고, 안쪽에는 DS 드롭다운·입력을 variant="bare" 로
+     넣는다 — 테두리는 칸이 그리고 컨트롤은 글자와 캐럿만 낸다.
+     ⚠️ 두 칸으로 나눠 쓰고 싶으면 x-field-group 을 빼고 각각 기본 variant 로 두면 된다.
+        /styleguide 의 '복합 칸' 절에 두 모양을 나란히 뒀다.
      ⚠️ '구글 드라이브' 버튼은 글자만 넣었다. 원본에 있는 드라이브 로고는 남의 브랜드
         마크라 우리가 그려 넣지 않는다 — 에셋을 받아 오기로 하면 그때 붙인다.
      ⚠️ 계좌 번호는 개인정보다. 지금은 화면뿐이지만 실제로 붙을 때 평문 저장·평문 로그를
@@ -165,28 +167,21 @@
                                         :options="['2021.10' => '2021.10', '2021.09' => '2021.09', '2021.08' => '2021.08']"
                                         selected="2021.10" x-model="form.month" />
 
-                            {{-- 계좌 정보 — 라벨 하나 아래 은행(드롭다운) + 계좌번호(입력) 두 칸.
-                                 라벨만 직접 그리고 컨트롤은 DS 것을 쓴다. 라벨 마크업은
-                                 x-input 의 것과 같은 클래스다(gap 1.5 · label-1 · label-neutral).
-
-                                 ⚠️ 원본은 이 둘이 테두리 하나 안에 구분선으로 나뉜 복합 칸이다.
-                                    DS 에 그런 컨트롤이 없어서 두 칸으로 나눴다. 처음엔 네이티브
-                                    select 로 한 칸처럼 만들었는데, 그러면 쉐브론이 OS 것이 나와
-                                    옆 드롭다운과 모양이 갈렸다. DS 를 쓰는 쪽을 골랐다. --}}
-                            <div class="flex min-w-0 flex-col gap-1.5">
-                                <span class="text-label-1 font-medium text-label-neutral">계좌 정보</span>
-                                <div class="flex min-w-0 items-start gap-2">
-                                    <div class="w-[128px] shrink-0">
-                                        <x-dropdown name="doc_bank" size="sm" placeholder="은행 선택"
-                                                    :options="['국민은행' => '국민은행', '신한은행' => '신한은행', '하나은행' => '하나은행', '우리은행' => '우리은행']"
-                                                    x-model="form.bank" />
-                                    </div>
-                                    <div class="min-w-0 flex-1">
-                                        <x-input name="doc_account" size="sm" placeholder="계좌 번호 입력"
-                                                 x-model="form.account" />
-                                    </div>
+                            {{-- 계좌 정보 — 원본대로 테두리 하나 안에 은행 + 구분선 + 계좌번호.
+                                 칸은 x-field-group 이 그리고, 안쪽은 DS 컨트롤을 bare 로 넣는다.
+                                 컨트롤을 직접 만들지 않으면서 원본 모양을 낸다. --}}
+                            <x-field-group label="계좌 정보" size="sm" for="doc_bank">
+                                <div class="w-[124px] shrink-0">
+                                    <x-dropdown id="doc_bank" name="doc_bank" variant="bare" size="sm"
+                                                placeholder="은행 선택"
+                                                :options="['국민은행' => '국민은행', '신한은행' => '신한은행', '하나은행' => '하나은행', '우리은행' => '우리은행']"
+                                                x-model="form.bank" />
                                 </div>
-                            </div>
+                                <div class="min-w-0 flex-1">
+                                    <x-input name="doc_account" variant="bare" size="sm"
+                                             placeholder="계좌 번호 입력" x-model="form.account" />
+                                </div>
+                            </x-field-group>
                         </div>
 
                         {{-- 팝업에서 넣은 상세 내용은 표로 쌓인다. 열은 팝업의 칸 그대로다 —

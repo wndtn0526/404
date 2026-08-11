@@ -527,6 +527,43 @@
                 />
             </section>
 
+            {{-- 복합 칸 — 테두리 하나 안에 컨트롤 여럿. 기안 작성의 '계좌 정보' 가 이 모양이다
+                 (GPRO_PORTFOLIO node 1002-113842). 안쪽 컨트롤은 DS 것을 variant="bare" 로 넣는다.
+                 오른쪽은 같은 값을 두 칸으로 나눠 둔 모습이다 — 둘 다 DS 다. --}}
+            <section class="flex flex-col gap-4">
+                <h3 class="text-headline-2 font-semibold text-label-normal">복합 칸 (field-group)</h3>
+                <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+                    <x-card>
+                        <p class="mb-3 text-label-1 font-semibold text-label-alternative">한 칸 (원본)</p>
+                        <x-field-group label="계좌 정보" size="sm" for="sg_bank">
+                            <div class="w-[124px] shrink-0">
+                                <x-dropdown id="sg_bank" variant="bare" size="sm" placeholder="은행 선택"
+                                            :options="['국민은행' => '국민은행', '신한은행' => '신한은행']" />
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <x-input variant="bare" size="sm" placeholder="계좌 번호 입력" />
+                            </div>
+                        </x-field-group>
+                    </x-card>
+
+                    <x-card>
+                        <p class="mb-3 text-label-1 font-semibold text-label-alternative">두 칸으로 나눔</p>
+                        <div class="flex flex-col gap-1.5">
+                            <span class="text-label-1 font-medium text-label-neutral">계좌 정보</span>
+                            <div class="flex min-w-0 items-start gap-2">
+                                <div class="w-[124px] shrink-0">
+                                    <x-dropdown size="sm" placeholder="은행 선택"
+                                                :options="['국민은행' => '국민은행', '신한은행' => '신한은행']" />
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <x-input size="sm" placeholder="계좌 번호 입력" />
+                                </div>
+                            </div>
+                        </div>
+                    </x-card>
+                </div>
+            </section>
+
             {{-- ═══ 표 ═══ --}}
             <section id="table" class="flex flex-col gap-5">
                 <h2 class="text-title-3 font-bold text-label-normal">표</h2>

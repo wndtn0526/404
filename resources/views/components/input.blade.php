@@ -12,7 +12,9 @@
     'maxlength' => null,            // 지정 시 우측에 글자 수 카운터 + 네이티브 입력 제한
     'minlength' => null,
     'size' => 'lg',                 // sm(h-8 · 원본 Box 32) | md·lg(h-10 · 원본 Box 40)
-    'variant' => 'box',             // box(원본 Input Box 40/32) | line(원본 Line Input)
+    // box(원본 Input Box 40/32) | line(원본 Line Input)
+    // bare: 테두리·반경 없이 글자만. x-field-group 처럼 여러 컨트롤을 한 칸에 담을 때 쓴다.
+    'variant' => 'box',
     'tags' => [],                   // 원본 Input Box Tag — 박스 안에 칩으로 얹는 값들
     'liveState' => null,            // Alpine 식: 'ok' | 'error' | 그외(중립) — 비동기 실시간 검증 상태
     'liveMsg' => null,              // Alpine 식: 표시할 메시지(값 있으면 노출). liveState와 함께 사용
@@ -54,7 +56,13 @@
 
     // 원본 Line Input — 밑줄만 있고 좌우 패딩이 없다
     $isLine = $variant === 'line';
-    $shapeCls = $isLine ? 'border-0 border-b rounded-none' : 'border rounded-md';
+    // bare — 감싸는 칸이 테두리를 그리므로 여기서는 안 그린다
+    $isBare = $variant === 'bare';
+    $shapeCls = match (true) {
+        $isBare => 'border-0 rounded-none',
+        $isLine => 'border-0 border-b rounded-none',
+        default => 'border rounded-md',
+    };
     $hasTags = filled($tags);
 
     // 폼 기본(lg)은 라벨을 body-1(16px)로 — 시니어 가독성. 조밀한 sm/md(테이블·필터)는 14px 유지.
@@ -71,7 +79,7 @@
         $isLine
             ? ($clearable || $revealable ? 'pr-7' : ($hasCounter ? 'pr-12' : 'pr-0'))
             : ($clearable || $revealable ? 'pr-10' : ($hasCounter ? 'pr-14' : 'pr-[11px]')),
-        $stateBorder,
+        $isBare ? '' : $stateBorder,
         // 원본 Disabled — 보더·배경 모두 Warm gray/100, 글자 Warm gray/400
         'disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable',
     ]);

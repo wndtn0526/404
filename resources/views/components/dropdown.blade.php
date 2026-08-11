@@ -8,6 +8,9 @@
     'selected' => null,
     'required' => false,
     'size' => 'lg',             // 'md' (테이블 행 등 조밀한 곳) | 'lg' (폼 기본)
+    // box(기본) | bare(테두리·반경 없이 글자 + 캐럿만).
+    // bare 는 x-field-group 처럼 여러 컨트롤을 한 칸에 담을 때 쓴다.
+    'variant' => 'box',
     'liveState' => null,        // Alpine 식: 'ok' | 'error' | 그외(중립) — 클라이언트 실시간 검증 상태 (input과 동일 API)
     'liveMsg' => null,          // Alpine 식: 표시할 메시지(값 있으면 노출). liveState와 함께 사용
 ])
@@ -41,11 +44,16 @@
     // 테두리 색은 반응형 검증(liveState) 시 :class로 부여하므로 정적 클래스엔 미포함
     $errBorderCls = 'border-status-negative focus-visible:border-status-negative focus-visible:ring-status-negative/30';
     $okBorderCls = 'border-line-normal-neutral focus-visible:border-primary focus-visible:ring-primary/30';
+    $isBare = $variant === 'bare';
+
     $trigger = implode(' ', [
-        'flex w-full items-center justify-between text-left border bg-background-normal',
-        $sz['trigger'],
-        'transition-colors duration-150 focus:outline-none focus-visible:ring-2',
-        $hasLive ? '' : ($hasError ? $errBorderCls : $okBorderCls),
+        'flex w-full items-center justify-between text-left bg-background-normal',
+        // bare — 감싸는 칸이 테두리를 그리므로 여기서는 안 그린다
+        $isBare ? 'border-0 rounded-none' : 'border',
+        $isBare ? str_replace('rounded-md ', '', $sz['trigger']) : $sz['trigger'],
+        'transition-colors duration-150 focus:outline-none',
+        $isBare ? '' : 'focus-visible:ring-2',
+        $isBare ? '' : ($hasLive ? '' : ($hasError ? $errBorderCls : $okBorderCls)),
     ]);
 @endphp
 
