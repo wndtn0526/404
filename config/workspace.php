@@ -33,7 +33,7 @@ return [
         ['mark' => 'cdw-mark', 'href' => '/workspace', 'label' => '청담원 워크스페이스',
             'match' => ['workspace', 'workspace/*', 'contents', 'contents/*',
                 'courses', 'courses/*', 'organization', 'organization/*', 'orgs', 'orgs/*',
-                'documents', 'documents/*',
+                'hr', 'hr/*', 'documents', 'documents/*',
                 'finance', 'finance/*', 'settings', 'settings/*']],
     ],
 
@@ -76,17 +76,24 @@ return [
                 ['label' => '확인할 문서', 'href' => '/documents/review', 'match' => ['documents/review']],
             ]],
 
-        // ⚠️ 컨텐츠 관리·과정 관리는 묶지 않는다. 둘을 감쌀 이름이 원본에 없어서 부모를
-        //    '컨텐츠 관리' 로 두면 같은 이름이 두 번 나온다.
-        ['label' => '컨텐츠 관리', 'href' => '/contents', 'icon' => 'inbox',
-            'match' => ['contents', 'contents/*']],
-        ['label' => '과정 관리', 'href' => '/courses', 'icon' => 'graduation',
-            'match' => ['courses', 'courses/*']],
+        // 컨텐츠 — 컨텐츠 관리와 과정 관리를 묶는다.
+        // 부모는 목록이 있는 컨텐츠 관리로 보낸다.
+        ['label' => '컨텐츠', 'href' => '/contents', 'icon' => 'inbox',
+            'match' => ['contents', 'contents/*', 'courses', 'courses/*'], 'children' => [
+                ['label' => '컨텐츠 관리', 'href' => '/contents', 'match' => ['contents', 'contents/*']],
+                ['label' => '과정 관리', 'href' => '/courses', 'match' => ['courses', 'courses/*']],
+            ]],
 
-        ['label' => '화상조직도', 'href' => '/organization', 'icon' => 'company',
-            'match' => ['organization', 'organization/*']],
-        ['label' => '조직 관리', 'href' => '/orgs', 'icon' => 'persons',
-            'match' => ['orgs', 'orgs/*']],
+        // 인사 — 인사 관리·화상조직도·조직 관리를 묶는다 (원본 LNB node 1002-260356).
+        // ⚠️ 원본은 여기에 발령 관리·근태 관리·통계 및 현황·설정이 더 있고, 인사 관리 밑으로
+        //    한 단이 더 들어간다(인사 정보 조회·인사 자료 관리 …). 셸은 두 단까지라
+        //    화면이 있는 것만 평평하게 뒀다. 화면이 생기면 그때 단을 늘린다.
+        ['label' => '인사', 'href' => '/hr', 'icon' => 'persons',
+            'match' => ['hr', 'hr/*', 'organization', 'organization/*', 'orgs', 'orgs/*'], 'children' => [
+                ['label' => '인사 관리', 'href' => '/hr', 'match' => ['hr', 'hr/*']],
+                ['label' => '화상조직도', 'href' => '/organization', 'match' => ['organization', 'organization/*']],
+                ['label' => '조직 관리', 'href' => '/orgs', 'match' => ['orgs', 'orgs/*']],
+            ]],
 
         ['label' => '재무', 'href' => '/finance', 'icon' => 'coins',
             'match' => ['finance', 'finance/*'], 'children' => [

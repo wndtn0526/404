@@ -68,6 +68,13 @@ Route::view('/finance/budget', 'budget-accounts')->name('finance.budget');
 Route::view('/finance/personal', 'personal-settlement')->name('finance.personal');
 Route::view('/finance/expense', 'expense-settlement')->name('finance.expense');
 
+/*
+ * 인사 관리 (Figma node 1002-260139). 인사 메뉴의 첫 화면이다.
+ * ⚠️ 원본 LNB 는 인사 밑에 발령 관리·근태 관리·통계 및 현황이 더 있고 인사 관리 아래로
+ *    한 단이 더 들어간다. 화면이 있는 것만 config/workspace.php 에 뒀다.
+ */
+Route::view('/hr', 'hr')->name('hr');
+
 // 전자결재 — 문서 신청 (Figma node 1002-106228). 이 저장소의 본 도메인 첫 화면이다.
 Route::view('/documents', 'documents')->name('documents');
 
