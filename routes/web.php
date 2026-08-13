@@ -85,6 +85,14 @@ Route::view('/hr', 'hr')->name('hr');
  */
 Route::view('/hr/detail', 'hr-detail')->name('hr.detail');
 
+/*
+ * 발령 관리 (Figma node 1002-262024). 발령 유형이 무엇을 바꾸는지 정해 두는 화면이다.
+ * ⚠️ 원본 LNB 는 발령 관리 밑으로 한 단이 더 들어간다(발령 기준 관리 · 사원 등록 ·
+ *    발령 등록 · 발령 조회 · 발령 정정 · 겸직 현황 · 파견 현황 · 휴직 현황).
+ *    셸이 두 단까지라 발령 관리만 인사 밑에 뒀다.
+ */
+Route::view('/hr/appointments', 'hr-appointments')->name('hr.appointments');
+
 // 전자결재 — 문서 신청 (Figma node 1002-106228). 이 저장소의 본 도메인 첫 화면이다.
 Route::view('/documents', 'documents')->name('documents');
 

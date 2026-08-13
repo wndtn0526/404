@@ -165,6 +165,10 @@
                                                                               class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
                                         <span class="truncate text-label-1 font-medium leading-5">인사 관리</span>
                                     </a>
+                                                                                                        <a href="./hr-appointments.html"
+                                                                              class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                                        <span class="truncate text-label-1 font-medium leading-5">발령 관리</span>
+                                    </a>
                                                                                                         <a href="./organization.html"
                                                                               class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
                                         <span class="truncate text-label-1 font-medium leading-5">화상조직도</span>
@@ -1386,14 +1390,14 @@
      x-model="draft.group"
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d14679deb3" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d160cd28c0" class="text-label-1 font-medium text-label-neutral">
             비용 분류
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d14679deb3"
+            id="dropdown-6a7d160cd28c0"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -1447,7 +1451,7 @@
 
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d14679dfc8" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d160cd29fd" class="text-label-1 font-medium text-label-neutral">
             계정 이름
                     </label>
     
@@ -1455,7 +1459,7 @@
          >
         
         <input
-            id="input-6a7d14679dfc8"
+            id="input-6a7d160cd29fd"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.name"         />
 
@@ -1463,7 +1467,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d14679dfe5" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d160cd2a1e" class="text-label-1 font-medium text-label-neutral">
             계정 이름 (영어)
                     </label>
     
@@ -1471,7 +1475,7 @@
          >
         
         <input
-            id="input-6a7d14679dfe5"
+            id="input-6a7d160cd2a1e"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.name_en"         />
 
@@ -1479,7 +1483,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d14679dffc" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d160cd2a35" class="text-label-1 font-medium text-label-neutral">
             계정 코드
                     </label>
     
@@ -1487,7 +1491,7 @@
          >
         
         <input
-            id="input-6a7d14679dffc"
+            id="input-6a7d160cd2a35"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="draft.code"         />
 
@@ -1562,14 +1566,14 @@
      x-model="draft.limit"
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d14679e016" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d160cd2a4d" class="text-label-1 font-medium text-label-neutral">
             1인 한도
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d14679e016"
+            id="dropdown-6a7d160cd2a4d"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -1623,7 +1627,7 @@
 
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d14679e08b" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d160cd2ad8" class="text-label-1 font-medium text-label-neutral">
             설정
                     </label>
     
@@ -1635,7 +1639,7 @@
 </svg>            </span>
         
         <input
-            id="input-6a7d14679e08b"
+            id="input-6a7d160cd2ad8"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-10 pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="설정 찾기" x-model="draft.setting"         />
 
@@ -1643,7 +1647,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d14679e1ab" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d160cd2bfb" class="text-label-1 font-medium text-label-neutral">
             대상 인원
                     </label>
     
@@ -1655,7 +1659,7 @@
 </svg>            </span>
         
         <input
-            id="input-6a7d14679e1ab"
+            id="input-6a7d160cd2bfb"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-10 pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="멤버 찾기" x-model="draft.target"         />
 
@@ -1663,7 +1667,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d14679e23a" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d160cd2c99" class="text-label-1 font-medium text-label-neutral">
             사용자 가이드
                     </label>
     
@@ -1671,7 +1675,7 @@
          >
         
         <input
-            id="input-6a7d14679e23a"
+            id="input-6a7d160cd2c99"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="사용자 가이드 입력" x-model="draft.guide"         />
 
@@ -1679,7 +1683,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d14679e253" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d160cd2cb2" class="text-label-1 font-medium text-label-neutral">
             사용자 가이드 (영어)
                     </label>
     
@@ -1687,7 +1691,7 @@
          >
         
         <input
-            id="input-6a7d14679e253"
+            id="input-6a7d160cd2cb2"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="영어 사용자 가이드 입력" x-model="draft.guide_en"         />
 

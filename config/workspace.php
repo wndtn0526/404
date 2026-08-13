@@ -90,7 +90,8 @@ return [
         //    화면이 있는 것만 평평하게 뒀다. 화면이 생기면 그때 단을 늘린다.
         ['label' => '인사', 'href' => '/hr', 'icon' => 'persons',
             'match' => ['hr', 'hr/*', 'organization', 'organization/*', 'orgs', 'orgs/*'], 'children' => [
-                ['label' => '인사 관리', 'href' => '/hr', 'match' => ['hr', 'hr/*']],
+                ['label' => '인사 관리', 'href' => '/hr', 'match' => ['hr', 'hr/detail']],
+                ['label' => '발령 관리', 'href' => '/hr/appointments', 'match' => ['hr/appointments']],
                 ['label' => '화상조직도', 'href' => '/organization', 'match' => ['organization', 'organization/*']],
                 ['label' => '조직 관리', 'href' => '/orgs', 'match' => ['orgs', 'orgs/*']],
             ]],
