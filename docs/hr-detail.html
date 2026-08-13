@@ -110,36 +110,6 @@
                                             </div>
                                     
                     <div class="flex flex-col gap-2"
-                          x-data="dsLnbFolder('컨텐츠', false)" >
-
-                                                    
-                            <button type="button" @click="toggle()" x-bind:aria-expanded="open"
-                                    class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-left text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
-                                                                    <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11096 4.10016C7.58631 4.09965 7.14412 4.09921 6.72868 4.22538C6.36388 4.33617 6.0245 4.51781 5.72997 4.7599C5.39457 5.03558 5.14966 5.40376 4.85908 5.8406L2.25731 9.74365C2.08884 9.99605 1.94655 10.2092 1.84317 10.4461C1.75211 10.6547 1.68593 10.8733 1.64599 11.0973C1.60065 11.3518 1.6008 11.6081 1.60097 11.9115L1.601 15.8356C1.60098 16.3655 1.60097 16.8167 1.63123 17.1871C1.66303 17.5763 1.73266 17.9549 1.91708 18.3168C2.19511 18.8625 2.63875 19.3061 3.18442 19.5841C3.54636 19.7686 3.92495 19.8382 4.31411 19.87C4.68454 19.9003 5.13572 19.9002 5.66559 19.9002H18.3364C18.8663 19.9002 19.3174 19.9003 19.6879 19.87C20.077 19.8382 20.4556 19.7686 20.8176 19.5841C21.3632 19.3061 21.8069 18.8625 22.0849 18.3168C22.2693 17.9549 22.339 17.5763 22.3708 17.1871C22.401 16.8167 22.401 16.3655 22.401 15.8357L22.401 11.9115C22.4012 11.6081 22.4013 11.3517 22.356 11.0973C22.3161 10.8733 22.2499 10.6547 22.1588 10.4461C22.0554 10.2092 21.9131 9.99605 21.7447 9.74364L19.1429 5.84061C18.8523 5.40376 18.6074 5.03559 18.272 4.7599C17.9775 4.51781 17.6381 4.33617 17.2733 4.22538C16.8579 4.09921 16.4157 4.09965 15.891 4.10016H8.11096ZM7.35658 5.92133C7.44241 5.90424 7.54581 5.90015 7.99958 5.90015H16.0024C16.4562 5.90015 16.5596 5.90424 16.6454 5.92133C16.859 5.96387 17.0552 6.06886 17.2091 6.223C17.2709 6.28494 17.3317 6.3687 17.5834 6.74628L19.8194 10.1006H16.2503C15.02 10.1006 14.2522 11.1041 13.9215 11.8504C13.5943 12.5887 12.8561 13.1008 12.0003 13.1008C11.1446 13.1008 10.4063 12.5887 10.079 11.8504C9.7483 11.1041 8.98049 10.1006 7.75026 10.1006H4.18261L6.41865 6.74628C6.67034 6.3687 6.7311 6.28494 6.79293 6.223C6.9468 6.06886 7.14297 5.96387 7.35658 5.92133ZM3.401 11.9006V16.2001C3.401 17.0147 3.4121 17.2085 3.45484 17.3401C3.56365 17.6749 3.8262 17.9375 4.16108 18.0463C4.2926 18.089 4.48644 18.1001 5.301 18.1001H18.701C19.5156 18.1001 19.7094 18.089 19.8409 18.0463C20.1758 17.9375 20.4384 17.6749 20.5472 17.3401C20.5899 17.2085 20.601 17.0147 20.601 16.2001V11.9006H16.2503C15.9229 11.9006 15.6793 12.3266 15.5671 12.5797C14.962 13.9452 13.5938 14.9008 12.0003 14.9008C10.4069 14.9008 9.0386 13.9452 8.43342 12.5797C8.32124 12.3266 8.07766 11.9006 7.75026 11.9006H3.401Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                                <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">컨텐츠</span>
-                                
-                                <span class="shrink-0 transition-transform duration-200"
-                                      x-bind:class="open ? '' : '-rotate-90'">
-                                    <svg width="1em" height="1em" aria-hidden="true" class="size-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                </span>
-                            </button>
-                        
-                        
-                                                    <div x-bind:class="open ? 'flex flex-col gap-2' : 'hidden'">
-                                                                                                        <a href="./contents.html"
-                                                                              class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
-                                        <span class="truncate text-label-1 font-medium leading-5">컨텐츠 관리</span>
-                                    </a>
-                                                                                                        <a href="./courses.html"
-                                                                              class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
-                                        <span class="truncate text-label-1 font-medium leading-5">과정 관리</span>
-                                    </a>
-                                                            </div>
-                                            </div>
-                                    
-                    <div class="flex flex-col gap-2"
                           x-data="dsLnbFolder('인사', true)" >
 
                                                     
@@ -167,7 +137,11 @@
                                     </a>
                                                                                                         <a href="./hr-appointments.html"
                                                                               class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
-                                        <span class="truncate text-label-1 font-medium leading-5">발령 관리</span>
+                                        <span class="truncate text-label-1 font-medium leading-5">발령 기준 관리</span>
+                                    </a>
+                                                                                                        <a href="./hr-appointment-docs.html"
+                                                                              class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                                        <span class="truncate text-label-1 font-medium leading-5">발령 등록</span>
                                     </a>
                                                                                                         <a href="./organization.html"
                                                                               class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
@@ -397,10 +371,10 @@
                         <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">1. 개인 정보</h2>
                         <span class="ml-auto flex shrink-0 items-center gap-3">
                             <span class="text-label-1 leading-5 text-mono-black">주민번호 표시</span>
-                            <label for="switch-6a7d160c9b59d"  x-data  class="inline-flex items-center gap-3 select-none cursor-pointer">
+                            <label for="switch-6a7d18bbab2d3"  x-data  class="inline-flex items-center gap-3 select-none cursor-pointer">
     <input
         type="checkbox"
-        id="switch-6a7d160c9b59d"
+        id="switch-6a7d18bbab2d3"
                 value="1"
                         x-model="showRrn"
         class="peer sr-only"
@@ -588,10 +562,10 @@
                         <span class="ml-auto flex shrink-0 flex-wrap items-center gap-3">
                             <span class="flex items-center gap-3">
                                 <span class="text-label-1 leading-5 text-mono-black">주민번호 표시</span>
-                                <label for="switch-6a7d160c9b6bc"  x-data  class="inline-flex items-center gap-3 select-none cursor-pointer">
+                                <label for="switch-6a7d18bbab48b"  x-data  class="inline-flex items-center gap-3 select-none cursor-pointer">
     <input
         type="checkbox"
-        id="switch-6a7d160c9b6bc"
+        id="switch-6a7d18bbab48b"
                 value="1"
                         x-model="showRrn"
         class="peer sr-only"
@@ -621,7 +595,7 @@
                     <p class="text-label-1 font-bold leading-5 text-mono-black pt-8">필수 입력 정보</p>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 pt-3 md:grid-cols-2 xl:grid-cols-3">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9ba2c" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbab87c" class="text-label-1 font-medium text-label-neutral">
             주민 등록 번호
                     </label>
     
@@ -629,7 +603,7 @@
          >
         
         <input
-            id="input-6a7d160c9ba2c"
+            id="input-6a7d18bbab87c"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-bind:value="showRrn ? @js($member['rrn']) : @js(mb_substr($member['rrn'], 0, 9)) + '●●●●●●'" readonly="readonly"         />
 
@@ -637,7 +611,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9ba4d" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbab89d" class="text-label-1 font-medium text-label-neutral">
             사번
                     </label>
     
@@ -645,7 +619,7 @@
          >
         
         <input
-            id="input-6a7d160c9ba4d"
+            id="input-6a7d18bbab89d"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="GPR200101"         />
 
@@ -653,7 +627,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9ba65" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbab8b5" class="text-label-1 font-medium text-label-neutral">
             입사일
                     </label>
     
@@ -661,7 +635,7 @@
          >
         
         <input
-            id="input-6a7d160c9ba65"
+            id="input-6a7d18bbab8b5"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="2021.12.29"         />
 
@@ -669,7 +643,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9ba7b" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbab8cb" class="text-label-1 font-medium text-label-neutral">
             그룹 입사일
                     </label>
     
@@ -677,7 +651,7 @@
          >
         
         <input
-            id="input-6a7d160c9ba7b"
+            id="input-6a7d18bbab8cb"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="2021.12.29"         />
 
@@ -752,14 +726,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9baa1" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbab8ef" class="text-label-1 font-medium text-label-neutral">
             입사 구분
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9baa1"
+            id="dropdown-6a7d18bbab8ef"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -876,14 +850,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9bba4" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbabb3c" class="text-label-1 font-medium text-label-neutral">
             입사 경로
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9bba4"
+            id="dropdown-6a7d18bbabb3c"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -937,7 +911,7 @@
 
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9bc17" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbabbff" class="text-label-1 font-medium text-label-neutral">
             인정 경력
                     </label>
     
@@ -945,7 +919,7 @@
          >
         
         <input
-            id="input-6a7d160c9bc17"
+            id="input-6a7d18bbabbff"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="10년 10개월"         />
 
@@ -953,7 +927,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9bc30" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbabc1b" class="text-label-1 font-medium text-label-neutral">
             수습 만료일
                     </label>
     
@@ -961,7 +935,7 @@
          >
         
         <input
-            id="input-6a7d160c9bc30"
+            id="input-6a7d18bbabc1b"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="2021.12.29"         />
 
@@ -969,7 +943,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9bc44" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbabc31" class="text-label-1 font-medium text-label-neutral">
             퇴직 기준일
                     </label>
     
@@ -977,7 +951,7 @@
          >
         
         <input
-            id="input-6a7d160c9bc44"
+            id="input-6a7d18bbabc31"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="2021.12.29"         />
 
@@ -1048,14 +1022,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9bc61" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbabc49" class="text-label-1 font-medium text-label-neutral">
             퇴직일
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9bc61"
+            id="dropdown-6a7d18bbabc49"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -1172,14 +1146,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9bceb" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbabcd0" class="text-label-1 font-medium text-label-neutral">
             퇴직 사유
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9bceb"
+            id="dropdown-6a7d18bbabcd0"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -1237,7 +1211,7 @@
                     <p class="text-label-1 font-bold leading-5 text-mono-black pt-8">기타 HR 정보</p>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 pt-3 md:grid-cols-2 xl:grid-cols-3">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9bd6b" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbabd6c" class="text-label-1 font-medium text-label-neutral">
             근태 기준일
                     </label>
     
@@ -1245,7 +1219,7 @@
          >
         
         <input
-            id="input-6a7d160c9bd6b"
+            id="input-6a7d18bbabd6c"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="2021.12.29"         />
 
@@ -1253,7 +1227,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9bd80" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbabd82" class="text-label-1 font-medium text-label-neutral">
             최종 보임일
                     </label>
     
@@ -1261,7 +1235,7 @@
          >
         
         <input
-            id="input-6a7d160c9bd80"
+            id="input-6a7d18bbabd82"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="2021.12.29"         />
 
@@ -1269,7 +1243,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9bd93" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbabd96" class="text-label-1 font-medium text-label-neutral">
             최종 이동일
                     </label>
     
@@ -1277,7 +1251,7 @@
          >
         
         <input
-            id="input-6a7d160c9bd93"
+            id="input-6a7d18bbabd96"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="2021.12.29"         />
 
@@ -1911,7 +1885,7 @@
                     <p class="text-label-1 font-bold leading-5 text-mono-black pt-8">필수 입력 신상 정보</p>
                     <div class="grid grid-cols-1 gap-x-[30px] gap-y-6 pt-3 lg:grid-cols-2">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9db47" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbad682" class="text-label-1 font-medium text-label-neutral">
             이름
                     </label>
     
@@ -1919,7 +1893,7 @@
          >
         
         <input
-            id="input-6a7d160c9db47"
+            id="input-6a7d18bbad682"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="심프로"         />
 
@@ -1927,7 +1901,7 @@
     
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9db64" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbad6a0" class="text-label-1 font-medium text-label-neutral">
             영어 이름
                     </label>
     
@@ -1935,7 +1909,7 @@
          >
         
         <input
-            id="input-6a7d160c9db64"
+            id="input-6a7d18bbad6a0"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="GPRO"         />
 
@@ -2006,14 +1980,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9db7f" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbad6bb" class="text-label-1 font-medium text-label-neutral">
             국적
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9db7f"
+            id="dropdown-6a7d18bbad6bb"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -2130,14 +2104,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9dc02" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbad748" class="text-label-1 font-medium text-label-neutral">
             거주지역
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9dc02"
+            id="dropdown-6a7d18bbad748"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -2254,14 +2228,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9dc79" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbad7be" class="text-label-1 font-medium text-label-neutral">
             급여 계좌
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9dc79"
+            id="dropdown-6a7d18bbad7be"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -2316,7 +2290,7 @@
     </div>
                         
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9dcea" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbad82c" class="text-label-1 font-medium text-label-neutral">
             계좌 번호
                     </label>
     
@@ -2324,7 +2298,7 @@
          >
         
         <input
-            id="input-6a7d160c9dcea"
+            id="input-6a7d18bbad82c"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="0000 00 0000000"         />
 
@@ -2399,14 +2373,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9dd06" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbad849" class="text-label-1 font-medium text-label-neutral">
             결혼 여부
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9dd06"
+            id="dropdown-6a7d18bbad849"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -2460,7 +2434,7 @@
 
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9dd74" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbad8b6" class="text-label-1 font-medium text-label-neutral">
             회사 메일
                     </label>
     
@@ -2468,7 +2442,7 @@
          >
         
         <input
-            id="input-6a7d160c9dd74"
+            id="input-6a7d18bbad8b6"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="GPRO@groupware.pro"         />
 
@@ -2539,14 +2513,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9dd90" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbad8d0" class="text-label-1 font-medium text-label-neutral">
             직무 변경일
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9dd90"
+            id="dropdown-6a7d18bbad8d0"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -2663,14 +2637,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9de07" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbad93d" class="text-label-1 font-medium text-label-neutral">
             직급 진행일
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9de07"
+            id="dropdown-6a7d18bbad93d"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -2787,14 +2761,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9de75" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbad9ac" class="text-label-1 font-medium text-label-neutral">
             경비 계좌
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9de75"
+            id="dropdown-6a7d18bbad9ac"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -2848,7 +2822,7 @@
 
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9dedf" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbada1d" class="text-label-1 font-medium text-label-neutral">
             경비 계좌 번호
                     </label>
     
@@ -2856,7 +2830,7 @@
          >
         
         <input
-            id="input-6a7d160c9dedf"
+            id="input-6a7d18bbada1d"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="0000 00 0000000"         />
 
@@ -2874,10 +2848,10 @@
                             
                 <span class="flex items-center gap-3">
                     <span class="text-label-1 leading-5 text-mono-black">주민번호 표시</span>
-                    <label for="switch-6a7d160c9dfd1"  x-data  class="inline-flex items-center gap-3 select-none cursor-pointer">
+                    <label for="switch-6a7d18bbadb38"  x-data  class="inline-flex items-center gap-3 select-none cursor-pointer">
     <input
         type="checkbox"
-        id="switch-6a7d160c9dfd1"
+        id="switch-6a7d18bbadb38"
                 value="1"
                         x-model="showRrn"
         class="peer sr-only"
@@ -2981,10 +2955,10 @@
                         <h2 class="text-heading-2 font-bold leading-[30px] text-mono-black">병역 사항</h2>
                         <span class="ml-auto flex shrink-0 items-center gap-3">
                             <span class="text-label-1 leading-5 text-mono-black">해당 사항 없음</span>
-                            <label for="switch-6a7d160c9e16d"  class="inline-flex items-center gap-3 select-none cursor-pointer">
+                            <label for="switch-6a7d18bbadd15"  class="inline-flex items-center gap-3 select-none cursor-pointer">
     <input
         type="checkbox"
-        id="switch-6a7d160c9e16d"
+        id="switch-6a7d18bbadd15"
                 value="1"
                         
         class="peer sr-only"
@@ -3073,14 +3047,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9e194" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbadd42" class="text-label-1 font-medium text-label-neutral">
             역종
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9e194"
+            id="dropdown-6a7d18bbadd42"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -3197,14 +3171,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9e1fe" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbaddb9" class="text-label-1 font-medium text-label-neutral">
             군별
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9e1fe"
+            id="dropdown-6a7d18bbaddb9"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -3321,14 +3295,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9e27e" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbade4c" class="text-label-1 font-medium text-label-neutral">
             입대일
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9e27e"
+            id="dropdown-6a7d18bbade4c"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -3445,14 +3419,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9e2e1" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbadeb7" class="text-label-1 font-medium text-label-neutral">
             전역일
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9e2e1"
+            id="dropdown-6a7d18bbadeb7"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -3569,14 +3543,14 @@
      
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160c9e340" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bbadf30" class="text-label-1 font-medium text-label-neutral">
             미필 사유
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160c9e340"
+            id="dropdown-6a7d18bbadf30"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -3630,7 +3604,7 @@
 
     </div>
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160c9e3a8" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bbadfa1" class="text-label-1 font-medium text-label-neutral">
             병역 특례 여부
                     </label>
     
@@ -3638,7 +3612,7 @@
          >
         
         <input
-            id="input-6a7d160c9e3a8"
+            id="input-6a7d18bbadfa1"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" value="해당 사항 없음"         />
 

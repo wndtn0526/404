@@ -110,36 +110,6 @@
                                             </div>
                                     
                     <div class="flex flex-col gap-2"
-                          x-data="dsLnbFolder('컨텐츠', false)" >
-
-                                                    
-                            <button type="button" @click="toggle()" x-bind:aria-expanded="open"
-                                    class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-left text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
-                                                                    <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11096 4.10016C7.58631 4.09965 7.14412 4.09921 6.72868 4.22538C6.36388 4.33617 6.0245 4.51781 5.72997 4.7599C5.39457 5.03558 5.14966 5.40376 4.85908 5.8406L2.25731 9.74365C2.08884 9.99605 1.94655 10.2092 1.84317 10.4461C1.75211 10.6547 1.68593 10.8733 1.64599 11.0973C1.60065 11.3518 1.6008 11.6081 1.60097 11.9115L1.601 15.8356C1.60098 16.3655 1.60097 16.8167 1.63123 17.1871C1.66303 17.5763 1.73266 17.9549 1.91708 18.3168C2.19511 18.8625 2.63875 19.3061 3.18442 19.5841C3.54636 19.7686 3.92495 19.8382 4.31411 19.87C4.68454 19.9003 5.13572 19.9002 5.66559 19.9002H18.3364C18.8663 19.9002 19.3174 19.9003 19.6879 19.87C20.077 19.8382 20.4556 19.7686 20.8176 19.5841C21.3632 19.3061 21.8069 18.8625 22.0849 18.3168C22.2693 17.9549 22.339 17.5763 22.3708 17.1871C22.401 16.8167 22.401 16.3655 22.401 15.8357L22.401 11.9115C22.4012 11.6081 22.4013 11.3517 22.356 11.0973C22.3161 10.8733 22.2499 10.6547 22.1588 10.4461C22.0554 10.2092 21.9131 9.99605 21.7447 9.74364L19.1429 5.84061C18.8523 5.40376 18.6074 5.03559 18.272 4.7599C17.9775 4.51781 17.6381 4.33617 17.2733 4.22538C16.8579 4.09921 16.4157 4.09965 15.891 4.10016H8.11096ZM7.35658 5.92133C7.44241 5.90424 7.54581 5.90015 7.99958 5.90015H16.0024C16.4562 5.90015 16.5596 5.90424 16.6454 5.92133C16.859 5.96387 17.0552 6.06886 17.2091 6.223C17.2709 6.28494 17.3317 6.3687 17.5834 6.74628L19.8194 10.1006H16.2503C15.02 10.1006 14.2522 11.1041 13.9215 11.8504C13.5943 12.5887 12.8561 13.1008 12.0003 13.1008C11.1446 13.1008 10.4063 12.5887 10.079 11.8504C9.7483 11.1041 8.98049 10.1006 7.75026 10.1006H4.18261L6.41865 6.74628C6.67034 6.3687 6.7311 6.28494 6.79293 6.223C6.9468 6.06886 7.14297 5.96387 7.35658 5.92133ZM3.401 11.9006V16.2001C3.401 17.0147 3.4121 17.2085 3.45484 17.3401C3.56365 17.6749 3.8262 17.9375 4.16108 18.0463C4.2926 18.089 4.48644 18.1001 5.301 18.1001H18.701C19.5156 18.1001 19.7094 18.089 19.8409 18.0463C20.1758 17.9375 20.4384 17.6749 20.5472 17.3401C20.5899 17.2085 20.601 17.0147 20.601 16.2001V11.9006H16.2503C15.9229 11.9006 15.6793 12.3266 15.5671 12.5797C14.962 13.9452 13.5938 14.9008 12.0003 14.9008C10.4069 14.9008 9.0386 13.9452 8.43342 12.5797C8.32124 12.3266 8.07766 11.9006 7.75026 11.9006H3.401Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                                <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">컨텐츠</span>
-                                
-                                <span class="shrink-0 transition-transform duration-200"
-                                      x-bind:class="open ? '' : '-rotate-90'">
-                                    <svg width="1em" height="1em" aria-hidden="true" class="size-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                </span>
-                            </button>
-                        
-                        
-                                                    <div x-bind:class="open ? 'flex flex-col gap-2' : 'hidden'">
-                                                                                                        <a href="./contents.html"
-                                                                              class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
-                                        <span class="truncate text-label-1 font-medium leading-5">컨텐츠 관리</span>
-                                    </a>
-                                                                                                        <a href="./courses.html"
-                                                                              class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
-                                        <span class="truncate text-label-1 font-medium leading-5">과정 관리</span>
-                                    </a>
-                                                            </div>
-                                            </div>
-                                    
-                    <div class="flex flex-col gap-2"
                           x-data="dsLnbFolder('인사', true)" >
 
                                                     
@@ -167,7 +137,11 @@
                                     </a>
                                                                                                         <a href="./hr-appointments.html"
                                         aria-current="page"                                        class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 bg-workspace-cool-25/28 text-workspace-white">
-                                        <span class="truncate text-label-1 font-medium leading-5">발령 관리</span>
+                                        <span class="truncate text-label-1 font-medium leading-5">발령 기준 관리</span>
+                                    </a>
+                                                                                                        <a href="./hr-appointment-docs.html"
+                                                                              class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                                        <span class="truncate text-label-1 font-medium leading-5">발령 등록</span>
                                     </a>
                                                                                                         <a href="./organization.html"
                                                                               class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
@@ -445,11 +419,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf181" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbe7c4" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf181"
+            id="checkbox-6a7d18bbbe7c4"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="고용 구분 바뀜"
         />
@@ -468,11 +442,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf23b" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbe869" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf23b"
+            id="checkbox-6a7d18bbbe869"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="조직 바뀜"
         />
@@ -491,11 +465,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf299" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbe8be" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf299"
+            id="checkbox-6a7d18bbbe8be"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="직책 바뀜"
         />
@@ -514,11 +488,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf2ea" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbe90f" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf2ea"
+            id="checkbox-6a7d18bbbe90f"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="근무지 바뀜"
         />
@@ -537,11 +511,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf335" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbe959" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf335"
+            id="checkbox-6a7d18bbbe959"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="겸직 안 바뀜"
         />
@@ -560,11 +534,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf37f" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbe9a4" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf37f"
+            id="checkbox-6a7d18bbbe9a4"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="파견 안 바뀜"
         />
@@ -583,11 +557,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf3c9" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbe9ed" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf3c9"
+            id="checkbox-6a7d18bbbe9ed"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="퇴직 안 바뀜"
         />
@@ -606,11 +580,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf411" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbea35" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf411"
+            id="checkbox-6a7d18bbbea35"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="수습 종료일 바뀜"
         />
@@ -629,11 +603,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf45a" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbea7e" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf45a"
+            id="checkbox-6a7d18bbbea7e"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="종료 예정일 안 바뀜"
         />
@@ -652,11 +626,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf4a2" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbeac6" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf4a2"
+            id="checkbox-6a7d18bbbeac6"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="요약 여부 바뀜"
         />
@@ -709,11 +683,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf597" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbebc5" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf597"
+            id="checkbox-6a7d18bbbebc5"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="고용 구분 안 바뀜"
         />
@@ -732,11 +706,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf5e2" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbec12" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf5e2"
+            id="checkbox-6a7d18bbbec12"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="조직 바뀜"
         />
@@ -755,11 +729,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf657" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbec5c" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf657"
+            id="checkbox-6a7d18bbbec5c"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="직책 바뀜"
         />
@@ -778,11 +752,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf6c9" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbeca6" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf6c9"
+            id="checkbox-6a7d18bbbeca6"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="근무지 안 바뀜"
         />
@@ -801,11 +775,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf723" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbecf2" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf723"
+            id="checkbox-6a7d18bbbecf2"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="겸직 안 바뀜"
         />
@@ -824,11 +798,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf774" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbed39" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf774"
+            id="checkbox-6a7d18bbbed39"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="파견 안 바뀜"
         />
@@ -847,11 +821,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf7bf" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbed82" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf7bf"
+            id="checkbox-6a7d18bbbed82"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="퇴직 안 바뀜"
         />
@@ -870,11 +844,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf809" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbedc9" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf809"
+            id="checkbox-6a7d18bbbedc9"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="수습 종료일 안 바뀜"
         />
@@ -893,11 +867,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf853" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbee14" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf853"
+            id="checkbox-6a7d18bbbee14"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="종료 예정일 안 바뀜"
         />
@@ -916,11 +890,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf89d" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbee62" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf89d"
+            id="checkbox-6a7d18bbbee62"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="요약 여부 바뀜"
         />
@@ -973,11 +947,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf998" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbef5c" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf998"
+            id="checkbox-6a7d18bbbef5c"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="고용 구분 안 바뀜"
         />
@@ -996,11 +970,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caf9e8" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbefa5" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caf9e8"
+            id="checkbox-6a7d18bbbefa5"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="조직 안 바뀜"
         />
@@ -1019,11 +993,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cafa31" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbefec" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cafa31"
+            id="checkbox-6a7d18bbbefec"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="직책 바뀜"
         />
@@ -1042,11 +1016,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cafa80" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf031" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cafa80"
+            id="checkbox-6a7d18bbbf031"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="근무지 안 바뀜"
         />
@@ -1065,11 +1039,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cafad2" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf075" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cafad2"
+            id="checkbox-6a7d18bbbf075"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="겸직 안 바뀜"
         />
@@ -1088,11 +1062,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cafb19" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf0bb" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cafb19"
+            id="checkbox-6a7d18bbbf0bb"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="파견 안 바뀜"
         />
@@ -1111,11 +1085,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cafb5f" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf0fe" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cafb5f"
+            id="checkbox-6a7d18bbbf0fe"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="퇴직 안 바뀜"
         />
@@ -1134,11 +1108,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cafbb5" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf142" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cafbb5"
+            id="checkbox-6a7d18bbbf142"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="수습 종료일 안 바뀜"
         />
@@ -1157,11 +1131,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cafc17" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf186" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cafc17"
+            id="checkbox-6a7d18bbbf186"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="종료 예정일 안 바뀜"
         />
@@ -1180,11 +1154,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cafc6b" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf1ca" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cafc6b"
+            id="checkbox-6a7d18bbbf1ca"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="요약 여부 바뀜"
         />
@@ -1237,11 +1211,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cafdde" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf2a8" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cafdde"
+            id="checkbox-6a7d18bbbf2a8"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="고용 구분 안 바뀜"
         />
@@ -1260,11 +1234,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cafe7c" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf2f0" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cafe7c"
+            id="checkbox-6a7d18bbbf2f0"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="조직 안 바뀜"
         />
@@ -1283,11 +1257,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cafedc" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf337" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cafedc"
+            id="checkbox-6a7d18bbbf337"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="직책 안 바뀜"
         />
@@ -1306,11 +1280,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caff31" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf37b" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caff31"
+            id="checkbox-6a7d18bbbf37b"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="근무지 안 바뀜"
         />
@@ -1329,11 +1303,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caff80" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf3c0" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caff80"
+            id="checkbox-6a7d18bbbf3c0"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="겸직 안 바뀜"
         />
@@ -1352,11 +1326,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160caffcd" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf405" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160caffcd"
+            id="checkbox-6a7d18bbbf405"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="파견 안 바뀜"
         />
@@ -1375,11 +1349,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0018" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf44a" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0018"
+            id="checkbox-6a7d18bbbf44a"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="퇴직 안 바뀜"
         />
@@ -1398,11 +1372,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0067" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf48d" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0067"
+            id="checkbox-6a7d18bbbf48d"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="수습 종료일 안 바뀜"
         />
@@ -1421,11 +1395,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb00b7" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf4d3" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb00b7"
+            id="checkbox-6a7d18bbbf4d3"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="종료 예정일 안 바뀜"
         />
@@ -1444,11 +1418,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0119" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf517" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0119"
+            id="checkbox-6a7d18bbbf517"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="요약 여부 바뀜"
         />
@@ -1501,11 +1475,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0208" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf5f1" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0208"
+            id="checkbox-6a7d18bbbf5f1"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="고용 구분 안 바뀜"
         />
@@ -1524,11 +1498,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0254" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf637" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0254"
+            id="checkbox-6a7d18bbbf637"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="조직 안 바뀜"
         />
@@ -1547,11 +1521,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb029c" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf67d" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb029c"
+            id="checkbox-6a7d18bbbf67d"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="직책 안 바뀜"
         />
@@ -1570,11 +1544,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb02e3" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf6c0" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb02e3"
+            id="checkbox-6a7d18bbbf6c0"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="근무지 안 바뀜"
         />
@@ -1593,11 +1567,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0329" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf701" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0329"
+            id="checkbox-6a7d18bbbf701"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="겸직 안 바뀜"
         />
@@ -1616,11 +1590,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0371" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf744" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0371"
+            id="checkbox-6a7d18bbbf744"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="파견 바뀜"
         />
@@ -1639,11 +1613,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb03b6" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf86f" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb03b6"
+            id="checkbox-6a7d18bbbf86f"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="퇴직 안 바뀜"
         />
@@ -1662,11 +1636,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb03fc" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf928" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb03fc"
+            id="checkbox-6a7d18bbbf928"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="수습 종료일 안 바뀜"
         />
@@ -1685,11 +1659,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0440" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf98e" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0440"
+            id="checkbox-6a7d18bbbf98e"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="종료 예정일 안 바뀜"
         />
@@ -1708,11 +1682,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0485" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbf9e9" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0485"
+            id="checkbox-6a7d18bbbf9e9"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="요약 여부 바뀜"
         />
@@ -1765,11 +1739,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0558" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfadc" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0558"
+            id="checkbox-6a7d18bbbfadc"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="고용 구분 바뀜"
         />
@@ -1788,11 +1762,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb059d" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfb26" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb059d"
+            id="checkbox-6a7d18bbbfb26"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="조직 안 바뀜"
         />
@@ -1811,11 +1785,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb05e0" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfb6d" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb05e0"
+            id="checkbox-6a7d18bbbfb6d"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="직책 안 바뀜"
         />
@@ -1834,11 +1808,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0622" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfbb3" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0622"
+            id="checkbox-6a7d18bbbfbb3"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="근무지 안 바뀜"
         />
@@ -1857,11 +1831,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0662" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfbf8" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0662"
+            id="checkbox-6a7d18bbbfbf8"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="겸직 안 바뀜"
         />
@@ -1880,11 +1854,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb06a3" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfc3f" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb06a3"
+            id="checkbox-6a7d18bbbfc3f"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="파견 안 바뀜"
         />
@@ -1903,11 +1877,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb06e3" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfc83" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb06e3"
+            id="checkbox-6a7d18bbbfc83"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="퇴직 안 바뀜"
         />
@@ -1926,11 +1900,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0724" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfcc9" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0724"
+            id="checkbox-6a7d18bbbfcc9"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="수습 종료일 안 바뀜"
         />
@@ -1949,11 +1923,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0764" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfd0d" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0764"
+            id="checkbox-6a7d18bbbfd0d"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="종료 예정일 안 바뀜"
         />
@@ -1972,11 +1946,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb07a4" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfd52" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb07a4"
+            id="checkbox-6a7d18bbbfd52"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="요약 여부 안 바뀜"
         />
@@ -2029,11 +2003,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb086b" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfe30" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb086b"
+            id="checkbox-6a7d18bbbfe30"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="고용 구분 안 바뀜"
         />
@@ -2052,11 +2026,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb08ad" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfe79" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb08ad"
+            id="checkbox-6a7d18bbbfe79"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="조직 안 바뀜"
         />
@@ -2075,11 +2049,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb08ef" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbfec1" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb08ef"
+            id="checkbox-6a7d18bbbfec1"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="직책 안 바뀜"
         />
@@ -2098,11 +2072,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0930" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbff09" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0930"
+            id="checkbox-6a7d18bbbff09"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="근무지 안 바뀜"
         />
@@ -2121,11 +2095,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb096f" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbff50" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb096f"
+            id="checkbox-6a7d18bbbff50"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="겸직 안 바뀜"
         />
@@ -2144,11 +2118,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb09b0" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbff9a" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb09b0"
+            id="checkbox-6a7d18bbbff9a"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="파견 안 바뀜"
         />
@@ -2167,11 +2141,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb09ef" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbbffdf" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb09ef"
+            id="checkbox-6a7d18bbbffdf"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="퇴직 바뀜"
         />
@@ -2190,11 +2164,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0a32" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0024" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0a32"
+            id="checkbox-6a7d18bbc0024"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="수습 종료일 안 바뀜"
         />
@@ -2213,11 +2187,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0a71" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0069" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0a71"
+            id="checkbox-6a7d18bbc0069"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="종료 예정일 안 바뀜"
         />
@@ -2236,11 +2210,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0ab1" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc00af" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0ab1"
+            id="checkbox-6a7d18bbc00af"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="요약 여부 안 바뀜"
         />
@@ -2293,11 +2267,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0b72" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc018e" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0b72"
+            id="checkbox-6a7d18bbc018e"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="고용 구분 안 바뀜"
         />
@@ -2316,11 +2290,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0bb3" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc01d6" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0bb3"
+            id="checkbox-6a7d18bbc01d6"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="조직 안 바뀜"
         />
@@ -2339,11 +2313,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0bf6" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc021d" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0bf6"
+            id="checkbox-6a7d18bbc021d"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="직책 안 바뀜"
         />
@@ -2362,11 +2336,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0c36" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0264" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0c36"
+            id="checkbox-6a7d18bbc0264"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="근무지 바뀜"
         />
@@ -2385,11 +2359,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0c7a" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc02aa" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0c7a"
+            id="checkbox-6a7d18bbc02aa"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="겸직 안 바뀜"
         />
@@ -2408,11 +2382,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0cbc" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc02ee" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0cbc"
+            id="checkbox-6a7d18bbc02ee"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="파견 안 바뀜"
         />
@@ -2431,11 +2405,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0cfd" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0334" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0cfd"
+            id="checkbox-6a7d18bbc0334"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="퇴직 안 바뀜"
         />
@@ -2454,11 +2428,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0d41" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0379" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0d41"
+            id="checkbox-6a7d18bbc0379"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="수습 종료일 안 바뀜"
         />
@@ -2477,11 +2451,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0d83" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc03bd" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0d83"
+            id="checkbox-6a7d18bbc03bd"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="종료 예정일 안 바뀜"
         />
@@ -2500,11 +2474,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0dc5" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc03ff" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0dc5"
+            id="checkbox-6a7d18bbc03ff"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="요약 여부 안 바뀜"
         />
@@ -2557,11 +2531,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0e8c" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc04d3" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0e8c"
+            id="checkbox-6a7d18bbc04d3"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="고용 구분 안 바뀜"
         />
@@ -2580,11 +2554,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0ece" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0518" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0ece"
+            id="checkbox-6a7d18bbc0518"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="조직 안 바뀜"
         />
@@ -2603,11 +2577,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0f10" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc055c" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0f10"
+            id="checkbox-6a7d18bbc055c"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="직책 안 바뀜"
         />
@@ -2626,11 +2600,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0f50" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc05a0" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0f50"
+            id="checkbox-6a7d18bbc05a0"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="근무지 바뀜"
         />
@@ -2649,11 +2623,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0f8f" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc05e4" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0f8f"
+            id="checkbox-6a7d18bbc05e4"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="겸직 안 바뀜"
         />
@@ -2672,11 +2646,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb0fd0" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0626" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb0fd0"
+            id="checkbox-6a7d18bbc0626"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="파견 안 바뀜"
         />
@@ -2695,11 +2669,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb101b" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0669" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb101b"
+            id="checkbox-6a7d18bbc0669"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="퇴직 안 바뀜"
         />
@@ -2718,11 +2692,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb106d" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc06ab" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb106d"
+            id="checkbox-6a7d18bbc06ab"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="수습 종료일 안 바뀜"
         />
@@ -2741,11 +2715,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb10bf" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc06ef" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb10bf"
+            id="checkbox-6a7d18bbc06ef"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="종료 예정일 안 바뀜"
         />
@@ -2764,11 +2738,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb1100" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0734" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb1100"
+            id="checkbox-6a7d18bbc0734"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="요약 여부 안 바뀜"
         />
@@ -2821,11 +2795,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb11c9" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc081a" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb11c9"
+            id="checkbox-6a7d18bbc081a"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="고용 구분 안 바뀜"
         />
@@ -2844,11 +2818,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb120b" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0863" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb120b"
+            id="checkbox-6a7d18bbc0863"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="조직 안 바뀜"
         />
@@ -2867,11 +2841,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb124e" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc08a8" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb124e"
+            id="checkbox-6a7d18bbc08a8"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="직책 안 바뀜"
         />
@@ -2890,11 +2864,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb128e" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc08eb" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb128e"
+            id="checkbox-6a7d18bbc08eb"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="근무지 안 바뀜"
         />
@@ -2913,11 +2887,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb12ce" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc093b" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb12ce"
+            id="checkbox-6a7d18bbc093b"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="겸직 안 바뀜"
         />
@@ -2936,11 +2910,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb130e" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0999" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb130e"
+            id="checkbox-6a7d18bbc0999"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="파견 안 바뀜"
         />
@@ -2959,11 +2933,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb134e" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc09e4" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb134e"
+            id="checkbox-6a7d18bbc09e4"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="퇴직 바뀜"
         />
@@ -2982,11 +2956,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb1390" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0a26" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb1390"
+            id="checkbox-6a7d18bbc0a26"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="수습 종료일 안 바뀜"
         />
@@ -3005,11 +2979,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb13ce" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0a70" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb13ce"
+            id="checkbox-6a7d18bbc0a70"
                         value="1"
                         class="peer sr-only" disabled="disabled" aria-label="종료 예정일 안 바뀜"
         />
@@ -3028,11 +3002,11 @@
                                                                             
                                         <td
             class="px-4 align-middle h-14 text-body-2 first:pl-5 last:pr-5 text-label-normal text-left whitespace-nowrap"
-><label for="checkbox-6a7d160cb1416" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+><label for="checkbox-6a7d18bbc0ac7" class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
     <span class="relative flex items-center justify-center">
         <input
             type="checkbox"
-            id="checkbox-6a7d160cb1416"
+            id="checkbox-6a7d18bbc0ac7"
                         value="1"
             checked            class="peer sr-only" disabled="disabled" aria-label="요약 여부 바뀜"
         />

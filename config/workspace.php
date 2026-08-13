@@ -76,13 +76,9 @@ return [
                 ['label' => '확인할 문서', 'href' => '/documents/review', 'match' => ['documents/review']],
             ]],
 
-        // 컨텐츠 — 컨텐츠 관리와 과정 관리를 묶는다.
-        // 부모는 목록이 있는 컨텐츠 관리로 보낸다.
-        ['label' => '컨텐츠', 'href' => '/contents', 'icon' => 'inbox',
-            'match' => ['contents', 'contents/*', 'courses', 'courses/*'], 'children' => [
-                ['label' => '컨텐츠 관리', 'href' => '/contents', 'match' => ['contents', 'contents/*']],
-                ['label' => '과정 관리', 'href' => '/courses', 'match' => ['courses', 'courses/*']],
-            ]],
+        // ⚠️ 컨텐츠(컨텐츠 관리 · 과정 관리)는 메뉴에서 뺐다. 화면과 라우트는 그대로 있어서
+        //    /contents · /courses 로 바로 들어가면 열리고, 정적 배포본에도 계속 나간다.
+        //    다시 넣을 땐 여기에 항목만 되살리면 된다.
 
         // 인사 — 인사 관리·화상조직도·조직 관리를 묶는다 (원본 LNB node 1002-260356).
         // ⚠️ 원본은 여기에 발령 관리·근태 관리·통계 및 현황·설정이 더 있고, 인사 관리 밑으로
@@ -91,7 +87,8 @@ return [
         ['label' => '인사', 'href' => '/hr', 'icon' => 'persons',
             'match' => ['hr', 'hr/*', 'organization', 'organization/*', 'orgs', 'orgs/*'], 'children' => [
                 ['label' => '인사 관리', 'href' => '/hr', 'match' => ['hr', 'hr/detail']],
-                ['label' => '발령 관리', 'href' => '/hr/appointments', 'match' => ['hr/appointments']],
+                ['label' => '발령 기준 관리', 'href' => '/hr/appointments', 'match' => ['hr/appointments']],
+                ['label' => '발령 등록', 'href' => '/hr/appointments/docs', 'match' => ['hr/appointments/docs']],
                 ['label' => '화상조직도', 'href' => '/organization', 'match' => ['organization', 'organization/*']],
                 ['label' => '조직 관리', 'href' => '/orgs', 'match' => ['orgs', 'orgs/*']],
             ]],

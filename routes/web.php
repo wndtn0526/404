@@ -93,6 +93,12 @@ Route::view('/hr/detail', 'hr-detail')->name('hr.detail');
  */
 Route::view('/hr/appointments', 'hr-appointments')->name('hr.appointments');
 
+/*
+ * 발령 등록 — 발령서 목록 (Figma node 1002-262679). 위 '발령 기준' 화면과 짝이다.
+ * 원본 LNB 는 둘을 발령 관리 밑에 나란히 둔다. 셸이 두 단까지라 인사 밑에 평평하게 뒀다.
+ */
+Route::view('/hr/appointments/docs', 'hr-appointment-docs')->name('hr.appointments.docs');
+
 // 전자결재 — 문서 신청 (Figma node 1002-106228). 이 저장소의 본 도메인 첫 화면이다.
 Route::view('/documents', 'documents')->name('documents');
 

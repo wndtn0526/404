@@ -110,36 +110,6 @@
                                             </div>
                                     
                     <div class="flex flex-col gap-2"
-                          x-data="dsLnbFolder('컨텐츠', false)" >
-
-                                                    
-                            <button type="button" @click="toggle()" x-bind:aria-expanded="open"
-                                    class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-left text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
-                                                                    <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11096 4.10016C7.58631 4.09965 7.14412 4.09921 6.72868 4.22538C6.36388 4.33617 6.0245 4.51781 5.72997 4.7599C5.39457 5.03558 5.14966 5.40376 4.85908 5.8406L2.25731 9.74365C2.08884 9.99605 1.94655 10.2092 1.84317 10.4461C1.75211 10.6547 1.68593 10.8733 1.64599 11.0973C1.60065 11.3518 1.6008 11.6081 1.60097 11.9115L1.601 15.8356C1.60098 16.3655 1.60097 16.8167 1.63123 17.1871C1.66303 17.5763 1.73266 17.9549 1.91708 18.3168C2.19511 18.8625 2.63875 19.3061 3.18442 19.5841C3.54636 19.7686 3.92495 19.8382 4.31411 19.87C4.68454 19.9003 5.13572 19.9002 5.66559 19.9002H18.3364C18.8663 19.9002 19.3174 19.9003 19.6879 19.87C20.077 19.8382 20.4556 19.7686 20.8176 19.5841C21.3632 19.3061 21.8069 18.8625 22.0849 18.3168C22.2693 17.9549 22.339 17.5763 22.3708 17.1871C22.401 16.8167 22.401 16.3655 22.401 15.8357L22.401 11.9115C22.4012 11.6081 22.4013 11.3517 22.356 11.0973C22.3161 10.8733 22.2499 10.6547 22.1588 10.4461C22.0554 10.2092 21.9131 9.99605 21.7447 9.74364L19.1429 5.84061C18.8523 5.40376 18.6074 5.03559 18.272 4.7599C17.9775 4.51781 17.6381 4.33617 17.2733 4.22538C16.8579 4.09921 16.4157 4.09965 15.891 4.10016H8.11096ZM7.35658 5.92133C7.44241 5.90424 7.54581 5.90015 7.99958 5.90015H16.0024C16.4562 5.90015 16.5596 5.90424 16.6454 5.92133C16.859 5.96387 17.0552 6.06886 17.2091 6.223C17.2709 6.28494 17.3317 6.3687 17.5834 6.74628L19.8194 10.1006H16.2503C15.02 10.1006 14.2522 11.1041 13.9215 11.8504C13.5943 12.5887 12.8561 13.1008 12.0003 13.1008C11.1446 13.1008 10.4063 12.5887 10.079 11.8504C9.7483 11.1041 8.98049 10.1006 7.75026 10.1006H4.18261L6.41865 6.74628C6.67034 6.3687 6.7311 6.28494 6.79293 6.223C6.9468 6.06886 7.14297 5.96387 7.35658 5.92133ZM3.401 11.9006V16.2001C3.401 17.0147 3.4121 17.2085 3.45484 17.3401C3.56365 17.6749 3.8262 17.9375 4.16108 18.0463C4.2926 18.089 4.48644 18.1001 5.301 18.1001H18.701C19.5156 18.1001 19.7094 18.089 19.8409 18.0463C20.1758 17.9375 20.4384 17.6749 20.5472 17.3401C20.5899 17.2085 20.601 17.0147 20.601 16.2001V11.9006H16.2503C15.9229 11.9006 15.6793 12.3266 15.5671 12.5797C14.962 13.9452 13.5938 14.9008 12.0003 14.9008C10.4069 14.9008 9.0386 13.9452 8.43342 12.5797C8.32124 12.3266 8.07766 11.9006 7.75026 11.9006H3.401Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                                                <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">컨텐츠</span>
-                                
-                                <span class="shrink-0 transition-transform duration-200"
-                                      x-bind:class="open ? '' : '-rotate-90'">
-                                    <svg width="1em" height="1em" aria-hidden="true" class="size-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.8627 14.7075C13.2249 15.4925 12.906 15.885 12.522 16.0276C12.1853 16.1525 11.8148 16.1525 11.4781 16.0276C11.0941 15.885 10.7752 15.4925 10.1374 14.7075L8.67971 12.9134C7.66318 11.6623 7.15492 11.0367 7.15155 10.5096C7.14862 10.0512 7.35547 9.61661 7.71308 9.32982C8.12434 9 8.93035 9 10.5424 9H13.4577C15.0697 9 15.8758 9 16.287 9.32982C16.6446 9.61661 16.8515 10.0512 16.8485 10.5096C16.8452 11.0367 16.3369 11.6623 15.3204 12.9134L13.8627 14.7075Z" fill="currentColor" fill-opacity="0.88"/>
-</svg>                                </span>
-                            </button>
-                        
-                        
-                                                    <div x-bind:class="open ? 'flex flex-col gap-2' : 'hidden'">
-                                                                                                        <a href="./contents.html"
-                                                                              class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
-                                        <span class="truncate text-label-1 font-medium leading-5">컨텐츠 관리</span>
-                                    </a>
-                                                                                                        <a href="./courses.html"
-                                                                              class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
-                                        <span class="truncate text-label-1 font-medium leading-5">과정 관리</span>
-                                    </a>
-                                                            </div>
-                                            </div>
-                                    
-                    <div class="flex flex-col gap-2"
                           x-data="dsLnbFolder('인사', false)" >
 
                                                     
@@ -167,7 +137,11 @@
                                     </a>
                                                                                                         <a href="./hr-appointments.html"
                                                                               class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
-                                        <span class="truncate text-label-1 font-medium leading-5">발령 관리</span>
+                                        <span class="truncate text-label-1 font-medium leading-5">발령 기준 관리</span>
+                                    </a>
+                                                                                                        <a href="./hr-appointment-docs.html"
+                                                                              class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                                        <span class="truncate text-label-1 font-medium leading-5">발령 등록</span>
                                     </a>
                                                                                                         <a href="./organization.html"
                                                                               class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors pl-10 text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
@@ -1310,14 +1284,14 @@
      x-model="detail.project"
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160d20634" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bc42512" class="text-label-1 font-medium text-label-neutral">
             프로젝트
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160d20634"
+            id="dropdown-6a7d18bc42512"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -1371,7 +1345,7 @@
 
     </div>
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160d20693" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bc42578" class="text-label-1 font-medium text-label-neutral">
             사용 날짜
                     </label>
     
@@ -1379,7 +1353,7 @@
          >
         
         <input
-            id="input-6a7d160d20693"
+            id="input-6a7d18bc42578"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" x-model="detail.used_at"         />
 
@@ -1451,14 +1425,14 @@
      x-model="detail.category"
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160d206b0" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bc42598" class="text-label-1 font-medium text-label-neutral">
             비용 분류
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160d206b0"
+            id="dropdown-6a7d18bc42598"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -1575,14 +1549,14 @@
      x-model="detail.account"
      @keydown.escape.stop="open && (open = false)">
 
-            <label for="dropdown-6a7d160d206fb" class="text-label-1 font-medium text-label-neutral">
+            <label for="dropdown-6a7d18bc425e5" class="text-label-1 font-medium text-label-neutral">
             비용 내역
                     </label>
     
     <div class="relative" @click.outside="close()">
         <button
             type="button"
-            id="dropdown-6a7d160d206fb"
+            id="dropdown-6a7d18bc425e5"
             x-ref="trigger"
             @click="toggle()"
             @keydown.arrow-down.prevent="move(1)"
@@ -1637,7 +1611,7 @@
     </div>
 
                     <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160d20741" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bc4262e" class="text-label-1 font-medium text-label-neutral">
             사용 금액
                     </label>
     
@@ -1645,7 +1619,7 @@
          >
         
         <input
-            id="input-6a7d160d20741"
+            id="input-6a7d18bc4262e"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="0 원" x-model="detail.amount"         />
 
@@ -1654,7 +1628,7 @@
     </div>
                     
                                             <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160d2075a" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bc42648" class="text-label-1 font-medium text-label-neutral">
             증빙 거래처 이름
                     </label>
     
@@ -1662,7 +1636,7 @@
          >
         
         <input
-            id="input-6a7d160d2075a"
+            id="input-6a7d18bc42648"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="거래처 이름 입력" x-model="detail.vendor"         />
 
@@ -1672,7 +1646,7 @@
                     
                     <div class="sm:col-span-2">
                         <div class="flex flex-col gap-1.5"  >
-            <label for="input-6a7d160d2076f" class="text-label-1 font-medium text-label-neutral">
+            <label for="input-6a7d18bc4265e" class="text-label-1 font-medium text-label-neutral">
             상세 내역
                     </label>
     
@@ -1680,7 +1654,7 @@
          >
         
         <input
-            id="input-6a7d160d2076f"
+            id="input-6a7d18bc4265e"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-[11px] pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="내용 입력" x-model="detail.memo"         />
 
@@ -1766,7 +1740,7 @@
 </svg>            </span>
         
         <input
-            id="input-6a7d160d2085f"
+            id="input-6a7d18bc42752"
             type="text"
                                                                                                  class="peer w-full bg-background-normal text-label-strong caret-deep-blue-900 placeholder:text-label-assistive h-8 text-label-1 border rounded-md transition-colors duration-150 focus:outline-none pl-10 pr-[11px] border-line-solid-normal hover:bg-background-elevated-alternative focus:border-deep-blue-900 disabled:border-interaction-disable disabled:bg-interaction-disable disabled:text-label-disable disabled:cursor-not-allowed disabled:hover:bg-interaction-disable" placeholder="조직이나 멤버 검색"         />
 
@@ -2163,7 +2137,7 @@
      @keydown.escape.stop="open = false">
     
     <div class="relative" @click.outside="open = false; panel = null">
-        <button type="button" id="date-6a7d160d20ceb" x-ref="trigger" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog"
+        <button type="button" id="date-6a7d18bc42d0e" x-ref="trigger" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog"
                 class="flex w-full items-center h-9 gap-1.5 rounded-md pl-3 pr-2.5 border bg-background-normal text-left transition-colors duration-150 focus:outline-none focus-visible:ring-2 border-line-solid-normal focus-visible:border-primary focus-visible:ring-primary/30">
             <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M9.39998 1.7501C9.39998 1.25304 8.99703 0.850098 8.49998 0.850098C8.00292 0.850098 7.59998 1.25304 7.59998 1.7501V2.84988H6.9148C6.38495 2.84986 5.93375 2.84985 5.56333 2.88012C5.17417 2.91191 4.79558 2.98155 4.43364 3.16596C3.88798 3.44399 3.44433 3.88764 3.1663 4.43331C2.98189 4.79524 2.91226 5.17383 2.88046 5.563C2.8502 5.93341 2.85021 6.38456 2.85022 6.91439V17.0853C2.85021 17.6151 2.8502 18.0664 2.88046 18.4368C2.91226 18.8259 2.98189 19.2045 3.1663 19.5665C3.44433 20.1121 3.88798 20.5558 4.43364 20.8338C4.79558 21.0182 5.17417 21.0878 5.56333 21.1196C5.93374 21.1499 6.38488 21.1499 6.91471 21.1499H17.0856C17.6154 21.1499 18.0666 21.1499 18.437 21.1196C18.8262 21.0878 19.2048 21.0182 19.5667 20.8338C20.1124 20.5558 20.556 20.1121 20.8341 19.5665C21.0185 19.2045 21.0881 18.8259 21.1199 18.4368C21.1502 18.0664 21.1502 17.6152 21.1502 17.0854V6.91447C21.1502 6.38465 21.1502 5.9334 21.1199 5.563C21.0881 5.17383 21.0185 4.79524 20.8341 4.43331C20.556 3.88764 20.1124 3.44399 19.5667 3.16596C19.2048 2.98155 18.8262 2.91191 18.437 2.88012C18.0666 2.84985 17.6155 2.84986 17.0856 2.84988H16.4V1.75012C16.4 1.25307 15.997 0.850122 15.5 0.850122C15.0029 0.850122 14.6 1.25307 14.6 1.75012V2.84988H9.39998V1.7501ZM14.6 5.75012V4.64987H9.39998V5.7501C9.39998 6.24715 8.99703 6.6501 8.49998 6.6501C8.00292 6.6501 7.59998 6.24715 7.59998 5.7501V4.64987H6.55023C5.73567 4.64987 5.54184 4.66098 5.41032 4.70371C5.07543 4.81252 4.81288 5.07507 4.70407 5.40996C4.66134 5.54148 4.65024 5.73531 4.65024 6.54987V8.59985H19.3502V6.54987C19.3502 5.73531 19.3391 5.54148 19.2963 5.40996C19.1875 5.07507 18.925 4.81252 18.5901 4.70371C18.4586 4.66098 18.2647 4.64987 17.4502 4.64987H16.4V5.75012C16.4 6.24718 15.997 6.65012 15.5 6.65012C15.0029 6.65012 14.6 6.24718 14.6 5.75012ZM19.3502 10.3999H4.65024V17.4499C4.65024 18.2644 4.66134 18.4583 4.70407 18.5898C4.81288 18.9247 5.07543 19.1872 5.41032 19.296C5.54184 19.3388 5.73567 19.3499 6.55023 19.3499H17.4502C18.2647 19.3499 18.4586 19.3388 18.5901 19.296C18.925 19.1872 19.1875 18.9247 19.2963 18.5898C19.3391 18.4583 19.3502 18.2644 19.3502 17.4499V10.3999Z" fill="currentColor" fill-opacity="0.88"/>
@@ -2269,7 +2243,7 @@
      @keydown.escape.stop="open = false">
     
     <div class="relative" @click.outside="open = false; panel = null">
-        <button type="button" id="date-6a7d160d20e55" x-ref="trigger" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog"
+        <button type="button" id="date-6a7d18bc4305f" x-ref="trigger" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog"
                 class="flex w-full items-center h-9 gap-1.5 rounded-md pl-3 pr-2.5 border bg-background-normal text-left transition-colors duration-150 focus:outline-none focus-visible:ring-2 border-line-solid-normal focus-visible:border-primary focus-visible:ring-primary/30">
             <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-assistive" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M9.39998 1.7501C9.39998 1.25304 8.99703 0.850098 8.49998 0.850098C8.00292 0.850098 7.59998 1.25304 7.59998 1.7501V2.84988H6.9148C6.38495 2.84986 5.93375 2.84985 5.56333 2.88012C5.17417 2.91191 4.79558 2.98155 4.43364 3.16596C3.88798 3.44399 3.44433 3.88764 3.1663 4.43331C2.98189 4.79524 2.91226 5.17383 2.88046 5.563C2.8502 5.93341 2.85021 6.38456 2.85022 6.91439V17.0853C2.85021 17.6151 2.8502 18.0664 2.88046 18.4368C2.91226 18.8259 2.98189 19.2045 3.1663 19.5665C3.44433 20.1121 3.88798 20.5558 4.43364 20.8338C4.79558 21.0182 5.17417 21.0878 5.56333 21.1196C5.93374 21.1499 6.38488 21.1499 6.91471 21.1499H17.0856C17.6154 21.1499 18.0666 21.1499 18.437 21.1196C18.8262 21.0878 19.2048 21.0182 19.5667 20.8338C20.1124 20.5558 20.556 20.1121 20.8341 19.5665C21.0185 19.2045 21.0881 18.8259 21.1199 18.4368C21.1502 18.0664 21.1502 17.6152 21.1502 17.0854V6.91447C21.1502 6.38465 21.1502 5.9334 21.1199 5.563C21.0881 5.17383 21.0185 4.79524 20.8341 4.43331C20.556 3.88764 20.1124 3.44399 19.5667 3.16596C19.2048 2.98155 18.8262 2.91191 18.437 2.88012C18.0666 2.84985 17.6155 2.84986 17.0856 2.84988H16.4V1.75012C16.4 1.25307 15.997 0.850122 15.5 0.850122C15.0029 0.850122 14.6 1.25307 14.6 1.75012V2.84988H9.39998V1.7501ZM14.6 5.75012V4.64987H9.39998V5.7501C9.39998 6.24715 8.99703 6.6501 8.49998 6.6501C8.00292 6.6501 7.59998 6.24715 7.59998 5.7501V4.64987H6.55023C5.73567 4.64987 5.54184 4.66098 5.41032 4.70371C5.07543 4.81252 4.81288 5.07507 4.70407 5.40996C4.66134 5.54148 4.65024 5.73531 4.65024 6.54987V8.59985H19.3502V6.54987C19.3502 5.73531 19.3391 5.54148 19.2963 5.40996C19.1875 5.07507 18.925 4.81252 18.5901 4.70371C18.4586 4.66098 18.2647 4.64987 17.4502 4.64987H16.4V5.75012C16.4 6.24718 15.997 6.65012 15.5 6.65012C15.0029 6.65012 14.6 6.24718 14.6 5.75012ZM19.3502 10.3999H4.65024V17.4499C4.65024 18.2644 4.66134 18.4583 4.70407 18.5898C4.81288 18.9247 5.07543 19.1872 5.41032 19.296C5.54184 19.3388 5.73567 19.3499 6.55023 19.3499H17.4502C18.2647 19.3499 18.4586 19.3388 18.5901 19.296C18.925 19.1872 19.1875 18.9247 19.2963 18.5898C19.3391 18.4583 19.3502 18.2644 19.3502 17.4499V10.3999Z" fill="currentColor" fill-opacity="0.88"/>

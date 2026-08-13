@@ -31,6 +31,7 @@ PAGES=(
     "hr:hr.html"
     "hr/detail:hr-detail.html"
     "hr/appointments:hr-appointments.html"
+    "hr/appointments/docs:hr-appointment-docs.html"
     "finance:finance.html"
     "finance/budget:finance-budget.html"
     "finance/personal:finance-personal.html"
