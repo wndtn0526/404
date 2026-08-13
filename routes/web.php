@@ -203,3 +203,57 @@ Route::view('/documents/vacation-done', 'documents-create', [
         ],
     ],
 ])->name('documents.vacation.done');
+
+/*
+ * 지출 결의서 (거래처) — Figma node 1002-108416(빈) · 1002-108333(다 채운).
+ * 개인 비용과 뼈대는 같고 귀속처·예금주·파트너사·사업자 번호가 늘고,
+ * 상세 내용 표에서 거래처 열이 빠진다. 카드 아래에 긴급 문서 토글이 붙는다.
+ */
+Route::view('/documents/vendor', 'documents-create', [
+    'docForm' => 'vendor',
+    'docTitle' => '지출 결의서 (거래처)',
+])->name('documents.vendor');
+
+/*
+ * 지출 결의서 (거래처) — 다 채운 화면.
+ * ⚠️ 계좌 번호·사업자 번호는 원본 값을 그대로 쓰지 않았다. 실제 형식의 번호를 저장소·정적
+ *    배포본에 남기지 않는 게 맞다(CLAUDE.md · 조직 지침). 자리수만 맞춘 0 이다.
+ * ⚠️ 값은 전부 예시다.
+ */
+Route::view('/documents/vendor-done', 'documents-create', [
+    'docForm' => 'vendor',
+    'docTitle' => '지출 결의서 (거래처)',
+    'prefill' => [
+        'form' => [
+            'name' => '지출 결의서 · 거래처',
+            'org' => '뉴 게임즈',
+            'month' => '2021.08',
+            'bank' => 'GPRO 뱅크',
+            'account' => '0000 00 0000000',
+            'holder' => '심프로',
+            'partner' => '네이버',
+            'biz_no' => '000-00-00000',
+            'urgent' => true,
+            'pay_due' => '2021.08.30',
+        ],
+        'details' => [[
+            'project' => '디자인 작업',
+            'category' => '업무 비용',
+            'account' => '프로그램 구입',
+            'used_at' => '2021.12.30',
+            'memo' => '프로그램 구입',
+            'vendor' => '',
+            'amount' => '3,000,000 원',
+        ]],
+        'files' => [['name' => 'Receipt_20210801.jpg', 'ext' => 'JPG']],
+        'refs' => [
+            ['no' => 'CDW-210801-003', 'kind' => '업무', 'used_at' => '2021.08.01 03:30',
+                'title' => '지출 결의서 · 기타 수수료', 'writer' => '김기안'],
+        ],
+        'line' => [
+            ['name' => '정프로', 'dept' => 'GPRO 그룹 · CFO', 'role' => 'progress'],
+            ['name' => '곽프로', 'dept' => 'GPRO 그룹 · CFO', 'role' => 'view'],
+            ['name' => '황프로', 'dept' => 'GPRO 그룹 · COO', 'role' => 'ref'],
+        ],
+    ],
+])->name('documents.vendor.done');

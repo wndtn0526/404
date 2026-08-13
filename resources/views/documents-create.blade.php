@@ -85,7 +85,11 @@
     // 양식마다 쓰는 칸이 다르다. 안 쓰는 칸은 빈 값으로 남아 있어도 화면에 나오지 않는다.
     $initForm = array_merge([
         'name' => '', 'month' => '2021.10', 'bank' => '', 'account' => '',
+        // 휴가 신청
         'leave_type' => '', 'leave_date' => '', 'leave_time' => '', 'reason' => '',
+        // 지출 결의서 (거래처)
+        'org' => '', 'holder' => '', 'partner' => '', 'biz_no' => '',
+        'urgent' => false, 'pay_due' => '',
     ], $prefill['form'] ?? []);
     // 휴가 잔여 — 원본 안내 카드가 쓰는 값이다(node 1002-108568).
     $initLeave = $prefill['leave'] ?? ['total' => 15, 'used' => 8];
@@ -126,9 +130,23 @@
                  files: @js($initFiles),
                  refs: @js($initRefs),
 
-                 // 상세 내용 추가 — 원본 안내대로 모두 필수다
+                 /*
+                  * 상세 내용 추가 — 원본 안내대로 모두 필수다.
+                  * ⚠️ 거래처 양식은 거래처를 문서 단위로 정하므로 줄마다 다시 받지 않는다.
+                  *    표에도 그 열이 없다. 안 받는 칸을 필수에서 빼야 '추가' 가 눌린다.
+                  */
                  detail: { project: '', used_at: '2021.12.30', category: '', account: '', amount: '', vendor: '', memo: '' },
-                 get detailReady() { return Object.values(this.detail).every((v) => String(v).trim() !== ''); },
+                 detailSkip: @js($docForm === 'vendor' ? ['vendor'] : []),
+                 get detailReady() {
+                     return Object.entries(this.detail)
+                         .filter(([k]) => ! this.detailSkip.includes(k))
+                         .every(([, v]) => String(v).trim() !== '');
+                 },
+                 // 결제 금액 합계 — 상세 내용의 사용 금액을 더해서 낸다(거래처 양식)
+                 amountTotal() {
+                     const sum = this.details.reduce((n, d) => n + (Number(String(d.amount).replace(/[^0-9.-]/g, '')) || 0), 0);
+                     return sum.toLocaleString('ko-KR') + ' 원';
+                 },
                  addDetail() {
                      this.details.push({ ...this.detail });
                      this.detail = { project: '', used_at: '2021.12.30', category: '', account: '', amount: '', vendor: '', memo: '' };
@@ -452,8 +470,8 @@
                 </section>
             </div>
 
-            {{-- 상세 내용은 지출 결의서에만 있다. 휴가 신청에는 이 팝업이 없다. --}}
-            @if ($docForm === 'expense')
+            {{-- 상세 내용은 지출 결의서 두 양식에만 있다. 휴가 신청에는 이 팝업이 없다. --}}
+            @if (in_array($docForm, ['expense', 'vendor'], true))
             {{-- ═══ 상세 내용 추가 ═══ Figma node 1002-113795
                  원본 실측 — 폭 720 · 부제 한 줄 · 칸 두 열 · 상세 내역만 전체 폭
                  원본 안내대로 모두 필수라 하나라도 비면 '추가' 가 안 눌린다. --}}
@@ -474,7 +492,10 @@
                                 x-model="detail.account" />
 
                     <x-input label="사용 금액" size="sm" placeholder="0 원" x-model="detail.amount" />
-                    <x-input label="증빙 거래처 이름" size="sm" placeholder="거래처 이름 입력" x-model="detail.vendor" />
+                    {{-- 거래처 양식은 거래처가 문서 단위라 이 칸을 받지 않는다 --}}
+                    @if ($docForm !== 'vendor')
+                        <x-input label="증빙 거래처 이름" size="sm" placeholder="거래처 이름 입력" x-model="detail.vendor" />
+                    @endif
 
                     <div class="sm:col-span-2">
                         <x-input label="상세 내역" size="sm" placeholder="내용 입력" x-model="detail.memo" />
