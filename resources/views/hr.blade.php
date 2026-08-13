@@ -2,7 +2,7 @@
      멤버의 인사 정보를 한 표로 본다. 인사 메뉴의 첫 화면이다.
 
      원본 실측(1920) — 본문 1520 (x320~1840)
-       제목 24 Bold lh39 + 칩 탭 일곱 (칸 34 · 사이 16) · 우상단 '기준일 2021.08.01'
+       제목 24 Bold lh39 · 우상단 '기준일 2021.08.01'
        검색·필터 카드 1520x156 · 안쪽 30 — 검색 1260x40 + 필터 40 + '조회' 128x40
          아랫줄 드롭다운 넷 294 + 초기화
        조회 결과 목록 카드 1520x782 · 안쪽 30
@@ -11,8 +11,9 @@
 
      ⚠️ 원본 검색·필터는 이 화면 전용 카드다. 컨텐츠 관리부터 쓰기로 한 공용 x-filter-bar 로
         바꿨다 — 화면마다 필터 생김새가 갈리면 안 된다. '조회' 버튼도 없앴다(입력하면 걸린다).
-     ⚠️ 탭은 원본이 칩 모양이라 DS x-chip 을 썼다. 활성 칩의 X 는 '이 탭을 닫는다' 는 뜻인데
-        닫을 곳이 없어서 넣지 않았다. 다른 여섯 탭은 화면이 없어 눌러도 표가 바뀌지 않는다.
+     ⚠️ 원본은 제목 옆에 칩 탭이 일곱 개 붙는다(인사 정보 조회 · 인사 자료 관리 · 직인 및
+        워터마크 관리 · 증명서 신청 관리 · 교육 관리 · 정보 변경 요청 관리 · 근태 기준 관리).
+        그 여섯은 화면이 없어 눌러도 표가 바뀌지 않아 통째로 뺐다. 화면이 생기면 그때 되살린다.
      ⚠️ '기준일' 은 이 표를 어느 시점 기준으로 볼지 고르는 값이다. 원본이 캐럿 달린 글자라
         DS 드롭다운 대신 그 모양을 따랐다 — 붙일 때는 날짜 선택기가 필요하다.
      ⚠️ '엑셀로 저장' 은 아직 갈 곳이 없다. 붙일 때는 권한을 Policy 에서 보고, 내려받는 값에
@@ -22,15 +23,6 @@
         담당자 확인이 필요하다.
      ⚠️ 값은 전부 예시다. DB 에서 오지 않는다. --}}
 @php
-    /*
-     * 칩 탭 — 원본 일곱 개. 지금은 '인사 정보 조회' 만 화면이 있다.
-     * 나머지는 눌러도 표가 바뀌지 않는다(화면이 생기면 그때 나눈다).
-     */
-    $tabs = [
-        '인사 정보 조회', '인사 자료 관리', '직인 및 워터마크 관리', '증명서 신청 관리',
-        '교육 관리', '정보 변경 요청 관리', '근태 기준 관리',
-    ];
-
     // 표 예시 — 원본 열 순서 그대로다.
     $roles = [
         ['디자인팀', '디자이너'], ['기획팀', '기획자'], ['개발팀', '개발자'],
@@ -81,27 +73,19 @@
         </x-slot:breadcrumb>
 
         <x-slot:title>
-            {{-- 원본은 제목 · 칩 탭 · 기준일이 한 줄이다. 좁아지면 칩이 다음 줄로 접힌다. --}}
-            <div class="flex min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-3"
-                 x-data="{ tab: @js($tabs[0]) }">
-                <h1 class="shrink-0 text-title-2 font-bold leading-[39px] text-mono-black">인사 관리</h1>
-
-                <div class="flex min-w-0 flex-wrap items-center gap-4">
-                    @foreach ($tabs as $tab)
-                        <x-chip size="medium" variant="solid" :active-when="'tab === ' . \Illuminate\Support\Js::from($tab)"
-                                x-on:click="tab = @js($tab)">{{ $tab }}</x-chip>
-                    @endforeach
-                </div>
-
-                {{-- 기준일 — 이 표를 어느 시점으로 볼지 고른다 --}}
-                <button type="button"
-                        class="ml-auto inline-flex shrink-0 items-center gap-2 rounded-md px-1 py-1 text-label-1 leading-5 text-mono-black transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
-                    <span class="font-medium">기준일</span>
-                    <span class="tabular-nums">2021.08.01</span>
-                    <x-icon-chevron-down class="size-3.5 text-label-alternative" />
-                </button>
-            </div>
+            <h1 class="min-w-0 truncate text-title-2 font-bold leading-[39px] text-mono-black">인사 관리</h1>
         </x-slot:title>
+
+        {{-- 기준일 — 이 표를 어느 시점으로 볼지 고른다.
+             셸의 머리 줄은 제목과 actions 를 양 끝으로 벌리므로 여기 두면 오른쪽 끝에 붙는다. --}}
+        <x-slot:actions>
+            <button type="button"
+                    class="inline-flex shrink-0 items-center gap-2 rounded-md p-1 text-label-1 leading-5 text-mono-black transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
+                <span class="font-medium">기준일</span>
+                <span class="tabular-nums">2021.08.01</span>
+                <x-icon-chevron-down class="size-3.5 text-label-alternative" />
+            </button>
+        </x-slot:actions>
 
         <x-filter-bar
             search="멤버의 이름, 사번, 소속을 검색해보세요"
