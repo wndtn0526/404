@@ -75,6 +75,16 @@ Route::view('/finance/expense', 'expense-settlement')->name('finance.expense');
  */
 Route::view('/hr', 'hr')->name('hr');
 
+/*
+ * 인사 상세정보 — 기본 정보 node 1002-275959 · 주요 인사 정보 1002-276033 ·
+ * 기타 인사 정보 1002-276227. 인사 관리 표에서 줄을 누르면 온다.
+ * 정적이라 한 사람만 보여준다. 모델이 붙으면 /hr/{id} 로 바꾼다.
+ *
+ * ⚠️ 주민등록번호·계좌·여권 번호 등 고유식별정보·민감정보를 한자리에 모으는 화면이다.
+ *    실제로 붙이기 전에 담당자 확인부터. 뷰 머리 주석에 지켜야 할 것을 적어 뒀다.
+ */
+Route::view('/hr/detail', 'hr-detail')->name('hr.detail');
+
 // 전자결재 — 문서 신청 (Figma node 1002-106228). 이 저장소의 본 도메인 첫 화면이다.
 Route::view('/documents', 'documents')->name('documents');
 

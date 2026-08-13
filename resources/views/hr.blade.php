@@ -134,12 +134,15 @@
                     ]" />
                     <tbody>
                         @foreach ($members as $m)
+                            {{-- 줄을 누르면 인사 상세로 간다. 이름 칸을 덮는 링크라 표 모양이 바뀌지 않는다.
+                                 정적이라 어느 줄을 눌러도 같은 사람이 나온다 — 모델이 붙으면 /hr/{id} 로 바꾼다. --}}
                             <x-table.row>
                                 <x-table.cell tone="muted" nowrap>{{ $m['no'] }}</x-table.cell>
-                                <x-table.cell nowrap>
+                                <x-table.cell nowrap class="relative">
                                     <span class="flex min-w-0 items-center gap-2.5">
                                         <x-thumbnail :name="$m['name']" size="sm" shape="circle" class="shrink-0" />
-                                        <span class="min-w-0 truncate font-bold text-label-strong">{{ $m['name'] }}</span>
+                                        <a href="{{ url('/hr/detail') }}"
+                                           class="min-w-0 truncate font-bold text-label-strong after:absolute after:inset-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40">{{ $m['name'] }}</a>
                                     </span>
                                 </x-table.cell>
                                 <x-table.cell tone="muted" nowrap>{{ $m['team'] }}</x-table.cell>

@@ -29,6 +29,7 @@ PAGES=(
     "orgs:orgs.html"
     "orgs/history:orgs-history.html"
     "hr:hr.html"
+    "hr/detail:hr-detail.html"
     "finance:finance.html"
     "finance/budget:finance-budget.html"
     "finance/personal:finance-personal.html"
