@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>예산서 · 군포센터 · 미리보기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap">
+<style>
+  :root { --ink: #111; --line: #222; --muted: #555; --brand: #e2557a; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #e9e9e6; color: var(--ink); font-family: 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 10.5pt; line-height: 1.5; }
+  .toolbar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 12px; padding: 12px 20px; background: #1f2937; color: #fff; font-size: 13px; }
+  .toolbar strong { font-size: 14px; }
+  .toolbar .sp { flex: 1; }
+  .toolbar button, .toolbar a { border: 1px solid rgba(255,255,255,.35); background: transparent; color: #fff; padding: 7px 14px; border-radius: 6px; font: inherit; cursor: pointer; text-decoration: none; }
+  .toolbar button.primary { background: #fff; color: #111; border-color: #fff; font-weight: 700; }
+  .toolbar .note { color: rgba(255,255,255,.65); }
+  .sheets { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px 12px 48px; }
+  .sheet { position: relative; width: 210mm; min-height: 297mm; padding: 18mm 18mm 20mm; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.12); page-break-after: always; break-after: page; }
+  .sheet:last-child { page-break-after: auto; break-after: auto; }
+  .sheet.blank .pageno { color: #bbb; }
+  .pageno { position: absolute; bottom: 9mm; left: 0; right: 0; text-align: center; font-size: 9pt; color: var(--muted); }
+  /* 표지 · 간지 — 실제 제출본: 얇은 검정 테두리 안에 큰 제목(위 1/3) + 센터명(아래) */
+  .cover .frame { position: absolute; inset: 14mm; border: 1px solid #222; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40mm 12mm 36mm; }
+  .cover .t { font-size: 30pt; font-weight: 800; letter-spacing: .06em; line-height: 1.35; }
+  .cover .s { margin-top: 8mm; font-size: 13pt; color: var(--muted); }
+  .cover .org { margin-top: auto; font-size: 20pt; font-weight: 800; color: var(--brand); letter-spacing: .04em; }
+  /* 목차 */
+  .toc-title { text-align: center; font-size: 22pt; letter-spacing: .5em; margin: 0 0 12mm; }
+  .toc-ch { font-size: 12pt; font-weight: 700; margin: 6mm 0 2mm; }
+  .toc-items { list-style: none; padding: 0 0 0 8mm; margin: 0; }
+  .toc-items li { display: flex; align-items: baseline; gap: 2mm; font-size: 10.5pt; margin-bottom: 1.6mm; }
+  .toc-dots { flex: 1; border-bottom: 1px dashed #777; transform: translateY(-2px); }
+  .toc-page { min-width: 10mm; text-align: right; font-variant-numeric: tabular-nums; }
+  /* 서류 공통 */
+  .doc-no { position: absolute; top: 8mm; right: 18mm; font-size: 9pt; color: var(--muted); margin: 0; }
+  /* 표준 문구 페이지 — 원본 줄 배치 그대로(고정폭) */
+  .txt { margin: 0; font-family: 'Nanum Gothic Coding', 'D2Coding', monospace; font-size: 8.3pt; line-height: 1.32; white-space: pre; overflow: hidden; color: #111; }
+  .txt-sheet { padding-top: 16mm; }
+  /* 좌표 재현 페이지 — 배경(표 선) 위 절대 배치 글자 */
+  .lay { padding: 0; }
+  .lay-bg { position: absolute; inset: 0; width: 210mm; height: 297mm; }
+  .lay-t { position: absolute; white-space: nowrap; line-height: 1; color: #111; transform-origin: left top; }
+  .lay-t.b { font-weight: 700; }
+  /* 표준근로계약서 — 고용노동부 표준 서식(법령 별지가 아니라 우리가 그린다) */
+  .ct-lead { margin: 0 0 5mm; font-size: 9.5pt; }
+  .ct-list { margin: 0; padding-left: 7mm; font-size: 9.5pt; line-height: 1.75; }
+  .ct-list > li { margin-bottom: 2.4mm; }
+  .ct-list b { display: inline-block; min-width: 26mm; }
+  .ct-sub { margin: 1mm 0 0; padding-left: 5mm; list-style: '- '; font-size: 9pt; line-height: 1.7; }
+  .ct-note { color: var(--muted); font-size: 8.5pt; }
+  .ct-foot { margin: 8mm 0 0; text-align: center; color: var(--muted); font-size: 9pt; }
+  .ct-cont { margin: 0 0 5mm; color: var(--muted); font-size: 9pt; }
+  .ct-date { margin: 10mm 0 6mm; text-align: center; font-size: 10.5pt; letter-spacing: .1em; }
+  .ct-sign { display: flex; flex-direction: column; gap: 6mm; }
+  .ct-sign-t { margin: 0 0 1.5mm; font-size: 10pt; font-weight: 700; }
+  .ct-sign-tb { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+  .ct-sign-tb th, .ct-sign-tb td { border: 1px solid #333; padding: 2.6mm 3mm; }
+  .ct-sign-tb th { width: 22mm; background: #f4f4f2; font-weight: 600; text-align: center; }
+  .ct-blank { color: var(--muted); }
+  /* 행정정보 공동이용 사전동의서 — 지자체 양식이라 이용기관 명칭을 입력으로 받아 우리가 그린다 */
+  .si-list { margin: 0; padding-left: 7mm; font-size: 10pt; line-height: 1.7; }
+  .si-list > li { margin-bottom: 4mm; }
+  .si-tb { width: 100%; border-collapse: collapse; margin: 2mm 0; font-size: 9.5pt; }
+  .si-tb th, .si-tb td { border: 1px solid #333; padding: 2mm 3mm; }
+  .si-tb th { background: #f4f4f2; font-weight: 600; text-align: center; }
+  .si-tb .si-no { width: 14mm; text-align: center; }
+  .si-note { margin: 1.5mm 0 0; font-size: 8.8pt; color: #333; line-height: 1.6; }
+  .si-num { margin: 2.5mm 0 0; font-size: 9.5pt; }
+  .si-agree { margin: 1.5mm 0 0; font-size: 9.5pt; line-height: 1.7; }
+  .si-sign { margin-top: 4mm; }
+  .si-sign .si-th { width: 28mm; }
+  /* 법령 별지 서식 — 원본 쪽 이미지 위에 값 · √ 만 얹는다(양식은 손대지 않는다) */
+  .ff-v { position: absolute; white-space: nowrap; line-height: 1; color: #111; }
+  .ff-v.r { text-align: right; }
+  .ff-v.c { text-align: center; }
+  .ff-ring { position: absolute; border: .35mm solid #111; border-radius: 50%; transform: translate(-50%, -50%); }
+  .ff-chk { position: absolute; width: 2.4mm; height: 1.2mm; border-left: .5mm solid #111; border-bottom: .5mm solid #111; transform: translate(-50%, -60%) rotate(-45deg); }
+  /* 작성 참고용 초안 — 제출용이 아님을 크게 */
+  .draft::before { content: '작성 참고용 · 지자체 양식에 옮겨 적으세요'; position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%) rotate(-24deg); font-size: 22pt; font-weight: 800; color: rgba(191, 38, 56, .16); white-space: nowrap; letter-spacing: .1em; pointer-events: none; }
+  .draft-note { margin: 0 0 3mm; padding: 2mm 3mm; border: 1px solid #c0392b; color: #c0392b; font-size: 8.5pt; border-radius: 1.5mm; }
+  .lay-attach { position: absolute; left: 18mm; right: 18mm; top: 40mm; height: 200mm; border: 1.5px dashed #999; border-radius: 3mm; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); text-align: center; padding: 10mm; }
+  /* 첨부 스캔 자리 */
+  .scan { position: absolute; inset: 14mm 14mm 16mm; background: #f4f3ef; border: 1px solid #ddd; padding: 10mm; }
+  .scan-paper { position: relative; height: 100%; background: #fff; border: 1px solid #cfcfcf; box-shadow: 1px 2px 0 #e2e2e2; padding: 14mm 12mm; }
+  .scan-title { font-size: 15pt; font-weight: 800; margin: 0 0 2mm; }
+  .scan-sub { color: var(--muted); font-size: 9.5pt; margin: 0 0 1mm; }
+  .scan-file { font-size: 9pt; color: #333; margin: 0 0 8mm; }
+  .scan-lines { display: flex; flex-direction: column; gap: 4.2mm; margin-top: 8mm; }
+  .scan-lines span { display: block; height: 2.2mm; background: #e6e6e2; border-radius: 1mm; }
+  .scan-stamp { position: absolute; right: 12mm; bottom: 14mm; border: 2px solid #c0392b; color: #c0392b; border-radius: 50%; width: 26mm; height: 26mm; display: flex; align-items: center; justify-content: center; font-size: 9pt; font-weight: 700; opacity: .75; transform: rotate(-12deg); }
+  /* 위치도 · 사진 자리 */
+  .mapbox { position: relative; height: 120mm; border: 1px solid var(--line); background: #fafaf7; overflow: hidden; }
+  .mapbox-road { position: absolute; background: #dedad0; }
+  .mapbox-road.h { left: 0; right: 0; height: 8mm; }
+  .mapbox-road.v { top: 0; bottom: 0; width: 8mm; }
+  .mapbox-pin { position: absolute; transform: translate(-50%, -100%); background: var(--brand); color: #fff; font-weight: 700; font-size: 10pt; padding: 2mm 4mm; border-radius: 2mm; }
+  .mapbox-pin::after { content: ''; position: absolute; left: 50%; bottom: -3mm; transform: translateX(-50%); border: 3mm solid transparent; border-top-color: var(--brand); border-bottom: 0; }
+  .mapbox-poi { position: absolute; background: #fff; border: 1px solid #bbb; font-size: 9pt; padding: 1mm 3mm; border-radius: 1.5mm; }
+  .mapbox-note { position: absolute; left: 0; right: 0; bottom: 3mm; text-align: center; font-size: 9pt; color: var(--muted); margin: 0; }
+  .photo-slot { height: 48mm; border: 1.5px dashed #aaa; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 10pt; margin-bottom: 2mm; }
+  .form-tag { font-size: 12pt; font-weight: 800; margin: 0 0 1mm; }
+  /* 한 장에 맞추기 — 별지 서식은 촘촘하게(fit) · 예산 명세서는 여백까지 줄여서(tight) */
+  .fit { font-size: 9pt; }
+  .fit h1 { font-size: 15pt; margin: 0 0 3mm; letter-spacing: .2em; }
+  .fit h2 { margin: 2.5mm 0 1.2mm; font-size: 10pt; }
+  .fit p { margin: 0 0 1.4mm; }
+  .fit table.form th, .fit table.form td { padding: 1mm 1.6mm; font-size: 8.2pt; line-height: 1.3; }
+  .fit table.dense th, .fit table.dense td { padding: .7mm 1.4mm; font-size: 7.6pt; line-height: 1.25; }
+  .fit .form-tag { font-size: 10.5pt; }
+  .fit .form-note, .fit .small { font-size: 8pt; }
+  .tight { padding: 12mm 12mm 16mm; font-size: 8pt; }
+  .tight h1 { font-size: 14pt; margin: 0 0 2mm; }
+  .tight .form-tag { font-size: 9.5pt; margin-bottom: 0; }
+  .tight p { margin: 0 0 1mm; }
+  .tight table.dense th, .tight table.dense td { padding: .5mm 1.1mm; font-size: 6.6pt; line-height: 1.22; }
+  .tight table.form th, .tight table.form td { padding: .8mm 1.4mm; font-size: 7.6pt; line-height: 1.25; }
+  .tight .pageno { bottom: 6mm; }
+  .xs table.dense th, .xs table.dense td { font-size: 6.1pt; padding: .4mm 1mm; line-height: 1.18; }
+  .form-note { font-size: 9pt; color: var(--muted); margin: 0 0 4mm; }
+  h1 { margin: 0 0 6mm; text-align: center; font-size: 18pt; letter-spacing: .3em; font-weight: 700; }
+  h2 { margin: 5mm 0 2mm; font-size: 11pt; font-weight: 700; }
+  p { margin: 0 0 2.2mm; }
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  th, td { border: 1px solid var(--line); padding: 1.8mm 2.4mm; vertical-align: middle; font-size: 10pt; }
+  th { background: #f1f1ee; font-weight: 600; text-align: left; }
+  table.form th { text-align: center; }
+  table.dense th, table.dense td { padding: 1.1mm 2mm; font-size: 9pt; line-height: 1.35; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.c, th.c { text-align: center; }
+  .kv th { width: 30mm; }
+  .checks { display: grid; grid-template-columns: repeat(2, auto); justify-content: start; gap: 0.6mm 5mm; white-space: nowrap; font-size: 9pt; }
+  .clauses { padding-left: 0; list-style: none; counter-reset: cl; }
+  .clauses li { margin-bottom: 1.6mm; }
+  .clauses li::before { counter-increment: cl; content: '제' counter(cl) '조 '; font-weight: 700; }
+  .sign { margin-top: 10mm; display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .sign > div { border-top: 1px solid var(--line); padding-top: 3mm; font-size: 10pt; }
+  .sign .who { font-weight: 700; margin-bottom: 1.2mm; }
+  .date { text-align: center; margin: 8mm 0 2mm; font-size: 11pt; }
+  .stamp { display: inline-block; margin-left: 2mm; color: #999; font-size: 9pt; }
+  .small { font-size: 9pt; color: var(--muted); }
+  /* 자리 페이지 */
+  .slot { margin-top: 30mm; min-height: 60mm; border: 1.5px dashed #999; border-radius: 3mm; padding: 16mm 12mm; text-align: center; color: var(--muted); }
+  .slot-t { font-size: 13pt; font-weight: 700; color: #333; margin-bottom: 4mm; }
+  .slot-s { font-size: 10pt; margin: 1.5mm 0; }
+  .slot-files { list-style: none; padding: 0; margin: 2mm 0 4mm; font-size: 10.5pt; color: #222; }
+  @media print {
+    @page { size: A4; margin: 0; }
+    html, body { background: #fff; }
+    .toolbar { display: none; }
+    .sheets { padding: 0; gap: 0; display: block; }
+    .sheet { box-shadow: none; width: 210mm; height: 297mm; margin: 0; overflow: hidden; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <strong>예산서</strong>
+  <span>군포센터 · 14쪽</span>
+  <span class="note">미리보기 · 실제 PDF 도 이 서식으로 만들어져요</span>
+  <span class="sp"></span>
+  
+  <button type="button" class="primary" onclick="window.print()">PDF로 저장</button>
+</div>
+
+<div class="sheets">
+        <section class="sheet lay">
+  <p class="doc-no">15. 예산서</p>  <img class="lay-bg" src="images/opening-docs/budget-rules-283.png" alt="">        <span class="lay-t b" style="left:75.34mm; top:20.26mm; font-size:4.12mm;">[2026년 예산서 운영총칙]</span>
+      <span class="lay-t b" style="left:17.66mm; top:34.86mm; font-size:3.25mm;">1. 기본원칙</span>
+      <span class="lay-t" style="left:17.66mm; top:40.51mm; font-size:3.25mm;">1. 회계연도의 모든 수입은 세입으로, 모든 지출은 세출로 하며, 세입과 세출은 모두 예산에 편성한다.</span>
+      <span class="lay-t" style="left:17.66mm; top:46.16mm; font-size:3.25mm;">2. 회계연도는 2026.01.01.~2026.12.31.로 한다.</span>
+      <span class="lay-t" style="left:17.66mm; top:51.82mm; font-size:3.25mm;">3. 입·세출 예산은 사회복지시설 재무 회계 규칙에 준하여 예산과목 구분에 따라 편성한다.</span>
+      <span class="lay-t" style="left:17.66mm; top:57.47mm; font-size:3.25mm;">4. 예산에 변경을 가할 필요가 있을 경우 추가 경정 예산을 편성한다.</span>
+      <span class="lay-t" style="left:17.66mm; top:63.12mm; font-size:3.25mm;">5. 예측할 수 없는 예산외의 지출 또는 예산의 초과 지출에 충당하기 위하여 예비비를 세출 예산에</span>
+      <span class="lay-t" style="left:17.66mm; top:68.77mm; font-size:3.25mm;">계산한다.</span>
+      <span class="lay-t" style="left:17.66mm; top:74.43mm; font-size:3.25mm;">6. 세출 예산이 정한 목적 외의 사용을 금한다.</span>
+      <span class="lay-t" style="left:17.66mm; top:80.08mm; font-size:3.25mm;">7. 예산의 전용시 사회복지시설 재무회계 규칙 &lt;예산의 전용&gt; 규칙에 준한다.</span>
+      <span class="lay-t" style="left:17.66mm; top:85.73mm; font-size:3.25mm;">8. 적립금의 적립과 사용은 특별 회계 세입·세출 예산에 계상하여 특별 회계(적립금) 예산을 편성하고,</span>
+      <span class="lay-t" style="left:17.66mm; top:91.38mm; font-size:3.25mm;">시군구에 사전보고 후 적립 및 사용한다.</span>
+      <span class="lay-t" style="left:17.66mm; top:97.04mm; font-size:3.25mm;">9. 세출 예산의 이월은 운영위원회 보고 후 이월한다.</span>
+      <span class="lay-t b" style="left:17.66mm; top:108.34mm; font-size:3.25mm;">2. 예산내역</span>
+      <span class="lay-t" style="left:17.66mm; top:114.00mm; font-size:3.25mm;">1) 방문요양</span>
+      <span class="lay-t" style="left:41.20mm; top:121.30mm; font-size:3.25mm;">세입예산</span>
+      <span class="lay-t" style="left:100.53mm; top:121.30mm; font-size:3.25mm;">세출예산</span>
+      <span class="lay-t" style="left:148.55mm; top:123.42mm; font-size:3.25mm;">비고</span>
+      <span class="lay-t" style="left:28.25mm; top:125.77mm; font-size:3.25mm;">계정별</span>
+      <span class="lay-t" style="left:54.38mm; top:125.77mm; font-size:3.25mm;">세입예산액</span>
+      <span class="lay-t" style="left:87.34mm; top:125.77mm; font-size:3.25mm;">계정별</span>
+      <span class="lay-t" style="left:113.48mm; top:125.77mm; font-size:3.25mm;">세출예산액</span>
+      <span class="lay-t b" style="left:23.07mm; top:130.25mm; font-size:3.03mm;">입소자(이용자)</span>
+      <span class="lay-t b" style="left:25.66mm; top:133.31mm; font-size:3.03mm;">부담금수입</span>
+      <span class="lay-t b" style="left:55.33mm; top:131.90mm; font-size:3.03mm;">16,704,504</span>
+      <span class="lay-t b" style="left:88.05mm; top:131.90mm; font-size:3.03mm;">인건비</span>
+      <span class="lay-t b" style="left:113.71mm; top:131.90mm; font-size:3.03mm;">219,475,919</span>
+      <span class="lay-t b" style="left:24.01mm; top:137.55mm; font-size:3.03mm;">요양급여수입</span>
+      <span class="lay-t b" style="left:54.62mm; top:137.55mm; font-size:3.03mm;">228,493,896</span>
+      <span class="lay-t b" style="left:84.75mm; top:137.55mm; font-size:3.03mm;">업무추진비</span>
+      <span class="lay-t b" style="left:115.59mm; top:137.55mm; font-size:3.03mm;">1,200,000</span>
+      <span class="lay-t b" style="left:28.72mm; top:141.79mm; font-size:3.03mm;">전입금</span>
+      <span class="lay-t b" style="left:56.27mm; top:141.79mm; font-size:3.03mm;">6,957,519</span>
+      <span class="lay-t b" style="left:88.05mm; top:141.79mm; font-size:3.03mm;">운영비</span>
+      <span class="lay-t b" style="left:114.65mm; top:141.79mm; font-size:3.03mm;">30,930,000</span>
+      <span class="lay-t b" style="left:28.72mm; top:146.03mm; font-size:3.03mm;">잡수입</span>
+      <span class="lay-t b" style="left:58.39mm; top:146.03mm; font-size:3.03mm;">50,000</span>
+      <span class="lay-t b" style="left:88.05mm; top:146.03mm; font-size:3.03mm;">잡지출</span>
+      <span class="lay-t b" style="left:116.77mm; top:146.03mm; font-size:3.03mm;">600,000</span>
+      <span class="lay-t" style="left:17.66mm; top:152.62mm; font-size:3.25mm;">2) 방문간호</span>
+      <span class="lay-t" style="left:41.20mm; top:159.92mm; font-size:3.25mm;">세입예산</span>
+      <span class="lay-t" style="left:100.53mm; top:159.92mm; font-size:3.25mm;">세출예산</span>
+      <span class="lay-t" style="left:148.55mm; top:162.04mm; font-size:3.25mm;">비고</span>
+      <span class="lay-t" style="left:28.25mm; top:164.40mm; font-size:3.25mm;">계정별</span>
+      <span class="lay-t" style="left:54.38mm; top:164.40mm; font-size:3.25mm;">세입예산액</span>
+      <span class="lay-t" style="left:87.34mm; top:164.40mm; font-size:3.25mm;">계정별</span>
+      <span class="lay-t" style="left:113.48mm; top:164.40mm; font-size:3.25mm;">세출예산액</span>
+      <span class="lay-t b" style="left:23.07mm; top:168.87mm; font-size:3.03mm;">입소자(이용자)</span>
+      <span class="lay-t b" style="left:25.66mm; top:172.17mm; font-size:3.03mm;">부담금수입</span>
+      <span class="lay-t b" style="left:55.56mm; top:170.52mm; font-size:3.03mm;">7,391,088</span>
+      <span class="lay-t b" style="left:88.05mm; top:170.52mm; font-size:3.03mm;">인건비</span>
+      <span class="lay-t b" style="left:114.65mm; top:170.52mm; font-size:3.03mm;">60,717,270</span>
+      <span class="lay-t b" style="left:24.01mm; top:176.17mm; font-size:3.03mm;">요양급여수입</span>
+      <span class="lay-t b" style="left:55.33mm; top:176.17mm; font-size:3.03mm;">62,989,392</span>
+      <span class="lay-t b" style="left:84.75mm; top:176.17mm; font-size:3.03mm;">업무추진비</span>
+      <span class="lay-t b" style="left:116.77mm; top:176.17mm; font-size:3.03mm;">400,000</span>
+      <span class="lay-t b" style="left:28.72mm; top:180.41mm; font-size:3.03mm;">전입금</span>
+      <span class="lay-t b" style="left:56.27mm; top:180.41mm; font-size:3.03mm;">1,796,790</span>
+      <span class="lay-t b" style="left:88.05mm; top:180.41mm; font-size:3.03mm;">운영비</span>
+      <span class="lay-t b" style="left:114.65mm; top:180.41mm; font-size:3.03mm;">11,160,000</span>
+      <span class="lay-t b" style="left:28.72mm; top:184.65mm; font-size:3.03mm;">잡수입</span>
+      <span class="lay-t b" style="left:57.44mm; top:184.65mm; font-size:3.03mm;">700,000</span>
+      <span class="lay-t b" style="left:88.05mm; top:184.65mm; font-size:3.03mm;">잡지출</span>
+      <span class="lay-t b" style="left:116.77mm; top:184.65mm; font-size:3.03mm;">600,000</span>
+      <span class="lay-t" style="left:17.66mm; top:191.48mm; font-size:3.25mm;">3) 방문목욕</span>
+      <span class="lay-t" style="left:20.48mm; top:198.55mm; font-size:3.25mm;">세입예산</span>
+      <span class="lay-t" style="left:79.81mm; top:198.55mm; font-size:3.25mm;">세출예산</span>
+      <span class="lay-t" style="left:138.90mm; top:200.90mm; font-size:3.25mm;">비고</span>
+      <span class="lay-t" style="left:20.48mm; top:203.26mm; font-size:3.25mm;">계정별</span>
+      <span class="lay-t" style="left:50.15mm; top:203.26mm; font-size:3.25mm;">세입예산액</span>
+      <span class="lay-t" style="left:79.81mm; top:203.26mm; font-size:3.25mm;">계정별</span>
+      <span class="lay-t" style="left:109.47mm; top:203.26mm; font-size:3.25mm;">세출예산액</span>
+      <span class="lay-t b" style="left:23.07mm; top:207.74mm; font-size:3.03mm;">입소자(이용자)</span>
+      <span class="lay-t b" style="left:25.66mm; top:210.80mm; font-size:3.03mm;">부담금수입</span>
+      <span class="lay-t b" style="left:56.27mm; top:209.15mm; font-size:3.03mm;">1,752,840</span>
+      <span class="lay-t b" style="left:88.05mm; top:209.15mm; font-size:3.03mm;">인건비</span>
+      <span class="lay-t b" style="left:114.65mm; top:209.15mm; font-size:3.03mm;">16,071,251</span>
+      <span class="lay-t b" style="left:24.01mm; top:215.04mm; font-size:3.03mm;">요양급여수입</span>
+      <span class="lay-t b" style="left:55.33mm; top:215.04mm; font-size:3.03mm;">12,269,880</span>
+      <span class="lay-t b" style="left:84.75mm; top:215.04mm; font-size:3.03mm;">업무추진비</span>
+      <span class="lay-t b" style="left:115.59mm; top:215.04mm; font-size:3.03mm;">1,200,000</span>
+      <span class="lay-t b" style="left:28.72mm; top:219.28mm; font-size:3.03mm;">전입금</span>
+      <span class="lay-t b" style="left:56.27mm; top:219.28mm; font-size:3.03mm;">5,198,531</span>
+      <span class="lay-t b" style="left:88.05mm; top:219.28mm; font-size:3.03mm;">운영비</span>
+      <span class="lay-t b" style="left:115.59mm; top:219.28mm; font-size:3.03mm;">1,950,000</span>
+      <span class="lay-t b" style="left:17.66mm; top:226.11mm; font-size:3.25mm;">3. 예산의 재무, 회계처리</span>
+      <span class="lay-t" style="left:17.66mm; top:231.76mm; font-size:3.25mm;">예산의 재무, 회계 사무는 사회복지시설 정보 시스템 프로그램으로 처리하며,</span>
+      <span class="lay-t" style="left:17.66mm; top:237.41mm; font-size:3.25mm;">사회복지 시설 재무회계 규칙에 준하여 시설 예산을 집행한다.</span>
+      <span class="lay-t" style="left:17.66mm; top:248.72mm; font-size:3.25mm;">4. 국가 또는 지방 자치 단체로부터 교부된 보조금 및 지정 후원금, 전입금등은 추가 경정 예산의</span>
+      <span class="lay-t" style="left:17.66mm; top:254.37mm; font-size:3.25mm;">성립 이전이라도 보조 및 후원 목적에 적절한 경우 사용할 수 있으며, 이는 차기 추가 경정 예산에</span>
+      <span class="lay-t" style="left:17.66mm; top:260.02mm; font-size:3.25mm;">반영하여야 한다.</span>
+    <div class="pageno">1</div>
+</section>
+      <section class="sheet blank"><div class="pageno">2</div>
+</section>
+      <section class="sheet fit">
+  <p class="doc-no">15. 예산서</p>  <h1>방문요양 예산총칙</h1>
+  <p style="text-align:right">산정기간 : 2026년 1월~12월 (12개월)</p>
+  <table class="form">
+    <tr><th class="c">세입</th><th class="c">세출</th><th class="c">잔액</th></tr>
+    <tr><td class="num">252,213,103</td><td class="num">252,213,103</td><td class="num">0</td></tr>
+  </table>
+  <h2 style="margin-top:10mm">[주요내역]</h2>
+  <table class="form">
+    <tr><th class="c" colspan="2">세입</th><th class="c" colspan="2">세출</th></tr>
+              <tr><td>입소자(이용자)부담금수입</td><td class="num">16,704,504</td><td>인건비</td><td class="num">219,483,103</td></tr>
+          <tr><td>요양급여수입</td><td class="num">228,493,896</td><td>업무추진비</td><td class="num">1,200,000</td></tr>
+          <tr><td>전입금</td><td class="num">6,964,703</td><td>운영비</td><td class="num">30,930,000</td></tr>
+          <tr><td>잡수입</td><td class="num">50,000</td><td>잡지출</td><td class="num">600,000</td></tr>
+      </table>
+  <div class="pageno">3</div>
+</section>
+      <section class="sheet tight">
+  <p class="doc-no">15. 예산서</p>  <p class="form-tag">[별지 제1호서식] &lt;개정 2005.07.15&gt; <span style="margin-left:8mm; font-size:14pt">방문요양 세입명세서</span></p>
+  <p style="text-align:right">산정기간 : 2026년 1월~12월 (12개월)</p>
+  <table class="form dense">
+    <tr><th class="c" colspan="3">과목</th><th class="c" rowspan="2" style="width:9mm">전년도<br>예산액</th><th class="c" rowspan="2" style="width:18mm">당해연도<br>예산액</th><th class="c" rowspan="2" style="width:6mm">증감</th><th class="c" rowspan="2">산출근거</th></tr>
+    <tr><th class="c" style="width:18mm">관</th><th class="c" style="width:16mm">항</th><th class="c" style="width:20mm">목</th></tr>
+    <tr><td>이용자부담금수입</td><td>이용비용수입</td><td>본인부담금수입</td><td class="c">-</td><td class="num">16,704,504</td><td></td><td style="font-size:8pt; line-height:1.5">240분(1등급) &nbsp; 68,030 원 X 2명 X 20 일 X 12 개월 X 6% = 1,959,264<br>180분(2등급) &nbsp; 55,350 원 X 2명 X 20 일 X 12 개월 X 6% = 1,594,080<br>180분(3,4등급) &nbsp; 55,350 원 X 6명 X 20 일 X 12 개월 X 9% = 7,173,360<br>180분(5등급) &nbsp; 55,350 원 X 3명 X 20 일 X 12 개월 X 15% = 5,977,800<br></td></tr>
+    <tr><td>요양급여수입</td><td>요양급여수입</td><td>장기요양급여수입</td><td class="c">-</td><td class="num">228,493,896</td><td></td><td style="font-size:8pt; line-height:1.5">240분(1등급) &nbsp; 68,030 원 X 2명 X 20 일 X 12 개월 X 94% = 30,695,136<br>180분(2등급) &nbsp; 55,350 원 X 2명 X 20 일 X 12 개월 X 94% = 24,973,920<br>180분(3,4등급) &nbsp; 55,350 원 X 6명 X 20 일 X 12 개월 X 91% = 72,530,640<br>180분(3,4등급) &nbsp; 55,350 원 X 5명 X 20 일 X 12 개월 X 100% = 66,420,000<br>180분(5등급) &nbsp; 55,350 원 X 3명 X 20 일 X 12 개월 X 85% = 33,874,200<br></td></tr>
+    <tr><td>전입금</td><td>전입금</td><td>기타전입금</td><td class="c">-</td><td class="num">6,964,703</td><td></td><td style="font-size:8pt">기타전입금 6,964,703원</td></tr>
+    <tr><td>잡수입</td><td>잡수입</td><td>기타잡수입</td><td class="c">-</td><td class="num">50,000</td><td></td><td style="font-size:8pt">기타 잡수입 50,000원</td></tr>    <tr><th class="c" colspan="4">합계</th><th class="num">252,213,103</th><th></th><th></th></tr>
+  </table>
+  <div class="pageno">4</div>
+</section>
+      <section class="sheet tight xs">
+  <p class="doc-no">15. 예산서</p>  <p class="form-tag">[별지 제1호서식] &lt;개정 2005.07.15&gt; <span style="margin-left:8mm; font-size:14pt">방문요양 세출명세서</span></p>
+  <p style="text-align:right">산정기간 : 2026년 1월~12월 (12개월)</p>
+  <table class="form dense" style="font-size:8pt">
+    <tr><th class="c" colspan="3">과목</th><th class="c" rowspan="2" style="width:9mm">전년도<br>예산액</th><th class="c" rowspan="2" style="width:17mm">당해연도<br>예산액</th><th class="c" rowspan="2" style="width:6mm">증감</th><th class="c" rowspan="2">산출근거</th></tr>
+    <tr><th class="c" style="width:10mm">관</th><th class="c" style="width:10mm">항</th><th class="c" style="width:24mm">목</th></tr>
+        <tr><td rowspan="6" class="c">사무비</td><td rowspan="6" class="c">인건비</td><td>급여 (직접비)</td><td class="c">-</td><td class="num">179,615,760</td><td></td><td>3~5등급 요양보호사 급여(주 5회 3시간씩근무, 4주) &nbsp; 962,180 원 X 11 명 X 12 개월 = 127,007,760<br>1~2등급 요양보호사 급여(주 5회 4시간씩근무, 4주) &nbsp; 1,096,000 원 X 4 명 X 12 개월 = 52,608,000<br></td></tr>
+    <tr><td>퇴직금 및 퇴직적립금 (직접비)</td><td class="c">-</td><td class="num">14,642,589</td><td></td><td>3~5등급 요양보호사 급여(주 5회 3시간씩근무, 4주) 퇴직금 및 퇴직적립금 &nbsp; 2,886,540 원 / 92 일 X 30 일 X 11 명 = 10,353,893<br>1~2등급 요양보호사 급여(주 5회 4시간씩근무, 4주) 퇴직금 및 퇴직적립금 &nbsp; 3,288,000 원 / 92 일 X 30 일 X 4 명 = 4,288,696<br></td></tr>
+    <tr><td>사회보험부담금(직접비)</td><td class="c">-</td><td class="num">18,239,152</td><td></td><td>사회보험-건강보험(15명) &nbsp; 14,967,980 원 X 3.545% X 12 개월 = 6,367,379<br>사회보험-장기요양보험료(15명) &nbsp; 530,615 원 X 12.95% X 12 개월 X 0.5 = 412,288<br>사회보험-국민연금(15명) &nbsp; 14,967,980 원 X 4.5% X 12 개월 = 8,082,709<br>사회보험-고용보험(15명) &nbsp; 14,967,980 원 X 1.15% X 12 개월 = 2,065,581<br>사회보험-산재보험(15명) &nbsp; 14,967,980 원 X 0.73% X 12 개월 = 1,311,195<br></td></tr>
+    <tr><td>급여(간접비)</td><td class="c">-</td><td class="num">6,000,000</td><td></td><td>센터장 급여 &nbsp; 500,000 원 X 1명 X 12 개월 = 6,000,000</td></tr>
+    <tr><td>퇴직금 및 퇴직적립금 (간접비)</td><td class="c">-</td><td class="num">489,130</td><td></td><td>퇴직금 및 퇴직적립금 &nbsp; 1,500,000 원 / 92 일 X 30 일 = 489,130</td></tr>
+    <tr><td>사회보험부담금(간접비)</td><td class="c">-</td><td class="num">496,472</td><td></td><td>사회보험-건강보험 &nbsp; 500,000 원 X 3.545% X 12 개월 = 212,700<br>사회보험-장기요양보험료 &nbsp; 17,725 원 X 12.95% X 12 개월 X 0.5 = 13,772<br>사회보험-국민연금 &nbsp; 500,000 원 X 4.5% X 12 개월 = 270,000<br></td></tr>
+          <tr><td class="c">업무추진비</td><td class="c">업무추진비</td><td>회의비 (간접비)</td><td class="c">-</td><td class="num">1,200,000</td><td></td><td>직원 회의비용(식사, 다과 등) &nbsp; 100,000 원 X 12 개월 = 1,200,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>수용비 및 수수료(간접비)</td><td class="c">-</td><td class="num">3,600,000</td><td></td><td>사무용품 구입 및 기타 수수료 비용 &nbsp; 300,000 원 X 12 개월 = 3,600,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>수용비 및 수수료(간접비)</td><td class="c">-</td><td class="num">3,600,000</td><td></td><td>홍보비 및 판촉물 제작비 &nbsp; 300,000 원 X 12 개월 = 3,600,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>공공요금 및 각종 세금공과금(간접비)</td><td class="c">-</td><td class="num">7,200,000</td><td></td><td>관리비,보험료,우편발송비용, 통신요금 등 &nbsp; 600,000 원 X 12 개월 = 7,200,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>임차료(간접비)</td><td class="c">-</td><td class="num">5,280,000</td><td></td><td>임차료 &nbsp; 440,000 원 X 12 개월 = 5,280,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>직원 복리후생비</td><td class="c">-</td><td class="num">4,500,000</td><td></td><td>직원 복리후생비 (명절선물 등) &nbsp; 150,000 원 X 2 개월 X 15 명 = 4,500,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>직원 복리후생비</td><td class="c">-</td><td class="num">3,750,000</td><td></td><td>직원 복리후생비 (건강검진, 포상금, 교육비 등) &nbsp; 250,000 원 X 1 개월 X 15 명 = 3,750,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>주유 및 교통비</td><td class="c">-</td><td class="num">3,000,000</td><td></td><td>주유비 및 교통비 &nbsp; 250,000 원 X 12 개월 = 3,000,000</td></tr>
+          <tr><td class="c">잡지출</td><td class="c">잡지출</td><td>잡지출 (간접비)</td><td class="c">-</td><td class="num">600,000</td><td></td><td>잡지출 &nbsp; 50,000 원 X 12 개월 = 600,000</td></tr>
+        <tr><th class="c" colspan="4">합계</th><th class="num">252,213,103</th><th></th><th></th></tr>
+  </table>
+  <div class="pageno">5</div>
+</section>
+      <section class="sheet tight">
+  <p class="doc-no">15. 예산서</p>  <p class="form-tag">■ 사회복지법인 및 사회복지시설 재무회계규칙 [별지 제4호의 2서식] &lt;신설 2018.03.30&gt;</p>
+  <h1 style="letter-spacing:.05em">방문요양 임직원 보수일람표 (인건비명세서)</h1>
+  <p style="text-align:right; font-size:9pt">(앞쪽)</p>
+  <table class="form dense" style="font-size:8.5pt">
+    <tr><th class="c" style="width:8mm">No.</th><th class="c">직종</th><th class="c" style="width:14mm">인건비구분</th><th class="c" style="width:16mm">성명</th><th class="num">급여</th><th class="c" style="width:12mm">각종수당</th><th class="c" style="width:12mm">일용잡금</th><th class="num">퇴직금 및 적립금</th><th class="num">사회보험 부담금</th><th class="num">계</th></tr>
+          <tr><td class="c">1</td><td class="c">센터장</td><td class="c">간접비</td><td class="c">박예비</td><td class="num">6,000,000 원</td><td></td><td></td><td class="num">489,130</td><td class="num">496,472</td><td class="num">6,985,602</td></tr>
+          <tr><td class="c">2</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">김미숙</td><td class="num">13,152,000 원</td><td></td><td></td><td class="num">1,072,174</td><td class="num">1,335,525</td><td class="num">15,559,699</td></tr>
+          <tr><td class="c">3</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">이정순</td><td class="num">13,152,000 원</td><td></td><td></td><td class="num">1,072,174</td><td class="num">1,335,525</td><td class="num">15,559,699</td></tr>
+          <tr><td class="c">4</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">박영희</td><td class="num">13,152,000 원</td><td></td><td></td><td class="num">1,072,174</td><td class="num">1,335,525</td><td class="num">15,559,699</td></tr>
+          <tr><td class="c">5</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">최옥자</td><td class="num">13,152,000 원</td><td></td><td></td><td class="num">1,072,174</td><td class="num">1,335,525</td><td class="num">15,559,699</td></tr>
+          <tr><td class="c">6</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">정말순</td><td class="num">11,546,160 원</td><td></td><td></td><td class="num">941,263</td><td class="num">1,172,459</td><td class="num">13,659,882</td></tr>
+          <tr><td class="c">7</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">강순자</td><td class="num">11,546,160 원</td><td></td><td></td><td class="num">941,263</td><td class="num">1,172,459</td><td class="num">13,659,882</td></tr>
+          <tr><td class="c">8</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">조미경</td><td class="num">11,546,160 원</td><td></td><td></td><td class="num">941,263</td><td class="num">1,172,459</td><td class="num">13,659,882</td></tr>
+          <tr><td class="c">9</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">윤복희</td><td class="num">11,546,160 원</td><td></td><td></td><td class="num">941,263</td><td class="num">1,172,459</td><td class="num">13,659,882</td></tr>
+          <tr><td class="c">10</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">장은영</td><td class="num">11,546,160 원</td><td></td><td></td><td class="num">941,263</td><td class="num">1,172,459</td><td class="num">13,659,882</td></tr>
+          <tr><td class="c">11</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">임선희</td><td class="num">11,546,160 원</td><td></td><td></td><td class="num">941,263</td><td class="num">1,172,459</td><td class="num">13,659,882</td></tr>
+          <tr><td class="c">12</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">한정자</td><td class="num">11,546,160 원</td><td></td><td></td><td class="num">941,263</td><td class="num">1,172,459</td><td class="num">13,659,882</td></tr>
+          <tr><td class="c">13</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">오경숙</td><td class="num">11,546,160 원</td><td></td><td></td><td class="num">941,263</td><td class="num">1,172,459</td><td class="num">13,659,882</td></tr>
+          <tr><td class="c">14</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">서명자</td><td class="num">11,546,160 원</td><td></td><td></td><td class="num">941,263</td><td class="num">1,172,459</td><td class="num">13,659,882</td></tr>
+          <tr><td class="c">15</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">신현숙</td><td class="num">11,546,160 원</td><td></td><td></td><td class="num">941,263</td><td class="num">1,172,459</td><td class="num">13,659,882</td></tr>
+          <tr><td class="c">16</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">권말자</td><td class="num">11,546,160 원</td><td></td><td></td><td class="num">941,263</td><td class="num">1,172,459</td><td class="num">13,659,882</td></tr>
+        <tr><th class="c" rowspan="3">소계</th><th class="c" colspan="3">간접비계</th><td class="num">6,000,000</td><td></td><td></td><td class="num">489,130</td><td class="num">496,472</td><td class="num">6,985,602</td></tr>
+    <tr><th class="c" colspan="3">직접비계</th><td class="num">179,615,760</td><td></td><td></td><td class="num">14,642,589</td><td class="num">18,239,149</td><td class="num">212,497,498</td></tr>
+    <tr><th class="c" colspan="3">총 인건비계</th><td class="num">185,615,760</td><td class="c">-</td><td class="c">-</td><td class="num">15,131,719</td><td class="num">18,735,621</td><td class="num">219,483,100</td></tr>
+  </table>
+  <table class="form" style="margin-top:8mm; width:70%">
+    <tr><th class="c" rowspan="2" style="width:30mm">직접인건비 비율</th><td class="c">직접인건비 &nbsp; 212,497,498</td><th class="c" rowspan="2" style="width:16mm">=</th><td class="num" rowspan="2"><strong>86.66%</strong></td></tr>
+    <tr><td class="c" style="border-top:2px solid #222">입소자비용수입+장기요양급여수입 &nbsp; 245,198,400</td></tr>
+  </table>
+  <div class="pageno">6</div>
+</section>
+      <section class="sheet fit">
+  <p class="doc-no">15. 예산서</p>  <h1>방문간호 예산총칙</h1>
+  <p style="text-align:right">산정기간 : 2026년 1월~12월 (12개월)</p>
+  <table class="form">
+    <tr><th class="c">세입</th><th class="c">세출</th><th class="c">잔액</th></tr>
+    <tr><td class="num">72,878,757</td><td class="num">72,878,757</td><td class="num">0</td></tr>
+  </table>
+  <h2 style="margin-top:10mm">[주요내역]</h2>
+  <table class="form">
+    <tr><th class="c" colspan="2">세입</th><th class="c" colspan="2">세출</th></tr>
+              <tr><td>입소자(이용자)부담금수입</td><td class="num">7,391,088</td><td>인건비</td><td class="num">60,718,757</td></tr>
+          <tr><td>요양급여수입</td><td class="num">62,989,392</td><td>업무추진비</td><td class="num">400,000</td></tr>
+          <tr><td>전입금</td><td class="num">1,798,277</td><td>운영비</td><td class="num">11,160,000</td></tr>
+          <tr><td>잡수입</td><td class="num">700,000</td><td>잡지출</td><td class="num">600,000</td></tr>
+      </table>
+  <div class="pageno">7</div>
+</section>
+      <section class="sheet tight">
+  <p class="doc-no">15. 예산서</p>  <p class="form-tag">[별지 제1호서식] &lt;개정 2005.07.15&gt; <span style="margin-left:8mm; font-size:14pt">방문간호 세입명세서</span></p>
+  <p style="text-align:right">산정기간 : 2026년 1월~12월 (12개월)</p>
+  <table class="form dense">
+    <tr><th class="c" colspan="3">과목</th><th class="c" rowspan="2" style="width:9mm">전년도<br>예산액</th><th class="c" rowspan="2" style="width:18mm">당해연도<br>예산액</th><th class="c" rowspan="2" style="width:6mm">증감</th><th class="c" rowspan="2">산출근거</th></tr>
+    <tr><th class="c" style="width:18mm">관</th><th class="c" style="width:16mm">항</th><th class="c" style="width:20mm">목</th></tr>
+    <tr><td>이용자부담금수입</td><td>이용비용수입</td><td>본인부담금수입</td><td class="c">-</td><td class="num">7,391,088</td><td></td><td style="font-size:8pt; line-height:1.5">방문간호(60분이상) &nbsp; 62,930 원 X 5명 X 4 일 X 12 개월 X 15% = 2,265,480<br>방문간호(60분이상) &nbsp; 62,930 원 X 5명 X 4 일 X 12 개월 X 9% = 1,359,288<br>방문간호(30~60분 미만) &nbsp; 52,310 원 X 5명 X 4 일 X 12 개월 X 15% = 1,883,160<br>방문간호(30~60분 미만) &nbsp; 52,310 원 X 5명 X 4 일 X 12 개월 X 9% = 1,129,896<br>방문간호(30~60분 미만) &nbsp; 52,310 원 X 5명 X 4 일 X 12 개월 X 6% = 753,264<br></td></tr>
+    <tr><td>요양급여수입</td><td>요양급여수입</td><td>장기요양급여수입</td><td class="c">-</td><td class="num">62,989,392</td><td></td><td style="font-size:8pt; line-height:1.5">방문간호(60분이상) &nbsp; 62,930 원 X 5명 X 4 일 X 12 개월 X 85% = 12,837,720<br>방문간호(60분이상) &nbsp; 62,930 원 X 5명 X 4 일 X 12 개월 X 91% = 13,743,912<br>방문간호(30~60분 미만) &nbsp; 52,310 원 X 5명 X 4 일 X 12 개월 X 85% = 10,671,240<br>방문간호(30~60분 미만) &nbsp; 52,310 원 X 5명 X 4 일 X 12 개월 X 91% = 11,424,504<br>방문간호(30~60분 미만) &nbsp; 52,310 원 X 5명 X 4 일 X 12 개월 X 94% = 11,801,136<br>방문간호(30~60분 미만) &nbsp; 52,310 원 X 1명 X 4 일 X 12 개월 X 100% = 2,510,880<br></td></tr>
+    <tr><td>전입금</td><td>전입금</td><td>기타전입금</td><td class="c">-</td><td class="num">1,798,277</td><td></td><td style="font-size:8pt">기타전입금 1,798,277원</td></tr>
+    <tr><td>잡수입</td><td>잡수입</td><td>기타잡수입</td><td class="c">-</td><td class="num">700,000</td><td></td><td style="font-size:8pt">기타 잡수입 700,000원</td></tr>    <tr><th class="c" colspan="4">합계</th><th class="num">72,878,757</th><th></th><th></th></tr>
+  </table>
+  <div class="pageno">8</div>
+</section>
+      <section class="sheet tight xs">
+  <p class="doc-no">15. 예산서</p>  <p class="form-tag">[별지 제1호서식] &lt;개정 2005.07.15&gt; <span style="margin-left:8mm; font-size:14pt">방문간호 세출명세서</span></p>
+  <p style="text-align:right">산정기간 : 2026년 1월~12월 (12개월)</p>
+  <table class="form dense" style="font-size:8pt">
+    <tr><th class="c" colspan="3">과목</th><th class="c" rowspan="2" style="width:9mm">전년도<br>예산액</th><th class="c" rowspan="2" style="width:17mm">당해연도<br>예산액</th><th class="c" rowspan="2" style="width:6mm">증감</th><th class="c" rowspan="2">산출근거</th></tr>
+    <tr><th class="c" style="width:10mm">관</th><th class="c" style="width:10mm">항</th><th class="c" style="width:24mm">목</th></tr>
+        <tr><td rowspan="6" class="c">사무비</td><td rowspan="6" class="c">인건비</td><td>급여 (직접비)</td><td class="c">-</td><td class="num">37,152,000</td><td></td><td>간호(조무사)급여 &nbsp; 3,096,000 원 X 1 명 X 12 개월 = 37,152,000<br></td></tr>
+    <tr><td>퇴직금 및 퇴직적립금 (직접비)</td><td class="c">-</td><td class="num">3,028,696</td><td></td><td>간호(조무사)급여 퇴직금 및 퇴직적립금 &nbsp; 9,288,000 원 / 92 일 X 30 일 X 1 명 = 3,028,696<br></td></tr>
+    <tr><td>사회보험부담금(직접비)</td><td class="c">-</td><td class="num">3,772,614</td><td></td><td>사회보험-건강보험(1명) &nbsp; 3,096,000 원 X 3.545% X 12 개월 = 1,317,038<br>사회보험-장기요양보험료(1명) &nbsp; 109,753 원 X 12.95% X 12 개월 X 0.5 = 85,278<br>사회보험-국민연금(1명) &nbsp; 3,096,000 원 X 4.5% X 12 개월 = 1,671,840<br>사회보험-고용보험(1명) &nbsp; 3,096,000 원 X 1.15% X 12 개월 = 427,248<br>사회보험-산재보험(1명) &nbsp; 3,096,000 원 X 0.73% X 12 개월 = 271,210<br></td></tr>
+    <tr><td>급여(간접비)</td><td class="c">-</td><td class="num">14,400,000</td><td></td><td>센터장 급여 &nbsp; 1,200,000 원 X 1명 X 12 개월 = 14,400,000</td></tr>
+    <tr><td>퇴직금 및 퇴직적립금 (간접비)</td><td class="c">-</td><td class="num">1,173,913</td><td></td><td>퇴직금 및 퇴직적립금 &nbsp; 3,600,000 원 / 92 일 X 30 일 = 1,173,913</td></tr>
+    <tr><td>사회보험부담금(간접비)</td><td class="c">-</td><td class="num">1,191,534</td><td></td><td>사회보험-건강보험 &nbsp; 1,200,000 원 X 3.545% X 12 개월 = 510,480<br>사회보험-장기요양보험료 &nbsp; 42,540 원 X 12.95% X 12 개월 X 0.5 = 33,054<br>사회보험-국민연금 &nbsp; 1,200,000 원 X 4.5% X 12 개월 = 648,000<br></td></tr>
+          <tr><td class="c">업무추진비</td><td class="c">업무추진비</td><td>회의비 (간접비)</td><td class="c">-</td><td class="num">400,000</td><td></td><td>직원 회의비용 &nbsp; 100,000 원 X 4 개월 = 400,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>물품구입비 (간접비)</td><td class="c">-</td><td class="num">360,000</td><td></td><td>간호물품(메디폼, 혈당침, 거즈 등) 구입비 &nbsp; 30,000 원 X 12 개월 = 360,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>직원교육비 (간접비)</td><td class="c">-</td><td class="num">200,000</td><td></td><td>직원 교육비 &nbsp; 100,000 원 X 2 개월 = 200,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>수용비 및 수수료(간접비)</td><td class="c">-</td><td class="num">3,600,000</td><td></td><td>사무용품 구입 및 기타 수수료 비용 &nbsp; 300,000 원 X 12 개월 = 3,600,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>수용비 및 수수료(간접비)</td><td class="c">-</td><td class="num">3,600,000</td><td></td><td>홍보비 및 판촉물 제작비 &nbsp; 300,000 원 X 12 개월 = 3,600,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>주유 및 교통비</td><td class="c">-</td><td class="num">3,000,000</td><td></td><td>주유비 및 교통비 &nbsp; 250,000 원 X 12 개월 = 3,000,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>복리후생비 (간접비)</td><td class="c">-</td><td class="num">200,000</td><td></td><td>직원 복리후생 경비(명절선물) &nbsp; 100,000 원 X 2 개월 X 1 명 = 200,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>복리후생비 (간접비)</td><td class="c">-</td><td class="num">200,000</td><td></td><td>직원 복리후생 경비(건강검진, 포상금 등) &nbsp; 200,000 원 X 1 개월 X 1 명 = 200,000</td></tr>
+          <tr><td class="c">잡지출</td><td class="c">잡지출</td><td>잡지출 (간접비)</td><td class="c">-</td><td class="num">600,000</td><td></td><td>잡지출 &nbsp; 50,000 원 X 12 개월 = 600,000</td></tr>
+        <tr><th class="c" colspan="4">합계</th><th class="num">72,878,757</th><th></th><th></th></tr>
+  </table>
+  <div class="pageno">9</div>
+</section>
+      <section class="sheet tight">
+  <p class="doc-no">15. 예산서</p>  <p class="form-tag">■ 사회복지법인 및 사회복지시설 재무회계규칙 [별지 제4호의 2서식] &lt;신설 2018.03.30&gt;</p>
+  <h1 style="letter-spacing:.05em">방문간호 임직원 보수일람표 (인건비명세서)</h1>
+  <p style="text-align:right; font-size:9pt">(앞쪽)</p>
+  <table class="form dense" style="font-size:8.5pt">
+    <tr><th class="c" style="width:8mm">No.</th><th class="c">직종</th><th class="c" style="width:14mm">인건비구분</th><th class="c" style="width:16mm">성명</th><th class="num">급여</th><th class="c" style="width:12mm">각종수당</th><th class="c" style="width:12mm">일용잡금</th><th class="num">퇴직금 및 적립금</th><th class="num">사회보험 부담금</th><th class="num">계</th></tr>
+          <tr><td class="c">1</td><td class="c">센터장</td><td class="c">간접비</td><td class="c">박예비</td><td class="num">14,400,000 원</td><td></td><td></td><td class="num">1,173,913</td><td class="num">1,191,534</td><td class="num">16,765,447</td></tr>
+          <tr><td class="c">2</td><td class="c">간호(조무)사</td><td class="c">직접비</td><td class="c">이은희</td><td class="num">37,152,000 원</td><td></td><td></td><td class="num">3,028,696</td><td class="num">3,772,614</td><td class="num">43,953,310</td></tr>
+        <tr><th class="c" rowspan="3">소계</th><th class="c" colspan="3">간접비계</th><td class="num">14,400,000</td><td></td><td></td><td class="num">1,173,913</td><td class="num">1,191,534</td><td class="num">16,765,447</td></tr>
+    <tr><th class="c" colspan="3">직접비계</th><td class="num">37,152,000</td><td></td><td></td><td class="num">3,028,696</td><td class="num">3,772,614</td><td class="num">43,953,310</td></tr>
+    <tr><th class="c" colspan="3">총 인건비계</th><td class="num">51,552,000</td><td class="c">-</td><td class="c">-</td><td class="num">4,202,609</td><td class="num">4,964,148</td><td class="num">60,718,757</td></tr>
+  </table>
+  <table class="form" style="margin-top:8mm; width:70%">
+    <tr><th class="c" rowspan="2" style="width:30mm">직접인건비 비율</th><td class="c">직접인건비 &nbsp; 43,953,310</td><th class="c" rowspan="2" style="width:16mm">=</th><td class="num" rowspan="2"><strong>62.45%</strong></td></tr>
+    <tr><td class="c" style="border-top:2px solid #222">입소자비용수입+장기요양급여수입 &nbsp; 70,380,480</td></tr>
+  </table>
+  <div class="pageno">10</div>
+</section>
+      <section class="sheet fit">
+  <p class="doc-no">15. 예산서</p>  <h1>방문목욕 예산총칙</h1>
+  <p style="text-align:right">산정기간 : 2026년 1월~12월 (12개월)</p>
+  <table class="form">
+    <tr><th class="c">세입</th><th class="c">세출</th><th class="c">잔액</th></tr>
+    <tr><td class="num">19,221,558</td><td class="num">19,221,558</td><td class="num">0</td></tr>
+  </table>
+  <h2 style="margin-top:10mm">[주요내역]</h2>
+  <table class="form">
+    <tr><th class="c" colspan="2">세입</th><th class="c" colspan="2">세출</th></tr>
+              <tr><td>입소자(이용자)부담금수입</td><td class="num">1,752,840</td><td>인건비</td><td class="num">16,071,558</td></tr>
+          <tr><td>요양급여수입</td><td class="num">12,269,880</td><td>업무추진비</td><td class="num">1,200,000</td></tr>
+          <tr><td>전입금</td><td class="num">5,198,838</td><td>운영비</td><td class="num">1,950,000</td></tr>
+      </table>
+  <div class="pageno">11</div>
+</section>
+      <section class="sheet tight">
+  <p class="doc-no">15. 예산서</p>  <p class="form-tag">[별지 제1호서식] &lt;개정 2005.07.15&gt; <span style="margin-left:8mm; font-size:14pt">방문목욕 세입명세서</span></p>
+  <p style="text-align:right">산정기간 : 2026년 1월~12월 (12개월)</p>
+  <table class="form dense">
+    <tr><th class="c" colspan="3">과목</th><th class="c" rowspan="2" style="width:9mm">전년도<br>예산액</th><th class="c" rowspan="2" style="width:18mm">당해연도<br>예산액</th><th class="c" rowspan="2" style="width:6mm">증감</th><th class="c" rowspan="2">산출근거</th></tr>
+    <tr><th class="c" style="width:18mm">관</th><th class="c" style="width:16mm">항</th><th class="c" style="width:20mm">목</th></tr>
+    <tr><td>이용자부담금수입</td><td>이용비용수입</td><td>본인부담금수입</td><td class="c">-</td><td class="num">1,752,840</td><td></td><td style="font-size:8pt; line-height:1.5">방문목욕(차량미이용)(4등급) &nbsp; 48,690 원 X 5명 X 4 일 X 12 개월 X 15% = 1,752,840<br></td></tr>
+    <tr><td>요양급여수입</td><td>요양급여수입</td><td>장기요양급여수입</td><td class="c">-</td><td class="num">12,269,880</td><td></td><td style="font-size:8pt; line-height:1.5">방문목욕(차량미이용)(4등급) &nbsp; 48,690 원 X 5명 X 4 일 X 12 개월 X 85% = 9,932,760<br>방문목욕(차량미이용)(3등급) &nbsp; 48,690 원 X 1명 X 4 일 X 12 개월 X 100% = 2,337,120<br></td></tr>
+    <tr><td>전입금</td><td>전입금</td><td>기타전입금</td><td class="c">-</td><td class="num">5,198,838</td><td></td><td style="font-size:8pt">기타전입금 5,198,838원</td></tr>
+        <tr><th class="c" colspan="4">합계</th><th class="num">19,221,558</th><th></th><th></th></tr>
+  </table>
+  <div class="pageno">12</div>
+</section>
+      <section class="sheet tight xs">
+  <p class="doc-no">15. 예산서</p>  <p class="form-tag">[별지 제1호서식] &lt;개정 2005.07.15&gt; <span style="margin-left:8mm; font-size:14pt">방문목욕 세출명세서</span></p>
+  <p style="text-align:right">산정기간 : 2026년 1월~12월 (12개월)</p>
+  <table class="form dense" style="font-size:8pt">
+    <tr><th class="c" colspan="3">과목</th><th class="c" rowspan="2" style="width:9mm">전년도<br>예산액</th><th class="c" rowspan="2" style="width:17mm">당해연도<br>예산액</th><th class="c" rowspan="2" style="width:6mm">증감</th><th class="c" rowspan="2">산출근거</th></tr>
+    <tr><th class="c" style="width:10mm">관</th><th class="c" style="width:10mm">항</th><th class="c" style="width:24mm">목</th></tr>
+        <tr><td rowspan="6" class="c">사무비</td><td rowspan="6" class="c">인건비</td><td>급여 (직접비)</td><td class="c">-</td><td class="num">7,680,000</td><td></td><td>요양보호사급여(월 4회) &nbsp; 320,000 원 X 2 명 X 12 개월 = 7,680,000<br></td></tr>
+    <tr><td>퇴직금 및 퇴직적립금 (직접비)</td><td class="c">-</td><td class="num">626,087</td><td></td><td>요양보호사급여(월 4회) 퇴직금 및 퇴직적립금 &nbsp; 960,000 원 / 92 일 X 30 일 X 2 명 = 626,087<br></td></tr>
+    <tr><td>사회보험부담금(직접비)</td><td class="c">-</td><td class="num">779,869</td><td></td><td>사회보험-건강보험(2명) &nbsp; 640,000 원 X 3.545% X 12 개월 = 272,256<br>사회보험-장기요양보험료(2명) &nbsp; 22,688 원 X 12.95% X 12 개월 X 0.5 = 17,629<br>사회보험-국민연금(2명) &nbsp; 640,000 원 X 4.5% X 12 개월 = 345,600<br>사회보험-고용보험(2명) &nbsp; 640,000 원 X 1.15% X 12 개월 = 88,320<br>사회보험-산재보험(2명) &nbsp; 640,000 원 X 0.73% X 12 개월 = 56,064<br></td></tr>
+    <tr><td>급여(간접비)</td><td class="c">-</td><td class="num">6,000,000</td><td></td><td>센터장 급여 &nbsp; 500,000 원 X 1명 X 12 개월 = 6,000,000</td></tr>
+    <tr><td>퇴직금 및 퇴직적립금 (간접비)</td><td class="c">-</td><td class="num">489,130</td><td></td><td>퇴직금 및 퇴직적립금 &nbsp; 1,500,000 원 / 92 일 X 30 일 = 489,130</td></tr>
+    <tr><td>사회보험부담금(간접비)</td><td class="c">-</td><td class="num">496,472</td><td></td><td>사회보험-건강보험 &nbsp; 500,000 원 X 3.545% X 12 개월 = 212,700<br>사회보험-장기요양보험료 &nbsp; 17,725 원 X 12.95% X 12 개월 X 0.5 = 13,772<br>사회보험-국민연금 &nbsp; 500,000 원 X 4.5% X 12 개월 = 270,000<br></td></tr>
+          <tr><td class="c">업무추진비</td><td class="c">업무추진비</td><td>회의비 (간접비)</td><td class="c">-</td><td class="num">1,200,000</td><td></td><td>직원 회의비용 &nbsp; 100,000 원 X 12 개월 = 1,200,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>물품구입비 (간접비)</td><td class="c">-</td><td class="num">1,200,000</td><td></td><td>목욕용품(세정제, 장갑, 소독도구) 구입비 &nbsp; 100,000 원 X 12 개월 = 1,200,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>직원교육비 (간접비)</td><td class="c">-</td><td class="num">50,000</td><td></td><td>직원 교육비 &nbsp; 50,000 원 X 1 개월 = 50,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>복리후생비 (간접비)</td><td class="c">-</td><td class="num">100,000</td><td></td><td>직원 복리후생 경비(건강검진. 포상금 등) &nbsp; 50,000 원 X 1 개월 X 2 명 = 100,000</td></tr>
+          <tr><td class="c">운영비</td><td class="c">운영비</td><td>주유 및 교통비</td><td class="c">-</td><td class="num">600,000</td><td></td><td>주유비 및 교통비 &nbsp; 50,000 원 X 12 개월 = 600,000</td></tr>
+        <tr><th class="c" colspan="4">합계</th><th class="num">19,221,558</th><th></th><th></th></tr>
+  </table>
+  <div class="pageno">13</div>
+</section>
+      <section class="sheet tight">
+  <p class="doc-no">15. 예산서</p>  <p class="form-tag">■ 사회복지법인 및 사회복지시설 재무회계규칙 [별지 제4호의 2서식] &lt;신설 2018.03.30&gt;</p>
+  <h1 style="letter-spacing:.05em">방문목욕 임직원 보수일람표 (인건비명세서)</h1>
+  <p style="text-align:right; font-size:9pt">(앞쪽)</p>
+  <table class="form dense" style="font-size:8.5pt">
+    <tr><th class="c" style="width:8mm">No.</th><th class="c">직종</th><th class="c" style="width:14mm">인건비구분</th><th class="c" style="width:16mm">성명</th><th class="num">급여</th><th class="c" style="width:12mm">각종수당</th><th class="c" style="width:12mm">일용잡금</th><th class="num">퇴직금 및 적립금</th><th class="num">사회보험 부담금</th><th class="num">계</th></tr>
+          <tr><td class="c">1</td><td class="c">센터장</td><td class="c">간접비</td><td class="c">박예비</td><td class="num">6,000,000 원</td><td></td><td></td><td class="num">489,130</td><td class="num">496,472</td><td class="num">6,985,602</td></tr>
+          <tr><td class="c">2</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">김미숙</td><td class="num">3,840,000 원</td><td></td><td></td><td class="num">313,043</td><td class="num">389,934</td><td class="num">4,542,977</td></tr>
+          <tr><td class="c">3</td><td class="c">요양보호사</td><td class="c">직접비</td><td class="c">이정순</td><td class="num">3,840,000 원</td><td></td><td></td><td class="num">313,043</td><td class="num">389,934</td><td class="num">4,542,977</td></tr>
+        <tr><th class="c" rowspan="3">소계</th><th class="c" colspan="3">간접비계</th><td class="num">6,000,000</td><td></td><td></td><td class="num">489,130</td><td class="num">496,472</td><td class="num">6,985,602</td></tr>
+    <tr><th class="c" colspan="3">직접비계</th><td class="num">7,680,000</td><td></td><td></td><td class="num">626,086</td><td class="num">779,868</td><td class="num">9,085,954</td></tr>
+    <tr><th class="c" colspan="3">총 인건비계</th><td class="num">13,680,000</td><td class="c">-</td><td class="c">-</td><td class="num">1,115,216</td><td class="num">1,276,340</td><td class="num">16,071,556</td></tr>
+  </table>
+  <table class="form" style="margin-top:8mm; width:70%">
+    <tr><th class="c" rowspan="2" style="width:30mm">직접인건비 비율</th><td class="c">직접인건비 &nbsp; 9,085,954</td><th class="c" rowspan="2" style="width:16mm">=</th><td class="num" rowspan="2"><strong>64.79%</strong></td></tr>
+    <tr><td class="c" style="border-top:2px solid #222">입소자비용수입+장기요양급여수입 &nbsp; 14,022,720</td></tr>
+  </table>
+  <div class="pageno">14</div>
+</section>
+  </div>
+
+</body>
+</html>

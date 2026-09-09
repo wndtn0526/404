@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="nRouRdENyNo6f8na04ZUmLT5frnoeVSLJxXYdvz2">
+    <meta name="user-authed" content="1">
+        <title>개설 관리 · 콘솔 · 청담원</title>
+    <link rel="stylesheet" href="assets/app.css"><script src="assets/app.js" defer></script>    <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+    
+        
+    </head>
+<body class="flex min-h-screen flex-col bg-background-normal text-label-normal antialiased">
+    <div x-data="{
+        show: false,
+        message: '',
+        isError: false,
+        timer: null,
+        display(message, isError = false) {
+            clearTimeout(this.timer);
+            this.message = message;
+            this.isError = isError;
+            this.show = true;
+            this.timer = setTimeout(() => this.show = false, 4000);
+        },
+     }"
+     x-init="
+        if (show) timer = setTimeout(() => show = false, 4000);
+        window.addEventListener('toast', (e) => display(e.detail.message, e.detail.type === 'error'));
+     "
+     x-show="show" x-cloak
+     x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+     x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2"
+     
+     class="fixed left-1/2 top-5 z-[100] flex w-max max-w-[calc(100vw-2.5rem)] -translate-x-1/2 items-center gap-2.5 rounded-xl px-5 py-3 shadow-elevation-lg"
+     :class="isError ? 'bg-status-negative' : 'bg-status-positive'"
+     role="status" aria-live="polite">
+    <svg width="1em" height="1em" aria-hidden="true" x-show="isError" class="h-5 w-5 shrink-0 text-white" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.9999 16C12.9999 16.5523 12.5522 17 11.9999 17C11.4476 17 10.9999 16.5523 10.9999 16C10.9999 15.4477 11.4476 15 11.9999 15C12.5522 15 12.9999 15.4477 12.9999 16Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M12.9 8C12.9 7.50294 12.4971 7.1 12 7.1C11.5029 7.1 11.1 7.50294 11.1 8V12.5C11.1 12.9971 11.5029 13.4 12 13.4C12.4971 13.4 12.9 12.9971 12.9 12.5V8Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2.09995 12.0001C2.09995 6.53248 6.53231 2.1001 11.9999 2.1001C17.4675 2.1001 21.8999 6.53248 21.8999 12.0001C21.8999 17.4677 17.4675 21.9001 11.9999 21.9001C6.53231 21.9001 2.09995 17.4677 2.09995 12.0001ZM11.9999 3.9001C7.52642 3.9001 3.89994 7.52659 3.89994 12.0001C3.89994 16.4736 7.52642 20.1001 11.9999 20.1001C16.4734 20.1001 20.0999 16.4736 20.0999 12.0001C20.0999 7.52659 16.4734 3.9001 11.9999 3.9001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>    <svg width="1em" height="1em" aria-hidden="true" x-show="! isError" class="h-5 w-5 shrink-0 text-white" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.6466 9.87603C16.9923 9.51888 16.983 8.94911 16.6259 8.60341C16.2687 8.25772 15.6989 8.26701 15.3532 8.62416L10.6773 13.4551L8.64749 11.3523C8.30228 10.9947 7.73252 10.9846 7.3749 11.3298C7.01727 11.675 7.00721 12.2448 7.35242 12.6024L10.0289 15.3752C10.1983 15.5507 10.4318 15.6499 10.6758 15.6501C10.9198 15.6503 11.1534 15.5514 11.3231 15.376L16.6466 9.87603Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C6.53234 2.1001 2.09998 6.53248 2.09998 12.0001C2.09998 17.4677 6.53234 21.9001 11.9999 21.9001C17.4675 21.9001 21.8999 17.4677 21.8999 12.0001C21.8999 6.53248 17.4675 2.1001 11.9999 2.1001ZM3.89997 12.0001C3.89997 7.52659 7.52645 3.9001 11.9999 3.9001C16.4734 3.9001 20.0999 7.52659 20.0999 12.0001C20.0999 16.4736 16.4734 20.1001 11.9999 20.1001C7.52645 20.1001 3.89997 16.4736 3.89997 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>    
+    <p class="flex-1 whitespace-pre-line break-keep text-body-1 font-medium text-white" x-text="message"></p>
+    <button type="button" @click="show = false" aria-label="닫기" class="shrink-0 text-white/70 transition-colors hover:text-white">
+        <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.86352 4.86321C5.21499 4.51174 5.78484 4.51174 6.13631 4.86321L11.9999 10.7268L17.8635 4.86321C18.2149 4.51174 18.7848 4.51174 19.1363 4.86321C19.4877 5.21468 19.4877 5.78453 19.1363 6.13601L13.2727 11.9996L19.1363 17.8632C19.4877 18.2147 19.4877 18.7845 19.1363 19.136C18.7848 19.4875 18.2149 19.4875 17.8635 19.136L11.9999 13.2724L6.13631 19.136C5.78484 19.4875 5.21499 19.4875 4.86352 19.136C4.51205 18.7845 4.51205 18.2147 4.86352 17.8632L10.7271 11.9996L4.86352 6.13601C4.51205 5.78453 4.51205 5.21468 4.86352 4.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>    </button>
+</div>
+    <div x-data="{
+        show: false, title: '', message: '', highlight: '', icon: '', confirmLabel: '확인', cancelLabel: '취소하기', onConfirm: null, onCancel: null,
+        footerText: '', footerLinkLabel: '', footerHref: '', dismissible: false, variant: '', rows: [], note: '', _ov: '',
+        open(d) {
+            this.title = d.title ?? '계속 진행할까요?';
+            this.message = d.message ?? '';
+            this.highlight = d.highlight ?? '';   // 강조 값(전화번호·금액 등) — 제목과 본문 사이 강조 박스로 표시
+            this.icon = d.icon ?? '';             // 상단 아이콘 (사전 등록: check·send·message — 런타임 동적 로드 불가라 화이트리스트)
+            this.confirmLabel = d.confirmLabel ?? '확인';
+            // cancelLabel: null → 알림형(확인 단일 버튼) — 완료 안내 등 취소 개념이 없는 다이얼로그
+            this.cancelLabel = d.cancelLabel === null ? null : (d.cancelLabel ?? '취소하기');
+            this.onConfirm = typeof d.onConfirm === 'function' ? d.onConfirm : null;
+            this.onCancel = typeof d.onCancel === 'function' ? d.onCancel : null;   // 취소·ESC·백드롭 시 실행(선택) — 스위치 원복 등
+            // 버튼 아래 보조 안내 + 링크 (로그인 유도 확인창의 '회원가입하기' 등)
+            this.footerText = d.footerText ?? '';
+            this.footerLinkLabel = d.footerLinkLabel ?? '';
+            this.footerHref = d.footerHref ?? '';
+            // dismissible: true → 우상단 X 닫기 (취소 버튼 없이 CTA 하나로 두는 초대형 모달 — 로그인 유도 등)
+            this.dismissible = d.dismissible === true;
+            // rows: [[라벨, 값], ...] → 라벨-값 요약 카드 (접수 완료 등)
+            this.rows = Array.isArray(d.rows) ? d.rows : [];
+            // note: 목록 **아래** 한 줄 — 「…이렇게 진행할까요?」처럼 목록을 보고 나서 답해야 하는 질문 자리.
+            // message는 목록 위에 오므로 질문을 거기 두면 「묻고 나서 근거를 보여주는」 순서가 된다.
+            this.note = d.note ?? '';
+            // variant: 'grid' → 그리드형 백오피스 스킨(12px·각진 패널·.ec-btn). 그리드 모달 안에서 열리는 확인창은
+            // 같은 결이어야 한다 — 기본 스킨(둥근 카드·16px·브랜드 버튼)을 쓰면 장르가 튄다.
+            this.variant = d.variant === 'grid' ? 'grid' : '';
+            this.show = true;
+        },
+        ok() { this.show = false; this.onConfirm && this.onConfirm(); },
+        close() { if (! this.show) return; this.show = false; this.onCancel && this.onCancel(); },
+     }"
+     x-init="window.addEventListener('confirm', (e) => open(e.detail ?? {}))"
+     x-effect="show ? (_ov = document.documentElement.style.overflow, document.documentElement.style.overflow = 'hidden') : (document.documentElement.style.overflow = _ov)"
+     @keydown.escape.window="close()" data-embed-overlay>
+
+    
+    <div x-show="show && variant !== 'grid'" x-cloak class="fixed inset-0 z-[90] flex items-center justify-center p-5">
+        
+        <div x-show="show" x-cloak
+             x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+             @click="close()" class="absolute inset-0 bg-inverse-background/40"></div>
+        
+        <div x-show="show" x-cloak
+             x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2 scale-[0.98]" x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0 scale-100" x-transition:leave-end="opacity-0 translate-y-2 scale-[0.98]"
+             role="dialog" aria-modal="true" :aria-label="title"
+             class="relative w-full max-w-[420px] rounded-2xl bg-background-normal p-8 shadow-elevation-xl">
+            
+            <button x-show="dismissible" x-cloak type="button" @click="close()" aria-label="닫기"
+                    class="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-lg text-label-alternative transition-colors hover:bg-fill-alternative">
+                <svg width="1em" height="1em" aria-hidden="true" class="h-[22px] w-[22px]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.86352 4.86321C5.21499 4.51174 5.78484 4.51174 6.13631 4.86321L11.9999 10.7268L17.8635 4.86321C18.2149 4.51174 18.7848 4.51174 19.1363 4.86321C19.4877 5.21468 19.4877 5.78453 19.1363 6.13601L13.2727 11.9996L19.1363 17.8632C19.4877 18.2147 19.4877 18.7845 19.1363 19.136C18.7848 19.4875 18.2149 19.4875 17.8635 19.136L11.9999 13.2724L6.13631 19.136C5.78484 19.4875 5.21499 19.4875 4.86352 19.136C4.51205 18.7845 4.51205 18.2147 4.86352 17.8632L10.7271 11.9996L4.86352 6.13601C4.51205 5.78453 4.51205 5.21468 4.86352 4.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </button>
+            
+            <span x-show="icon" x-cloak class="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-primary">
+                <svg width="1em" height="1em" aria-hidden="true" x-show="icon === 'check'" class="h-8 w-8 text-white" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3863 6.86321C19.7378 7.21469 19.7378 7.78453 19.3863 8.13601L10.3863 17.136C10.0349 17.4875 9.46503 17.4875 9.11356 17.136L4.61358 12.636C4.26211 12.2845 4.26211 11.7147 4.61358 11.3632C4.96505 11.0117 5.5349 11.0117 5.88637 11.3632L9.74995 15.2268L18.1135 6.86321C18.465 6.51174 19.0348 6.51174 19.3863 6.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                <svg width="1em" height="1em" aria-hidden="true" x-show="icon === 'send'" class="h-8 w-8 text-white" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.49925 3.94938C8.73159 3.53441 8.10185 3.194 7.59674 2.97613C7.11051 2.7664 6.54463 2.57747 5.97628 2.69973C5.22458 2.86143 4.59586 3.37349 4.28537 4.07691C4.05061 4.60876 4.1211 5.20117 4.22807 5.71978C4.3392 6.25853 4.54511 6.94415 4.79612 7.77992L6.06343 11.9999L4.79611 16.2198C4.54511 17.0556 4.3392 17.7412 4.22807 18.28C4.1211 18.7986 4.05061 19.391 4.28537 19.9228C4.59586 20.6262 5.22458 21.1383 5.97628 21.3C6.54463 21.4223 7.11051 21.2333 7.59674 21.0236C8.10184 20.8057 8.73156 20.4653 9.49921 20.0504L20.359 14.1802C20.7525 13.9675 21.1009 13.7792 21.3647 13.6037C21.6294 13.4277 21.9463 13.1792 22.1239 12.7921C22.3546 12.2891 22.3546 11.7106 22.1239 11.2076C21.9463 10.8205 21.6294 10.572 21.3647 10.396C21.1009 10.2205 20.7525 10.0322 20.359 9.81955L9.49925 3.94938ZM5.90635 5.21858C5.75244 4.7061 6.29558 4.26374 6.7663 4.51818L20.4445 11.9118C20.469 11.9251 20.4787 11.9378 20.4842 11.9475C20.4913 11.9599 20.497 11.978 20.497 11.9998C20.497 12.0217 20.4913 12.0397 20.4842 12.0521C20.4787 12.0618 20.469 12.0745 20.4445 12.0878L6.7663 19.4814C6.29558 19.7359 5.75244 19.2935 5.90635 18.781L7.67255 12.8999H13C13.497 12.8999 13.9 12.4969 13.9 11.9999C13.9 11.5028 13.497 11.0999 13 11.0999H7.67259L5.90635 5.21858Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                <svg width="1em" height="1em" aria-hidden="true" x-show="icon === 'message'" class="h-8 w-8 text-white" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.34986 10C7.34986 9.50294 7.75281 9.1 8.24986 9.1H15.7498C16.2469 9.1 16.6498 9.50294 16.6498 10C16.6498 10.4971 16.2469 10.9 15.7498 10.9H8.24986C7.75281 10.9 7.34986 10.4971 7.34986 10Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M7.34986 14C7.34986 13.5029 7.75281 13.1 8.24986 13.1H12.7498C13.2469 13.1 13.6498 13.5029 13.6498 14C13.6498 14.4971 13.2469 14.9 12.7498 14.9H8.24986C7.75281 14.9 7.34986 14.4971 7.34986 14Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.0002 2.3501C6.67066 2.3501 2.35022 6.67055 2.35022 12.0001C2.35022 17.3296 6.67066 21.6501 12.0002 21.6501C13.5385 21.6501 14.9949 21.2895 16.2873 20.6476L18.0997 21.1419C18.5099 21.2538 18.8758 21.3537 19.1764 21.4067C19.481 21.4605 19.867 21.4971 20.2527 21.3499C20.7579 21.157 21.157 20.7579 21.3499 20.2526C21.4972 19.867 21.4606 19.4809 21.4068 19.1763C21.3537 18.8758 21.2539 18.51 21.142 18.0998L20.6477 16.2873C21.2895 14.9948 21.6501 13.5384 21.6501 12.0001C21.6501 6.67055 17.3297 2.3501 12.0002 2.3501ZM4.15027 12.0002C4.15027 7.66475 7.66483 4.15019 12.0002 4.15019C16.3357 4.15019 19.8502 7.66475 19.8502 12.0002C19.8502 13.3615 19.5045 14.6393 18.8967 15.7534C18.7854 15.9575 18.7573 16.1969 18.8185 16.4212L19.6715 19.5487C19.6784 19.5742 19.6763 19.5899 19.6731 19.6009C19.6692 19.6146 19.6606 19.6308 19.6457 19.6457C19.6309 19.6605 19.6146 19.6692 19.6009 19.6731C19.5899 19.6763 19.5742 19.6784 19.5487 19.6714L16.4212 18.8185C16.1969 18.7573 15.9576 18.7853 15.7534 18.8967C14.6394 19.5045 13.3615 19.8502 12.0002 19.8502C7.66483 19.8502 4.15027 16.3356 4.15027 12.0002Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </span>
+            <h2 class="whitespace-pre-line break-keep text-heading-2 font-bold text-label-strong" :class="highlight && 'text-center'" x-text="title"></h2>
+            
+            <p x-show="highlight" x-cloak class="mt-5 rounded-xl bg-background-alternative py-4 text-center text-title-3 font-bold tabular-nums tracking-wide text-label-strong" x-text="highlight"></p>
+            
+            
+            <p x-show="message" class="whitespace-pre-line break-keep text-body-1 leading-relaxed text-label-normal" :class="highlight ? 'mt-2 text-center' : 'mt-6'" x-text="message"></p>
+            
+            <div x-show="rows.length" x-cloak class="mt-5 flex flex-col gap-2.5 rounded-xl border border-line-solid-neutral bg-background-alternative px-5 py-4">
+                <template x-for="row in rows" :key="row[0]">
+                    <div class="flex items-start justify-between gap-4 text-body-2">
+                        <span class="shrink-0 text-label-alternative" x-text="row[0]"></span>
+                        <span class="text-right font-semibold text-label-strong" x-text="row[1]"></span>
+                    </div>
+                </template>
+            </div>
+            
+            <p x-show="note" x-cloak class="mt-5 whitespace-pre-line break-keep text-body-1 leading-relaxed text-label-normal" x-text="note"></p>
+            <div class="mt-8 flex gap-3">
+                <template x-if="cancelLabel">
+                    <button
+     type="button"         class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-fill-normal text-label-normal hover:bg-fill-strong active:bg-fill-strong disabled:bg-interaction-disable disabled:text-label-disable h-12 px-5 text-body-1  flex-1" @click="close()"
+>
+    
+    <span x-text="cancelLabel">취소하기</span>
+
+    </button>
+                </template>
+                <button
+     type="button"         class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-primary text-white hover:bg-primary-strong active:bg-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-12 px-5 text-body-1  flex-1" @click="ok()"
+>
+    
+    <span x-text="confirmLabel">확인</span>
+
+    </button>
+            </div>
+            
+            <p x-show="footerText || footerLinkLabel" x-cloak class="mt-5 text-center text-body-2 text-label-alternative">
+                <span x-show="footerText" x-text="footerText"></span>
+                <a x-show="footerLinkLabel" :href="footerHref" class="ml-1 font-semibold text-primary underline underline-offset-2 hover:no-underline" x-text="footerLinkLabel"></a>
+            </p>
+        </div>
+    </div>
+
+    
+    <div x-show="show && variant === 'grid'" x-cloak class="ec ec-modal" style="z-index:90"
+         role="dialog" aria-modal="true" :aria-label="title">
+        <div class="ec-modal__dim" @click="close()"></div>
+        <div class="ec-panel ec-modal__box" style="max-width:420px">
+            <div class="ec-panel__head">
+                <span x-text="title">계속 진행할까요?</span>
+                <button type="button" class="ec-btn" style="margin-left:auto" @click="close()">닫기</button>
+            </div>
+            <div class="ec-modal__body">
+                <p x-show="message" x-cloak class="whitespace-pre-line break-keep pt-1" x-text="message"></p>
+                
+                <p x-show="highlight" x-cloak class="pt-2 tabular-nums" style="font-weight:700" x-text="highlight"></p>
+                <table x-show="rows.length" x-cloak class="ec-form" style="margin-top:8px">
+                    <tbody>
+                        <template x-for="row in rows" :key="row[0]">
+                            <tr>
+                                <th style="width:104px" x-text="row[0]"></th>
+                                <td x-text="row[1]"></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+                <p x-show="note" x-cloak class="whitespace-pre-line break-keep pb-1 pt-2" x-text="note"></p>
+                <p x-show="footerText || footerLinkLabel" x-cloak class="pb-1 pt-2" style="color:var(--ec-ink-2)">
+                    <span x-show="footerText" x-text="footerText"></span>
+                    <a x-show="footerLinkLabel" :href="footerHref" class="underline underline-offset-2"
+                       style="color:var(--ec-accent)" x-text="footerLinkLabel"></a>
+                </p>
+            </div>
+            
+            <div class="ec-modal__foot">
+                <template x-if="cancelLabel">
+                    <button type="button" class="ec-btn" @click="close()" x-text="cancelLabel">취소하기</button>
+                </template>
+                <button type="button" class="ec-btn ec-btn--primary" @click="ok()" x-text="confirmLabel">확인</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <div x-data="{
+        raf: null,
+        palette: [],
+        /** DS 토큰 클래스가 붙은 숨은 span에서 실제 색을 읽어온다(토큰이 바뀌면 자동 반영) */
+        readPalette() {
+            if (this.palette.length) return this.palette;
+            this.palette = [...this.$refs.swatches.children].map((el) => getComputedStyle(el).backgroundColor);
+            return this.palette;
+        },
+        start(opt = {}) {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const canvas = this.$refs.canvas;
+            const ctx = canvas.getContext('2d');
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            const W = window.innerWidth, H = window.innerHeight;
+            canvas.width = W * dpr; canvas.height = H * dpr;
+            canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            const colors = this.readPalette();
+            const count = opt.count ?? 140;
+            const duration = opt.duration ?? 1800;
+            const rand = (a, b) => a + Math.random() * (b - a);
+
+            // 화면 중앙에서 360° 바깥쪽으로 터진다(원형 버스트) — 각도를 균등 분배하고 살짝 흔들어 뭉침 방지
+            const ox = W / 2, oy = H / 2;
+            const bits = Array.from({ length: count }, (_, i) => {
+                const angle = (Math.PI * 2 * i) / count + rand(-0.08, 0.08);
+                const speed = rand(9, 21);
+                return {
+                    x: ox, y: oy,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    w: rand(6, 11), h: rand(8, 15),
+                    rot: rand(0, Math.PI * 2), vr: rand(-0.22, 0.22),
+                    color: colors[i % colors.length],
+                };
+            });
+
+            const t0 = performance.now();
+            const tick = (now) => {
+                const t = now - t0;
+                if (t > duration) { ctx.clearRect(0, 0, W, H); this.raf = null; return; }
+                const fade = t > duration * 0.65 ? 1 - (t - duration * 0.65) / (duration * 0.35) : 1;
+                ctx.clearRect(0, 0, W, H);
+                ctx.globalAlpha = Math.max(fade, 0);
+                for (const b of bits) {
+                    b.vy += 0.22;            // 중력 — 중앙 버스트는 바깥으로 퍼지는 궤적이 먼저 읽히도록 약하게
+                    b.vx *= 0.988;           // 공기 저항
+                    b.vy *= 0.994;
+                    b.x += b.vx; b.y += b.vy; b.rot += b.vr;
+                    ctx.save();
+                    ctx.translate(b.x, b.y);
+                    ctx.rotate(b.rot);
+                    ctx.fillStyle = b.color;
+                    ctx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h);
+                    ctx.restore();
+                }
+                ctx.globalAlpha = 1;
+                this.raf = requestAnimationFrame(tick);
+            };
+            cancelAnimationFrame(this.raf);
+            this.raf = requestAnimationFrame(tick);
+        },
+     }"
+     x-init="window.addEventListener('celebrate', (e) => start(e.detail ?? {}))"
+     aria-hidden="true">
+    
+    <div x-ref="swatches" class="hidden">
+        <span class="bg-primary"></span>
+        <span class="bg-primary-strong"></span>
+        <span class="bg-accent-fg-green"></span>
+        <span class="bg-accent-fg-orange"></span>
+        <span class="bg-accent-fg-blue"></span>
+        <span class="bg-accent-fg-violet"></span>
+    </div>
+    <canvas x-ref="canvas" class="pointer-events-none fixed inset-0 z-[95]"></canvas>
+</div>
+    <div x-data="{
+        show: false, title: '', message: '', label: '', placeholder: '', value: '', type: 'text', confirmLabel: '확인', onConfirm: null, _ov: '',
+        open(d) {
+            this.title = d.title ?? '값을 입력해 주세요.';
+            this.message = d.message ?? '';
+            this.label = d.label ?? '';
+            this.placeholder = d.placeholder ?? '';
+            this.value = d.value ?? '';
+            // 비밀번호를 받는 자리에서 값이 화면에 그대로 보이면 안 된다(어깨너머 노출)
+            this.type = d.type ?? 'text';
+            this.confirmLabel = d.confirmLabel ?? '확인';
+            this.onConfirm = typeof d.onConfirm === 'function' ? d.onConfirm : null;
+            this.show = true;
+            this.$nextTick(() => this.$refs.input?.focus());
+        },
+        ok() { if (! this.value.trim()) return; this.show = false; this.onConfirm && this.onConfirm(this.value.trim()); },
+     }"
+     x-init="window.addEventListener('prompt', (e) => open(e.detail ?? {}))"
+     x-effect="show ? (_ov = document.documentElement.style.overflow, document.documentElement.style.overflow = 'hidden') : (document.documentElement.style.overflow = _ov)"
+     x-show="show" x-cloak @keydown.escape.window="show = false"
+     data-embed-overlay class="fixed inset-0 z-[90] flex items-center justify-center p-5">
+    <div x-show="show" x-cloak
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+         @click="show = false" class="absolute inset-0 bg-inverse-background/40"></div>
+    <div x-show="show" x-cloak
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2 scale-[0.98]" x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0 scale-100" x-transition:leave-end="opacity-0 translate-y-2 scale-[0.98]"
+         role="dialog" aria-modal="true" :aria-label="title"
+         class="relative w-full max-w-[420px] rounded-2xl bg-background-normal p-8 shadow-elevation-xl">
+        <h2 class="text-heading-1 font-bold text-label-strong" x-text="title"></h2>
+        <p x-show="message" class="mt-2 whitespace-pre-line break-keep text-body-1 leading-relaxed text-label-alternative" x-text="message"></p>
+        <div class="mt-5">
+            <label x-show="label" class="mb-1.5 block text-label-1 font-semibold text-label-neutral" x-text="label"></label>
+            <input :type="type" x-ref="input" x-model="value" :placeholder="placeholder" @keydown.enter.prevent="ok()"
+                   class="h-12 w-full rounded-xl border border-line-solid-normal bg-background-normal px-4 text-body-1 text-label-normal placeholder:text-label-assistive transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
+        </div>
+        <div class="mt-6 flex gap-2.5">
+            <button
+     type="button"         class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-fill-normal text-label-normal hover:bg-fill-strong active:bg-fill-strong disabled:bg-interaction-disable disabled:text-label-disable h-12 px-5 text-body-1  flex-1" @click="show = false"
+>
+    
+    취소하기
+
+    </button>
+            <button
+     type="button"         class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-primary text-white hover:bg-primary-strong active:bg-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-12 px-5 text-body-1  flex-1" :class="! value.trim() && 'pointer-events-none opacity-40'" @click="ok()"
+>
+    
+    <span x-text="confirmLabel">확인</span>
+
+    </button>
+        </div>
+    </div>
+</div>
+    
+    <script>
+        document.addEventListener('click', (e) => {
+            const el = e.target.closest('[data-requires-auth]');
+            if (! el) return;
+            if (document.querySelector('meta[name=user-authed]')?.content === '1') return;
+            e.preventDefault();
+            const target = el.getAttribute('href') || el.dataset.authTarget || location.pathname;
+            window.dispatchEvent(new CustomEvent('confirm', { detail: {
+                title: '로그인이 필요해요',
+                message: '로그인하시면 이어서 이용하실 수 있어요.',
+                confirmLabel: '로그인 하기', cancelLabel: null, dismissible: true,
+                footerText: '아직 청담원 회원이 아니신가요?', footerLinkLabel: '회원가입하기', footerHref: '/signup',
+                onConfirm: () => { location.href = '/login?redirect=' + encodeURIComponent(target); },
+            } }));
+        });
+    </script>
+    <div class="flex min-h-screen bg-background-alternative-strong">
+
+        
+        <aside class="sticky top-0 z-30 hidden h-screen w-[240px] shrink-0 self-start bg-workspace-bg lg:flex">
+            
+            <div class="flex w-14 shrink-0 flex-col items-center gap-1 border-r border-white/5 pt-3">
+                                    <a href="#"
+                       title="콘솔"
+                       aria-label="콘솔"
+                        aria-current="page"                        class="flex h-9 w-9 items-center justify-center rounded-lg transition-colors bg-console-nav-active text-inverse-label">
+                        <svg width="1em" height="1em" aria-hidden="true" class="h-5 w-5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2.78342 9.6894C2.5066 9.9662 2.26154 10.2112 2.07509 10.4309C1.87654 10.6648 1.69209 10.9284 1.58512 11.2576C1.4285 11.7397 1.4285 12.2589 1.58512 12.7409C1.69209 13.0702 1.87654 13.3338 2.07509 13.5677C2.26153 13.7873 2.50652 14.0323 2.78333 14.3091L3.50231 15.0281C3.7791 15.3049 4.02415 15.55 4.24377 15.7364C4.47766 15.9349 4.74131 16.1194 5.07055 16.2264C5.55258 16.383 6.07181 16.383 6.55384 16.2264C6.88308 16.1194 7.14673 15.9349 7.38062 15.7364C7.60025 15.5499 7.84523 15.3049 8.12204 15.0281L8.84097 14.3092C9.1178 14.0324 9.36285 13.7873 9.5493 13.5677C9.74785 13.3338 9.9323 13.0702 10.0393 12.7409C10.1959 12.2589 10.1959 11.7397 10.0393 11.2576C9.9323 10.9284 9.74785 10.6648 9.5493 10.4309C9.36285 10.2112 9.11784 9.96625 8.84101 9.68945L8.12208 8.97051C7.84527 8.69368 7.60025 8.44864 7.38062 8.26219C7.14673 8.06363 6.88308 7.87919 6.55384 7.77221C6.07181 7.61559 5.55258 7.61559 5.07055 7.77221C4.74131 7.87919 4.47766 8.06363 4.24377 8.26219C4.02415 8.44863 3.77917 8.69363 3.50237 8.97045L2.78342 9.6894ZM3.33291 11.7268C3.35974 11.6741 3.42314 11.595 3.86751 11.1506L4.96353 10.0546C5.4079 9.61024 5.487 9.54683 5.53966 9.52C5.71079 9.43281 5.91332 9.43281 6.08445 9.52C6.1371 9.54683 6.21621 9.61023 6.66058 10.0546L7.7566 11.1506C8.20097 11.595 8.26437 11.6741 8.2912 11.7268C8.3784 11.8979 8.3784 12.1004 8.2912 12.2715C8.26437 12.3242 8.20097 12.4033 7.7566 12.8477L6.66058 13.9437C6.21621 14.3881 6.1371 14.4515 6.08445 14.4783C5.91332 14.5655 5.71079 14.5655 5.53966 14.4783C5.487 14.4515 5.4079 14.3881 4.96353 13.9437L3.86751 12.8477C3.42314 12.4033 3.35974 12.3242 3.33291 12.2715C3.24571 12.1004 3.24571 11.8979 3.33291 11.7268Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.97128 15.8773C8.69445 16.1541 8.44941 16.3991 8.26296 16.6187C8.0644 16.8526 7.87996 17.1163 7.77298 17.4455C7.61636 17.9276 7.61636 18.4468 7.77298 18.9288C7.87996 19.2581 8.0644 19.5217 8.26296 19.7556C8.4494 19.9752 8.6944 20.2202 8.97122 20.497L9.69018 21.216C9.96697 21.4928 10.212 21.7378 10.4316 21.9243C10.6655 22.1228 10.9292 22.3073 11.2584 22.4143C11.7404 22.5709 12.2597 22.5709 12.7417 22.4143C13.0709 22.3073 13.3346 22.1228 13.5685 21.9243C13.7881 21.7378 14.0331 21.4928 14.3099 21.216L15.0288 20.4971C15.3057 20.2202 15.5507 19.9752 15.7372 19.7556C15.9357 19.5217 16.1202 19.2581 16.2271 18.9288C16.3838 18.4468 16.3838 17.9276 16.2271 17.4455C16.1202 17.1163 15.9357 16.8526 15.7372 16.6187C15.5507 16.3991 15.3057 16.1541 15.0289 15.8773L14.3099 15.1584C14.0331 14.8816 13.7881 14.6365 13.5685 14.4501C13.3346 14.2515 13.0709 14.0671 12.7417 13.9601C12.2597 13.8035 11.7404 13.8035 11.2584 13.9601C10.9292 14.0671 10.6655 14.2515 10.4316 14.4501C10.212 14.6365 9.96702 14.8815 9.69021 15.1584L8.97128 15.8773ZM9.52077 17.9146C9.5476 17.862 9.611 17.7829 10.0554 17.3385L11.1514 16.2425C11.5958 15.7981 11.6749 15.7347 11.7275 15.7079C11.8987 15.6207 12.1012 15.6207 12.2723 15.7079C12.325 15.7347 12.4041 15.7981 12.8484 16.2425L13.9445 17.3385C14.3888 17.7829 14.4522 17.862 14.4791 17.9146C14.5663 18.0858 14.5663 18.2883 14.4791 18.4594C14.4522 18.5121 14.3888 18.5912 13.9445 19.0356L12.8484 20.1316C12.4041 20.5759 12.325 20.6394 12.2723 20.6662C12.1012 20.7534 11.8987 20.7534 11.7275 20.6662C11.6749 20.6394 11.5958 20.5759 11.1514 20.1316L10.0554 19.0356C9.611 18.5912 9.5476 18.5121 9.52077 18.4594C9.43358 18.2883 9.43358 18.0858 9.52077 17.9146Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.97128 3.50292L9.69018 2.78403C9.967 2.50718 10.212 2.26216 10.4316 2.0757C10.6655 1.87715 10.9292 1.6927 11.2584 1.58573C11.7404 1.42911 12.2597 1.42911 12.7417 1.58573C13.0709 1.6927 13.3346 1.87715 13.5685 2.0757C13.7881 2.26216 14.0331 2.50718 14.3099 2.78403L15.0288 3.50292C15.3057 3.77975 15.5507 4.02474 15.7372 4.24438C15.9357 4.47827 16.1202 4.74192 16.2271 5.07116C16.3838 5.55319 16.3838 6.07242 16.2271 6.55445C16.1202 6.88369 15.9357 7.14734 15.7372 7.38123C15.5507 7.60086 15.3057 7.84584 15.0289 8.12265L14.3099 8.84158C14.0331 9.11842 13.7881 9.36346 13.5685 9.54991C13.3346 9.74846 13.0709 9.93291 12.7417 10.0399C12.2597 10.1965 11.7404 10.1965 11.2584 10.0399C10.9292 9.93291 10.6655 9.74846 10.4316 9.54991C10.212 9.36345 9.96701 9.11844 9.6902 8.8416L8.97128 8.12269C8.69444 7.84587 8.44941 7.60086 8.26296 7.38123C8.0644 7.14734 7.87996 6.88369 7.77298 6.55445C7.61636 6.07242 7.61636 5.55319 7.77298 5.07116C7.87996 4.74192 8.0644 4.47827 8.26296 4.24438C8.44942 4.02474 8.69443 3.77975 8.97128 3.50292ZM10.0554 4.96414C9.611 5.40851 9.5476 5.48761 9.52077 5.54027C9.43358 5.7114 9.43358 5.91393 9.52077 6.08506C9.5476 6.13772 9.611 6.21682 10.0554 6.66119L11.1514 7.75721C11.5958 8.20158 11.6749 8.26498 11.7275 8.29181C11.8987 8.37901 12.1012 8.37901 12.2723 8.29181C12.325 8.26498 12.4041 8.20158 12.8484 7.75721L13.9445 6.66119C14.3888 6.21682 14.4522 6.13772 14.4791 6.08506C14.5663 5.91393 14.5663 5.7114 14.4791 5.54027C14.4522 5.48761 14.3888 5.40851 13.9445 4.96414L12.8484 3.86812C12.4041 3.42375 12.325 3.36035 12.2723 3.33352C12.1012 3.24632 11.8987 3.24632 11.7275 3.33352C11.6749 3.36035 11.5958 3.42375 11.1514 3.86812L10.0554 4.96414Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M15.1588 9.69045C14.882 9.96727 14.6369 10.2123 14.4505 10.4319C14.2519 10.6658 14.0675 10.9295 13.9605 11.2587C13.8039 11.7407 13.8039 12.26 13.9605 12.742C14.0675 13.0712 14.2519 13.3349 14.4505 13.5688C14.6369 13.7884 14.882 14.0334 15.1588 14.3102L15.8777 15.0291C16.1545 15.306 16.3995 15.551 16.6192 15.7374C16.8531 15.936 17.1167 16.1204 17.4459 16.2274C17.928 16.384 18.4472 16.384 18.9292 16.2274C19.2585 16.1204 19.5221 15.936 19.756 15.7374C19.9757 15.551 20.2206 15.306 20.4975 15.0291L21.2164 14.3102C21.4932 14.0334 21.7382 13.7884 21.9247 13.5688C22.1232 13.3349 22.3077 13.0712 22.4147 12.742C22.5713 12.26 22.5713 11.7407 22.4147 11.2587C22.3077 10.9295 22.1232 10.6658 21.9247 10.4319C21.7382 10.2123 21.4932 9.96728 21.2164 9.69045L20.4975 8.97156C20.2206 8.69471 19.9757 8.44969 19.756 8.26323C19.5221 8.06468 19.2585 7.88023 18.9292 7.77325C18.4472 7.61664 17.928 7.61664 17.4459 7.77326C17.1167 7.88023 16.8531 8.06468 16.6192 8.26323C16.3995 8.44969 16.1545 8.6947 15.8777 8.97154L15.1588 9.69045ZM15.7083 11.7278C15.7351 11.6751 15.7985 11.596 16.2429 11.1517L17.3389 10.0557C17.7833 9.61128 17.8624 9.54788 17.9151 9.52105C18.0862 9.43385 18.2887 9.43385 18.4598 9.52105C18.5125 9.54788 18.5916 9.61128 19.036 10.0557L20.132 11.1517C20.5764 11.596 20.6398 11.6751 20.6666 11.7278C20.7538 11.8989 20.7538 12.1015 20.6666 12.2726C20.6398 12.3252 20.5764 12.4044 20.132 12.8487L19.036 13.9447C18.5916 14.3891 18.5125 14.4525 18.4598 14.4793C18.2887 14.5665 18.0862 14.5665 17.9151 14.4793C17.8624 14.4525 17.7833 14.3891 17.3389 13.9447L16.2429 12.8487C15.7985 12.4044 15.7351 12.3252 15.7083 12.2726C15.6211 12.1015 15.6211 11.8989 15.7083 11.7278Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </a>
+                                    <a href="#"
+                       title="백오피스 (새 창)"
+                       aria-label="백오피스 · 새 창에서 열기"
+                        target="_blank" rel="noopener"                        class="flex h-9 w-9 items-center justify-center rounded-lg transition-colors text-console-nav-ink hover:bg-console-nav-active/60 hover:text-inverse-label">
+                        <svg width="1em" height="1em" aria-hidden="true" class="h-5 w-5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.10013 10.9997C6.10013 10.5027 6.50307 10.0997 7.00012 10.0997H11.0001C11.4972 10.0997 11.9001 10.5027 11.9001 10.9997C11.9001 11.4968 11.4972 11.8997 11.0001 11.8997H7.00012C6.50307 11.8997 6.10013 11.4968 6.10013 10.9997Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M6.10013 6.99971C6.10013 6.50265 6.50307 6.09971 7.00012 6.09971H11.0001C11.4972 6.09971 11.9001 6.50265 11.9001 6.99971C11.9001 7.49677 11.4972 7.89971 11.0001 7.89971H7.00012C6.50307 7.89971 6.10013 7.49677 6.10013 6.99971Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.86682 2.09961C5.47535 2.09959 5.1288 2.09958 4.84167 2.12304C4.53589 2.14802 4.21903 2.20403 3.91058 2.3612C3.45899 2.59129 3.09184 2.95845 2.86175 3.41004C2.70458 3.71849 2.64857 4.03534 2.62359 4.34113C2.60013 4.62827 2.60014 4.97474 2.60016 5.36623L2.60016 21.8996H8.98662C8.99111 21.8997 8.99561 21.8997 9.00012 21.8997C9.00463 21.8997 9.00913 21.8997 9.01362 21.8996H14.4789L14.5001 21.8999L14.5213 21.8996H21.4001V13.3663C21.4001 12.9748 21.4001 12.6283 21.3767 12.3411C21.3517 12.0353 21.2957 11.7185 21.1385 11.41C20.9084 10.9584 20.5413 10.5913 20.0897 10.3612C19.7812 10.204 19.4644 10.148 19.1586 10.123C18.8714 10.0996 18.525 10.0996 18.1335 10.0996L15.4001 10.0996L15.4001 5.36628C15.4001 4.97481 15.4001 4.62826 15.3767 4.34113C15.3517 4.03534 15.2957 3.71849 15.1385 3.41004C14.9084 2.95845 14.5413 2.59129 14.0897 2.3612C13.7812 2.20403 13.4644 2.14802 13.1586 2.12304C12.8715 2.09958 12.525 2.09959 12.1336 2.09961H5.86682ZM9.90012 20.0996H13.6002V5.09956C13.6002 4.47113 13.5891 4.37035 13.5708 4.31415C13.5114 4.13149 13.3682 3.98828 13.1856 3.92892C13.1294 3.91066 13.0286 3.89956 12.4002 3.89956H5.60019C4.97175 3.89956 4.87098 3.91066 4.81478 3.92892C4.63212 3.98828 4.48891 4.13149 4.42956 4.31415C4.41129 4.37035 4.40019 4.47113 4.40019 5.09956V20.0996H8.10012V16.9997C8.10012 16.5027 8.50306 16.0997 9.00012 16.0997C9.49717 16.0997 9.90012 16.5027 9.90012 16.9997V20.0996ZM19.6001 20.0996H15.4001V11.8996H18.4001C19.0286 11.8996 19.1293 11.9107 19.1856 11.9289C19.3682 11.9883 19.5114 12.1315 19.5708 12.3141C19.589 12.3704 19.6001 12.4711 19.6001 13.0996V20.0996Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </a>
+                                    <a href="#"
+                       title="메인사이트 (새 창)"
+                       aria-label="메인사이트 · 새 창에서 열기"
+                        target="_blank" rel="noopener"                        class="flex h-9 w-9 items-center justify-center rounded-lg transition-colors text-console-nav-ink hover:bg-console-nav-active/60 hover:text-inverse-label">
+                        <svg width="1em" height="1em" aria-hidden="true" class="h-5 w-5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9572 3.90021C11.9857 3.90006 12.0142 3.90006 12.0427 3.90021C12.9308 5.16345 13.6168 6.57908 14.0536 8.10009H9.94626C10.3831 6.57908 11.0691 5.16345 11.9572 3.90021ZM14.3915 4.25896C15.0583 5.45294 15.5756 6.74176 15.9181 8.10009H19.1009C18.0979 6.27771 16.4138 4.88301 14.3915 4.25896ZM19.825 9.90009H16.2625C16.3531 10.5872 16.3999 11.2882 16.3999 12.0001C16.3999 12.712 16.3531 13.413 16.2625 14.1001H19.825C20.0043 13.4303 20.0999 12.7264 20.0999 12.0001C20.0999 11.2738 20.0043 10.5698 19.825 9.90009ZM19.1009 15.9001H15.9181C15.5756 17.2584 15.0583 18.5472 14.3915 19.7412C16.4138 19.1172 18.0979 17.7225 19.1009 15.9001ZM12.0427 20.1C12.0142 20.1001 11.9857 20.1001 11.9572 20.1C11.0691 18.8367 10.3831 17.4211 9.94625 15.9001H14.0536C13.6168 17.4211 12.9308 18.8367 12.0427 20.1ZM9.60836 19.7412C7.58609 19.1172 5.90195 17.7225 4.89894 15.9001H8.08176C8.42428 17.2584 8.94159 18.5473 9.60836 19.7412ZM4.17484 14.1001H7.73741C7.64674 13.413 7.59996 12.712 7.59996 12.0001C7.59996 11.2882 7.64675 10.5872 7.73741 9.90009H4.17485C3.99556 10.5698 3.89997 11.2738 3.89997 12.0001C3.89997 12.7264 3.99556 13.4303 4.17484 14.1001ZM4.89896 8.10009H8.08177C8.42429 6.74175 8.9416 5.45294 9.60838 4.25895C7.5861 4.883 5.90197 6.27771 4.89896 8.10009ZM11.9999 2.1001C6.53234 2.1001 2.09998 6.53248 2.09998 12.0001C2.09998 17.4677 6.53234 21.9001 11.9999 21.9001C17.4675 21.9001 21.8999 17.4677 21.8999 12.0001C21.8999 6.53248 17.4675 2.1001 11.9999 2.1001ZM9.55527 14.1001H14.4446C14.5469 13.415 14.5999 12.7137 14.5999 12.0001C14.5999 11.2865 14.5469 10.5852 14.4446 9.90009H9.55528C9.45297 10.5852 9.39995 11.2865 9.39995 12.0001C9.39995 12.7137 9.45297 13.415 9.55527 14.1001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </a>
+                                    <a href="#"
+                       title="임직원 라운지 (새 창)"
+                       aria-label="임직원 라운지 · 새 창에서 열기"
+                        target="_blank" rel="noopener"                        class="flex h-9 w-9 items-center justify-center rounded-lg transition-colors text-console-nav-ink hover:bg-console-nav-active/60 hover:text-inverse-label">
+                        <svg width="1em" height="1em" aria-hidden="true" class="h-5 w-5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.66543 3.09522C6.13558 3.0952 5.68437 3.09519 5.31395 3.12545C4.92479 3.15725 4.54619 3.22688 4.18426 3.4113C3.63859 3.68933 3.19495 4.13297 2.91691 4.67864C2.7325 5.04058 2.66287 5.41917 2.63107 5.80833C2.60081 6.17875 2.60082 6.62991 2.60083 7.15976V9.49522C2.60083 14.1343 6.36191 17.8962 11.0012 17.8962C14.4304 17.8962 17.3793 15.8408 18.6844 12.8952H20.0007C22.1546 12.8952 23.9007 11.1491 23.9007 8.99522C23.9007 6.84131 22.1546 5.09522 20.0007 5.09522L19.249 5.09644C19.2079 4.95501 19.1546 4.81563 19.0848 4.67864C18.8067 4.13297 18.3631 3.68933 17.8174 3.4113C17.4555 3.22688 17.0769 3.15725 16.6877 3.12545C16.3173 3.09519 15.8661 3.0952 15.3363 3.09522H6.66543ZM19.4007 6.89619C19.4008 6.98178 19.4008 7.06966 19.4008 7.15981V9.49522C19.4008 10.0423 19.3485 10.5772 19.2487 11.0952H20.0007C21.1605 11.0952 22.1007 10.155 22.1007 8.99522C22.1007 7.83564 21.1609 6.89558 20.0014 6.89522L19.4007 6.89619ZM5.16096 4.94886C5.29248 4.90612 5.48632 4.89502 6.30088 4.89502H15.7009C16.5154 4.89502 16.7093 4.90612 16.8408 4.94886C17.1757 5.05767 17.4382 5.32022 17.547 5.6551C17.5898 5.78662 17.6009 5.98046 17.6009 6.79502V9.49502C17.6009 13.1403 14.6461 16.096 11.0012 16.096C7.35626 16.096 4.40088 13.1402 4.40088 9.49502V6.79502C4.40088 5.98046 4.41198 5.78662 4.45472 5.6551C4.56353 5.32022 4.82608 5.05767 5.16096 4.94886Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M3.8511 20.9995C3.8511 20.5025 4.25404 20.0995 4.7511 20.0995H17.7511C18.2482 20.0995 18.6511 20.5025 18.6511 20.9995C18.6511 21.4966 18.2482 21.8995 17.7511 21.8995H4.7511C4.25404 21.8995 3.8511 21.4966 3.8511 20.9995Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </a>
+                            </div>
+
+            
+            <div class="flex min-h-0 flex-1 flex-col pl-3 pr-2">
+                
+                <div class="pt-4">
+                    <p class="truncate text-body-2 font-bold leading-[21px] text-white">청담원</p>
+                    <p class="truncate pt-[2px] text-caption-2 leading-[14px] text-workspace-cool-50">cdw.console.io</p>
+                </div>
+
+                <nav class="flex flex-col gap-2 pt-[17px]" aria-label="콘솔 메뉴">
+                    
+                                            <a href="#" title="홈"
+                                                      class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.3616 2.27647C12.1248 2.21318 11.8755 2.21318 11.6387 2.27647C11.3579 2.3515 11.1251 2.5333 11.0025 2.62905L10.9675 2.65625L4.13427 7.88153C3.74746 8.17676 3.42128 8.42572 3.17853 8.75002C2.96523 9.03498 2.80621 9.35676 2.70942 9.69929C2.59927 10.0891 2.59965 10.4995 2.60009 10.9861L2.60015 17.335C2.60014 17.8648 2.60012 18.316 2.63039 18.6865C2.66218 19.0756 2.73182 19.4542 2.91623 19.8161C3.19426 20.3618 3.6379 20.8055 4.18357 21.0835C4.5455 21.2679 4.9241 21.3375 5.31326 21.3693C5.68367 21.3996 6.13483 21.3996 6.66467 21.3996H11.9898C11.9933 21.3996 11.9969 21.3996 12.0004 21.3996C12.0039 21.3996 12.0075 21.3996 12.011 21.3996H17.3355C17.8653 21.3996 18.3166 21.3996 18.687 21.3693C19.0761 21.3375 19.4547 21.2679 19.8167 21.0835C20.3623 20.8055 20.806 20.3618 21.084 19.8161C21.2684 19.4542 21.338 19.0756 21.3698 18.6865C21.4001 18.316 21.4001 17.8649 21.4001 17.335L21.4001 10.9861C21.4006 10.4994 21.401 10.0891 21.2908 9.69929C21.194 9.35676 21.035 9.03498 20.8217 8.75002C20.5789 8.42572 20.2528 8.17677 19.866 7.88153L13.0328 2.65625L12.9977 2.62905C12.8751 2.5333 12.6423 2.3515 12.3616 2.27647ZM12.9004 19.5994H17.7001C18.5147 19.5994 18.7085 19.5883 18.84 19.5456C19.1749 19.4368 19.4374 19.1742 19.5463 18.8393C19.589 18.7078 19.6001 18.514 19.6001 17.6994V10.883C19.6001 10.4628 19.5965 10.3673 19.5816 10.2869C19.5445 10.0871 19.4528 9.90143 19.3166 9.75057C19.2618 9.68986 19.1881 9.62903 18.8542 9.37376L12.0001 4.1324L5.146 9.37376C4.81217 9.62903 4.73848 9.68986 4.68367 9.75057C4.54748 9.90143 4.45574 10.0871 4.41864 10.2869C4.4037 10.3673 4.40015 10.4628 4.40015 10.883V17.6994C4.40015 18.514 4.41126 18.7078 4.45399 18.8393C4.5628 19.1742 4.82535 19.4368 5.16023 19.5456C5.29175 19.5883 5.48559 19.5994 6.30014 19.5994H11.1004V13.9996C11.1004 13.5026 11.5033 13.0996 12.0004 13.0996C12.4975 13.0996 12.9004 13.5026 12.9004 13.9996V19.5994Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            
+                            <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">홈</span>
+                        </a>
+                                            <a href="#" title="회원 관리"
+                                                      class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.1 7.99961C11.1 5.8457 12.8461 4.09961 15 4.09961C17.1539 4.09961 18.9 5.8457 18.9 7.99961C18.9 10.1535 17.1539 11.8996 15 11.8996C12.8461 11.8996 11.1 10.1535 11.1 7.99961ZM15 5.89961C13.8402 5.89961 12.9 6.83981 12.9 7.99961C12.9 9.15941 13.8402 10.0996 15 10.0996C16.1598 10.0996 17.1 9.15941 17.1 7.99961C17.1 6.83981 16.1598 5.89961 15 5.89961Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.57845 14.4471C11.0215 13.5587 12.9461 13.099 15 13.099C17.0539 13.099 18.9785 13.5587 20.4215 14.4471C21.8784 15.3439 22.9 16.7259 22.9 18.499L22.9 18.8259C22.9 19.0126 22.9 19.2026 22.8868 19.365C22.872 19.5457 22.8364 19.7699 22.7201 19.9982C22.562 20.3086 22.3096 20.561 21.9991 20.7192C21.7709 20.8355 21.5467 20.8711 21.366 20.8859C21.2036 20.8992 21.0136 20.8992 20.827 20.8991L9.17335 20.8999C8.9867 20.9 8.79668 20.9 8.63424 20.8867C8.45351 20.872 8.22926 20.8364 8.001 20.7201C7.69052 20.562 7.43808 20.3095 7.27987 19.9991C7.16357 19.7708 7.128 19.5466 7.11323 19.3658C7.09996 19.2034 7.09999 19.0134 7.10002 18.8267L7.10002 18.499C7.10002 16.7259 8.12163 15.3439 9.57845 14.4471ZM10.5221 15.9799C9.4454 16.6427 8.90001 17.5107 8.90001 18.499L8.90183 19.0981L21.0982 19.0973L21.1 18.499C21.1 17.5107 20.5546 16.6427 19.4779 15.9799C18.3875 15.3086 16.8121 14.899 15 14.899C13.1879 14.899 11.6125 15.3086 10.5221 15.9799Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M2.97452 15.6309C3.9928 14.97 5.30803 14.6454 6.69005 14.6036C6.2356 15.1659 5.86638 15.8057 5.62299 16.5194C4.95883 16.643 4.39174 16.8569 3.95445 17.1408C3.27204 17.5837 2.90002 18.1904 2.90002 18.9983L2.90012 19.0988L5.30125 19.0987C5.30319 19.2293 5.30791 19.3744 5.31917 19.5123C5.34303 19.8044 5.40889 20.2919 5.67604 20.8162C5.69016 20.8439 5.70464 20.8714 5.71947 20.8986L3.0007 20.8988L2.94942 20.899C2.77658 20.8997 2.539 20.9006 2.32219 20.8424C1.75347 20.6897 1.30922 20.2455 1.15649 19.6768C1.09826 19.46 1.0992 19.2224 1.09989 19.0496L1.10003 18.9983C1.10003 17.5054 1.84729 16.3625 2.97452 15.6309Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.49995 7.09951C4.89833 7.09951 3.59996 8.39789 3.59996 9.99951C3.59996 11.6011 4.89833 12.8995 6.49995 12.8995C8.10157 12.8995 9.39993 11.6011 9.39993 9.99951C9.39993 8.39789 8.10157 7.09951 6.49995 7.09951ZM5.39995 9.99951C5.39995 9.392 5.89243 8.89951 6.49995 8.89951C7.10746 8.89951 7.59994 9.392 7.59994 9.99951C7.59994 10.607 7.10746 11.0995 6.49995 11.0995C5.89243 11.0995 5.39995 10.607 5.39995 9.99951Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            
+                            <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">회원 관리</span>
+                        </a>
+                                            <a href="#" title="가맹 및 파트너 문의"
+                                                      class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.24978 10.0503C8.44897 10.0503 7.79978 10.6995 7.79978 11.5003C7.79978 12.3011 8.44897 12.9503 9.24978 12.9503C10.0506 12.9503 10.6998 12.3011 10.6998 11.5003C10.6998 10.6995 10.0506 10.0503 9.24978 10.0503Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M9.24978 13.8021C8.42533 13.8021 7.64662 13.998 7.05906 14.382C6.46302 14.7715 6.04979 15.3698 6.04979 16.129C6.04979 16.4455 6.3064 16.7021 6.62295 16.7021H11.8766C12.1932 16.7021 12.4498 16.4455 12.4498 16.129C12.4498 15.3698 12.0365 14.7715 11.4405 14.382C10.8529 13.998 10.0742 13.8021 9.24978 13.8021Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.63145 3.40937C8.34068 3.34969 8.04496 3.34989 7.69473 3.35013L6.16477 3.35016C5.63491 3.35014 5.18373 3.35013 4.8133 3.38039C4.42414 3.41219 4.04554 3.48182 3.68361 3.66624C3.13795 3.94427 2.6943 4.38791 2.41627 4.93358C2.23186 5.29552 2.16222 5.67411 2.13043 6.06327C2.10016 6.43369 2.10018 6.88491 2.10019 7.41475V16.5856C2.10018 17.1155 2.10016 17.5666 2.13043 17.937C2.16222 18.3262 2.23186 18.7048 2.41627 19.0667C2.6943 19.6124 3.13795 20.056 3.68361 20.3341C4.04554 20.5185 4.42414 20.5881 4.8133 20.6199C5.18371 20.6502 5.63491 20.6502 6.16475 20.6502H17.8356C18.3654 20.6502 18.8166 20.6502 19.187 20.6199C19.5762 20.5881 19.9548 20.5185 20.3167 20.3341C20.8624 20.056 21.306 19.6124 21.584 19.0667C21.7684 18.7048 21.8381 18.3262 21.8699 17.937C21.9001 17.5666 21.9001 17.1154 21.9001 16.5856V9.41471C21.9001 8.88487 21.9001 8.43369 21.8699 8.06327C21.8381 7.67411 21.7684 7.29552 21.584 6.93358C21.306 6.38791 20.8624 5.94427 20.3167 5.66624C19.9548 5.48182 19.5762 5.41219 19.187 5.38039C18.8166 5.35013 18.3654 5.35014 17.8355 5.35016L11.5657 5.35016L10.1362 4.20657C9.86291 3.98759 9.63211 3.8027 9.36778 3.66766C9.13509 3.54878 8.88741 3.4619 8.63145 3.40937ZM4.66029 5.2039C4.79181 5.16116 4.98564 5.15006 5.8002 5.15006H7.76782C8.06888 5.15006 8.1367 5.15195 8.19644 5.16006C8.34404 5.1801 8.48603 5.22991 8.6138 5.30646C8.66551 5.33745 8.71965 5.37834 8.95474 5.56641L10.6878 6.95284C10.8474 7.08051 11.0456 7.15006 11.25 7.15006H18.2002C19.0147 7.15006 19.2085 7.16116 19.3401 7.2039C19.6749 7.31271 19.9375 7.57526 20.0463 7.91014C20.089 8.04166 20.1001 8.2355 20.1001 9.05006V16.9501C20.1001 17.7646 20.089 17.9585 20.0463 18.09C19.9375 18.4249 19.6749 18.6874 19.3401 18.7962C19.2085 18.839 19.0147 18.8501 18.2002 18.8501H5.8002C4.98564 18.8501 4.79181 18.839 4.66029 18.7962C4.32541 18.6874 4.06286 18.4249 3.95405 18.09C3.91131 17.9585 3.90021 17.7646 3.90021 16.9501V7.05006C3.90021 6.2355 3.91131 6.04166 3.95405 5.91014C4.06286 5.57526 4.32541 5.31271 4.66029 5.2039Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            
+                            <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">가맹 및 파트너 문의</span>
+                        </a>
+                                            <a href="console-board.html" title="개설 관리"
+                            aria-current="page"                            class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors bg-workspace-cool-25/28 text-workspace-white">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.00012 10.0997C6.50307 10.0997 6.10013 10.5027 6.10013 10.9997C6.10013 11.4968 6.50307 11.8997 7.00012 11.8997H11.0001C11.4972 11.8997 11.9001 11.4968 11.9001 10.9997C11.9001 10.5027 11.4972 10.0997 11.0001 10.0997H7.00012Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M7.00012 6.09971C6.50307 6.09971 6.10013 6.50266 6.10013 6.99971C6.10013 7.49677 6.50307 7.89971 7.00012 7.89971H11.0001C11.4972 7.89971 11.9001 7.49677 11.9001 6.99971C11.9001 6.50266 11.4972 6.09971 11.0001 6.09971H7.00012Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.86682 2.09961H12.1335C12.5249 2.09959 12.8715 2.09958 13.1586 2.12304C13.4644 2.14802 13.7812 2.20403 14.0897 2.3612C14.5413 2.59129 14.9084 2.95845 15.1385 3.41004C15.2957 3.71849 15.3517 4.03534 15.3767 4.34113C15.4001 4.62826 15.4001 4.97471 15.4001 5.36618L15.4001 10.0996L18.1334 10.0996C18.5249 10.0996 18.8714 10.0996 19.1586 10.123C19.4644 10.148 19.7812 10.204 20.0897 10.3612C20.5413 10.5913 20.9084 10.9584 21.1385 11.41C21.2957 11.7185 21.3517 12.0353 21.3767 12.3411C21.4001 12.6283 21.4001 12.9747 21.4001 13.3662V21.8996H14.5213L14.5001 21.8999L14.4789 21.8996H9.01361L9.00011 21.8997L8.98662 21.8996H2.60016L2.60016 5.36628C2.60014 4.97481 2.60013 4.62826 2.62359 4.34113C2.64857 4.03534 2.70458 3.71849 2.86175 3.41004C3.09184 2.95845 3.45899 2.59129 3.91058 2.3612C4.21903 2.20403 4.53588 2.14802 4.84167 2.12304C5.12879 2.09958 5.47537 2.09959 5.86682 2.09961ZM13.6001 20.0996H9.90011V16.9997C9.90011 16.5027 9.49717 16.0997 9.00011 16.0997C8.50306 16.0997 8.10012 16.5027 8.10012 16.9997V20.0996H4.40019V5.09956C4.40019 4.47113 4.41129 4.37036 4.42956 4.31415C4.48891 4.13149 4.63212 3.98828 4.81478 3.92893C4.87098 3.91066 4.97175 3.89956 5.60018 3.89956H12.4002C13.0286 3.89956 13.1294 3.91066 13.1856 3.92893C13.3682 3.98828 13.5114 4.13149 13.5708 4.31415C13.589 4.37036 13.6001 4.47113 13.6001 5.09956V20.0996ZM15.4001 20.0996H19.6001V13.0996C19.6001 12.4711 19.589 12.3704 19.5708 12.3141C19.5114 12.1315 19.3682 11.9883 19.1855 11.9289C19.1293 11.9107 19.0286 11.8996 18.4001 11.8996H15.4001V20.0996Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M23.1363 4.63645C23.4878 4.28498 23.4878 3.71513 23.1363 3.36366C22.7849 3.01219 22.215 3.0122 21.8635 3.36367L19.4999 5.72731L18.3864 4.61371C18.0349 4.26224 17.465 4.26224 17.1136 4.61371C16.7621 4.96519 16.7621 5.53503 17.1136 5.88651L18.8636 7.63651C19.0323 7.80529 19.2613 7.90011 19.5 7.90011C19.7387 7.90011 19.9676 7.80529 20.1364 7.6365L23.1363 4.63645Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            
+                            <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">개설 관리</span>
+                        </a>
+                                            <a href="#" title="커뮤니티 관리"
+                                                      class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.1792 8.84055C3.25196 9.63935 1.10009 12.3173 1.10009 15.4978C1.10009 16.4295 1.28523 17.3199 1.62131 18.1327L0.991994 20.4402C0.938781 20.6352 0.883865 20.8364 0.853627 21.0076C0.822754 21.1825 0.786643 21.4751 0.904791 21.7845C1.04694 22.1568 1.34101 22.4509 1.71331 22.5931C2.02274 22.7112 2.31535 22.6751 2.49022 22.6442C2.66145 22.614 2.86261 22.5591 3.05754 22.5059L5.36511 21.8765C6.17795 22.2126 7.06837 22.3978 8.00007 22.3978C10.7757 22.3978 13.1686 20.7588 14.2637 18.3959C14.3422 18.398 14.4209 18.3991 14.4999 18.3991C15.8099 18.3991 17.0519 18.0986 18.1588 17.5623L19.8877 18.0338C20.2111 18.1221 20.5109 18.2039 20.7597 18.2478C21.0124 18.2924 21.3611 18.3288 21.7162 18.1932C22.1683 18.0206 22.5254 17.6635 22.698 17.2114C22.8336 16.8563 22.7972 16.5076 22.7526 16.2549C22.7086 16.0061 22.6268 15.7063 22.5386 15.3829L22.0663 13.6513C22.6006 12.5461 22.8999 11.3064 22.8999 9.99913C22.8999 5.35993 19.1391 1.59912 14.4999 1.59912C10.2538 1.59912 6.74357 4.74962 6.1792 8.84055ZM8.04899 8.59793C11.8372 8.62424 14.9 11.7033 14.9 15.4978C14.9 15.8701 14.8706 16.2355 14.8138 16.5918C15.8315 16.5443 16.787 16.2667 17.6316 15.8105C17.8351 15.7006 18.0731 15.6732 18.2962 15.734L20.3257 16.2875C20.6137 16.3661 20.8097 16.419 20.9565 16.4517C20.9237 16.3049 20.8709 16.1089 20.7923 15.821L20.2382 13.7891C20.1774 13.5663 20.2046 13.3286 20.3142 13.1253C20.8152 12.1957 21.0999 11.132 21.0999 9.99913C21.0999 6.35404 18.145 3.39912 14.4999 3.39912C11.3357 3.39912 8.6915 5.62591 8.04899 8.59793ZM13.1 15.4978C13.1 12.6811 10.8167 10.3978 8.00007 10.3978C5.18342 10.3978 2.90008 12.6811 2.90008 15.4978C2.90008 16.2789 3.07509 17.0167 3.38719 17.6762C3.47904 17.8703 3.49847 18.0908 3.44197 18.298L2.78278 20.7151L5.19982 20.0559C5.40698 19.9994 5.62752 20.0188 5.82161 20.1106C6.48112 20.4228 7.2189 20.5978 8.00007 20.5978C10.8167 20.5978 13.1 18.3144 13.1 15.4978Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            
+                            <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">커뮤니티 관리</span>
+                        </a>
+                                            <a href="#" title="임직원 허브"
+                                                      class="flex w-[161px] items-start gap-3 rounded-lg p-2 transition-colors text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.0002 4.1501C7.66476 4.1501 4.15021 7.66466 4.15021 12.0001C4.15021 16.3355 7.66476 19.8501 12.0002 19.8501C13.3615 19.8501 14.6393 19.5044 15.7534 18.8966C15.9575 18.7853 16.1968 18.7572 16.4212 18.8184L18.5356 19.3951C18.9954 19.5205 19.2802 19.5972 19.4893 19.6341C19.5637 19.6473 19.6108 19.6517 19.6372 19.6531C19.6431 19.6484 19.6485 19.643 19.6532 19.6371C19.6517 19.6107 19.6473 19.5636 19.6342 19.4893C19.5973 19.2802 19.5205 18.9953 19.3951 18.5356L18.8185 16.4211C18.7573 16.1968 18.7853 15.9575 18.8967 15.7533C19.5044 14.6392 19.8502 13.3614 19.8502 12.0001C19.8502 7.66466 16.3356 4.1501 12.0002 4.1501ZM2.35022 12.0001C2.35022 6.67055 6.67066 2.3501 12.0002 2.3501C17.3297 2.3501 21.6501 6.67055 21.6501 12.0001C21.6501 13.5384 21.2895 14.9948 20.6477 16.2873L21.142 18.0998C21.2539 18.5099 21.3537 18.8758 21.4068 19.1763C21.4605 19.4809 21.4972 19.867 21.3499 20.2526C21.157 20.7579 20.7579 21.157 20.2527 21.3499C19.867 21.4971 19.4809 21.4605 19.1764 21.4067C18.8758 21.3537 18.51 21.2539 18.0999 21.142L16.2873 20.6476C14.9949 21.2895 13.5385 21.6501 12.0002 21.6501C6.67066 21.6501 2.35022 17.3296 2.35022 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            
+                            <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">임직원 허브</span>
+                        </a>
+                    
+                    
+                    <div class="flex flex-col gap-2" x-data="dsLnbFolder('컨텐츠', false)">
+                        <button type="button" @click="toggle()" x-bind:aria-expanded="open"
+                                class="flex w-[161px] items-start gap-3 rounded-lg p-2 text-left text-workspace-cool-50 transition-colors hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                            <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.2793 2.15275C13.0563 2.09922 12.8293 2.09974 12.6374 2.10018L12.5872 2.10026L7.91462 2.10026C7.38475 2.10024 6.93357 2.10023 6.56314 2.13049C6.17398 2.16229 5.79539 2.23192 5.43346 2.41634C4.88779 2.69437 4.44415 3.13801 4.16612 3.68368C3.98171 4.04562 3.91207 4.42421 3.88028 4.81337C3.85001 5.18378 3.85002 5.63494 3.85004 6.16477V17.8357C3.85002 18.3655 3.85001 18.8167 3.88028 19.1871C3.91207 19.5763 3.98171 19.9549 4.16612 20.3168C4.44415 20.8625 4.88779 21.3061 5.43346 21.5842C5.79539 21.7686 6.17398 21.8382 6.56314 21.87C6.93356 21.9003 7.38472 21.9003 7.91456 21.9003H16.0854C16.6152 21.9003 17.0665 21.9003 17.4369 21.87C17.826 21.8382 18.2046 21.7686 18.5666 21.5842C19.1122 21.3061 19.5559 20.8625 19.8339 20.3168C20.0183 19.9549 20.0879 19.5763 20.1197 19.1871C20.15 18.8167 20.15 18.3656 20.15 17.8357V9.66255L20.1501 9.61237C20.1505 9.4205 20.151 9.19343 20.0975 8.97044C20.0509 8.77656 19.9741 8.59121 19.87 8.42121C19.7501 8.22567 19.5892 8.06549 19.4532 7.93013L19.4177 7.8947L14.3549 2.83241L14.3195 2.79688C14.1841 2.66091 14.024 2.50002 13.8284 2.38021C13.6585 2.27605 13.4731 2.19929 13.2793 2.15275ZM12.6004 3.90049C12.5961 3.90049 12.5917 3.90049 12.5872 3.90049H7.95C7.3751 3.90049 6.99805 3.90119 6.7097 3.92475C6.43186 3.94745 6.31651 3.98681 6.25062 4.02038C6.04364 4.12585 5.87537 4.29412 5.76991 4.5011C5.73633 4.56699 5.69697 4.68234 5.67427 4.96018C5.65071 5.24854 5.65001 5.62559 5.65001 6.20049V17.8005C5.65001 18.3754 5.65071 18.7524 5.67427 19.0408C5.69697 19.3186 5.73633 19.434 5.76991 19.4999C5.87537 19.7069 6.04364 19.8751 6.25062 19.9806C6.31651 20.0142 6.43186 20.0535 6.7097 20.0762C6.99805 20.0998 7.3751 20.1005 7.95 20.1005H16.05C16.6249 20.1005 17.0019 20.0998 17.2903 20.0762C17.5681 20.0535 17.6835 20.0142 17.7494 19.9806C17.9563 19.8751 18.1246 19.7069 18.2301 19.4999C18.2636 19.434 18.303 19.3186 18.3257 19.0408C18.3493 18.7524 18.35 18.3754 18.35 17.8005V9.9002L15.0706 9.9002C14.8163 9.90023 14.5742 9.90025 14.3703 9.88359C14.1479 9.86542 13.8928 9.82303 13.6378 9.69311C13.2803 9.51096 12.9896 9.22029 12.8075 8.86278C12.6775 8.60781 12.6352 8.3527 12.617 8.13029C12.6003 7.92634 12.6003 7.68432 12.6004 7.43002L12.6004 3.90049ZM17.0772 8.1002L14.4004 5.42358V8.0002C14.4004 8.05542 14.4452 8.1002 14.5004 8.1002H17.0772Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">컨텐츠</span>
+                            <span class="shrink-0 transition-transform duration-200" x-bind:class="open ? '' : '-rotate-90'">
+                                <svg width="1em" height="1em" aria-hidden="true" class="size-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.36364 7.36346C3.71511 7.01199 4.28496 7.01199 4.63643 7.36346L12 14.7271L19.3636 7.36346C19.7151 7.01199 20.285 7.01199 20.6364 7.36346C20.9879 7.71493 20.9879 8.28478 20.6364 8.63625L12.6364 16.6362C12.285 16.9877 11.7151 16.9877 11.3636 16.6362L3.36364 8.63625C3.01217 8.28478 3.01217 7.71493 3.36364 7.36346Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                            </span>
+                        </button>
+                        <div x-bind:class="open ? 'flex flex-col gap-2' : 'hidden'">
+                                                            <a href="#"
+                                                                      class="flex w-[161px] items-start gap-3 rounded-lg p-2 pl-10 transition-colors text-workspace-cool-50 hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                                    <span class="min-w-0 flex-1 truncate text-label-1 font-medium leading-5">컨텐츠 관리</span>
+                                </a>
+                                                    </div>
+                    </div>
+
+                    
+                                    </nav>
+
+                
+                <nav class="mt-auto flex flex-col gap-2 pb-[17px]" aria-label="보조 메뉴">
+                    <a href="#"
+                       class="flex w-[161px] items-start gap-3 rounded-lg p-2 text-workspace-cool-50 transition-colors hover:bg-workspace-cool-25/28 hover:text-workspace-white">
+                        <svg width="1em" height="1em" aria-hidden="true" class="size-5 shrink-0" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.04981 12C8.04981 9.81848 9.81827 8.05 11.9998 8.05C14.1813 8.05 15.9498 9.81848 15.9498 12C15.9498 14.1815 14.1813 15.95 11.9998 15.95C9.81827 15.95 8.04981 14.1815 8.04981 12ZM11.9998 9.95C10.8676 9.95 9.9498 10.8678 9.9498 12C9.9498 13.1322 10.8676 14.05 11.9998 14.05C13.132 14.05 14.0498 13.1322 14.0498 12C14.0498 10.8678 13.132 9.95 11.9998 9.95Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10.131 1.97079C10.7376 1.85842 11.3623 1.7998 11.9998 1.7998C12.6373 1.7998 13.262 1.85841 13.8686 1.97079C14.91 2.16373 15.3502 3.11319 15.4926 3.70446C15.589 4.10473 15.8415 4.46312 16.2246 4.68433C16.6075 4.90536 17.0437 4.94495 17.4382 4.82865C18.0215 4.65674 19.0614 4.56445 19.7491 5.36716C20.559 6.31261 21.1993 7.40878 21.6222 8.60855C21.9736 9.60576 21.3725 10.4599 20.9322 10.8783C20.6338 11.1619 20.4496 11.5597 20.4496 12.0022C20.4496 12.4444 20.6335 12.842 20.9317 13.1256C21.3718 13.5442 21.9725 14.3986 21.6206 15.3956C21.1964 16.5973 20.554 17.695 19.7415 18.6412C19.055 19.4408 18.0185 19.3502 17.4362 19.1795C17.0422 19.064 16.607 19.1039 16.2249 19.3245C15.8429 19.545 15.5908 19.9019 15.4938 20.3007C15.3503 20.8905 14.9095 21.8357 13.8712 22.0283C13.2639 22.141 12.6383 22.1998 11.9998 22.1998C11.3615 22.1998 10.7361 22.1411 10.1289 22.0284C9.09019 21.8358 8.6495 20.89 8.50612 20.3001C8.40915 19.9012 8.15701 19.5441 7.77488 19.3235C7.39269 19.1028 6.95733 19.063 6.5633 19.1786C5.98085 19.3494 4.94396 19.4403 4.25729 18.6403C3.44572 17.6949 2.80385 16.5983 2.37982 15.3978C2.02769 14.4009 2.62808 13.5464 3.06804 13.1277C3.36599 12.8442 3.54977 12.4467 3.54977 12.0046C3.54977 11.5621 3.36555 11.1641 3.06695 10.8805C2.6266 10.4623 2.02538 9.60831 2.37653 8.61109C2.79913 7.41098 3.43938 6.31446 4.24923 5.36869C4.93698 4.56551 5.97745 4.658 6.56082 4.83006C6.95546 4.94645 7.39177 4.90689 7.77468 4.68582C8.15801 4.4645 8.41057 4.10587 8.50684 3.70537C8.64903 3.11389 9.08917 2.16382 10.131 1.97079ZM10.4987 3.83504C10.4943 3.83949 10.4882 3.84629 10.4804 3.85628C10.4386 3.91001 10.3876 4.01039 10.3542 4.14947C10.1412 5.03543 9.57763 5.83881 8.72468 6.33126C7.87267 6.82317 6.89634 6.90993 6.02333 6.65245C5.88635 6.61205 5.77408 6.60604 5.70657 6.61545C5.69371 6.61725 5.68461 6.61918 5.67851 6.62077C5.02986 7.38223 4.51685 8.26159 4.17596 9.22152C4.17763 9.2275 4.18047 9.23613 4.18521 9.2478C4.21075 9.31067 4.27201 9.40465 4.37546 9.50291C5.03599 10.1303 5.44976 11.0199 5.44976 12.0046C5.44976 12.9881 5.03699 13.8768 4.37787 14.5041C4.27451 14.6024 4.21335 14.6965 4.18787 14.7594C4.18314 14.771 4.18032 14.7797 4.17865 14.7856C4.5207 15.7459 5.03504 16.6253 5.6851 17.3866C5.69117 17.3881 5.70023 17.3901 5.71303 17.3919C5.78019 17.4013 5.89196 17.3954 6.02857 17.3554C6.90029 17.0997 7.87452 17.1871 8.72488 17.678C9.57511 18.1689 10.1378 18.9688 10.3524 19.8514C10.386 19.9899 10.437 20.0897 10.4787 20.1431C10.4865 20.1531 10.4925 20.1598 10.4969 20.1642C10.9836 20.2532 11.4859 20.2998 11.9998 20.2998C12.5139 20.2998 13.0162 20.2532 13.5031 20.1642C13.5075 20.1597 13.5135 20.153 13.5213 20.1431C13.563 20.0897 13.614 19.99 13.6476 19.8515C13.8623 18.9692 14.425 18.1697 15.2749 17.679C16.1251 17.1882 17.099 17.1007 17.9706 17.3562C18.1071 17.3962 18.2188 17.402 18.286 17.3926C18.2988 17.3908 18.3078 17.3889 18.3139 17.3873C18.9646 16.6254 19.4794 15.7451 19.8216 14.7839C19.8199 14.7779 19.8171 14.7692 19.8124 14.7576C19.7869 14.6947 19.7257 14.6007 19.6223 14.5023C18.9627 13.875 18.5496 12.986 18.5496 12.0022C18.5496 11.0177 18.9632 10.1283 19.6235 9.50092C19.7269 9.40263 19.7881 9.30862 19.8137 9.24574C19.8184 9.23408 19.8212 9.22544 19.8229 9.21946C19.4818 8.2598 18.9687 7.38071 18.32 6.61951C18.3139 6.61792 18.3048 6.61599 18.292 6.6142C18.2245 6.60479 18.1123 6.61078 17.9754 6.65113C17.1025 6.90841 16.1264 6.82157 15.2746 6.32978C14.4221 5.83756 13.8586 5.0347 13.6454 4.14925C13.6119 4.01024 13.561 3.90995 13.5191 3.85626C13.5114 3.84628 13.5053 3.83949 13.5009 3.83504C13.0147 3.74629 12.5131 3.6998 11.9998 3.6998C11.4865 3.6998 10.9849 3.74629 10.4987 3.83504ZM19.8252 9.2087L19.8249 9.21084L19.8252 9.2087ZM19.8239 14.7946L19.8236 14.7925L19.8239 14.7946ZM4.17639 14.7964L4.17663 14.7943L4.17639 14.7964ZM4.17369 9.21077L4.17393 9.21292L4.17369 9.21077Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                        <span class="truncate text-label-1 font-medium leading-5">설정</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="flex min-w-0 flex-1 flex-col">
+            
+            <div class="flex h-14 shrink-0 items-center gap-8 px-5 lg:px-20">
+                
+                <div class="flex flex-1 items-center justify-end gap-8">
+                    
+                    <button type="button" x-data @click="$dispatch('open-hub-fab')" aria-label="검색"
+                            class="flex h-6 w-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60">
+                        <svg width="1em" height="1em" aria-hidden="true" class="h-6 w-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.9997 2.1001C5.63667 2.1001 2.09973 5.63705 2.09973 10.0001C2.09973 14.3631 5.63667 17.9001 9.9997 17.9001C11.857 17.9001 13.5646 17.2592 14.9134 16.1864L19.8634 21.1365C20.2149 21.4879 20.7847 21.4879 21.1362 21.1365C21.4877 20.785 21.4877 20.2151 21.1362 19.8637L16.1861 14.9136C17.2588 13.5648 17.8997 11.8573 17.8997 10.0001C17.8997 5.63705 14.3627 2.1001 9.9997 2.1001ZM3.89972 10.0001C3.89972 6.63116 6.63078 3.9001 9.9997 3.9001C13.3686 3.9001 16.0997 6.63116 16.0997 10.0001C16.0997 13.369 13.3686 16.1001 9.9997 16.1001C6.63078 16.1001 3.89972 13.369 3.89972 10.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </button>
+                    <a href="#" aria-label="알림"
+                       class="relative flex h-6 w-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60">
+                        <svg width="1em" height="1em" aria-hidden="true" class="h-6 w-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C9.77471 2.1001 7.94532 2.88789 6.68783 4.37443C5.4477 5.84044 4.84996 7.8832 4.84996 10.2501L4.84997 11.0001C4.84997 13.4652 4.16674 14.9249 3.19362 15.8682C2.81208 16.2381 2.77247 16.7499 2.90886 17.1264C3.04756 17.5094 3.42766 17.9001 3.99952 17.9001H20.0003C20.5722 17.9001 20.9523 17.5094 21.091 17.1264C21.2274 16.7499 21.1878 16.2381 20.8063 15.8682C19.8331 14.9249 19.1499 13.4652 19.1499 11.0001L19.1499 10.2501C19.1499 7.8832 18.5522 5.84044 17.312 4.37443C16.0546 2.88789 14.2252 2.1001 11.9999 2.1001ZM6.64996 10.2501C6.64996 8.16522 7.17722 6.58298 8.06208 5.53693C8.92958 4.51142 10.2252 3.9001 11.9999 3.9001C13.7747 3.9001 15.0703 4.51142 15.9378 5.53693C16.8227 6.58297 17.3499 8.16522 17.3499 10.2501L17.3499 11.0001C17.3499 13.1628 17.8181 14.8273 18.6686 16.1001H5.33125C6.18182 14.8273 6.64996 13.1628 6.64996 11.0001L6.64996 10.2501Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M9.99995 20.0999C9.5029 20.0999 9.09995 20.5029 9.09995 20.9999C9.09995 21.497 9.5029 21.8999 9.99995 21.8999H13.9999C14.497 21.8999 14.8999 21.497 14.8999 20.9999C14.8999 20.5029 14.497 20.0999 13.9999 20.0999H9.99995Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    </a>
+                    
+                    <div class="relative" x-data="{ apps: false }" @click.outside="apps = false" @keydown.escape="apps = false">
+                        <button type="button" @click="apps = ! apps" :aria-expanded="apps" aria-haspopup="menu" aria-label="앱 전환"
+                                class="flex h-6 w-6 items-center justify-center text-label-normal transition-opacity hover:opacity-60">
+                            <svg width="1em" height="1em" aria-hidden="true" class="h-6 w-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18.5999 3.6001C17.6058 3.6001 16.7999 4.40599 16.7999 5.4001C16.7999 6.39421 17.6058 7.2001 18.5999 7.2001C19.5941 7.2001 20.3999 6.39421 20.3999 5.4001C20.3999 4.40599 19.5941 3.6001 18.5999 3.6001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M16.7999 12.0001C16.7999 11.006 17.6058 10.2001 18.5999 10.2001C19.5941 10.2001 20.3999 11.006 20.3999 12.0001C20.3999 12.9942 19.5941 13.8001 18.5999 13.8001C17.6058 13.8001 16.7999 12.9942 16.7999 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M5.39997 16.8001C4.40586 16.8001 3.59998 17.606 3.59998 18.6001C3.59998 19.5942 4.40586 20.4001 5.39997 20.4001C6.39408 20.4001 7.19996 19.5942 7.19996 18.6001C7.19996 17.606 6.39408 16.8001 5.39997 16.8001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M10.1999 18.6001C10.1999 17.606 11.0058 16.8001 11.9999 16.8001C12.994 16.8001 13.7999 17.606 13.7999 18.6001C13.7999 19.5942 12.994 20.4001 11.9999 20.4001C11.0058 20.4001 10.1999 19.5942 10.1999 18.6001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M16.7999 18.6001C16.7999 17.606 17.6058 16.8001 18.5999 16.8001C19.5941 16.8001 20.3999 17.606 20.3999 18.6001C20.3999 19.5942 19.5941 20.4001 18.5999 20.4001C17.6058 20.4001 16.7999 19.5942 16.7999 18.6001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M11.9999 10.2001C11.0058 10.2001 10.1999 11.006 10.1999 12.0001C10.1999 12.9942 11.0058 13.8001 11.9999 13.8001C12.994 13.8001 13.7999 12.9942 13.7999 12.0001C13.7999 11.006 12.994 10.2001 11.9999 10.2001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M3.59998 12.0001C3.59998 11.006 4.40586 10.2001 5.39997 10.2001C6.39408 10.2001 7.19996 11.006 7.19996 12.0001C7.19996 12.9942 6.39408 13.8001 5.39997 13.8001C4.40586 13.8001 3.59998 12.9942 3.59998 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M10.1999 5.4001C10.1999 4.40599 11.0058 3.6001 11.9999 3.6001C12.994 3.6001 13.7999 4.40599 13.7999 5.4001C13.7999 6.39421 12.994 7.2001 11.9999 7.2001C11.0058 7.2001 10.1999 6.39421 10.1999 5.4001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M5.39997 3.6001C4.40586 3.6001 3.59998 4.40599 3.59998 5.4001C3.59998 6.39421 4.40586 7.2001 5.39997 7.2001C6.39408 7.2001 7.19996 6.39421 7.19996 5.4001C7.19996 4.40599 6.39408 3.6001 5.39997 3.6001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                        </button>
+                        <div x-show="apps" x-cloak x-transition.origin.top.right role="menu"
+                             class="absolute right-0 top-full z-40 mt-2 w-44 overflow-hidden rounded-lg border border-line-solid-normal bg-background-normal py-1 shadow-elevation-md">
+                            
+                                                            <a href="#" role="menuitem" target="_blank" rel="noopener"
+                                   aria-label="메인사이트 · 새 창에서 열기"
+                                   class="flex items-center gap-1.5 px-4 py-2.5 text-body-2 font-medium text-label-neutral transition-colors hover:bg-fill-alternative">
+                                    메인사이트
+                                    <svg width="1em" height="1em" aria-hidden="true" class="ml-auto h-3.5 w-3.5 shrink-0 text-label-alternative" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.7499 2.84961C14.2529 2.84961 13.8499 3.25255 13.8499 3.74961C13.8499 4.24667 14.2529 4.64961 14.7499 4.64961H18.0771L11.3636 11.3632C11.0121 11.7147 11.0121 12.2845 11.3636 12.636C11.715 12.9875 12.2849 12.9875 12.6364 12.636L19.3499 5.9224V9.24961C19.3499 9.74667 19.7529 10.1496 20.2499 10.1496C20.747 10.1496 21.1499 9.74667 21.1499 9.24961V3.74961C21.1499 3.25255 20.747 2.84961 20.2499 2.84961H14.7499Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M10.0995 2.85019C10.5966 2.85019 10.9995 3.25314 10.9995 3.75019C10.9995 4.24725 10.5966 4.6502 10.0995 4.6502H8.54978C7.69485 4.6502 7.10778 4.65089 6.65268 4.68808C6.20808 4.7244 5.96925 4.79101 5.7964 4.87908C5.40127 5.08042 5.08001 5.40167 4.87867 5.79681C4.7906 5.96966 4.724 6.20849 4.68767 6.65309C4.65049 7.1082 4.64979 7.69527 4.64979 8.5502V15.4502C4.64979 16.3051 4.65049 16.8922 4.68767 17.3473C4.724 17.7919 4.7906 18.0307 4.87867 18.2036C5.08001 18.5987 5.40127 18.92 5.7964 19.1213C5.96925 19.2094 6.20808 19.276 6.65268 19.3123C7.10778 19.3495 7.69485 19.3502 8.54978 19.3502H15.4498C16.3047 19.3502 16.8918 19.3495 17.3469 19.3123C17.7915 19.276 18.0303 19.2094 18.2031 19.1213C18.5983 18.92 18.9195 18.5987 19.1209 18.2036C19.2089 18.0307 19.2755 17.7919 19.3119 17.3473C19.349 16.8922 19.3497 16.3051 19.3497 15.4502V13.9003C19.3497 13.4032 19.7527 13.0003 20.2497 13.0003C20.7468 13.0003 21.1497 13.4032 21.1497 13.9003V15.4879C21.1498 16.296 21.1498 16.9568 21.1059 17.4939C21.0605 18.0498 20.9636 18.5519 20.7247 19.0208C20.3508 19.7546 19.7541 20.3512 19.0203 20.7251C18.5514 20.964 18.0493 21.0609 17.4934 21.1063C16.9564 21.1502 16.2955 21.1502 15.4875 21.1502H8.51207C7.70402 21.1502 7.04318 21.1502 6.5061 21.1063C5.95019 21.0609 5.44811 20.964 4.97922 20.7251C4.24539 20.3512 3.64877 19.7546 3.27487 19.0208C3.03596 18.5519 2.93907 18.0498 2.89366 17.4939C2.84977 16.9568 2.84978 16.296 2.84979 15.4879V8.51249C2.84978 7.70446 2.84977 7.04358 2.89366 6.50651C2.93907 5.9506 3.03596 5.44852 3.27487 4.97963C3.64877 4.2458 4.24539 3.64918 4.97922 3.27527C5.44811 3.03636 5.95019 2.93948 6.5061 2.89406C7.04317 2.85018 7.70401 2.85018 8.51205 2.85019H10.0995Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                </a>
+                                                            <a href="#" role="menuitem" target="_blank" rel="noopener"
+                                   aria-label="백오피스 · 새 창에서 열기"
+                                   class="flex items-center gap-1.5 px-4 py-2.5 text-body-2 font-medium text-label-neutral transition-colors hover:bg-fill-alternative">
+                                    백오피스
+                                    <svg width="1em" height="1em" aria-hidden="true" class="ml-auto h-3.5 w-3.5 shrink-0 text-label-alternative" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.7499 2.84961C14.2529 2.84961 13.8499 3.25255 13.8499 3.74961C13.8499 4.24667 14.2529 4.64961 14.7499 4.64961H18.0771L11.3636 11.3632C11.0121 11.7147 11.0121 12.2845 11.3636 12.636C11.715 12.9875 12.2849 12.9875 12.6364 12.636L19.3499 5.9224V9.24961C19.3499 9.74667 19.7529 10.1496 20.2499 10.1496C20.747 10.1496 21.1499 9.74667 21.1499 9.24961V3.74961C21.1499 3.25255 20.747 2.84961 20.2499 2.84961H14.7499Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M10.0995 2.85019C10.5966 2.85019 10.9995 3.25314 10.9995 3.75019C10.9995 4.24725 10.5966 4.6502 10.0995 4.6502H8.54978C7.69485 4.6502 7.10778 4.65089 6.65268 4.68808C6.20808 4.7244 5.96925 4.79101 5.7964 4.87908C5.40127 5.08042 5.08001 5.40167 4.87867 5.79681C4.7906 5.96966 4.724 6.20849 4.68767 6.65309C4.65049 7.1082 4.64979 7.69527 4.64979 8.5502V15.4502C4.64979 16.3051 4.65049 16.8922 4.68767 17.3473C4.724 17.7919 4.7906 18.0307 4.87867 18.2036C5.08001 18.5987 5.40127 18.92 5.7964 19.1213C5.96925 19.2094 6.20808 19.276 6.65268 19.3123C7.10778 19.3495 7.69485 19.3502 8.54978 19.3502H15.4498C16.3047 19.3502 16.8918 19.3495 17.3469 19.3123C17.7915 19.276 18.0303 19.2094 18.2031 19.1213C18.5983 18.92 18.9195 18.5987 19.1209 18.2036C19.2089 18.0307 19.2755 17.7919 19.3119 17.3473C19.349 16.8922 19.3497 16.3051 19.3497 15.4502V13.9003C19.3497 13.4032 19.7527 13.0003 20.2497 13.0003C20.7468 13.0003 21.1497 13.4032 21.1497 13.9003V15.4879C21.1498 16.296 21.1498 16.9568 21.1059 17.4939C21.0605 18.0498 20.9636 18.5519 20.7247 19.0208C20.3508 19.7546 19.7541 20.3512 19.0203 20.7251C18.5514 20.964 18.0493 21.0609 17.4934 21.1063C16.9564 21.1502 16.2955 21.1502 15.4875 21.1502H8.51207C7.70402 21.1502 7.04318 21.1502 6.5061 21.1063C5.95019 21.0609 5.44811 20.964 4.97922 20.7251C4.24539 20.3512 3.64877 19.7546 3.27487 19.0208C3.03596 18.5519 2.93907 18.0498 2.89366 17.4939C2.84977 16.9568 2.84978 16.296 2.84979 15.4879V8.51249C2.84978 7.70446 2.84977 7.04358 2.89366 6.50651C2.93907 5.9506 3.03596 5.44852 3.27487 4.97963C3.64877 4.2458 4.24539 3.64918 4.97922 3.27527C5.44811 3.03636 5.95019 2.93948 6.5061 2.89406C7.04317 2.85018 7.70401 2.85018 8.51205 2.85019H10.0995Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                </a>
+                                                            <a href="#" role="menuitem" target="_blank" rel="noopener"
+                                   aria-label="임직원 라운지 · 새 창에서 열기"
+                                   class="flex items-center gap-1.5 px-4 py-2.5 text-body-2 font-medium text-label-neutral transition-colors hover:bg-fill-alternative">
+                                    임직원 라운지
+                                    <svg width="1em" height="1em" aria-hidden="true" class="ml-auto h-3.5 w-3.5 shrink-0 text-label-alternative" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.7499 2.84961C14.2529 2.84961 13.8499 3.25255 13.8499 3.74961C13.8499 4.24667 14.2529 4.64961 14.7499 4.64961H18.0771L11.3636 11.3632C11.0121 11.7147 11.0121 12.2845 11.3636 12.636C11.715 12.9875 12.2849 12.9875 12.6364 12.636L19.3499 5.9224V9.24961C19.3499 9.74667 19.7529 10.1496 20.2499 10.1496C20.747 10.1496 21.1499 9.74667 21.1499 9.24961V3.74961C21.1499 3.25255 20.747 2.84961 20.2499 2.84961H14.7499Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M10.0995 2.85019C10.5966 2.85019 10.9995 3.25314 10.9995 3.75019C10.9995 4.24725 10.5966 4.6502 10.0995 4.6502H8.54978C7.69485 4.6502 7.10778 4.65089 6.65268 4.68808C6.20808 4.7244 5.96925 4.79101 5.7964 4.87908C5.40127 5.08042 5.08001 5.40167 4.87867 5.79681C4.7906 5.96966 4.724 6.20849 4.68767 6.65309C4.65049 7.1082 4.64979 7.69527 4.64979 8.5502V15.4502C4.64979 16.3051 4.65049 16.8922 4.68767 17.3473C4.724 17.7919 4.7906 18.0307 4.87867 18.2036C5.08001 18.5987 5.40127 18.92 5.7964 19.1213C5.96925 19.2094 6.20808 19.276 6.65268 19.3123C7.10778 19.3495 7.69485 19.3502 8.54978 19.3502H15.4498C16.3047 19.3502 16.8918 19.3495 17.3469 19.3123C17.7915 19.276 18.0303 19.2094 18.2031 19.1213C18.5983 18.92 18.9195 18.5987 19.1209 18.2036C19.2089 18.0307 19.2755 17.7919 19.3119 17.3473C19.349 16.8922 19.3497 16.3051 19.3497 15.4502V13.9003C19.3497 13.4032 19.7527 13.0003 20.2497 13.0003C20.7468 13.0003 21.1497 13.4032 21.1497 13.9003V15.4879C21.1498 16.296 21.1498 16.9568 21.1059 17.4939C21.0605 18.0498 20.9636 18.5519 20.7247 19.0208C20.3508 19.7546 19.7541 20.3512 19.0203 20.7251C18.5514 20.964 18.0493 21.0609 17.4934 21.1063C16.9564 21.1502 16.2955 21.1502 15.4875 21.1502H8.51207C7.70402 21.1502 7.04318 21.1502 6.5061 21.1063C5.95019 21.0609 5.44811 20.964 4.97922 20.7251C4.24539 20.3512 3.64877 19.7546 3.27487 19.0208C3.03596 18.5519 2.93907 18.0498 2.89366 17.4939C2.84977 16.9568 2.84978 16.296 2.84979 15.4879V8.51249C2.84978 7.70446 2.84977 7.04358 2.89366 6.50651C2.93907 5.9506 3.03596 5.44852 3.27487 4.97963C3.64877 4.2458 4.24539 3.64918 4.97922 3.27527C5.44811 3.03636 5.95019 2.93948 6.5061 2.89406C7.04317 2.85018 7.70401 2.85018 8.51205 2.85019H10.0995Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                                </a>
+                                                    </div>
+                    </div>
+                    
+                                        <a href="#" aria-label="내 계정"
+                       class="flex h-7 w-7 items-center justify-center rounded-full text-label-2 font-bold bg-accent-fg-light-blue text-white">
+                        본
+                    </a>
+                </div>
+            </div>
+
+            
+            <header class="px-5 pb-6 pt-8 lg:px-20">
+                
+                <div class="">
+                                            <p class="text-label-1 font-medium text-console-nav-ink">콘솔 › 개설 관리</p>
+                                        <div class="mt-2 flex flex-wrap items-center justify-between gap-3">
+                                                    <h1 class="text-title-2 font-bold text-label-strong">개설 관리</h1>
+                                                                            <div class="flex shrink-0 items-center gap-2"><span class="text-label-1 text-label-normal">기준일 <strong class="font-medium">2026.09.09</strong></span>
+        
+        <a
+     href="console-create.html"         class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-console-primary text-white hover:bg-console-primary-strong active:bg-console-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-10 px-4 text-body-2"
+>
+            <svg width="1em" height="1em" aria-hidden="true" class="w-4 h-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9998 3.10303C12.4968 3.10303 12.8998 3.50597 12.8998 4.00303V11.103H19.9997C20.4968 11.103 20.8997 11.506 20.8997 12.003C20.8997 12.5001 20.4968 12.903 19.9997 12.903H12.8998V20.003C12.8998 20.5001 12.4968 20.903 11.9998 20.903C11.5027 20.903 11.0998 20.5001 11.0998 20.003V12.903H3.99979C3.50273 12.903 3.09979 12.5001 3.09979 12.003C3.09979 11.506 3.50273 11.103 3.99979 11.103H11.0998V4.00303C11.0998 3.50597 11.5027 3.10303 11.9998 3.10303Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>    
+    예비기관 등록
+
+    </a></div>
+                                            </div>
+                </div>
+            </header>
+
+            <div class="min-w-0 flex-1 px-5 pb-20 lg:px-20">
+                <div class="mb-4 grid grid-cols-2 gap-2 lg:grid-cols-4">
+                    <a href="?status=예비기관" class="block rounded-md border border-line-solid-neutral bg-background-normal px-4 py-3 transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-console-primary/30">
+                <span class="flex items-center gap-1.5">
+                    <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-console-primary"></span>
+                    <span class="truncate text-label-2 font-medium text-label-normal">전체 예비기관</span>
+                </span>
+                <span class="mt-1.5 flex items-baseline gap-0.5">
+                    <strong class="text-title-3 font-bold tabular-nums text-label-strong">5</strong>
+                    <span class="text-label-2 text-label-alternative">건</span>
+                </span>
+            </a>
+                    <a href="?status=예비기관" class="block rounded-md border border-line-solid-neutral bg-background-normal px-4 py-3 transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-console-primary/30">
+                <span class="flex items-center gap-1.5">
+                    <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-accent-fg-blue"></span>
+                    <span class="truncate text-label-2 font-medium text-label-normal">전환 대기</span>
+                </span>
+                <span class="mt-1.5 flex items-baseline gap-0.5">
+                    <strong class="text-title-3 font-bold tabular-nums text-label-strong">1</strong>
+                    <span class="text-label-2 text-label-alternative">건</span>
+                </span>
+            </a>
+                    <a href="?status=예비기관" class="block rounded-md border border-line-solid-neutral bg-background-normal px-4 py-3 transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-console-primary/30">
+                <span class="flex items-center gap-1.5">
+                    <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-accent-fg-red"></span>
+                    <span class="truncate text-label-2 font-medium text-label-normal">7일 이상 정체</span>
+                </span>
+                <span class="mt-1.5 flex items-baseline gap-0.5">
+                    <strong class="text-title-3 font-bold tabular-nums text-label-strong">1</strong>
+                    <span class="text-label-2 text-label-alternative">건</span>
+                </span>
+            </a>
+                    <a href="?status=운영중" class="block rounded-md border border-line-solid-neutral bg-background-normal px-4 py-3 transition-colors hover:bg-fill-alternative focus:outline-none focus-visible:ring-2 focus-visible:ring-console-primary/30">
+                <span class="flex items-center gap-1.5">
+                    <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-accent-fg-green"></span>
+                    <span class="truncate text-label-2 font-medium text-label-normal">이번 달 지정 완료</span>
+                </span>
+                <span class="mt-1.5 flex items-baseline gap-0.5">
+                    <strong class="text-title-3 font-bold tabular-nums text-label-strong">1</strong>
+                    <span class="text-label-2 text-label-alternative">건</span>
+                </span>
+            </a>
+            </div>
+
+    <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-1.5">
+                            <a href="console-board.html"
+                   class="inline-flex h-8 items-center rounded-xs px-3 text-label-2 font-semibold transition-colors
+                          bg-fill-alternative text-label-normal hover:bg-fill-normal">전체</a>
+                            <a href="?status=예비기관"
+                   class="inline-flex h-8 items-center rounded-xs px-3 text-label-2 font-semibold transition-colors
+                          bg-fill-alternative text-label-normal hover:bg-fill-normal">예비기관</a>
+                            <a href="?status=운영중"
+                   class="inline-flex h-8 items-center rounded-xs px-3 text-label-2 font-semibold transition-colors
+                          bg-fill-alternative text-label-normal hover:bg-fill-normal">지정 완료(운영중)</a>
+                    </div>
+        <span class="text-label-2 text-label-alternative">기본 정렬: 현재 단계 대기일수가 긴 순</span>
+    </div>
+
+    
+    <div class="w-full overflow-x-auto rounded-xs border border-line-solid-neutral bg-background-normal">
+    <table class="w-full border-collapse text-left" style="min-width:1040pxpx">
+        <thead class="border-b border-line-solid-normal bg-background-alternative">
+            <tr>
+                                    <th scope="col"  style="width:190px"                         class="whitespace-nowrap px-4 align-middle text-label-2 font-medium text-label-alternative h-14 first:pl-5 last:pr-5 text-left">
+                        
+                                                    센터명(가칭)
+                                            </th>
+                                    <th scope="col"  style="width:140px"                         class="whitespace-nowrap px-4 align-middle text-label-2 font-medium text-label-alternative h-14 first:pl-5 last:pr-5 text-left">
+                        
+                                                    지역
+                                            </th>
+                                    <th scope="col"  style="width:160px"                         class="whitespace-nowrap px-4 align-middle text-label-2 font-medium text-label-alternative h-14 first:pl-5 last:pr-5 text-left">
+                        
+                                                    급여종류
+                                            </th>
+                                    <th scope="col"  style="width:130px"                         class="whitespace-nowrap px-4 align-middle text-label-2 font-medium text-label-alternative h-14 first:pl-5 last:pr-5 text-left">
+                        
+                                                    진행
+                                            </th>
+                                    <th scope="col"  style="width:200px"                         class="whitespace-nowrap px-4 align-middle text-label-2 font-medium text-label-alternative h-14 first:pl-5 last:pr-5 text-left">
+                        
+                                                    현재 단계
+                                            </th>
+                                    <th scope="col"  style="width:76px"                         class="whitespace-nowrap px-4 align-middle text-label-2 font-medium text-label-alternative h-14 first:pl-5 last:pr-5 text-right">
+                        
+                                                    대기일수
+                                            </th>
+                                    <th scope="col"  style="width:72px"                         class="whitespace-nowrap px-4 align-middle text-label-2 font-medium text-label-alternative h-14 first:pl-5 last:pr-5 text-left">
+                        
+                                                    담당자
+                                            </th>
+                                    <th scope="col"  style="width:72px"                         class="whitespace-nowrap px-4 align-middle text-label-2 font-medium text-label-alternative h-14 first:pl-5 last:pr-5 text-right">
+                        
+                                                    
+                                            </th>
+                            </tr>
+        </thead>
+        <tbody>
+            <tr class="border-b border-line-solid-alternative transition-colors last:border-b-0 hover:bg-fill-alternative">
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <a href="#" class="block rounded-xs text-body-2 font-semibold text-label-strong underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-console-primary/30">수원영통센터</a>
+                    <span class="block text-label-2 text-label-alternative">이수원 · 예비기관</span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">경기 수원시 영통구</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">방문요양</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="h-1.5 w-14 overflow-hidden rounded-full bg-fill-alternative"><span class="block h-full rounded-full bg-console-primary" style="width: 36%"></span></span>
+                        <span class="text-label-2 tabular-nums text-label-normal">4 / 11</span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="text-body-2 text-label-normal">5. 근로계약서 작성</span>
+                        <span class="ds-badge ds-badge--sm inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-md gap-[3px] text-caption-1 bg-fill-normal text-label-normal">
+        진행중
+    </span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle text-body-2 tabular-nums font-semibold text-accent-fg-red">9일</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">김본사</td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle">
+                    
+                                            <a
+     href="#"         class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2"
+>
+    
+    보기
+
+    </a>
+                                    </td>
+            </tr>
+                                <tr class="border-b border-line-solid-alternative transition-colors last:border-b-0 hover:bg-fill-alternative">
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <a href="console-detail.html" class="block rounded-xs text-body-2 font-semibold text-label-strong underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-console-primary/30">군포센터</a>
+                    <span class="block text-label-2 text-label-alternative">박예비 · 예비기관</span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">경기 군포시</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">방문요양 · 방문목욕 · 방문간호</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="h-1.5 w-14 overflow-hidden rounded-full bg-fill-alternative"><span class="block h-full rounded-full bg-console-primary" style="width: 36%"></span></span>
+                        <span class="text-label-2 tabular-nums text-label-normal">4 / 11</span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="text-body-2 text-label-normal">5. 근로계약서 작성</span>
+                        <span class="ds-badge ds-badge--sm inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-md gap-[3px] text-caption-1 bg-fill-normal text-label-normal">
+        진행중
+    </span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle text-body-2 tabular-nums text-label-normal">3일</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">김본사</td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle">
+                    
+                                            <a
+     href="console-detail.html"         class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2"
+>
+    
+    보기
+
+    </a>
+                                    </td>
+            </tr>
+                                <tr class="border-b border-line-solid-alternative transition-colors last:border-b-0 hover:bg-fill-alternative">
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <a href="#" class="block rounded-xs text-body-2 font-semibold text-label-strong underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-console-primary/30">성남분당센터</a>
+                    <span class="block text-label-2 text-label-alternative">최분당 · 예비기관</span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">경기 성남시 분당구</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">방문요양 · 방문목욕 · 방문간호</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="h-1.5 w-14 overflow-hidden rounded-full bg-fill-alternative"><span class="block h-full rounded-full bg-console-primary" style="width: 9%"></span></span>
+                        <span class="text-label-2 tabular-nums text-label-normal">1 / 11</span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="text-body-2 text-label-normal">2. 사무실 계약</span>
+                        <span class="ds-badge ds-badge--sm inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-md gap-[3px] text-caption-1 bg-fill-normal text-label-normal">
+        진행중
+    </span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle text-body-2 tabular-nums text-label-normal">2일</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">이본사</td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle">
+                    
+                                            <a
+     href="#"         class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2"
+>
+    
+    보기
+
+    </a>
+                                    </td>
+            </tr>
+                                <tr class="border-b border-line-solid-alternative transition-colors last:border-b-0 hover:bg-fill-alternative">
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <a href="#" class="block rounded-xs text-body-2 font-semibold text-label-strong underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-console-primary/30">안양동안센터</a>
+                    <span class="block text-label-2 text-label-alternative">정안양 · 예비기관</span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">경기 안양시 동안구</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">방문요양 · 방문목욕</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="h-1.5 w-14 overflow-hidden rounded-full bg-fill-alternative"><span class="block h-full rounded-full bg-console-primary" style="width: 18%"></span></span>
+                        <span class="text-label-2 tabular-nums text-label-normal">2 / 11</span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="text-body-2 text-label-normal">3. 대표자 서류 등록</span>
+                        <span class="ds-badge ds-badge--sm inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-md gap-[3px] text-caption-1 bg-fill-normal text-label-normal">
+        진행중
+    </span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle text-body-2 tabular-nums text-label-normal">1일</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">이본사</td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle">
+                    
+                                            <a
+     href="#"         class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2"
+>
+    
+    보기
+
+    </a>
+                                    </td>
+            </tr>
+                                <tr class="border-b border-line-solid-alternative transition-colors last:border-b-0 hover:bg-fill-alternative">
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <a href="console-activate.html" class="block rounded-xs text-body-2 font-semibold text-label-strong underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-console-primary/30">화성동탄센터</a>
+                    <span class="block text-label-2 text-label-alternative">오동탄 · 예비기관</span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">경기 화성시</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">방문요양 · 방문간호</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="h-1.5 w-14 overflow-hidden rounded-full bg-fill-alternative"><span class="block h-full rounded-full bg-console-primary" style="width: 55%"></span></span>
+                        <span class="text-label-2 tabular-nums text-label-normal">6 / 11</span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="text-body-2 text-label-normal">6. 예산서 및 운영 총칙 작성</span>
+                        <span class="ds-badge ds-badge--sm inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-md gap-[3px] text-caption-1 bg-console-accent-green/[0.08] text-console-accent-green">
+        서류 완료
+    </span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle text-body-2 tabular-nums text-label-normal">1일</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">이본사</td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle">
+                    
+                                            <a
+     href="console-activate.html"         class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed bg-console-primary text-white hover:bg-console-primary-strong active:bg-console-primary-heavy disabled:bg-interaction-disable disabled:text-label-disable h-10 px-4 text-body-2"
+>
+    
+    전환
+
+    </a>
+                                    </td>
+            </tr>
+                                <tr class="border-b border-line-solid-alternative transition-colors last:border-b-0 hover:bg-fill-alternative">
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <a href="#" class="block rounded-xs text-body-2 font-semibold text-label-strong underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-console-primary/30">용인수지센터</a>
+                    <span class="block text-label-2 text-label-alternative">한용인 · 운영중</span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">경기 용인시 수지구</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">방문요양 · 방문간호</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="h-1.5 w-14 overflow-hidden rounded-full bg-fill-alternative"><span class="block h-full rounded-full bg-accent-fg-green" style="width: 55%"></span></span>
+                        <span class="text-label-2 tabular-nums text-label-normal">6 / 11</span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle">
+                    <span class="flex items-center gap-2">
+                        <span class="text-body-2 text-label-normal">6. 예산서 및 운영 총칙 작성</span>
+                        <span class="ds-badge ds-badge--sm inline-flex items-center justify-center font-semibold whitespace-nowrap align-middle px-1.5 py-1 rounded-md gap-[3px] text-caption-1 bg-console-accent-green/[0.08] text-console-accent-green">
+        서류 완료
+    </span>
+                    </span>
+                </td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle text-body-2 tabular-nums text-label-normal">-</td>
+                <td class="h-14 whitespace-nowrap px-4 align-middle text-body-2 text-label-normal">김본사</td>
+                <td class="h-14 whitespace-nowrap px-4 text-right align-middle">
+                    
+                                            <a
+     href="#"         class="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-xl transition-colors duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed border border-line-solid-normal text-label-normal bg-background-normal hover:bg-fill-alternative active:bg-fill-normal disabled:text-label-disable disabled:border-line-solid-alternative h-10 px-4 text-body-2"
+>
+    
+    보기
+
+    </a>
+                                    </td>
+            </tr>
+
+            
+                    </tbody>
+    </table>
+</div>
+            </div>
+
+            
+            <div x-data="hubFab(JSON.parse('[{\u0022label\u0022:\u0022경영·회계\u0022,\u0022tags\u0022:\u0022손익·급여·운영\u0022,\u0022href\u0022:\u0022\\\/hub\\\/category\\\/management\u0022},{\u0022label\u0022:\u0022행정·청구\u0022,\u0022tags\u0022:\u0022청구·서류·신고\u0022,\u0022href\u0022:\u0022\\\/hub\\\/category\\\/admin\u0022},{\u0022label\u0022:\u0022영업·상담\u0022,\u0022tags\u0022:\u0022상담·전환·계약\u0022,\u0022href\u0022:\u0022\\\/hub\\\/category\\\/sales\u0022},{\u0022label\u0022:\u0022방문간호 라운지\u0022,\u0022tags\u0022:\u0022방문·재활·치매\u0022,\u0022href\u0022:\u0022\\\/hub\\\/category\\\/nursing\u0022},{\u0022label\u0022:\u0022자료실\u0022,\u0022tags\u0022:\u0022양식·매뉴얼\u0022,\u0022href\u0022:\u0022\\\/hub\\\/resources\u0022},{\u0022label\u0022:\u0022공지·일정\u0022,\u0022tags\u0022:\u0022공지·교육·일정\u0022,\u0022href\u0022:\u0022\\\/hub\\\/notices\u0022}]'), JSON.parse('{\u0022label\u0022:\u0022\u0022,\u0022q\u0022:\u0022\u0022}'))"
+     
+     @open-hub-fab.window="open = true"
+     @keydown.escape.window="open = false">
+    <div x-show="open" x-cloak @click.outside="open = false"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-3"
+         
+         class="fixed bottom-[92px] right-6 z-50 flex min-h-[min(840px,calc(100vh-124px))] max-h-[min(960px,calc(100vh-124px))] w-[560px] max-w-[calc(100vw-32px)] flex-col overflow-hidden rounded-lg bg-background-alternative shadow-elevation-xl"
+         role="dialog" aria-modal="false" aria-label="임직원 허브">
+
+        
+        
+        <div class="relative shrink-0 overflow-hidden bg-inverse-background px-6 pb-20 pt-6">
+            
+            <div aria-hidden="true" class="absolute inset-0 bg-cover bg-center"
+                 style="background-image:url('images/hub-preview/1.jpg')"></div>
+            
+            <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-primary-heavy/45 via-primary-heavy/60 to-primary-heavy/75"></div>
+            <button type="button" @click="open = false" aria-label="닫기"
+                    class="absolute right-4 top-4 z-10 inline-flex h-8 w-8 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white">
+                <svg width="1em" height="1em" aria-hidden="true" class="h-5 w-5" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.86352 4.86321C5.21499 4.51174 5.78484 4.51174 6.13631 4.86321L11.9999 10.7268L17.8635 4.86321C18.2149 4.51174 18.7848 4.51174 19.1363 4.86321C19.4877 5.21468 19.4877 5.78453 19.1363 6.13601L13.2727 11.9996L19.1363 17.8632C19.4877 18.2147 19.4877 18.7845 19.1363 19.136C18.7848 19.4875 18.2149 19.4875 17.8635 19.136L11.9999 13.2724L6.13631 19.136C5.78484 19.4875 5.21499 19.4875 4.86352 19.136C4.51205 18.7845 4.51205 18.2147 4.86352 17.8632L10.7271 11.9996L4.86352 6.13601C4.51205 5.78453 4.51205 5.21468 4.86352 4.86321Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </button>
+            
+            <svg width="1em" height="1em" aria-hidden="true" class="relative h-[29px] w-[72px]" viewBox="0 0 500 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g>
+	<g>
+		<path fill="#FFFFFF" d="M132,115h-9.3c-0.4,0-0.8-0.2-1.1-0.5l-13.7-13.5c-3.5-3.4-9.2-3.4-12.7,0l-28.4,27.6c-0.6,0.6-1.6,0.6-2.2,0
+			l-11.5-11.1c-1.7-1.6-3.9-2.5-6.3-2.5h-36c-2.1,0-3.7,1.7-3.7,3.7v7.1c0,2.1,1.7,3.7,3.7,3.7h33.2c0.4,0,0.8,0.2,1.1,0.4
+			l14.4,13.9c1.8,1.7,4,2.5,6.3,2.5c2.3,0,4.5-0.9,6.3-2.6l28.3-27.6c0.6-0.6,1.6-0.6,2.2,0l10.8,10.6c1.7,1.7,4,2.6,6.3,2.6H132
+			c2.1,0,3.7-1.7,3.7-3.7v-7.1C135.7,116.7,134.1,115,132,115z"/>
+		<path fill="#FFFFFF" d="M22.7,108.5c0.7,0.7,1.7,1,2.6,1c1,0,1.9-0.4,2.6-1.1l5-5c0.7-0.7,1.1-1.7,1.1-2.7c0-1-0.4-1.9-1.1-2.6
+			l-5.3-5.1c-3.4-3.2-5.2-7.5-5.2-12c0-4.5,1.8-8.8,5.2-12c3.4-3.3,8-5.1,12.9-5.1c4.9,0,9.5,1.8,12.9,5.1l6,5.8
+			c3.5,3.4,9,3.4,12.6,0l6-5.8c3.4-3.3,8-5.1,12.9-5.1c4.9,0,9.5,1.8,12.9,5.1c3.4,3.2,5.2,7.5,5.2,12c0,3.3-1,6.5-2.9,9.2
+			c-1,1.5-0.8,3.5,0.5,4.7l5.1,5.1c0.8,0.8,1.8,1.2,2.9,1.1c1.1-0.1,2.1-0.6,2.7-1.5c4.1-5.4,6.2-11.9,6.2-18.6
+			c0-8.5-3.4-16.5-9.7-22.5c-6.2-5.9-14.3-9.2-23-9.2c-8.7,0-16.8,3.3-23,9.2l-2.2,2.1l-2.2-2.1c-6.2-5.9-14.3-9.2-23-9.2
+			c-8.7,0-16.8,3.3-23,9.2c-6.2,6-9.7,14-9.7,22.5c0,8.5,3.4,16.5,9.7,22.5L22.7,108.5z"/>
+	</g>
+	<g>
+		<path fill="#FFFFFF" d="M254.7,85.5c3.7-3.9,8.6-8.6,13.4-12.8l-7.6,0.5c-5.8,0.4-7.2-2.3-7.4-5.2c-0.2-3,1.8-5.9,6-6.2l10.2-0.5
+			v-1.2c0.2-5.2,1.8-8.2,6.9-8.2c3.9,0,6.4,2,6.4,8.8v0.4c2.9,0,5.9,0.1,9.3,0.3c4.5,0.2,6.1,2.7,5.9,6.2c-0.2,3.6-2.9,5.7-8.1,5.1
+			c-2.2-0.2-4.3-0.4-6.4-0.4c4.5,3.9,9.2,8.2,13,11.8c4,3.6,3.4,7,1.5,9.2c-2.2,2.6-5.8,2.6-9.1-0.4c-4.3-4-8.5-8.2-12.8-12.1
+			c-3.6,3.9-8.4,8.8-12.3,12.8c-3.3,3.3-7.2,4-9.8,2S250.4,90,254.7,85.5z M299.6,96.3c11.2,0,19.3,6.7,19.3,17.6
+			c0,9.7-7.2,17.6-19.3,17.6c-12.1,0-20.4-7.9-20.4-17.6C279.1,103.1,287.3,96.3,299.6,96.3z M299.3,120c4.2,0,7-2.8,7-6.2
+			c0-3.9-2.7-6.3-7-6.3c-4,0-6.8,2.2-6.8,6.3C292.5,117.2,295.2,120,299.3,120z M303.7,71.9h7.4c-0.1-3.1-0.2-5.9-0.4-8.1
+			c-0.5-6.7,1.9-9.4,6.1-9.5c4.2-0.2,7.6,1.8,7.6,10.2c0.1,8.2,0.4,17.9-0.1,25.9c-0.3,5.2-2.8,7.9-6.8,7.9s-6.5-2.8-6.4-8.8v-5.8
+			c-2.6,0-5.3-0.1-7.8-0.3c-4-0.4-5.8-2.5-5.6-5.9C298,74.4,299.9,71.9,303.7,71.9z"/>
+		<path fill="#FFFFFF" d="M344.4,56.6c5.7-0.4,24.2-0.5,30-0.4c4.8,0.2,6.6,2.2,6.6,5.5c0,3.6-1.5,5.9-7,5.8
+			c-5.4-0.2-16.1-0.3-21.5,0.1c-1.5,0.1-1.8,0.5-1.9,1.8c-0.2,3.6-0.2,4.9,0.1,9.2c0.2,2.5,0.5,2.8,3.2,3c3.2,0.3,13.7,0.1,21.5-0.5
+			c5.8-0.4,8,1.2,8.3,5.1c0.3,4-2.3,6.1-7.2,6.6c-6.9,0.6-21.3,0.9-29.1,0.5c-8.1-0.4-9.6-2.5-10-8.1c-0.6-8.7-0.7-14.7-0.1-22.5
+			C337.6,58.7,339.6,56.9,344.4,56.6z M344,123.2c-0.2-2.9-0.2-13-0.2-18c0-4,2.3-5.8,7.2-6c13.9-0.7,34.1-0.9,43.3,0
+			c6.1,0.6,7.8,1.7,8,6.8c0.2,4.1,0.4,12.7,0.2,17.9c-0.2,4-2.3,5.8-7.2,6c-14.8,0.5-29.3,0.9-43.3,0.1
+			C347.1,129.8,344.3,128.3,344,123.2z M359.5,119.1c9.4,0.4,18.7,0.2,28.8-0.1c1.1,0,1.1-0.2,1.2-1c0.2-2.3,0.1-5-0.1-6.7
+			c-0.1-1.1-0.4-1.5-1.3-1.5c-9.4-0.4-20.1-0.2-28.9,0.3c-0.8,0-1.1,0.5-1.2,1.1c-0.1,1.3-0.1,5.8,0,6.8
+			C358,118.6,358.2,119,359.5,119.1z M395.4,54.3c4.2-0.2,7.4,1.8,7.6,10.2l0.2,5c2.6-0.1,4.8-0.1,7.2,0c3,0.1,4.3,2.2,4.3,5.1
+			c0,2.7-1.3,5.4-4.1,5.9c-2.3,0.4-4.8,0.4-7.5,0.2c0,2.5-0.1,6.2-0.2,8c-0.3,5.2-2.8,7.9-6.8,7.9s-6.5-2.8-6.4-8.8
+			c0.1-5.7,0.1-17.2-0.5-24C388.7,57.2,391.1,54.5,395.4,54.3z"/>
+		<path fill="#FFFFFF" d="M425.1,88c12.5,0.6,32.5,0.3,39.6-0.3c5.8-0.4,7.2,1.5,7.4,5c0.2,3.5-1.8,6-6.1,6.2l-15.4,0.5
+			c-0.1,0.8-0.1,1.6-0.2,2.5c-0.3,3.6-2.8,5.7-6.6,5.7c-4.3,0-6.9-2.7-6.9-7.5v-0.6c-4.5,0-8.8-0.1-12.6-0.4
+			c-4.5-0.3-6.3-2.8-6.1-6.1C418.4,90.4,419.9,87.8,425.1,88z M443.6,54.2c11.1,0,19.6,6.2,19.6,16.2s-9,16-20.1,16
+			c-11.1,0-19.4-6-19.4-16S432.4,54.2,443.6,54.2z M437.3,129.8c-4.9-0.4-7.7-1.3-8-6.4c-0.2-3.6,0.4-7.2,0.8-10
+			c0.6-3.4,2.9-5.6,7.3-5.4c4.4,0.2,6.8,2.2,6.4,6.3c-0.1,0.8-0.2,1.7-0.2,2.3c0,0.9,0.7,1.2,1.8,1.2c11.3,0,26.4,0,37.1-0.3
+			c5.8-0.2,9.4,2,9.5,5.9c0.1,4.2-2.3,6.4-7.2,6.5C470.1,130.2,452.2,130.9,437.3,129.8z M443.3,76.1c4.5,0,7.7-2.3,7.7-5.8
+			c0-3.6-3.2-6.1-7.7-6.1c-4.5,0-7.6,2.4-7.6,6.1C435.7,73.7,438.9,76.1,443.3,76.1z M472.4,68.5h3.9c0-1.8-0.1-3.4-0.1-4.7
+			c-0.2-6.7,2.4-9.5,6.9-9.5c3.8,0,6.2,1.8,6.6,10.2c0.3,6.9,0.4,29.1-0.2,37.6c-0.4,5.8-2.5,8.5-6.6,8.5s-6.8-2.4-6.6-8.5
+			c0.3-4.9,0.2-13.4,0.1-21.5c-1.5,0.1-2.8,0.1-4.1,0c-5.4-0.2-7-2-7-5.8C465.3,70.1,467.7,68.6,472.4,68.5z"/>
+	</g>
+	<g>
+		<g>
+			<path fill="#FFFFFF" d="M165.7,56.6c3.1-1.9,6.8-0.9,8.1,1.8c1.3,2.5,0.1,5.8-3.4,8.8c-6,5.2-8.4,13.7-8.4,30.6
+				c0,12.6,2.5,20,9.8,27.2c3.2,3.4,3.2,7.2,1.8,9.4c-1,2.3-4.7,4.4-8.5,1.2c-9.8-8.5-14.8-18.3-14.8-38
+				C150.3,72,155.5,62.4,165.7,56.6z M172.2,98.8c13.5,0.5,29.3,0.3,42.4-0.4c4.8-0.2,6.7,2.2,6.7,5.3c0,2.9-1.5,4.5-5,4.9
+				c-3.6,0.3-9.6,0.5-16.5,0.7v7.8c0,4.9-3.3,7.5-6.1,7.5s-5.8-2.1-6.1-5.8c0-1.8-0.1-5.7-0.1-9.4c-5.8,0-11.2-0.2-15.6-0.5
+				c-4.3-0.3-6.2-2.3-5.8-5.3C166.2,100.9,167.5,98.7,172.2,98.8z M173.5,87.6c2.7-1.4,6.8-4,11.1-6.4c-3.1,0.1-5.7,0.3-7.5,0.4
+				c-4.7,0.3-6-1.7-6.1-4.4c-0.3-2.9,1.5-5.2,4.9-5.4c8.5-0.5,26.7-0.7,35.3-0.1c3.7,0.4,5.1,2.5,5,5.4c-0.3,2.9-2.7,4.8-6.7,4.4
+				c-1.6-0.2-3.9-0.3-6.4-0.4c4.1,2.5,8.4,4.9,11.2,6.5c2.7,1.5,4,4.2,2.6,7.1c-1.4,2.5-3.6,3.6-7.9,1.4c-3.1-1.5-7-3.8-10.8-6.1
+				l-4.3-2.5c-1.3,0.8-2.8,1.7-4.2,2.5c-3.9,2.3-7.7,4.6-10.8,6.1c-4.3,2.2-6.7,1.1-7.9-1.5C169.6,91.8,170.7,89.2,173.5,87.6z
+				 M213.3,134.3c-1.4-2.2-1.4-5.9,1.8-9.4c7.3-7.2,9.8-14.6,9.8-27.2c0-16.9-2.3-25.4-8.4-30.6c-3.5-3-4.7-6.3-3.4-8.8
+				c1.3-2.7,5-3.7,8.1-1.8c10.3,5.8,15.5,15.5,15.5,40.8c0,19.7-5,29.6-14.8,38C218,138.7,214.3,136.6,213.3,134.3z"/>
+		</g>
+	</g>
+</g>
+</svg>            <p class="relative mt-24 text-title-2 font-bold leading-tight text-white">
+                흩어진 자료를<br>임직원라운지에서 하나로
+            </p>
+        </div>
+
+        
+        <div class="relative z-10 -mt-12 shrink-0 px-4">
+            <div class="relative rounded-t-lg border border-b-0 border-line-solid-normal bg-background-normal">
+                <input type="search" lang="ko" x-ref="q" x-model="q" @input.debounce.250ms="find()" @keydown.enter="find()"
+                       placeholder="허브 검색" aria-label="허브 콘텐츠 검색"
+                       class="h-14 w-full rounded-t-lg bg-transparent pl-5 pr-12 text-body-1 font-medium text-label-normal placeholder:text-label-assistive focus:outline-none">
+                <svg width="1em" height="1em" aria-hidden="true" class="pointer-events-none absolute right-5 top-1/2 h-5 w-5 -translate-y-1/2 text-label-alternative" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.9997 2.1001C5.63667 2.1001 2.09973 5.63705 2.09973 10.0001C2.09973 14.3631 5.63667 17.9001 9.9997 17.9001C11.857 17.9001 13.5646 17.2592 14.9134 16.1864L19.8634 21.1365C20.2149 21.4879 20.7847 21.4879 21.1362 21.1365C21.4877 20.785 21.4877 20.2151 21.1362 19.8637L16.1861 14.9136C17.2588 13.5648 17.8997 11.8573 17.8997 10.0001C17.8997 5.63705 14.3627 2.1001 9.9997 2.1001ZM3.89972 10.0001C3.89972 6.63116 6.63078 3.9001 9.9997 3.9001C13.3686 3.9001 16.0997 6.63116 16.0997 10.0001C16.0997 13.369 13.3686 16.1001 9.9997 16.1001C6.63078 16.1001 3.89972 13.369 3.89972 10.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </div>
+        </div>
+
+        
+        <div class="min-h-0 flex-1 overflow-y-auto px-4 pb-4">
+            
+            <div class="overflow-hidden rounded-b-lg border border-t-0 border-line-solid-normal bg-background-normal">
+                
+                <div x-show="tab !== 'category'">
+                    
+                    <div x-show="tab === 'home' && ! q" x-cloak
+                         class="flex items-center gap-2 border-b border-line-solid-alternative px-5 py-3">
+                        <span class="text-label-2 font-semibold text-label-alternative">추천 글</span>
+                        <span x-show="preview" x-cloak
+                              class="rounded-sm bg-fill-normal px-1.5 py-0.5 text-caption-2 font-medium text-label-alternative">예시</span>
+                    </div>
+
+                    <template x-if="loading">
+                        <p class="px-5 py-8 text-center text-body-2 text-label-alternative">찾는 중…</p>
+                    </template>
+
+                    
+                    <template x-for="h in heroes" :key="h.id">
+                        <a :href="h.url" target="_blank" rel="noopener"
+                           class="flex items-start gap-4 border-b border-line-solid-alternative px-5 py-4 transition-colors hover:bg-fill-alternative">
+                            <template x-if="h.thumbnail">
+                                <img :src="h.thumbnail" :alt="h.title" loading="lazy"
+                                     class="aspect-[16/10] w-40 shrink-0 rounded-lg object-cover">
+                            </template>
+                            <span class="min-w-0 flex-1">
+                                <span class="line-clamp-2 block text-headline-2 font-bold leading-snug text-label-strong" x-text="h.title"></span>
+                                <span class="mt-1.5 line-clamp-2 block text-label-2 leading-snug text-label-alternative" x-text="h.excerpt"></span>
+                                <span class="mt-2 block truncate text-caption-1 text-label-alternative"
+                                      x-text="[h.cat, h.date].filter(Boolean).join(' · ')"></span>
+                            </span>
+                        </a>
+                    </template>
+                    
+                    <template x-if="! loading && ! preview && ! heroes.length && visible.length === 0">
+                        <p class="px-5 py-8 text-center text-body-2 text-label-alternative"
+                           x-text="q ? '찾는 글이 없어요. 다른 말로 찾아보세요.' : '올라온 공지가 없어요.'"></p>
+                    </template>
+
+                    
+                    <div x-show="preview" x-cloak>
+                        
+                                                    <a href="#" target="_blank" rel="noopener"
+                               class="flex items-start gap-4 border-b border-line-solid-alternative px-5 py-4 transition-colors hover:bg-fill-alternative">
+                                <img src="images/hub-preview/1.jpg" alt="" loading="lazy"
+                                     class="aspect-[16/10] w-40 shrink-0 rounded-lg object-cover">
+                                <span class="min-w-0 flex-1">
+                                    <span class="line-clamp-2 block text-headline-2 font-bold leading-snug text-label-strong">2026년 장기요양 수가 변경 요약</span>
+                                    <span class="mt-1.5 line-clamp-2 block text-label-2 leading-snug text-label-alternative">방문요양·방문간호 수가와 본인부담 기준이 어떻게 바뀌는지 한 장으로 정리했습니다.</span>
+                                    <span class="mt-2 block truncate text-caption-1 text-label-alternative">경영·회계</span>
+                                </span>
+                            </a>
+                                                    <a href="#" target="_blank" rel="noopener"
+                               class="flex items-start gap-4 border-b border-line-solid-alternative px-5 py-4 transition-colors hover:bg-fill-alternative">
+                                <img src="images/hub-preview/2.jpg" alt="" loading="lazy"
+                                     class="aspect-[16/10] w-40 shrink-0 rounded-lg object-cover">
+                                <span class="min-w-0 flex-1">
+                                    <span class="line-clamp-2 block text-headline-2 font-bold leading-snug text-label-strong">방문간호 기록지 작성 가이드</span>
+                                    <span class="mt-1.5 line-clamp-2 block text-label-2 leading-snug text-label-alternative">자주 빠뜨리는 항목과 반려로 이어지는 기록 습관을 사례로 짚었습니다.</span>
+                                    <span class="mt-2 block truncate text-caption-1 text-label-alternative">방문간호 라운지</span>
+                                </span>
+                            </a>
+                                                    <a href="#" target="_blank" rel="noopener"
+                               class="flex items-start gap-4 border-b border-line-solid-alternative px-5 py-4 transition-colors hover:bg-fill-alternative">
+                                <img src="images/hub-preview/3.jpg" alt="" loading="lazy"
+                                     class="aspect-[16/10] w-40 shrink-0 rounded-lg object-cover">
+                                <span class="min-w-0 flex-1">
+                                    <span class="line-clamp-2 block text-headline-2 font-bold leading-snug text-label-strong">첫 상담 5분, 이 질문부터 하세요</span>
+                                    <span class="mt-1.5 line-clamp-2 block text-label-2 leading-snug text-label-alternative">보호자가 가장 먼저 알고 싶어 하는 것부터 여는 상담 흐름입니다.</span>
+                                    <span class="mt-2 block truncate text-caption-1 text-label-alternative">영업·상담</span>
+                                </span>
+                            </a>
+                                                    <a href="#" target="_blank" rel="noopener"
+                               class="flex items-start gap-4 border-b border-line-solid-alternative px-5 py-4 transition-colors hover:bg-fill-alternative">
+                                <img src="images/hub-preview/1.jpg" alt="" loading="lazy"
+                                     class="aspect-[16/10] w-40 shrink-0 rounded-lg object-cover">
+                                <span class="min-w-0 flex-1">
+                                    <span class="line-clamp-2 block text-headline-2 font-bold leading-snug text-label-strong">청구 반려 사유 TOP 5와 대응법</span>
+                                    <span class="mt-1.5 line-clamp-2 block text-label-2 leading-snug text-label-alternative">가장 많이 걸리는 다섯 가지와 재청구 전 확인 순서입니다.</span>
+                                    <span class="mt-2 block truncate text-caption-1 text-label-alternative">행정·청구</span>
+                                </span>
+                            </a>
+                                                    <a href="#" target="_blank" rel="noopener"
+                               class="flex items-start gap-4 border-b border-line-solid-alternative px-5 py-4 transition-colors hover:bg-fill-alternative">
+                                <img src="images/hub-preview/2.jpg" alt="" loading="lazy"
+                                     class="aspect-[16/10] w-40 shrink-0 rounded-lg object-cover">
+                                <span class="min-w-0 flex-1">
+                                    <span class="line-clamp-2 block text-headline-2 font-bold leading-snug text-label-strong">급여제공기록지 최신 양식</span>
+                                    <span class="mt-1.5 line-clamp-2 block text-label-2 leading-snug text-label-alternative">공단 표준 서식에 맞춘 최신본입니다.</span>
+                                    <span class="mt-2 block truncate text-caption-1 text-label-alternative">자료실</span>
+                                </span>
+                            </a>
+                                            </div>
+                    <template x-for="it in visible" :key="it.id">
+                        <a :href="it.url" target="_blank" rel="noopener"
+                           class="flex items-center gap-3 px-5 py-3.5 transition-colors hover:bg-fill-alternative">
+                            <span class="min-w-0 flex-1">
+                                <span class="block truncate text-body-2 font-medium text-label-normal" x-text="it.title"></span>
+                                <span class="mt-0.5 block truncate text-caption-1 text-label-alternative"
+                                      x-text="[it.cat, it.date].filter(Boolean).join(' · ')"></span>
+                            </span>
+                            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-alternative" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.86337 3.36272C7.51189 3.7142 7.51189 4.28405 7.86337 4.63552L15.227 11.9991L7.86337 19.3627C7.51189 19.7142 7.51189 20.284 7.86337 20.6355C8.21484 20.987 8.78469 20.987 9.13616 20.6355L17.1362 12.6355C17.4876 12.284 17.4876 11.7142 17.1362 11.3627L9.13616 3.36272C8.78469 3.01125 8.21484 3.01125 7.86337 3.36272Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                        </a>
+                    </template>
+                </div>
+
+                
+                <div x-show="tab === 'category'" x-cloak>
+                    <template x-for="c in cats" :key="c.label">
+                        <button type="button" @click="q = c.label; tab = 'home'; find()"
+                                class="flex w-full items-center gap-3 px-5 py-3.5 text-left transition-colors hover:bg-fill-alternative">
+                            <span class="min-w-0 flex-1">
+                                <span class="block truncate text-body-2 font-medium text-label-normal" x-text="c.label"></span>
+                                <span class="mt-0.5 block truncate text-caption-1 text-label-alternative" x-text="c.tags"></span>
+                            </span>
+                            <svg width="1em" height="1em" aria-hidden="true" class="h-4 w-4 shrink-0 text-label-alternative" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.86337 3.36272C7.51189 3.7142 7.51189 4.28405 7.86337 4.63552L15.227 11.9991L7.86337 19.3627C7.51189 19.7142 7.51189 20.284 7.86337 20.6355C8.21484 20.987 8.78469 20.987 9.13616 20.6355L17.1362 12.6355C17.4876 12.284 17.4876 11.7142 17.1362 11.3627L9.13616 3.36272C8.78469 3.01125 8.21484 3.01125 7.86337 3.36272Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                        </button>
+                    </template>
+                </div>
+            </div>
+
+            
+            <a href="#" target="_blank" rel="noopener"
+               class="mt-3 flex items-center gap-3 rounded-lg border border-line-solid-normal bg-background-normal px-5 py-4 transition-colors hover:bg-fill-alternative">
+                <span class="flex-1 text-body-2 font-medium text-label-normal">허브 홈 바로가기</span>
+                <svg width="1em" height="1em" aria-hidden="true" class="h-[18px] w-[18px] shrink-0 text-label-alternative" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.7006 8.3999C15.1974 8.40013 15.6 8.80338 15.6 9.30029V14.6997C15.6 15.1966 15.1974 15.5999 14.7006 15.6001C14.2035 15.6001 13.8002 15.1968 13.8002 14.6997V11.4731L9.93689 15.3364C9.58541 15.6879 9.01492 15.6879 8.66345 15.3364C8.31224 14.985 8.31234 14.4154 8.66345 14.064L12.5277 10.1997H9.30017C8.80316 10.1997 8.39986 9.79728 8.39978 9.30029C8.39978 8.80324 8.80311 8.3999 9.30017 8.3999H14.7006Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.0004 2.1001C17.4678 2.10033 21.9008 6.53301 21.9008 12.0005C21.9005 17.4678 17.4676 21.9007 12.0004 21.9009C6.53289 21.9009 2.10019 17.4679 2.09998 12.0005C2.09998 6.53287 6.53276 2.1001 12.0004 2.1001ZM12.0004 3.90088C7.52688 3.90088 3.90076 7.52698 3.90076 12.0005C3.90097 16.4738 7.52701 20.1001 12.0004 20.1001C16.4735 20.0999 20.0998 16.4737 20.1 12.0005C20.1 7.52712 16.4737 3.90111 12.0004 3.90088Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </a>
+            <a href="#" target="_blank" rel="noopener"
+               class="mt-3 flex items-center gap-3 rounded-lg border border-line-solid-normal bg-background-normal px-5 py-4 transition-colors hover:bg-fill-alternative">
+                <span class="flex-1 text-body-2 font-medium text-label-normal">자료실 바로가기</span>
+                <svg width="1em" height="1em" aria-hidden="true" class="h-[18px] w-[18px] shrink-0 text-label-alternative" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.7006 8.3999C15.1974 8.40013 15.6 8.80338 15.6 9.30029V14.6997C15.6 15.1966 15.1974 15.5999 14.7006 15.6001C14.2035 15.6001 13.8002 15.1968 13.8002 14.6997V11.4731L9.93689 15.3364C9.58541 15.6879 9.01492 15.6879 8.66345 15.3364C8.31224 14.985 8.31234 14.4154 8.66345 14.064L12.5277 10.1997H9.30017C8.80316 10.1997 8.39986 9.79728 8.39978 9.30029C8.39978 8.80324 8.80311 8.3999 9.30017 8.3999H14.7006Z" fill="currentColor" fill-opacity="0.88"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.0004 2.1001C17.4678 2.10033 21.9008 6.53301 21.9008 12.0005C21.9005 17.4678 17.4676 21.9007 12.0004 21.9009C6.53289 21.9009 2.10019 17.4679 2.09998 12.0005C2.09998 6.53287 6.53276 2.1001 12.0004 2.1001ZM12.0004 3.90088C7.52688 3.90088 3.90076 7.52698 3.90076 12.0005C3.90097 16.4738 7.52701 20.1001 12.0004 20.1001C16.4735 20.0999 20.0998 16.4737 20.1 12.0005C20.1 7.52712 16.4737 3.90111 12.0004 3.90088Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>            </a>
+        </div>
+
+        
+        <div class="flex shrink-0 border-t border-line-solid-normal bg-background-normal">
+                            <button type="button" @click="tab = 'home'; if ('home' !== 'category') find()"
+                        class="flex flex-1 flex-col items-center gap-1 py-3 transition-colors"
+                        :class="tab === 'home' ? 'text-label-strong' : 'text-label-alternative hover:text-label-alternative'">
+                    <svg width="1em" height="1em" aria-hidden="true" class="h-[22px] w-[22px]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.3616 2.27647C12.1248 2.21318 11.8755 2.21318 11.6387 2.27647C11.3579 2.3515 11.1251 2.5333 11.0025 2.62905L10.9675 2.65625L4.13427 7.88153C3.74746 8.17676 3.42128 8.42572 3.17853 8.75002C2.96523 9.03498 2.80621 9.35676 2.70942 9.69929C2.59927 10.0891 2.59965 10.4995 2.60009 10.9861L2.60015 17.335C2.60014 17.8648 2.60012 18.316 2.63039 18.6865C2.66218 19.0756 2.73182 19.4542 2.91623 19.8161C3.19426 20.3618 3.6379 20.8055 4.18357 21.0835C4.5455 21.2679 4.9241 21.3375 5.31326 21.3693C5.68367 21.3996 6.13483 21.3996 6.66467 21.3996H11.9898C11.9933 21.3996 11.9969 21.3996 12.0004 21.3996C12.0039 21.3996 12.0075 21.3996 12.011 21.3996H17.3355C17.8653 21.3996 18.3166 21.3996 18.687 21.3693C19.0761 21.3375 19.4547 21.2679 19.8167 21.0835C20.3623 20.8055 20.806 20.3618 21.084 19.8161C21.2684 19.4542 21.338 19.0756 21.3698 18.6865C21.4001 18.316 21.4001 17.8649 21.4001 17.335L21.4001 10.9861C21.4006 10.4994 21.401 10.0891 21.2908 9.69929C21.194 9.35676 21.035 9.03498 20.8217 8.75002C20.5789 8.42572 20.2528 8.17677 19.866 7.88153L13.0328 2.65625L12.9977 2.62905C12.8751 2.5333 12.6423 2.3515 12.3616 2.27647ZM12.9004 19.5994H17.7001C18.5147 19.5994 18.7085 19.5883 18.84 19.5456C19.1749 19.4368 19.4374 19.1742 19.5463 18.8393C19.589 18.7078 19.6001 18.514 19.6001 17.6994V10.883C19.6001 10.4628 19.5965 10.3673 19.5816 10.2869C19.5445 10.0871 19.4528 9.90143 19.3166 9.75057C19.2618 9.68986 19.1881 9.62903 18.8542 9.37376L12.0001 4.1324L5.146 9.37376C4.81217 9.62903 4.73848 9.68986 4.68367 9.75057C4.54748 9.90143 4.45574 10.0871 4.41864 10.2869C4.4037 10.3673 4.40015 10.4628 4.40015 10.883V17.6994C4.40015 18.514 4.41126 18.7078 4.45399 18.8393C4.5628 19.1742 4.82535 19.4368 5.16023 19.5456C5.29175 19.5883 5.48559 19.5994 6.30014 19.5994H11.1004V13.9996C11.1004 13.5026 11.5033 13.0996 12.0004 13.0996C12.4975 13.0996 12.9004 13.5026 12.9004 13.9996V19.5994Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    <span class="text-caption-1 font-medium">최근</span>
+                </button>
+                            <button type="button" @click="tab = 'category'; if ('category' !== 'category') find()"
+                        class="flex flex-1 flex-col items-center gap-1 py-3 transition-colors"
+                        :class="tab === 'category' ? 'text-label-strong' : 'text-label-alternative hover:text-label-alternative'">
+                    <svg width="1em" height="1em" aria-hidden="true" class="h-[22px] w-[22px]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.09998 5.7501C3.09998 5.25304 3.50292 4.8501 3.99997 4.8501H19.9999C20.497 4.8501 20.8999 5.25304 20.8999 5.7501C20.8999 6.24715 20.497 6.6501 19.9999 6.6501H3.99997C3.50292 6.6501 3.09998 6.24715 3.09998 5.7501Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M3.09999 12.0001C3.09999 11.503 3.50293 11.1001 3.99999 11.1001H19.9999C20.497 11.1001 20.8999 11.503 20.8999 12.0001C20.8999 12.4972 20.497 12.9001 19.9999 12.9001H3.99999C3.50293 12.9001 3.09999 12.4972 3.09999 12.0001Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M3.09998 18.2501C3.09998 17.753 3.50292 17.3501 3.99997 17.3501H13.7499C14.247 17.3501 14.6499 17.753 14.6499 18.2501C14.6499 18.7472 14.247 19.1501 13.7499 19.1501H3.99997C3.50292 19.1501 3.09998 18.7472 3.09998 18.2501Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    <span class="text-caption-1 font-medium">카테고리</span>
+                </button>
+                            <button type="button" @click="tab = 'notice'; if ('notice' !== 'category') find()"
+                        class="flex flex-1 flex-col items-center gap-1 py-3 transition-colors"
+                        :class="tab === 'notice' ? 'text-label-strong' : 'text-label-alternative hover:text-label-alternative'">
+                    <svg width="1em" height="1em" aria-hidden="true" class="h-[22px] w-[22px]" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 2.1001C9.77471 2.1001 7.94532 2.88789 6.68783 4.37443C5.4477 5.84044 4.84996 7.8832 4.84996 10.2501L4.84997 11.0001C4.84997 13.4652 4.16674 14.9249 3.19362 15.8682C2.81208 16.2381 2.77247 16.7499 2.90886 17.1264C3.04756 17.5094 3.42766 17.9001 3.99952 17.9001H20.0003C20.5722 17.9001 20.9523 17.5094 21.091 17.1264C21.2274 16.7499 21.1878 16.2381 20.8063 15.8682C19.8331 14.9249 19.1499 13.4652 19.1499 11.0001L19.1499 10.2501C19.1499 7.8832 18.5522 5.84044 17.312 4.37443C16.0546 2.88789 14.2252 2.1001 11.9999 2.1001ZM6.64996 10.2501C6.64996 8.16522 7.17722 6.58298 8.06208 5.53693C8.92958 4.51142 10.2252 3.9001 11.9999 3.9001C13.7747 3.9001 15.0703 4.51142 15.9378 5.53693C16.8227 6.58297 17.3499 8.16522 17.3499 10.2501L17.3499 11.0001C17.3499 13.1628 17.8181 14.8273 18.6686 16.1001H5.33125C6.18182 14.8273 6.64996 13.1628 6.64996 11.0001L6.64996 10.2501Z" fill="currentColor" fill-opacity="0.88"/>
+<path d="M9.99995 20.0999C9.5029 20.0999 9.09995 20.5029 9.09995 20.9999C9.09995 21.497 9.5029 21.8999 9.99995 21.8999H13.9999C14.497 21.8999 14.8999 21.497 14.8999 20.9999C14.8999 20.5029 14.497 20.0999 13.9999 20.0999H9.99995Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>                    <span class="text-caption-1 font-medium">공지</span>
+                </button>
+                    </div>
+    </div>
+
+    
+    <button type="button" @click="toggle()" :aria-expanded="open" aria-haspopup="dialog" aria-label="임직원 허브"
+            class="fixed bottom-6 right-6 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-elevation-lg transition-colors duration-150 hover:bg-primary-strong active:bg-primary-heavy focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2">
+        <svg width="1em" height="1em" aria-hidden="true" x-show="! open" class="h-6 w-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.9997 2.1001C5.63667 2.1001 2.09973 5.63705 2.09973 10.0001C2.09973 14.3631 5.63667 17.9001 9.9997 17.9001C11.857 17.9001 13.5646 17.2592 14.9134 16.1864L19.8634 21.1365C20.2149 21.4879 20.7847 21.4879 21.1362 21.1365C21.4877 20.785 21.4877 20.2151 21.1362 19.8637L16.1861 14.9136C17.2588 13.5648 17.8997 11.8573 17.8997 10.0001C17.8997 5.63705 14.3627 2.1001 9.9997 2.1001ZM3.89972 10.0001C3.89972 6.63116 6.63078 3.9001 9.9997 3.9001C13.3686 3.9001 16.0997 6.63116 16.0997 10.0001C16.0997 13.369 13.3686 16.1001 9.9997 16.1001C6.63078 16.1001 3.89972 13.369 3.89972 10.0001Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>        <svg width="1em" height="1em" aria-hidden="true" x-show="open" x-cloak="1" class="h-6 w-6" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.36364 7.36346C3.71511 7.01199 4.28496 7.01199 4.63643 7.36346L12 14.7271L19.3636 7.36346C19.7151 7.01199 20.285 7.01199 20.6364 7.36346C20.9879 7.71493 20.9879 8.28478 20.6364 8.63625L12.6364 16.6362C12.285 16.9877 11.7151 16.9877 11.3636 16.6362L3.36364 8.63625C3.01217 8.28478 3.01217 7.71493 3.36364 7.36346Z" fill="currentColor" fill-opacity="0.88"/>
+</svg>    </button>
+</div>
+
+            </main>
+    </div>
+
+    
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('dsLnbFolder', (key, inside) => ({
+                open: inside,
+
+                init() {
+                    const saved = this.load();
+                    if (typeof saved[key] === 'boolean') this.open = saved[key];
+                    if (inside) this.open = true; // 지금 이 묶음 안에 있으면 접힌 채로 두지 않는다
+                },
+
+                load() {
+                    // 저장된 값이 깨져 있어도 화면이 죽지 않게 한다
+                    try {
+                        const raw = JSON.parse(sessionStorage.getItem('cdw.lnbFolders') || '{}');
+                        return raw && typeof raw === 'object' ? raw : {};
+                    } catch (e) {
+                        return {};
+                    }
+                },
+
+                toggle() {
+                    this.open = ! this.open;
+                    try {
+                        const all = this.load();
+                        all[key] = this.open;
+                        sessionStorage.setItem('cdw.lnbFolders', JSON.stringify(all));
+                    } catch (e) {
+                        // 시크릿 모드 등에서 저장이 막혀도 이번 화면은 그대로 쓴다
+                    }
+                },
+            }));
+        });
+    </script>
+        
+    <script>
+        document.addEventListener('input', (e) => {
+            const mask = e.target.dataset?.mask;
+            if (mask !== 'date' && mask !== 'rrn') return;
+
+            const atEnd = e.target.selectionStart === e.target.value.length;
+            const d = e.target.value.replace(/[^0-9]/g, '');
+            const cut = mask === 'date' ? [4, 6, 8] : [6, 13];
+
+            let out = d.slice(0, cut[0]);
+            for (let i = 1; i < cut.length; i++) {
+                if (d.length > cut[i - 1]) out += '-' + d.slice(cut[i - 1], cut[i]);
+            }
+            if (out === e.target.value) return;
+
+            e.target.value = out;
+            // 끝에서 치던 중이면 커서를 끝에 둔다(안 그러면 하이픈이 붙을 때마다 앞으로 튄다)
+            if (atEnd) e.target.setSelectionRange(out.length, out.length);
+        });
+    </script>
+            <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('hubFab', (cats, ctx) => ({
+                    open: false, tab: 'home', q: '', items: [], cats, ctx, loading: false, loaded: false,
+
+                    // 실제로 허브에 던질 검색어. 사용자가 친 말이 우선이고, 비어 있으면 지금 화면의 맥락
+                    // (상담·채용 등)을 대신 넣는다. 공지 탭은 맥락 없이 전체에서 공지만 걸러 본다.
+                    term() {
+                        if (this.q) return this.q;
+
+                        return this.tab === 'notice' ? '' : (this.ctx.q ?? '');
+                    },
+
+                    // 추천 글 — 기본 상태(최근 탭·검색어 없음)에서만 다섯 건. 썸네일 있는 글을 앞으로 당긴다.
+                    get heroes() {
+                        if (this.tab !== 'home' || this.q) return [];
+
+                        return [
+                            ...this.items.filter((i) => i.thumbnail),
+                            ...this.items.filter((i) => ! i.thumbnail),
+                        ].slice(0, 5);
+                    },
+
+                    // 공지 탭은 같은 결과를 종류로 거른다 — 서버에 종류 필터가 없어 여기서 나눈다.
+                    // 추천 글로 올라간 세 건은 아래 목록에서 뺀다(같은 글이 두 번 보이지 않게).
+                    get visible() {
+                        if (this.tab === 'notice') return this.items.filter((i) => i.type === '공지');
+                        const picked = new Set(this.heroes.map((h) => h.id));
+
+                        return this.items.filter((i) => ! picked.has(i.id));
+                    },
+
+                    // 허브에 글이 아직 없을 때만 예시 추천 글로 대신한다(검색 중·공지 탭은 제외).
+                    get preview() {
+                        return ! this.loading && this.loaded && this.tab === 'home' && ! this.q && this.items.length === 0;
+                    },
+
+                    toggle() {
+                        this.open = ! this.open;
+                        if (! this.open) return;
+                        this.$nextTick(() => this.$refs.q?.focus());
+                        if (! this.loaded) this.find();
+                    },
+
+                    // 허브 화면과 같은 검색을 쓴다(JSON) — 규칙을 두 벌로 만들지 않기 위해.
+                    async find() {
+                        this.loading = true;
+                        try {
+                            const res = await fetch('/hub/search?q=' + encodeURIComponent(this.term()), {
+                                headers: { 'Accept': 'application/json' },
+                            });
+                            if (! res.ok) throw new Error(res.status);
+                            const data = await res.json();
+                            this.items = (data.items ?? []).slice(0, 40);
+                            this.loaded = true;
+                        } catch (e) {
+                            console.warn('[hubFab] 허브 검색 실패:', e);
+                            this.items = [];
+                        } finally {
+                            this.loading = false;
+                        }
+                    },
+                }));
+            });
+        </script>
+        <!-- Livewire Scripts -->
+<script src="assets/livewire.js"   data-csrf="" data-module-url="http://localhost/livewire-5d4f2e40" data-update-uri="http://localhost/livewire-5d4f2e40/update" data-navigate-once="true"></script>
+</body>
+</html>

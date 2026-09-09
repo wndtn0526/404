@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>장애인학대관련범죄등 경력 조회 동의서 · 군포센터 · 미리보기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap">
+<style>
+  :root { --ink: #111; --line: #222; --muted: #555; --brand: #e2557a; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #e9e9e6; color: var(--ink); font-family: 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 10.5pt; line-height: 1.5; }
+  .toolbar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 12px; padding: 12px 20px; background: #1f2937; color: #fff; font-size: 13px; }
+  .toolbar strong { font-size: 14px; }
+  .toolbar .sp { flex: 1; }
+  .toolbar button, .toolbar a { border: 1px solid rgba(255,255,255,.35); background: transparent; color: #fff; padding: 7px 14px; border-radius: 6px; font: inherit; cursor: pointer; text-decoration: none; }
+  .toolbar button.primary { background: #fff; color: #111; border-color: #fff; font-weight: 700; }
+  .toolbar .note { color: rgba(255,255,255,.65); }
+  .sheets { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px 12px 48px; }
+  .sheet { position: relative; width: 210mm; min-height: 297mm; padding: 18mm 18mm 20mm; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.12); page-break-after: always; break-after: page; }
+  .sheet:last-child { page-break-after: auto; break-after: auto; }
+  .sheet.blank .pageno { color: #bbb; }
+  .pageno { position: absolute; bottom: 9mm; left: 0; right: 0; text-align: center; font-size: 9pt; color: var(--muted); }
+  /* 표지 · 간지 — 실제 제출본: 얇은 검정 테두리 안에 큰 제목(위 1/3) + 센터명(아래) */
+  .cover .frame { position: absolute; inset: 14mm; border: 1px solid #222; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40mm 12mm 36mm; }
+  .cover .t { font-size: 30pt; font-weight: 800; letter-spacing: .06em; line-height: 1.35; }
+  .cover .s { margin-top: 8mm; font-size: 13pt; color: var(--muted); }
+  .cover .org { margin-top: auto; font-size: 20pt; font-weight: 800; color: var(--brand); letter-spacing: .04em; }
+  /* 목차 */
+  .toc-title { text-align: center; font-size: 22pt; letter-spacing: .5em; margin: 0 0 12mm; }
+  .toc-ch { font-size: 12pt; font-weight: 700; margin: 6mm 0 2mm; }
+  .toc-items { list-style: none; padding: 0 0 0 8mm; margin: 0; }
+  .toc-items li { display: flex; align-items: baseline; gap: 2mm; font-size: 10.5pt; margin-bottom: 1.6mm; }
+  .toc-dots { flex: 1; border-bottom: 1px dashed #777; transform: translateY(-2px); }
+  .toc-page { min-width: 10mm; text-align: right; font-variant-numeric: tabular-nums; }
+  /* 서류 공통 */
+  .doc-no { position: absolute; top: 8mm; right: 18mm; font-size: 9pt; color: var(--muted); margin: 0; }
+  /* 표준 문구 페이지 — 원본 줄 배치 그대로(고정폭) */
+  .txt { margin: 0; font-family: 'Nanum Gothic Coding', 'D2Coding', monospace; font-size: 8.3pt; line-height: 1.32; white-space: pre; overflow: hidden; color: #111; }
+  .txt-sheet { padding-top: 16mm; }
+  /* 좌표 재현 페이지 — 배경(표 선) 위 절대 배치 글자 */
+  .lay { padding: 0; }
+  .lay-bg { position: absolute; inset: 0; width: 210mm; height: 297mm; }
+  .lay-t { position: absolute; white-space: nowrap; line-height: 1; color: #111; transform-origin: left top; }
+  .lay-t.b { font-weight: 700; }
+  /* 표준근로계약서 — 고용노동부 표준 서식(법령 별지가 아니라 우리가 그린다) */
+  .ct-lead { margin: 0 0 5mm; font-size: 9.5pt; }
+  .ct-list { margin: 0; padding-left: 7mm; font-size: 9.5pt; line-height: 1.75; }
+  .ct-list > li { margin-bottom: 2.4mm; }
+  .ct-list b { display: inline-block; min-width: 26mm; }
+  .ct-sub { margin: 1mm 0 0; padding-left: 5mm; list-style: '- '; font-size: 9pt; line-height: 1.7; }
+  .ct-note { color: var(--muted); font-size: 8.5pt; }
+  .ct-foot { margin: 8mm 0 0; text-align: center; color: var(--muted); font-size: 9pt; }
+  .ct-cont { margin: 0 0 5mm; color: var(--muted); font-size: 9pt; }
+  .ct-date { margin: 10mm 0 6mm; text-align: center; font-size: 10.5pt; letter-spacing: .1em; }
+  .ct-sign { display: flex; flex-direction: column; gap: 6mm; }
+  .ct-sign-t { margin: 0 0 1.5mm; font-size: 10pt; font-weight: 700; }
+  .ct-sign-tb { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+  .ct-sign-tb th, .ct-sign-tb td { border: 1px solid #333; padding: 2.6mm 3mm; }
+  .ct-sign-tb th { width: 22mm; background: #f4f4f2; font-weight: 600; text-align: center; }
+  .ct-blank { color: var(--muted); }
+  /* 행정정보 공동이용 사전동의서 — 지자체 양식이라 이용기관 명칭을 입력으로 받아 우리가 그린다 */
+  .si-list { margin: 0; padding-left: 7mm; font-size: 10pt; line-height: 1.7; }
+  .si-list > li { margin-bottom: 4mm; }
+  .si-tb { width: 100%; border-collapse: collapse; margin: 2mm 0; font-size: 9.5pt; }
+  .si-tb th, .si-tb td { border: 1px solid #333; padding: 2mm 3mm; }
+  .si-tb th { background: #f4f4f2; font-weight: 600; text-align: center; }
+  .si-tb .si-no { width: 14mm; text-align: center; }
+  .si-note { margin: 1.5mm 0 0; font-size: 8.8pt; color: #333; line-height: 1.6; }
+  .si-num { margin: 2.5mm 0 0; font-size: 9.5pt; }
+  .si-agree { margin: 1.5mm 0 0; font-size: 9.5pt; line-height: 1.7; }
+  .si-sign { margin-top: 4mm; }
+  .si-sign .si-th { width: 28mm; }
+  /* 법령 별지 서식 — 원본 쪽 이미지 위에 값 · √ 만 얹는다(양식은 손대지 않는다) */
+  .ff-v { position: absolute; white-space: nowrap; line-height: 1; color: #111; }
+  .ff-v.r { text-align: right; }
+  .ff-v.c { text-align: center; }
+  .ff-ring { position: absolute; border: .35mm solid #111; border-radius: 50%; transform: translate(-50%, -50%); }
+  .ff-chk { position: absolute; width: 2.4mm; height: 1.2mm; border-left: .5mm solid #111; border-bottom: .5mm solid #111; transform: translate(-50%, -60%) rotate(-45deg); }
+  /* 작성 참고용 초안 — 제출용이 아님을 크게 */
+  .draft::before { content: '작성 참고용 · 지자체 양식에 옮겨 적으세요'; position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%) rotate(-24deg); font-size: 22pt; font-weight: 800; color: rgba(191, 38, 56, .16); white-space: nowrap; letter-spacing: .1em; pointer-events: none; }
+  .draft-note { margin: 0 0 3mm; padding: 2mm 3mm; border: 1px solid #c0392b; color: #c0392b; font-size: 8.5pt; border-radius: 1.5mm; }
+  .lay-attach { position: absolute; left: 18mm; right: 18mm; top: 40mm; height: 200mm; border: 1.5px dashed #999; border-radius: 3mm; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); text-align: center; padding: 10mm; }
+  /* 첨부 스캔 자리 */
+  .scan { position: absolute; inset: 14mm 14mm 16mm; background: #f4f3ef; border: 1px solid #ddd; padding: 10mm; }
+  .scan-paper { position: relative; height: 100%; background: #fff; border: 1px solid #cfcfcf; box-shadow: 1px 2px 0 #e2e2e2; padding: 14mm 12mm; }
+  .scan-title { font-size: 15pt; font-weight: 800; margin: 0 0 2mm; }
+  .scan-sub { color: var(--muted); font-size: 9.5pt; margin: 0 0 1mm; }
+  .scan-file { font-size: 9pt; color: #333; margin: 0 0 8mm; }
+  .scan-lines { display: flex; flex-direction: column; gap: 4.2mm; margin-top: 8mm; }
+  .scan-lines span { display: block; height: 2.2mm; background: #e6e6e2; border-radius: 1mm; }
+  .scan-stamp { position: absolute; right: 12mm; bottom: 14mm; border: 2px solid #c0392b; color: #c0392b; border-radius: 50%; width: 26mm; height: 26mm; display: flex; align-items: center; justify-content: center; font-size: 9pt; font-weight: 700; opacity: .75; transform: rotate(-12deg); }
+  /* 위치도 · 사진 자리 */
+  .mapbox { position: relative; height: 120mm; border: 1px solid var(--line); background: #fafaf7; overflow: hidden; }
+  .mapbox-road { position: absolute; background: #dedad0; }
+  .mapbox-road.h { left: 0; right: 0; height: 8mm; }
+  .mapbox-road.v { top: 0; bottom: 0; width: 8mm; }
+  .mapbox-pin { position: absolute; transform: translate(-50%, -100%); background: var(--brand); color: #fff; font-weight: 700; font-size: 10pt; padding: 2mm 4mm; border-radius: 2mm; }
+  .mapbox-pin::after { content: ''; position: absolute; left: 50%; bottom: -3mm; transform: translateX(-50%); border: 3mm solid transparent; border-top-color: var(--brand); border-bottom: 0; }
+  .mapbox-poi { position: absolute; background: #fff; border: 1px solid #bbb; font-size: 9pt; padding: 1mm 3mm; border-radius: 1.5mm; }
+  .mapbox-note { position: absolute; left: 0; right: 0; bottom: 3mm; text-align: center; font-size: 9pt; color: var(--muted); margin: 0; }
+  .photo-slot { height: 48mm; border: 1.5px dashed #aaa; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 10pt; margin-bottom: 2mm; }
+  .form-tag { font-size: 12pt; font-weight: 800; margin: 0 0 1mm; }
+  /* 한 장에 맞추기 — 별지 서식은 촘촘하게(fit) · 예산 명세서는 여백까지 줄여서(tight) */
+  .fit { font-size: 9pt; }
+  .fit h1 { font-size: 15pt; margin: 0 0 3mm; letter-spacing: .2em; }
+  .fit h2 { margin: 2.5mm 0 1.2mm; font-size: 10pt; }
+  .fit p { margin: 0 0 1.4mm; }
+  .fit table.form th, .fit table.form td { padding: 1mm 1.6mm; font-size: 8.2pt; line-height: 1.3; }
+  .fit table.dense th, .fit table.dense td { padding: .7mm 1.4mm; font-size: 7.6pt; line-height: 1.25; }
+  .fit .form-tag { font-size: 10.5pt; }
+  .fit .form-note, .fit .small { font-size: 8pt; }
+  .tight { padding: 12mm 12mm 16mm; font-size: 8pt; }
+  .tight h1 { font-size: 14pt; margin: 0 0 2mm; }
+  .tight .form-tag { font-size: 9.5pt; margin-bottom: 0; }
+  .tight p { margin: 0 0 1mm; }
+  .tight table.dense th, .tight table.dense td { padding: .5mm 1.1mm; font-size: 6.6pt; line-height: 1.22; }
+  .tight table.form th, .tight table.form td { padding: .8mm 1.4mm; font-size: 7.6pt; line-height: 1.25; }
+  .tight .pageno { bottom: 6mm; }
+  .xs table.dense th, .xs table.dense td { font-size: 6.1pt; padding: .4mm 1mm; line-height: 1.18; }
+  .form-note { font-size: 9pt; color: var(--muted); margin: 0 0 4mm; }
+  h1 { margin: 0 0 6mm; text-align: center; font-size: 18pt; letter-spacing: .3em; font-weight: 700; }
+  h2 { margin: 5mm 0 2mm; font-size: 11pt; font-weight: 700; }
+  p { margin: 0 0 2.2mm; }
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  th, td { border: 1px solid var(--line); padding: 1.8mm 2.4mm; vertical-align: middle; font-size: 10pt; }
+  th { background: #f1f1ee; font-weight: 600; text-align: left; }
+  table.form th { text-align: center; }
+  table.dense th, table.dense td { padding: 1.1mm 2mm; font-size: 9pt; line-height: 1.35; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.c, th.c { text-align: center; }
+  .kv th { width: 30mm; }
+  .checks { display: grid; grid-template-columns: repeat(2, auto); justify-content: start; gap: 0.6mm 5mm; white-space: nowrap; font-size: 9pt; }
+  .clauses { padding-left: 0; list-style: none; counter-reset: cl; }
+  .clauses li { margin-bottom: 1.6mm; }
+  .clauses li::before { counter-increment: cl; content: '제' counter(cl) '조 '; font-weight: 700; }
+  .sign { margin-top: 10mm; display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .sign > div { border-top: 1px solid var(--line); padding-top: 3mm; font-size: 10pt; }
+  .sign .who { font-weight: 700; margin-bottom: 1.2mm; }
+  .date { text-align: center; margin: 8mm 0 2mm; font-size: 11pt; }
+  .stamp { display: inline-block; margin-left: 2mm; color: #999; font-size: 9pt; }
+  .small { font-size: 9pt; color: var(--muted); }
+  /* 자리 페이지 */
+  .slot { margin-top: 30mm; min-height: 60mm; border: 1.5px dashed #999; border-radius: 3mm; padding: 16mm 12mm; text-align: center; color: var(--muted); }
+  .slot-t { font-size: 13pt; font-weight: 700; color: #333; margin-bottom: 4mm; }
+  .slot-s { font-size: 10pt; margin: 1.5mm 0; }
+  .slot-files { list-style: none; padding: 0; margin: 2mm 0 4mm; font-size: 10.5pt; color: #222; }
+  @media print {
+    @page { size: A4; margin: 0; }
+    html, body { background: #fff; }
+    .toolbar { display: none; }
+    .sheets { padding: 0; gap: 0; display: block; }
+    .sheet { box-shadow: none; width: 210mm; height: 297mm; margin: 0; overflow: hidden; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <strong>장애인학대관련범죄등 경력 조회 동의서</strong>
+  <span>군포센터 · 2쪽</span>
+  <span class="note">미리보기 · 실제 PDF 도 이 서식으로 만들어져요</span>
+  <span class="sp"></span>
+  
+  <button type="button" class="primary" onclick="window.print()">PDF로 저장</button>
+</div>
+
+<div class="sheets">
+  
+      <section class="sheet lay">
+    <img class="lay-bg" src="images/opening-forms/abuse-disab-1.png" alt="">
+            <span class="ff-v" style="left:47.09mm; top:47.81mm; font-size:2.82mm;">박예비</span>
+                <span class="ff-v" style="left:47.09mm; top:62.41mm; font-size:2.82mm;">780315-1******</span>
+                <span class="ff-v" style="left:47.09mm; top:76.55mm; font-size:2.82mm;">010-3900-1234</span>
+                <span class="ff-v r" style="left:139.84mm; top:111.29mm; font-size:2.82mm; width:11.54mm;">2026</span>
+                <span class="ff-v r" style="left:158.21mm; top:111.29mm; font-size:2.82mm; width:7.53mm;">9</span>
+                <span class="ff-v r" style="left:172.33mm; top:111.29mm; font-size:2.82mm; width:7.53mm;">9</span>
+                <span class="ff-v" style="left:116.54mm; top:127.18mm; font-size:2.82mm;">박예비</span>
+                <span class="ff-v c" style="left:22.37mm; top:144.14mm; font-size:2.82mm; width:43.32mm;">군포</span>
+        <div class="pageno">1</div>
+</section>
+<section class="sheet lay">
+    <img class="lay-bg" src="images/opening-forms/abuse-disab-2.png" alt="">
+            <span class="ff-v c" style="left:17.45mm; top:58.46mm; font-size:2.38mm; width:14.05mm;">1</span>
+                <span class="ff-v c" style="left:31.50mm; top:58.46mm; font-size:2.60mm; width:36.42mm;">김미숙</span>
+                <span class="ff-v c" style="left:67.92mm; top:58.46mm; font-size:2.60mm; width:55.21mm;">550101-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:58.46mm; font-size:2.38mm; width:32.68mm;">010-2000-1000</span>
+                <span class="ff-v c" style="left:17.45mm; top:71.15mm; font-size:2.38mm; width:14.05mm;">2</span>
+                <span class="ff-v c" style="left:31.50mm; top:71.15mm; font-size:2.60mm; width:36.42mm;">이정순</span>
+                <span class="ff-v c" style="left:67.92mm; top:71.15mm; font-size:2.60mm; width:55.21mm;">570206-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:71.15mm; font-size:2.38mm; width:32.68mm;">010-2137-1371</span>
+                <span class="ff-v c" style="left:17.45mm; top:83.85mm; font-size:2.38mm; width:14.05mm;">3</span>
+                <span class="ff-v c" style="left:31.50mm; top:83.85mm; font-size:2.60mm; width:36.42mm;">박영희</span>
+                <span class="ff-v c" style="left:67.92mm; top:83.85mm; font-size:2.60mm; width:55.21mm;">590311-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:83.85mm; font-size:2.38mm; width:32.68mm;">010-2274-1742</span>
+                <span class="ff-v c" style="left:17.45mm; top:96.54mm; font-size:2.38mm; width:14.05mm;">4</span>
+                <span class="ff-v c" style="left:31.50mm; top:96.54mm; font-size:2.60mm; width:36.42mm;">최옥자</span>
+                <span class="ff-v c" style="left:67.92mm; top:96.54mm; font-size:2.60mm; width:55.21mm;">610416-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:96.54mm; font-size:2.38mm; width:32.68mm;">010-2411-2113</span>
+                <span class="ff-v c" style="left:17.45mm; top:109.24mm; font-size:2.38mm; width:14.05mm;">5</span>
+                <span class="ff-v c" style="left:31.50mm; top:109.24mm; font-size:2.60mm; width:36.42mm;">정말순</span>
+                <span class="ff-v c" style="left:67.92mm; top:109.24mm; font-size:2.60mm; width:55.21mm;">630521-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:109.24mm; font-size:2.38mm; width:32.68mm;">010-2548-2484</span>
+                <span class="ff-v c" style="left:17.45mm; top:121.93mm; font-size:2.38mm; width:14.05mm;">6</span>
+                <span class="ff-v c" style="left:31.50mm; top:121.93mm; font-size:2.60mm; width:36.42mm;">강순자</span>
+                <span class="ff-v c" style="left:67.92mm; top:121.93mm; font-size:2.60mm; width:55.21mm;">650626-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:121.93mm; font-size:2.38mm; width:32.68mm;">010-2685-2855</span>
+                <span class="ff-v c" style="left:17.45mm; top:134.63mm; font-size:2.38mm; width:14.05mm;">7</span>
+                <span class="ff-v c" style="left:31.50mm; top:134.63mm; font-size:2.60mm; width:36.42mm;">조미경</span>
+                <span class="ff-v c" style="left:67.92mm; top:134.63mm; font-size:2.60mm; width:55.21mm;">670703-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:134.63mm; font-size:2.38mm; width:32.68mm;">010-2822-3226</span>
+                <span class="ff-v c" style="left:17.45mm; top:147.32mm; font-size:2.38mm; width:14.05mm;">8</span>
+                <span class="ff-v c" style="left:31.50mm; top:147.32mm; font-size:2.60mm; width:36.42mm;">윤복희</span>
+                <span class="ff-v c" style="left:67.92mm; top:147.32mm; font-size:2.60mm; width:55.21mm;">690808-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:147.32mm; font-size:2.38mm; width:32.68mm;">010-2959-3597</span>
+                <span class="ff-v c" style="left:17.45mm; top:160.02mm; font-size:2.38mm; width:14.05mm;">9</span>
+                <span class="ff-v c" style="left:31.50mm; top:160.02mm; font-size:2.60mm; width:36.42mm;">장은영</span>
+                <span class="ff-v c" style="left:67.92mm; top:160.02mm; font-size:2.60mm; width:55.21mm;">710913-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:160.02mm; font-size:2.38mm; width:32.68mm;">010-3096-3968</span>
+                <span class="ff-v c" style="left:17.45mm; top:172.71mm; font-size:2.38mm; width:14.05mm;">10</span>
+                <span class="ff-v c" style="left:31.50mm; top:172.71mm; font-size:2.60mm; width:36.42mm;">임선희</span>
+                <span class="ff-v c" style="left:67.92mm; top:172.71mm; font-size:2.60mm; width:55.21mm;">731018-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:172.71mm; font-size:2.38mm; width:32.68mm;">010-3233-4339</span>
+                <span class="ff-v c" style="left:17.45mm; top:185.41mm; font-size:2.38mm; width:14.05mm;">11</span>
+                <span class="ff-v c" style="left:31.50mm; top:185.41mm; font-size:2.60mm; width:36.42mm;">한정자</span>
+                <span class="ff-v c" style="left:67.92mm; top:185.41mm; font-size:2.60mm; width:55.21mm;">551123-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:185.41mm; font-size:2.38mm; width:32.68mm;">010-3370-4710</span>
+                <span class="ff-v c" style="left:17.45mm; top:198.10mm; font-size:2.38mm; width:14.05mm;">12</span>
+                <span class="ff-v c" style="left:31.50mm; top:198.10mm; font-size:2.60mm; width:36.42mm;">오경숙</span>
+                <span class="ff-v c" style="left:67.92mm; top:198.10mm; font-size:2.60mm; width:55.21mm;">571228-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:198.10mm; font-size:2.38mm; width:32.68mm;">010-3507-5081</span>
+                <span class="ff-v c" style="left:17.45mm; top:210.80mm; font-size:2.38mm; width:14.05mm;">13</span>
+                <span class="ff-v c" style="left:31.50mm; top:210.80mm; font-size:2.60mm; width:36.42mm;">서명자</span>
+                <span class="ff-v c" style="left:67.92mm; top:210.80mm; font-size:2.60mm; width:55.21mm;">590105-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:210.80mm; font-size:2.38mm; width:32.68mm;">010-3644-5452</span>
+                <span class="ff-v c" style="left:17.45mm; top:223.49mm; font-size:2.38mm; width:14.05mm;">14</span>
+                <span class="ff-v c" style="left:31.50mm; top:223.49mm; font-size:2.60mm; width:36.42mm;">신현숙</span>
+                <span class="ff-v c" style="left:67.92mm; top:223.49mm; font-size:2.60mm; width:55.21mm;">610210-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:223.49mm; font-size:2.38mm; width:32.68mm;">010-3781-5823</span>
+                <span class="ff-v c" style="left:17.45mm; top:236.19mm; font-size:2.38mm; width:14.05mm;">15</span>
+                <span class="ff-v c" style="left:31.50mm; top:236.19mm; font-size:2.60mm; width:36.42mm;">권말자</span>
+                <span class="ff-v c" style="left:67.92mm; top:236.19mm; font-size:2.60mm; width:55.21mm;">630315-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:236.19mm; font-size:2.38mm; width:32.68mm;">010-3918-6194</span>
+                <span class="ff-v c" style="left:17.45mm; top:248.88mm; font-size:2.38mm; width:14.05mm;">16</span>
+                <span class="ff-v c" style="left:31.50mm; top:248.88mm; font-size:2.60mm; width:36.42mm;">이은희</span>
+                <span class="ff-v c" style="left:67.92mm; top:248.88mm; font-size:2.60mm; width:55.21mm;">760815-2******</span>
+                <span class="ff-v c" style="left:123.13mm; top:248.88mm; font-size:2.38mm; width:32.68mm;">010-7700-8815</span>
+        <div class="pageno">2</div>
+</section>
+  </div>
+
+</body>
+</html>

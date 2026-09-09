@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>종사자 근로계약서 · 군포센터 · 미리보기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap">
+<style>
+  :root { --ink: #111; --line: #222; --muted: #555; --brand: #e2557a; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #e9e9e6; color: var(--ink); font-family: 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 10.5pt; line-height: 1.5; }
+  .toolbar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 12px; padding: 12px 20px; background: #1f2937; color: #fff; font-size: 13px; }
+  .toolbar strong { font-size: 14px; }
+  .toolbar .sp { flex: 1; }
+  .toolbar button, .toolbar a { border: 1px solid rgba(255,255,255,.35); background: transparent; color: #fff; padding: 7px 14px; border-radius: 6px; font: inherit; cursor: pointer; text-decoration: none; }
+  .toolbar button.primary { background: #fff; color: #111; border-color: #fff; font-weight: 700; }
+  .toolbar .note { color: rgba(255,255,255,.65); }
+  .sheets { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px 12px 48px; }
+  .sheet { position: relative; width: 210mm; min-height: 297mm; padding: 18mm 18mm 20mm; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.12); page-break-after: always; break-after: page; }
+  .sheet:last-child { page-break-after: auto; break-after: auto; }
+  .sheet.blank .pageno { color: #bbb; }
+  .pageno { position: absolute; bottom: 9mm; left: 0; right: 0; text-align: center; font-size: 9pt; color: var(--muted); }
+  /* 표지 · 간지 — 실제 제출본: 얇은 검정 테두리 안에 큰 제목(위 1/3) + 센터명(아래) */
+  .cover .frame { position: absolute; inset: 14mm; border: 1px solid #222; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40mm 12mm 36mm; }
+  .cover .t { font-size: 30pt; font-weight: 800; letter-spacing: .06em; line-height: 1.35; }
+  .cover .s { margin-top: 8mm; font-size: 13pt; color: var(--muted); }
+  .cover .org { margin-top: auto; font-size: 20pt; font-weight: 800; color: var(--brand); letter-spacing: .04em; }
+  /* 목차 */
+  .toc-title { text-align: center; font-size: 22pt; letter-spacing: .5em; margin: 0 0 12mm; }
+  .toc-ch { font-size: 12pt; font-weight: 700; margin: 6mm 0 2mm; }
+  .toc-items { list-style: none; padding: 0 0 0 8mm; margin: 0; }
+  .toc-items li { display: flex; align-items: baseline; gap: 2mm; font-size: 10.5pt; margin-bottom: 1.6mm; }
+  .toc-dots { flex: 1; border-bottom: 1px dashed #777; transform: translateY(-2px); }
+  .toc-page { min-width: 10mm; text-align: right; font-variant-numeric: tabular-nums; }
+  /* 서류 공통 */
+  .doc-no { position: absolute; top: 8mm; right: 18mm; font-size: 9pt; color: var(--muted); margin: 0; }
+  /* 표준 문구 페이지 — 원본 줄 배치 그대로(고정폭) */
+  .txt { margin: 0; font-family: 'Nanum Gothic Coding', 'D2Coding', monospace; font-size: 8.3pt; line-height: 1.32; white-space: pre; overflow: hidden; color: #111; }
+  .txt-sheet { padding-top: 16mm; }
+  /* 좌표 재현 페이지 — 배경(표 선) 위 절대 배치 글자 */
+  .lay { padding: 0; }
+  .lay-bg { position: absolute; inset: 0; width: 210mm; height: 297mm; }
+  .lay-t { position: absolute; white-space: nowrap; line-height: 1; color: #111; transform-origin: left top; }
+  .lay-t.b { font-weight: 700; }
+  /* 표준근로계약서 — 고용노동부 표준 서식(법령 별지가 아니라 우리가 그린다) */
+  .ct-lead { margin: 0 0 5mm; font-size: 9.5pt; }
+  .ct-list { margin: 0; padding-left: 7mm; font-size: 9.5pt; line-height: 1.75; }
+  .ct-list > li { margin-bottom: 2.4mm; }
+  .ct-list b { display: inline-block; min-width: 26mm; }
+  .ct-sub { margin: 1mm 0 0; padding-left: 5mm; list-style: '- '; font-size: 9pt; line-height: 1.7; }
+  .ct-note { color: var(--muted); font-size: 8.5pt; }
+  .ct-foot { margin: 8mm 0 0; text-align: center; color: var(--muted); font-size: 9pt; }
+  .ct-cont { margin: 0 0 5mm; color: var(--muted); font-size: 9pt; }
+  .ct-date { margin: 10mm 0 6mm; text-align: center; font-size: 10.5pt; letter-spacing: .1em; }
+  .ct-sign { display: flex; flex-direction: column; gap: 6mm; }
+  .ct-sign-t { margin: 0 0 1.5mm; font-size: 10pt; font-weight: 700; }
+  .ct-sign-tb { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+  .ct-sign-tb th, .ct-sign-tb td { border: 1px solid #333; padding: 2.6mm 3mm; }
+  .ct-sign-tb th { width: 22mm; background: #f4f4f2; font-weight: 600; text-align: center; }
+  .ct-blank { color: var(--muted); }
+  /* 행정정보 공동이용 사전동의서 — 지자체 양식이라 이용기관 명칭을 입력으로 받아 우리가 그린다 */
+  .si-list { margin: 0; padding-left: 7mm; font-size: 10pt; line-height: 1.7; }
+  .si-list > li { margin-bottom: 4mm; }
+  .si-tb { width: 100%; border-collapse: collapse; margin: 2mm 0; font-size: 9.5pt; }
+  .si-tb th, .si-tb td { border: 1px solid #333; padding: 2mm 3mm; }
+  .si-tb th { background: #f4f4f2; font-weight: 600; text-align: center; }
+  .si-tb .si-no { width: 14mm; text-align: center; }
+  .si-note { margin: 1.5mm 0 0; font-size: 8.8pt; color: #333; line-height: 1.6; }
+  .si-num { margin: 2.5mm 0 0; font-size: 9.5pt; }
+  .si-agree { margin: 1.5mm 0 0; font-size: 9.5pt; line-height: 1.7; }
+  .si-sign { margin-top: 4mm; }
+  .si-sign .si-th { width: 28mm; }
+  /* 법령 별지 서식 — 원본 쪽 이미지 위에 값 · √ 만 얹는다(양식은 손대지 않는다) */
+  .ff-v { position: absolute; white-space: nowrap; line-height: 1; color: #111; }
+  .ff-v.r { text-align: right; }
+  .ff-v.c { text-align: center; }
+  .ff-ring { position: absolute; border: .35mm solid #111; border-radius: 50%; transform: translate(-50%, -50%); }
+  .ff-chk { position: absolute; width: 2.4mm; height: 1.2mm; border-left: .5mm solid #111; border-bottom: .5mm solid #111; transform: translate(-50%, -60%) rotate(-45deg); }
+  /* 작성 참고용 초안 — 제출용이 아님을 크게 */
+  .draft::before { content: '작성 참고용 · 지자체 양식에 옮겨 적으세요'; position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%) rotate(-24deg); font-size: 22pt; font-weight: 800; color: rgba(191, 38, 56, .16); white-space: nowrap; letter-spacing: .1em; pointer-events: none; }
+  .draft-note { margin: 0 0 3mm; padding: 2mm 3mm; border: 1px solid #c0392b; color: #c0392b; font-size: 8.5pt; border-radius: 1.5mm; }
+  .lay-attach { position: absolute; left: 18mm; right: 18mm; top: 40mm; height: 200mm; border: 1.5px dashed #999; border-radius: 3mm; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); text-align: center; padding: 10mm; }
+  /* 첨부 스캔 자리 */
+  .scan { position: absolute; inset: 14mm 14mm 16mm; background: #f4f3ef; border: 1px solid #ddd; padding: 10mm; }
+  .scan-paper { position: relative; height: 100%; background: #fff; border: 1px solid #cfcfcf; box-shadow: 1px 2px 0 #e2e2e2; padding: 14mm 12mm; }
+  .scan-title { font-size: 15pt; font-weight: 800; margin: 0 0 2mm; }
+  .scan-sub { color: var(--muted); font-size: 9.5pt; margin: 0 0 1mm; }
+  .scan-file { font-size: 9pt; color: #333; margin: 0 0 8mm; }
+  .scan-lines { display: flex; flex-direction: column; gap: 4.2mm; margin-top: 8mm; }
+  .scan-lines span { display: block; height: 2.2mm; background: #e6e6e2; border-radius: 1mm; }
+  .scan-stamp { position: absolute; right: 12mm; bottom: 14mm; border: 2px solid #c0392b; color: #c0392b; border-radius: 50%; width: 26mm; height: 26mm; display: flex; align-items: center; justify-content: center; font-size: 9pt; font-weight: 700; opacity: .75; transform: rotate(-12deg); }
+  /* 위치도 · 사진 자리 */
+  .mapbox { position: relative; height: 120mm; border: 1px solid var(--line); background: #fafaf7; overflow: hidden; }
+  .mapbox-road { position: absolute; background: #dedad0; }
+  .mapbox-road.h { left: 0; right: 0; height: 8mm; }
+  .mapbox-road.v { top: 0; bottom: 0; width: 8mm; }
+  .mapbox-pin { position: absolute; transform: translate(-50%, -100%); background: var(--brand); color: #fff; font-weight: 700; font-size: 10pt; padding: 2mm 4mm; border-radius: 2mm; }
+  .mapbox-pin::after { content: ''; position: absolute; left: 50%; bottom: -3mm; transform: translateX(-50%); border: 3mm solid transparent; border-top-color: var(--brand); border-bottom: 0; }
+  .mapbox-poi { position: absolute; background: #fff; border: 1px solid #bbb; font-size: 9pt; padding: 1mm 3mm; border-radius: 1.5mm; }
+  .mapbox-note { position: absolute; left: 0; right: 0; bottom: 3mm; text-align: center; font-size: 9pt; color: var(--muted); margin: 0; }
+  .photo-slot { height: 48mm; border: 1.5px dashed #aaa; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 10pt; margin-bottom: 2mm; }
+  .form-tag { font-size: 12pt; font-weight: 800; margin: 0 0 1mm; }
+  /* 한 장에 맞추기 — 별지 서식은 촘촘하게(fit) · 예산 명세서는 여백까지 줄여서(tight) */
+  .fit { font-size: 9pt; }
+  .fit h1 { font-size: 15pt; margin: 0 0 3mm; letter-spacing: .2em; }
+  .fit h2 { margin: 2.5mm 0 1.2mm; font-size: 10pt; }
+  .fit p { margin: 0 0 1.4mm; }
+  .fit table.form th, .fit table.form td { padding: 1mm 1.6mm; font-size: 8.2pt; line-height: 1.3; }
+  .fit table.dense th, .fit table.dense td { padding: .7mm 1.4mm; font-size: 7.6pt; line-height: 1.25; }
+  .fit .form-tag { font-size: 10.5pt; }
+  .fit .form-note, .fit .small { font-size: 8pt; }
+  .tight { padding: 12mm 12mm 16mm; font-size: 8pt; }
+  .tight h1 { font-size: 14pt; margin: 0 0 2mm; }
+  .tight .form-tag { font-size: 9.5pt; margin-bottom: 0; }
+  .tight p { margin: 0 0 1mm; }
+  .tight table.dense th, .tight table.dense td { padding: .5mm 1.1mm; font-size: 6.6pt; line-height: 1.22; }
+  .tight table.form th, .tight table.form td { padding: .8mm 1.4mm; font-size: 7.6pt; line-height: 1.25; }
+  .tight .pageno { bottom: 6mm; }
+  .xs table.dense th, .xs table.dense td { font-size: 6.1pt; padding: .4mm 1mm; line-height: 1.18; }
+  .form-note { font-size: 9pt; color: var(--muted); margin: 0 0 4mm; }
+  h1 { margin: 0 0 6mm; text-align: center; font-size: 18pt; letter-spacing: .3em; font-weight: 700; }
+  h2 { margin: 5mm 0 2mm; font-size: 11pt; font-weight: 700; }
+  p { margin: 0 0 2.2mm; }
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  th, td { border: 1px solid var(--line); padding: 1.8mm 2.4mm; vertical-align: middle; font-size: 10pt; }
+  th { background: #f1f1ee; font-weight: 600; text-align: left; }
+  table.form th { text-align: center; }
+  table.dense th, table.dense td { padding: 1.1mm 2mm; font-size: 9pt; line-height: 1.35; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.c, th.c { text-align: center; }
+  .kv th { width: 30mm; }
+  .checks { display: grid; grid-template-columns: repeat(2, auto); justify-content: start; gap: 0.6mm 5mm; white-space: nowrap; font-size: 9pt; }
+  .clauses { padding-left: 0; list-style: none; counter-reset: cl; }
+  .clauses li { margin-bottom: 1.6mm; }
+  .clauses li::before { counter-increment: cl; content: '제' counter(cl) '조 '; font-weight: 700; }
+  .sign { margin-top: 10mm; display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .sign > div { border-top: 1px solid var(--line); padding-top: 3mm; font-size: 10pt; }
+  .sign .who { font-weight: 700; margin-bottom: 1.2mm; }
+  .date { text-align: center; margin: 8mm 0 2mm; font-size: 11pt; }
+  .stamp { display: inline-block; margin-left: 2mm; color: #999; font-size: 9pt; }
+  .small { font-size: 9pt; color: var(--muted); }
+  /* 자리 페이지 */
+  .slot { margin-top: 30mm; min-height: 60mm; border: 1.5px dashed #999; border-radius: 3mm; padding: 16mm 12mm; text-align: center; color: var(--muted); }
+  .slot-t { font-size: 13pt; font-weight: 700; color: #333; margin-bottom: 4mm; }
+  .slot-s { font-size: 10pt; margin: 1.5mm 0; }
+  .slot-files { list-style: none; padding: 0; margin: 2mm 0 4mm; font-size: 10.5pt; color: #222; }
+  @media print {
+    @page { size: A4; margin: 0; }
+    html, body { background: #fff; }
+    .toolbar { display: none; }
+    .sheets { padding: 0; gap: 0; display: block; }
+    .sheet { box-shadow: none; width: 210mm; height: 297mm; margin: 0; overflow: hidden; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <strong>종사자 근로계약서</strong>
+  <span>군포센터 · 16쪽</span>
+  <span class="note">미리보기 · 실제 PDF 도 이 서식으로 만들어져요</span>
+  <span class="sp"></span>
+  
+  <button type="button" class="primary" onclick="window.print()">PDF로 저장</button>
+</div>
+
+<div class="sheets">
+        <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 김미숙(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 4시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>김미숙</td><th>생년월일</th><td>1955.01.01</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-2000-1000</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">1</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 이정순(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 4시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>이정순</td><th>생년월일</th><td>1957.02.06</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-2137-1371</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">2</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 박영희(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 4시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>박영희</td><th>생년월일</th><td>1959.03.11</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-2274-1742</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">3</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 최옥자(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 4시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>최옥자</td><th>생년월일</th><td>1961.04.16</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-2411-2113</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">4</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 정말순(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 3시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>정말순</td><th>생년월일</th><td>1963.05.21</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-2548-2484</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">5</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 강순자(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 3시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>강순자</td><th>생년월일</th><td>1965.06.26</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-2685-2855</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">6</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 조미경(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 3시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>조미경</td><th>생년월일</th><td>1967.07.03</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-2822-3226</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">7</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 윤복희(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 3시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>윤복희</td><th>생년월일</th><td>1969.08.08</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-2959-3597</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">8</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 장은영(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 3시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>장은영</td><th>생년월일</th><td>1971.09.13</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-3096-3968</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">9</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 임선희(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 3시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>임선희</td><th>생년월일</th><td>1973.10.18</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-3233-4339</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">10</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 한정자(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 3시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>한정자</td><th>생년월일</th><td>1955.11.23</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-3370-4710</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">11</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 오경숙(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 3시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>오경숙</td><th>생년월일</th><td>1957.12.28</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-3507-5081</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">12</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 서명자(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 3시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>서명자</td><th>생년월일</th><td>1959.01.05</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-3644-5452</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">13</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 신현숙(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 3시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>신현숙</td><th>생년월일</th><td>1961.02.10</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-3781-5823</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">14</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 권말자(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문요양 · 방문목욕 급여 제공 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 3시간(휴게시간 근로시간 4시간마다 30분)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>권말자</td><th>생년월일</th><td>1963.03.15</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-3918-6194</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">15</div>
+</section>
+    <section class="sheet tight">
+  <p class="doc-no">9. 종사자 근로계약서</p>  <h1>표 준 근 로 계 약 서</h1>
+  <p class="ct-lead">군포센터(이하 「사업주」라 함)과 이은희(이하 「근로자」라 함)은 다음과 같이 근로계약을 체결한다.</p>
+
+  <ol class="ct-list">
+    <li><b>근로개시일</b> : 2026.01.01 부터 (기간의 정함이 없음)</li>
+    <li><b>근 무 장 소</b> : 경기 군포시 산본로 123, 3층 301호 및 수급자 가정(방문 급여 제공 장소)</li>
+    <li><b>업무의 내용</b> : 수급자 가정 방문간호 급여 제공(의사 지시서에 따른 간호 · 처치) 및 기록</li>
+    <li><b>소정근로시간</b> : 1일 8시간(휴게시간 12:00 ~ 13:00)</li>
+    <li><b>근무일 / 휴일</b> : 매주 5일 근무, 주휴일은 매주 일요일로 한다.</li>
+    <li>
+      <b>임 금</b>
+      <ul class="ct-sub">
+        <li>시간급 : 10,320 원
+          <span class="ct-note">(2026년 최저시급 기준 · 근무 시간에 따라 월 지급액이 정해진다)</span>        </li>
+        <li>상여금 : 없음 · 기타급여(제수당 등) : 연장 · 야간 · 휴일근로 시 근로기준법에 따라 가산 지급</li>
+        <li>임금지급일 : 매월 10일(휴일인 경우는 전일 지급) · 지급방법 : 근로자 명의 예금통장에 입금</li>
+      </ul>
+    </li>
+    <li><b>연차유급휴가</b> : 근로기준법에서 정하는 바에 따라 부여한다.</li>
+    <li><b>사회보험 적용여부</b> : 고용보험 ○ · 산재보험 ○ · 국민연금 ○ · 건강보험 ○</li>
+    <li><b>근로계약서 교부</b> : 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여 근로자의 교부요구와 관계없이 근로자에게 교부한다(근로기준법 제17조 이행).</li>
+    <li><b>근로계약 · 취업규칙 등의 성실한 이행의무</b> : 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을 지키고 성실하게 이행하여야 한다.</li>
+    <li><b>비밀유지 의무</b> : 근로자는 업무상 알게 된 수급자와 그 가족의 개인정보 · 건강정보를 계약 기간과 계약 종료 후에도 누설하지 아니한다.</li>
+    <li><b>기 타</b> : 이 계약에 정함이 없는 사항은 근로기준법령에 의한다.</li>
+    <li><b>개인정보 처리</b> : 사업주는 근로계약 이행과 법정 신고(장기요양기관 인력 신고 · 경력조회 등)를 위하여 근로자의 개인정보를 수집 · 이용하며, 목적을 달성한 뒤에는 지체 없이 파기한다.</li>
+  </ol>
+  <p class="ct-lead" style="margin: 6mm 0 0">위 계약 내용을 확인하고, 사업주와 근로자는 각각 서명 후 1부씩 보관한다.</p>
+
+  <p class="ct-date">2026 년 9 월 9 일</p>
+
+  <div class="ct-sign">
+    <div>
+      <p class="ct-sign-t">(사업주)</p>
+      <table class="ct-sign-tb">
+        <tr><th>사업체명</th><td>군포센터</td><th>전화</th><td>031-390-1234</td></tr>
+        <tr><th>주 소</th><td colspan="3">경기 군포시 산본로 123, 3층 301호</td></tr>
+        <tr><th>대표자</th><td>박예비</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="ct-sign-t">(근로자)</p>
+      <table class="ct-sign-tb">
+        <tr><th>성 명</th><td>이은희</td><th>생년월일</th><td>1976.08.15</td></tr>
+        <tr><th>주 소</th><td colspan="3" class="ct-blank">&nbsp;</td></tr>
+        <tr><th>연락처</th><td>010-7700-8815</td><th>서명</th><td class="ct-blank">(서명)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="pageno">16</div>
+</section>
+  </div>
+
+</body>
+</html>
